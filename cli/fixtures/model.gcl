@@ -1,0 +1,32 @@
+// =======================================
+// Use this file for global initialization
+// =======================================
+
+type Root {
+  sensors: Ref<Map<Sensor>>;
+}
+
+// ==== Types ====
+type Sensor {
+  id: i64;
+  value: f64;
+}
+// ===============
+
+// the graph root
+var root: Ref<Root> | null = Graph::getRoot();
+if(root == null){
+  root = Graph::newNode(Root {});
+  Graph::setRoot(root);
+}
+
+// create an map index named 'sensors' if none
+var sensors: Map;
+if (root->sensors != null) {
+  // root.sensors is already created: dereference it to get the map
+  sensors = root->sensors;
+} else {
+  // root.sensors is not created yet: create the map and reference it
+  sensors = Map {};
+  root->sensors = Graph::newNode(sensors);
+}

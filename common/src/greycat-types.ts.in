@@ -1,0 +1,1 @@
+export * from '@greycat${TS_SCOPE_PREFIX}/types';

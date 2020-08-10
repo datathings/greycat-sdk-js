@@ -1,0 +1,5 @@
+var myObj = { msg: 'Hello World' };
+
+var myRef = Graph::newNode(myObj);
+
+Console::println("${myRef->msg}");

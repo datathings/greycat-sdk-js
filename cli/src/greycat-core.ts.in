@@ -1,0 +1,2 @@
+export * from '@greycat${TS_SCOPE_PREFIX}/core-napi';
+export const VERSION = '${GREYCAT_VERSION}';

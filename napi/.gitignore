@@ -1,0 +1,8 @@
+# generated
+lib
+typings
+src/ts/common.ts
+greycat-core-napi.tgz
+!tsconfig.json
+package.json
+test

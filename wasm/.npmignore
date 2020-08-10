@@ -1,0 +1,8 @@
+lib/*.tsbuildinfo
+src/
+package.json.in
+CMakeLists.txt
+tsconfig.json
+tsconfig.build.json
+tslint.json
+typings/*.d.ts.map

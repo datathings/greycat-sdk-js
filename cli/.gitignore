@@ -1,0 +1,10 @@
+lib
+bin/*
+!bin/greycat
+typings
+src/greycat-core.ts
+greycat-cli.tgz
+!tsconfig.json
+package.json
+node_modules
+fixtures/*.db

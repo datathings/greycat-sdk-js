@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.build.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "rootDir": "./src/ts",
+    "outDir": "./lib",
+    "declarationDir": "./typings",
+    "tsBuildInfoFile": "./lib/tsconfig.build.tsbuildinfo",
+    "target": "esnext",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+  },
+
+  "references": [{
+    "path": "../common/tsconfig.build.json",
+  }],
+
+  "include": [
+    "src/ts"
+  ]
+}

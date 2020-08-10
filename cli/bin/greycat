@@ -1,0 +1,58 @@
+#!/bin/sh
+
+SCRIPT_PATH=""
+computeAbsPath() {
+  OURPWD=$PWD
+  cd "$(dirname "$1")"
+  LINK=$(readlink "$(basename "$1")")
+  while [ "$LINK" ]; do
+    cd "$(dirname "$LINK")"
+    LINK=$(readlink "$(basename "$1")")
+  done
+  REALPATH="$PWD/$(basename "$1")"
+  cd "$OURPWD"
+  SCRIPT_PATH="$REALPATH"
+}
+computeAbsPath "$0"
+SCRIPT_DIRECTORY="$( cd "$( dirname "${SCRIPT_PATH}" )" >/dev/null 2>&1 && pwd )"
+
+case "$(uname -s)" in
+   Darwin)
+     "${SCRIPT_DIRECTORY}"/mac-x64/greycat "$@"
+     ;;
+   Linux)
+     case "$(uname -m)" in
+       x86_64)
+         if [ "${CUDA}" = '1' ];
+          then
+              "${SCRIPT_DIRECTORY}"/linux-x64-cuda/greycat "$@"
+          else
+              "${SCRIPT_DIRECTORY}"/linux-x64/greycat "$@"
+         fi
+         ;;
+       arm64)
+         "${SCRIPT_DIRECTORY}"/linux-arm64/greycat "$@"
+         ;;
+       aarch64)
+         "${SCRIPT_DIRECTORY}"/linux-arm64/greycat "$@"
+         ;;
+       armv7)
+         "${SCRIPT_DIRECTORY}"/linux-armv7/greycat "$@"
+         ;;
+       armv7l)
+         "${SCRIPT_DIRECTORY}"/linux-armv7/greycat "$@"
+         ;;
+       *)
+        echo 'ARCH not supported yet!'
+        exit 1
+        ;;
+     esac
+     ;;
+   CYGWIN*|MINGW32*|MSYS*)
+     "${SCRIPT_DIRECTORY}"/windows-x64/greycat.exe "$@"
+     ;;
+   *)
+     echo 'OS not supported yet!'
+     exit 1
+     ;;
+esac

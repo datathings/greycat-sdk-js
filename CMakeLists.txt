@@ -5,7 +5,6 @@ if (FOUND_NODE)
     get_filename_component(FOUND_NODE_ABS "${FOUND_NODE}" REALPATH)
     get_filename_component(FOUND_NODE_DIR "${FOUND_NODE_ABS}" DIRECTORY)
     get_filename_component(NODE_INCLUDE "${FOUND_NODE_DIR}/../include/node" REALPATH)
-    set(GC_BIND_TS true PARENT_SCOPE)
     set(NAPI_SOURCES
             napi/src/c/logger.c
             napi/src/c/common.c

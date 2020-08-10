@@ -1,4 +1,4 @@
-project(greycat.bindins.ts)
+project(greycat.binding.ts)
 
 find_program(FOUND_NODE node)
 if (FOUND_NODE)

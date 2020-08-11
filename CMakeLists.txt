@@ -20,6 +20,7 @@ if (FOUND_NODE)
 
     add_library(greycat-napi SHARED ${NAPI_SOURCES})
     target_include_directories(greycat-napi PRIVATE ${GC_CORE_INCLUDES} PUBLIC ${NODE_INCLUDE})
+    target_link_libraries(greycat-napi greycat)
     set_target_properties(greycat-napi PROPERTIES NO_SONAME ON PREFIX "" SUFFIX ".node" POSITION_INDEPENDENT_CODE ON)
     install(TARGETS greycat-napi DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 

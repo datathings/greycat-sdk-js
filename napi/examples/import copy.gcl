@@ -102,7 +102,7 @@ function loadData(provider: Reference /*Provider*/, name: String, filepath: Stri
     }
 
     // on crée une valeur au temps indiqué
-    var t = Date::new(timestamp);
+    var t = Time::new(timestamp);
     time (t) {
       //Console::println("Sensor ${sensor} at time ${t} is ${*sensor}");
       /*if (Node::resolvedTime(sensor) != null) {
@@ -143,6 +143,6 @@ loadData(rnProvider, 'autre-lieu', './data/OED-AutreLieu-2018.csv');
 // loadData(rnProvider, 'piscine', './data/OED-Piscine-2018.csv');
 
 Console::println('Data loaded successfully');
-Console::println("Min time = ${Date::new(minTime).toLocale()}");
-Console::println("Max time = ${Date::new(maxTime).toLocale()}");
+Console::println("Min time = ${Time::new(minTime).toLocale()}");
+Console::println("Max time = ${Time::new(maxTime).toLocale()}");
 // =============================

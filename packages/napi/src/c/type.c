@@ -46,6 +46,7 @@ napi_value type__wrap(napi_env env, napi_callback_info info) {
     }
 
     type->create = NULL;
+    type->compute_size = NULL;
     type->key = type_key;
     type->extra = js_type_ref;
 

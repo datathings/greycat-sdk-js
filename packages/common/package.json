@@ -15,6 +15,7 @@
     "compile:esm": "tsc -b tsconfig.esm.json",
     "compile:typings": "tsc -b tsconfig.typings.json",
     "test": "tslint --project '.'",
+    "prepackage": "yarn version --new-version ${VERSION:-0.0.0} --no-git-tag-version",
     "package": "yarn pack --filename ${DIST_DIR:-dist}/generic/ts/greycat-common.tgz"
   },
   "dependencies": {

@@ -18,6 +18,7 @@
     "pretest": "typescript-json-schema src/types.ts GreycatStdLibs -o test/std.types.schema.json",
     "test": "node test/validate.js",
     "posttest": "rm -f test/std.types.schema.json",
+    "prepackage": "yarn version --new-version ${VERSION:-0.0.0} --no-git-tag-version",
     "package": "yarn pack --filename ${DIST_DIR:-dist}/generic/ts/greycat-types.tgz"
   },
   "devDependencies": {

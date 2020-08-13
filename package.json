@@ -2,10 +2,11 @@
   "private": true,
   "name": "greycat-ts",
   "scripts": {
-    "build": "./scripts/build.sh",
-    "package": "./scripts/package.sh"
+    "build": "./scripts/build.js",
+    "package": "./scripts/package.js"
   },
   "devDependencies": {
+    "@types/node": "^14.0.27",
     "@vercel/ncc": "0.23.0",
     "tslint": "5.20.1",
     "typescript": "3.9.7"

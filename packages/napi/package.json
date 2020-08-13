@@ -16,7 +16,7 @@
     "compile:cjs": "ncc -m build src/ts/index.ts -o dist/cjs",
     "compile:typings": "tsc -b tsconfig.typings.json",
     "test": "tslint --project '.'",
-    "package": "yarn pack --filename dist/greycat-napi.tgz"
+    "package": "yarn pack --filename ${DIST_DIR:-dist}/generic/ts/greycat-napi.tgz"
   },
   "dependencies": {
     "@greycat/common": "0.0.0"

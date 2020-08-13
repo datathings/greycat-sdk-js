@@ -1,0 +1,13 @@
+{
+  "name": "@greycat/cli",
+  "version": "0.0.0",
+  "description": "Greycat CLI",
+  "author": "DataThings S.à.r.l",
+  "license": "MIT",
+  "bin": {
+    "greycat": "./greycat"
+  },
+  "scripts": {
+    "package": "yarn pack --filename greycat-cli.tgz"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@greycat/debugger",
+  "version": "0.0.0",
+  "description": "Greycat Debugger Client",
+  "main": "lib/index.js",
+  "bin": {
+    "greycat-debugger": "./lib/cli.js"
+  },
+  "typings": "typings/index.d.ts",
+  "author": "DataThings S.à.r.l",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc -b tsconfig.build.json",
+    "postcompile": "chmod +x lib/cli.js",
+    "watch": "tsc -b tsconfig.build.json --watch",
+    "pretest": "tslint --project '.'",
+    "test": "mocha lib/**/*.test.js --exit --full-trace",
+    "clean": "rm -rf lib typings",
+    "package": "yarn pack --filename greycat-debugger.tgz"
+  }
+}

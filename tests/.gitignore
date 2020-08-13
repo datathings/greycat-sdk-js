@@ -1,6 +1,0 @@
-napi.js
-wasm.js
-package.json
-lib
-!tsconfig.json
-src/greycat.ts

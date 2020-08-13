@@ -1,0 +1,9 @@
+!dist
+dist/*.tgz
+generator
+scripts
+src
+test
+tsconfig.json
+tsconfig.*.json
+CMakeLists.txt

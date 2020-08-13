@@ -1,7 +1,0 @@
-lib
-typings
-.cache
-greycat-core-wasm.tgz
-!tsconfig.json
-package.json
-src/ts/common.ts

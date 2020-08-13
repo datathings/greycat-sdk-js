@@ -1,0 +1,27 @@
+{
+  "name": "@greycat/types",
+  "version": "0.0.0",
+  "description": "Greycat Standard Library Types",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "./dist/typings/index.d.ts",
+  "author": "DataThings S.à.r.l",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist test/std.types.schema.json",
+    "build": "yarn clean && yarn compile",
+    "postinstall": "node scripts/post-install.js",
+    "compile": "yarn compile:cjs && yarn compile:esm && yarn compile:typings",
+    "compile:cjs": "ncc -m build src/index.ts -o dist/cjs",
+    "compile:esm": "tsc -b tsconfig.esm.json",
+    "compile:typings": "tsc -b tsconfig.typings.json",
+    "pretest": "typescript-json-schema src/types.ts GreycatStdLibs -o test/std.types.schema.json",
+    "test": "node test/validate.js",
+    "posttest": "rm -f test/std.types.schema.json",
+    "package": "yarn pack --filename dist/greycat-types.tgz"
+  },
+  "devDependencies": {
+    "ajv": "^6.12.0",
+    "typescript-json-schema": "^0.42.0"
+  }
+}

@@ -1,0 +1,8 @@
+!dist
+dist/*.tgz
+src
+tsconfig.json
+tsconfig.*.json
+package.json.in
+tslint.json
+CMakeLists.txt

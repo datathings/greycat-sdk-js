@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist/typings",
+    "resolveJsonModule": true,
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+  ]
+}

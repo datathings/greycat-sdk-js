@@ -1,0 +1,9 @@
+!dist
+dist/*.tgz
+src
+examples
+.gitignore
+CMakeLists.txt
+tsconfig.json
+tsconfig.*.json
+tslint.json

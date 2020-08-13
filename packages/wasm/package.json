@@ -1,0 +1,20 @@
+{
+  "name": "@greycat/wasm",
+  "version": "0.0.0",
+  "description": "Greycat Native WASM Binding",
+  "main": "lib/index.js",
+  "typings": "typings/index.d.ts",
+  "author": "DataThings S.à.r.l",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc -b tsconfig.build.json",
+    "watch": "tsc -b tsconfig.build.json --watch",
+    "test": "tslint --project '.'",
+    "clean": "find lib -type f -not -name '.keep' -not -name 'greycat.js' -not -name 'greycat.wasm' -delete  && rm -rf typings",
+    "package": "yarn pack --filename greycat-core-wasm.tgz"
+  },
+  "dependencies": {
+    "@greycat/common": "0.0.0"
+  }
+}

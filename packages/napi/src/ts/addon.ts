@@ -102,24 +102,24 @@ switch (arch) {
     switch (platform) {
       case 'linux':
         try {
-          _addon = require('@greycat/binding-linux-x64-cuda-11');
+          _addon = require('@greycat/native-x64-cuda-11');
         } catch {
           /*noop*/
         }
         if (!_addon) {
           try {
-            _addon = require('@greycat/binding-linux-x64-cuda-10-2');
+            _addon = require('@greycat/native-x64-cuda-10-2');
           } catch {
             /*noop*/
           }
         }
         if (!_addon) {
-          _addon = require('@greycat/binding-linux-x64');
+          _addon = require('@greycat/native-x64-libc');
         }
         break;
 
       case 'darwin':
-        _addon = require('@greycat/binding-mac-x64');
+        // _addon = require('@greycat/native-x64-libc');
         break;
     }
     break;
@@ -127,7 +127,7 @@ switch (arch) {
   case 'arm64':
     switch (platform) {
       case 'linux':
-        _addon = require('@greycat/binding-linux-arm64');
+        // _addon = require('@greycat/binding-linux-arm64');
         break;
     }
     break;
@@ -135,7 +135,7 @@ switch (arch) {
   case 'arm':
     switch (platform) {
       case 'linux':
-        _addon = require('@greycat/binding-linux-armv7');
+        // _addon = require('@greycat/binding-linux-armv7');
         break;
     }
     break;

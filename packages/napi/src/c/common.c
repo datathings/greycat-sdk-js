@@ -436,7 +436,7 @@ napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t *
 }
 
 static void populate_garray(napi_env env, napi_value arr, garray_t *garr) {
-    ggraph_t *graph = garr->header.type->graph;
+    ggraph_t *graph = (ggraph_t *) garr->header.type->graph;
 
     uint32_t arr_length;
     NAPI_CALL_RETURN_VOID(env, napi_get_array_length(env, arr, &arr_length));
@@ -463,14 +463,14 @@ static void declare_object_key(napi_env env, napi_value key, gobject_t *obj, int
     NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, key, c_key, key_len + 1, &key_len));
     *hashed_key = hash(c_key);
 
-    ggraph_t *graph = obj->type->graph;
+    ggraph_t *graph = (ggraph_t *) obj->type->graph;
     if (!ggraph__is_meta(graph, *hashed_key)) {
         ggraph__declare_meta(graph, *hashed_key, c_key);
     }
 }
 
 static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
-    ggraph_t *graph = gobj->type->graph;
+    ggraph_t *graph = (ggraph_t *) gobj->type->graph;
 
     napi_value obj_keys;
     uint32_t obj_keys_length;
@@ -499,7 +499,7 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
     gmap_t *gmap;
     NAPI_CALL(env, napi_get_cb_info(env, info, argc, argv, NULL, (void **) &gmap));
 
-    ggraph_t *graph = gmap->header.type->graph;
+    ggraph_t *graph = (ggraph_t *) gmap->header.type->graph;
 
     gslot_t key;
     gptype_t key_type;

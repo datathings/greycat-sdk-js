@@ -1,5 +1,10 @@
 project(greycat.binding.ts.napi)
 
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+    set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -undefined dynamic_lookup")
+    set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
+endif ()
+
 get_filename_component(FOUND_NODE_ABS "${FOUND_NODE}" REALPATH)
 get_filename_component(FOUND_NODE_DIR "${FOUND_NODE_ABS}" DIRECTORY)
 get_filename_component(NODE_INCLUDE "${FOUND_NODE_DIR}/../include/node" REALPATH)
@@ -22,6 +27,14 @@ target_link_libraries(greycat-napi greycat)
 set_target_properties(greycat-napi PROPERTIES NO_SONAME ON PREFIX "" SUFFIX "" POSITION_INDEPENDENT_CODE ON)
 set_target_properties(greycat-napi PROPERTIES OUTPUT_NAME greycat.node)
 install(TARGETS greycat-napi DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+
+# if ("${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+#     set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -undefined dynamic_lookup")
+#     set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
+# elseif (GREYCAT_TARGET MATCHES "^(windows-.*)$")
+#     set(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS} -Wl,-unresolved-symbols=ignore-in-shared-libs")
+# endif ()
+
 
 # cmake_minimum_required(VERSION 3.6)
 # project(greycat.napi)

@@ -8,6 +8,7 @@
     "greycat": "./greycat"
   },
   "scripts": {
-    "package": "yarn pack --filename greycat-cli.tgz"
+    "prepackage": "./../../scripts/update-pkg.js ${VERSION:-0.0.0}",
+    "package": "yarn pack --filename ${DIST_DIR:-dist}/generic/ts/greycat-cli.tgz"
   }
 }

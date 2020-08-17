@@ -27,7 +27,7 @@ case $PLATFORM in
     case $ARCH in
       x86_64)
         "${SCRIPT_DIRECTORY}/bin/x64-cuda-11/greycat" "$@"
-        [ $? -eq 127 ] && "${SCRIPT_DIRECTORY}/bin/x64-cuda-10.2/greycat" "$@"
+        [ $? -eq 127 ] && "${SCRIPT_DIRECTORY}/bin/x64-cuda-10-2/greycat" "$@"
         [ $? -eq 127 ] && "${SCRIPT_DIRECTORY}/bin/x64-libc/greycat" "$@"
         ;;
       arm64)

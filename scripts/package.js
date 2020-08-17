@@ -41,6 +41,15 @@ async function genNativeModule(distDir = DEFAULT_DIST, variant = 'x64-libc', ver
   }
 }
 
+async function copyBinInCLI(distDir = DEFAULT_DIST, variant = 'x64-libc') {
+  const greycat = path.resolve(distDir, variant, 'bin', 'greycat');
+  if (await exists(greycat)) {
+    const destDir = path.resolve(__dirname, '..', 'packages', 'cli', 'bin', variant);
+    await mkdirp(destDir);
+    await copyFile(greycat, path.join(destDir, 'greycat'));
+  }
+}
+
 async function main() {
   await exec('yarn workspace @greycat/types package');
   await exec('yarn workspace @greycat/common package');
@@ -50,6 +59,7 @@ async function main() {
   await exec('yarn workspace @greycat/server package');
   for (const variant of ['x64-cuda-10-2', 'x64-cuda-11', 'x64-libc', 'aarch64-libc', 'armv7-eabihf-libc', 'x64-mac']) {
     await genNativeModule(process.env.DIST_DIR, variant, process.env.VERSION);
+    await copyBinInCLI(process.env.DIST_DIR, variant);
   }
 }
 

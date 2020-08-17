@@ -119,7 +119,7 @@ switch (arch) {
         break;
 
       case 'darwin':
-        // _addon = require('@greycat/native-x64-libc');
+        _addon = require('@greycat/native-x64-mac');
         break;
     }
     break;
@@ -127,7 +127,7 @@ switch (arch) {
   case 'arm64':
     switch (platform) {
       case 'linux':
-        // _addon = require('@greycat/binding-linux-arm64');
+        _addon = require('@greycat/native-aarch64-libc');
         break;
     }
     break;
@@ -135,7 +135,7 @@ switch (arch) {
   case 'arm':
     switch (platform) {
       case 'linux':
-        // _addon = require('@greycat/binding-linux-armv7');
+        _addon = require('@greycat/native-armv7-eabihf-libc');
         break;
     }
     break;

@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { ILogger } from '../greycat-core';
+import { ILogger } from '@greycat/napi';
 
 /**
  * Implements a ILogger as an EventEmitter with events: 'info', 'debug', 'warn' and 'error'

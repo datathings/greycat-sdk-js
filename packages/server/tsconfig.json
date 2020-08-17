@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist/cjs",
+    "declarationDir": "dist/typings",
+    "declaration": true,
+    "declarationMap": true,
+  },
+
+  "include": [
+    "src"
+  ],
+}

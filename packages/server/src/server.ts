@@ -1,6 +1,6 @@
 import debug from 'debug';
 import { IRequestMessage, IResponseMessage } from './protocol';
-import { init, Graph, IGraph, IContext, IFunctionLike, IType } from '../greycat-core';
+import { init, Graph, IGraph, IContext, IFunctionLike, IType } from '@greycat/napi';
 import { IServerTypedef } from './types';
 import { LoggerAdapter } from './logger-adapter';
 

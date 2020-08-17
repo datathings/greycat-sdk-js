@@ -1,4 +1,4 @@
-import { GreyCatError } from '../greycat-core';
+import { GreyCatError } from '@greycat/napi';
 import { IServerTypedef } from './types';
 
 // ============================================

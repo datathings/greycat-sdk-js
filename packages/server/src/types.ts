@@ -1,4 +1,4 @@
-import { Keys } from '../greycat-core';
+import { Keys } from '@greycat/napi';
 
 export interface ITypedef {
   name: string;

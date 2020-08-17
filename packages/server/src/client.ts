@@ -2,7 +2,7 @@ import debug from 'debug';
 import * as path from 'path';
 import { randomBytes } from 'crypto';
 import { spawn, ChildProcess } from 'child_process';
-import { GreyCatError, Keys, ILogger, IConsole } from '../greycat-core';
+import { GreyCatError, Keys, ILogger, IConsole } from '@greycat/napi';
 import { IRequestMessage, IResponseMessage, ResponseLog, ResponseConsole } from './protocol';
 import { ITypedef, IServerTypedef } from './types';
 import { ExecuteResult } from './execute-result';

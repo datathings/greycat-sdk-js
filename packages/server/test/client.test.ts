@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import * as path from 'path';
 import * as fs from 'fs';
-import { GreycatClient, IGreycatClient } from './client';
+import { GreycatClient, IGreycatClient } from '../src/client';
 
 const FIXTURES_DIR = path.join(process.cwd(), 'fixtures');
 const TIMEOUT = 5000;

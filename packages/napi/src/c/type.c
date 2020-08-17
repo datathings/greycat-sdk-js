@@ -69,7 +69,7 @@ napi_value type__name(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, "Unwrapped type is null (type__name)");
         return NULL;
     }
-    gstring_t *type_name = ggraph__meta(type->graph, type->key);
+    gstring_t *type_name = ggraph__meta((ggraph_t *) type->graph, type->key);
     if (type_name == NULL) {
         return NULL;
     }
@@ -116,7 +116,7 @@ napi_value type__seal(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    ggraph__declare_type(type->graph, type);
+    ggraph__declare_type((ggraph_t *) type->graph, type);
 
     return NULL;
 }
@@ -157,7 +157,7 @@ napi_value type__declare_attribute(napi_env env, napi_callback_info info) {
     int32_t type_key;
     NAPI_CALL(env, napi_get_value_int32(env, argv[2], &type_key));
 
-    if (!ggraph__is_meta(type->graph, type_key)) {
+    if (!ggraph__is_meta((ggraph_t *) type->graph, type_key)) {
         napi_throw_error(env, NULL, "Attribute type is unknown");
         return NULL;
     }
@@ -169,8 +169,8 @@ napi_value type__declare_attribute(napi_env env, napi_callback_info info) {
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!ggraph__is_meta(type->graph, key)) {
-        ggraph__declare_meta(type->graph, key, name);
+    if (!ggraph__is_meta((ggraph_t *) type->graph, key)) {
+        ggraph__declare_meta((ggraph_t *) type->graph, key, name);
     }
 
     gtype__declare_attribute(type, key, type_key);
@@ -199,8 +199,8 @@ napi_value type__declare_function(napi_env env, napi_callback_info info) {
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!ggraph__is_meta(type->graph, key)) {
-        ggraph__declare_meta(type->graph, key, name);
+    if (!ggraph__is_meta((ggraph_t *) type->graph, key)) {
+        ggraph__declare_meta((ggraph_t *) type->graph, key, name);
     }
 
     gfunction_t *func;
@@ -238,13 +238,13 @@ napi_value type__declare_static_attribute(napi_env env, napi_callback_info info)
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!ggraph__is_meta(type->graph, key)) {
-        ggraph__declare_meta(type->graph, key, name);
+    if (!ggraph__is_meta((ggraph_t *) type->graph, key)) {
+        ggraph__declare_meta((ggraph_t *) type->graph, key, name);
     }
 
     gslot_t slot;
     gptype_t slot_type;
-    from_js_object(env, argv[2], type->graph, &slot, &slot_type);
+    from_js_object(env, argv[2], (ggraph_t *) type->graph, &slot, &slot_type);
     gtype__declare_static(type, key, slot, slot_type);
 
     if (slot_type == gc_sbi_slot_type_object) {
@@ -275,8 +275,8 @@ napi_value type__declare_static_function(napi_env env, napi_callback_info info) 
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!ggraph__is_meta(type->graph, key)) {
-        ggraph__declare_meta(type->graph, key, name);
+    if (!ggraph__is_meta((ggraph_t *) type->graph, key)) {
+        ggraph__declare_meta((ggraph_t *) type->graph, key, name);
     }
 
     gfunction_t *func;

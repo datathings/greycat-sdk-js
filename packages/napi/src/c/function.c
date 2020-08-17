@@ -87,7 +87,7 @@ napi_value function__parse(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    bool parseRes = gcl_parse(script, uri, func->header.type->graph, &func, gcl_napi_resolver, false);
+    bool parseRes = gcl_parse(script, uri, (ggraph_t *) func->header.type->graph, &func, gcl_napi_resolver, false);
     if (uri != NULL) {
         g_free(uri);
     }
@@ -154,7 +154,7 @@ napi_value function__create_context(napi_env env, napi_callback_info info) {
     gfunction_t *function;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &function));
 
-    return greycat__create_context(env, function->header.type->graph);
+    return greycat__create_context(env, (ggraph_t *) function->header.type->graph);
 }
 
 napi_value function__execute(napi_env env, napi_callback_info info) {
@@ -184,7 +184,7 @@ napi_value function__execute(napi_env env, napi_callback_info info) {
 
     gfunction_op_src_t src = (gfunction_op_src_t){.line = 0, .offset = 0};
 
-    gfunction_t *wrapped_fn = ggraph__create_function(func->header.type->graph);
+    gfunction_t *wrapped_fn = ggraph__create_function((ggraph_t *) func->header.type->graph);
     gfunction__add_call_function_direct(wrapped_fn, func, src);
     gfunction__add_external(wrapped_fn, callback_ref, IS_EXTERNAL_FUNC, src);
     gfunction__execute(wrapped_fn, ctx);
@@ -258,7 +258,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
     int32_t p_name;
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &p_name));
 
-    garray_t *p_types = ggraph__create_array(func->header.type->graph);
+    garray_t *p_types = ggraph__create_array((ggraph_t *) func->header.type->graph);
     uint32_t types_len;
     NAPI_CALL(env, napi_get_array_length(env, argv[2], &types_len));
     garray__resize(p_types, types_len);

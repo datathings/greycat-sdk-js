@@ -14,7 +14,7 @@
 void context_error_handler(gctx_t *ctx) {
     napi_env env = (napi_env) ctx->ext.env;
     if (env != NULL) {
-        ggraph_t *graph = ctx->header.type->graph;
+        ggraph_t *graph = (ggraph_t *) ctx->header.type->graph;
 
         size_t stack_len = 0;
         gctx__stackframes(ctx, NULL, &stack_len, 0);
@@ -72,7 +72,7 @@ napi_value context__get_key(napi_env env, napi_callback_info info) {
     gptype_t result_type;
     gslot_t result = gctx__get(ctx, key, &result_type);
 
-    return to_js_object(env, ctx->header.type->graph, result, result_type);
+    return to_js_object(env, (ggraph_t *) ctx->header.type->graph, result, result_type);
 }
 
 napi_value context__set_key(napi_env env, napi_callback_info info) {
@@ -93,7 +93,7 @@ napi_value context__set_key(napi_env env, napi_callback_info info) {
 
     gslot_t slot;
     gptype_t type;
-    from_js_object(env, argv[2], ctx->header.type->graph, &slot, &type);
+    from_js_object(env, argv[2], (ggraph_t *) ctx->header.type->graph, &slot, &type);
 
     gctx__declare_slot(ctx, key, slot, type);
 
@@ -119,7 +119,7 @@ napi_value context__set_result(napi_env env, napi_callback_info info) {
 
     gslot_t slot;
     gptype_t type;
-    from_js_object(env, argv[1], ctx->header.type->graph, &slot, &type);
+    from_js_object(env, argv[1], (ggraph_t *) ctx->header.type->graph, &slot, &type);
 
     gctx__set_result(ctx, slot, type);
 

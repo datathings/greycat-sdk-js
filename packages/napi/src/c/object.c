@@ -19,7 +19,7 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gstring_t *str = ggraph__create_string(obj->type->graph);
+    gstring_t *str = ggraph__create_string((ggraph_t *) obj->type->graph);
     obj->type->to_json(obj, (gobject_t*)str, false);
     gstring__close(str);
 
@@ -66,7 +66,7 @@ napi_value object__get_key(napi_env env, napi_callback_info info) {
     gptype_t result_type;
     gslot_t result = gobject__get_slot(obj, key, &result_type);
 
-    return to_js_object(env, obj->type->graph, result, result_type);
+    return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
 
 napi_value object__get_element(napi_env env, napi_callback_info info) {
@@ -89,7 +89,7 @@ napi_value object__get_element(napi_env env, napi_callback_info info) {
     gptype_t result_type;
     gslot_t result = gobject__get_slot_at(obj, offset, NULL, &result_type);
 
-    return to_js_object(env, obj->type->graph, result, result_type);
+    return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
 
 napi_value object__set_key(napi_env env, napi_callback_info info) {
@@ -115,7 +115,7 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
     char name[name_len + 1];
     NAPI_CALL(env, napi_get_value_string_utf8(env, argv[1], name, name_len + 1, &name_len));
 
-    ggraph_t *graph = obj->type->graph;
+    ggraph_t *graph = (ggraph_t *) obj->type->graph;
     int32_t key = hash(name);
     if (!ggraph__is_meta(graph, key)) {
         ggraph__declare_meta(graph, key, name);
@@ -123,7 +123,7 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
 
     gslot_t slot;
     gptype_t type;
-    from_js_object(env, argv[2], obj->type->graph, &slot, &type);
+    from_js_object(env, argv[2], (ggraph_t *) obj->type->graph, &slot, &type);
     gobject__set_slot(obj, key, slot, type);
 
     if (type == gc_sbi_slot_type_object) {

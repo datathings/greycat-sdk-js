@@ -21,12 +21,12 @@ napi_value map__get(napi_env env, napi_callback_info info) {
 
     gslot_t key;
     gptype_t key_type;
-    from_js_object(env, argv[1], map->header.type->graph, &key, &key_type);
+    from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     gptype_t value_type;
     gslot_t value = gmap__get(map, key, key_type, &value_type);
 
-    return to_js_object(env, map->header.type->graph, value, value_type);
+    return to_js_object(env, (ggraph_t *) map->header.type->graph, value, value_type);
 }
 
 // napi_value map__mget(napi_env env, napi_callback_info info) {
@@ -68,11 +68,11 @@ napi_value map__set(napi_env env, napi_callback_info info) {
 
     gslot_t key;
     gptype_t key_type;
-    from_js_object(env, argv[1], map->header.type->graph, &key, &key_type);
+    from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     gslot_t value;
     gptype_t value_type;
-    from_js_object(env, argv[2], map->header.type->graph, &value, &value_type);
+    from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
     gmap__set(map, key, key_type, value, value_type);
 
@@ -95,11 +95,11 @@ napi_value map__put(napi_env env, napi_callback_info info) {
 
     gslot_t key;
     gptype_t key_type;
-    from_js_object(env, argv[1], map->header.type->graph, &key, &key_type);
+    from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     gslot_t value;
     gptype_t value_type;
-    from_js_object(env, argv[2], map->header.type->graph, &value, &value_type);
+    from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
     gmap__put(map, key, key_type, value, value_type);
 
@@ -122,7 +122,7 @@ napi_value map__remove(napi_env env, napi_callback_info info) {
 
     gslot_t key;
     gptype_t key_type;
-    from_js_object(env, argv[1], map->header.type->graph, &key, &key_type);
+    from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     napi_value result;
     NAPI_CALL(env, napi_get_boolean(env, gmap__remove(map, key, key_type), &result));
@@ -147,7 +147,7 @@ napi_value map__foreach(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    ggraph_t *graph = map->header.type->graph;
+    ggraph_t *graph = (ggraph_t *) map->header.type->graph;
 
     // dont even bother looping if there is no entry
     if (map->size > 0) {

@@ -20,7 +20,7 @@ napi_value array__add_element(napi_env env, napi_callback_info info) {
 
   gptype_t slot_type;
   gslot_t slot;
-  from_js_object(env, argv[1], arr->header.type->graph, &slot, &slot_type);
+  from_js_object(env, argv[1], (ggraph_t *) arr->header.type->graph, &slot, &slot_type);
   garray__add_slot(arr, slot, slot_type);
 
   if (slot_type == gc_sbi_slot_type_object) {
@@ -71,7 +71,7 @@ napi_value array__get_element(napi_env env, napi_callback_info info) {
 
   gptype_t value_type;
   gslot_t value = garray__get_slot(arr, offset, &value_type);
-  return to_js_object(env, arr->header.type->graph, value, value_type);
+  return to_js_object(env, (ggraph_t *) arr->header.type->graph, value, value_type);
 }
 
 napi_value array__set_element(napi_env env, napi_callback_info info) {
@@ -93,7 +93,7 @@ napi_value array__set_element(napi_env env, napi_callback_info info) {
 
   gptype_t slot_type;
   gslot_t slot;
-  from_js_object(env, argv[2], arr->header.type->graph, &slot, &slot_type);
+  from_js_object(env, argv[2], (ggraph_t *) arr->header.type->graph, &slot, &slot_type);
   garray__set_slot(arr, offset, slot, slot_type);
 
   if (slot_type == gc_sbi_slot_type_object) {

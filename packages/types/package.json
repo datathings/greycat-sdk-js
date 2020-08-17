@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rm -rf dist test/std.types.schema.json",
     "build": "yarn clean && yarn compile",
-    "postinstall": "node scripts/post-install.js",
+    "precompile": "node scripts/generator.js",
     "compile": "yarn compile:cjs && yarn compile:esm",
     "compile:cjs": "ncc -m build src/index.ts -o dist/cjs",
     "compile:esm": "tsc -b tsconfig.esm.json",

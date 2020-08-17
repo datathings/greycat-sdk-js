@@ -1,10 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
-project(greycat.wasm)
+project(greycat.binding.ts.wasm)
 
 get_filename_component(EMCC_PATH ${FOUND_EMCC} DIRECTORY)
-
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/package.json.in" "${CMAKE_CURRENT_SOURCE_DIR}/package.json" NEWLINE_STYLE UNIX)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/ts/common.ts.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/ts/common.ts" NEWLINE_STYLE UNIX)
 
 # When you modify this, remember to update src/ts/addon-api.ts
 set(exported_functions
@@ -190,12 +187,6 @@ set(exported_functions
         slotntype__create
         slotntype__value
         slotntype__type
-
-#        js_read_bool
-#        js_read_ulong
-#        js_read_long
-#        js_read_double
-#        js_read_int
 
         ptype__to
 )

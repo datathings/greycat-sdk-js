@@ -7,6 +7,7 @@ async function main() {
   await exec('yarn workspace @greycat/common clean');
   await exec('yarn workspace @greycat/debugger clean');
   await exec('yarn workspace @greycat/napi clean');
+  await exec('yarn workspace @greycat/server clean');
 }
 
 main().catch((err) => {

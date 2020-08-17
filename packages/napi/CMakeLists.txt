@@ -19,7 +19,7 @@ set(NAPI_SOURCES
         src/c/type.c
         src/c/map.c
         src/c/string.c
-        src/c/main.c)
+        src/c/addon.c)
 
 add_library(greycat-napi SHARED ${NAPI_SOURCES})
 target_include_directories(greycat-napi PRIVATE ${GC_CORE_INCLUDES} PUBLIC ${NODE_INCLUDE})

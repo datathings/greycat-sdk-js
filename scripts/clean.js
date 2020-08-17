@@ -5,6 +5,7 @@ const { exec } = require('./_utils');
 async function main() {
   await exec('yarn workspace @greycat/types clean');
   await exec('yarn workspace @greycat/common clean');
+  await exec('yarn workspace @greycat/debugger clean');
   await exec('yarn workspace @greycat/napi clean');
 }
 

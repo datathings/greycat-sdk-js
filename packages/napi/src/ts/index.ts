@@ -8,6 +8,11 @@ import { GMap } from './GMap';
 import { GType } from './GType';
 import { GString } from './GString';
 
+addon.register_glogger(console);
+addon.register_gconsole({
+  print: process.stdout.write.bind(process.stdout),
+  println: process.stdout.write.bind(process.stdout),
+});
 addon.register_gobject_constructor(GObject);
 addon.register_garray_constructor(GArray);
 addon.register_gfunction_constructor(GFunction);
@@ -28,11 +33,12 @@ export * from './GType';
 export * from './GString';
 
 export async function init(options: Options = {}) {
-  addon.register_glogger(options.logger ?? console);
-  addon.register_gconsole(options.console ?? {
-    print: process.stdout.write.bind(process.stdout),
-    println: process.stdout.write.bind(process.stdout),
-  });
+  if (options.logger) {
+    addon.register_glogger(options.logger);
+  }
+  if (options.console) {
+    addon.register_gconsole(options.console);
+  }
   if (options.resolver) {
     addon.register_gresolver(options.resolver);
   }

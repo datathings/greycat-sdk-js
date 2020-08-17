@@ -3,7 +3,7 @@
 import path from 'path';
 import { spawn } from 'child_process';
 import { expect } from 'chai';
-import { IDebuggerClient, DebuggerClient } from '.';
+import { IDebuggerClient, DebuggerClient } from '../src';
 
 const GREYCAT_ROOT = path.normalize(path.join(process.cwd(), '../../../'));
 const GREYCAT_BIN = path.normalize(path.join(GREYCAT_ROOT, 'build/greycat'));

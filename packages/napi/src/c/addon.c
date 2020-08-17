@@ -69,6 +69,9 @@ napi_value register_gresolver(napi_env env, napi_callback_info info) {
   size_t argc = 1;
   napi_value argv[1];
   NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
+  if (gresolver_ref != NULL) {
+    NAPI_CALL(env, napi_delete_reference(env, gresolver_ref));
+  }
   NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &gresolver_ref));
   return NULL;
 }
@@ -77,6 +80,9 @@ napi_value register_gconsole(napi_env env, napi_callback_info info) {
   size_t argc = 1;
   napi_value argv[1];
   NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
+  if (gconsole_ref != NULL) {
+    NAPI_CALL(env, napi_delete_reference(env, gconsole_ref));
+  }
   NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &gconsole_ref));
   return NULL;
 }

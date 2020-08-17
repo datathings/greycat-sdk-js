@@ -44,6 +44,7 @@ async function genNativeModule(distDir = DEFAULT_DIST, variant = 'x64-libc', ver
 async function main() {
   await exec('yarn workspace @greycat/types package');
   await exec('yarn workspace @greycat/common package');
+  await exec('yarn workspace @greycat/debugger package');
   await exec('yarn workspace @greycat/napi package');
   for (const variant of ['x64-cuda-10-2', 'x64-cuda-11', 'x64-libc', 'aarch64-libc', 'armv7-eabihf-libc', 'x64-mac']) {
     await genNativeModule(process.env.DIST_DIR, variant, process.env.VERSION);

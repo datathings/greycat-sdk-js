@@ -87,6 +87,10 @@ napi_value register_glogger(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
+    if (glogger_ref != NULL) {
+        NAPI_CALL(env, napi_delete_reference(env, glogger_ref));
+    }
+
     NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &glogger_ref));
     glog.ext = greycat_napi_logger;
 

@@ -1,4 +1,3 @@
-lib
-typings
+dist
 greycat-cli.tgz
 node_modules

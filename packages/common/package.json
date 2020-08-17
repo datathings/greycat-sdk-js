@@ -10,12 +10,11 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn compile",
-    "compile": "yarn compile:cjs && yarn compile:esm && yarn compile:typings",
+    "compile": "yarn compile:cjs && yarn compile:esm",
     "compile:cjs": "ncc -m build src/index.ts -o dist/cjs",
     "compile:esm": "tsc -b tsconfig.esm.json",
-    "compile:typings": "tsc -b tsconfig.typings.json",
     "test": "tslint --project '.'",
-    "prepackage": "yarn version --new-version ${VERSION:-0.0.0} --no-git-tag-version",
+    "prepackage": "./../../scripts/update-pkg.js ${VERSION:-0.0.0}",
     "package": "yarn pack --filename ${DIST_DIR:-dist}/generic/ts/greycat-common.tgz"
   },
   "dependencies": {

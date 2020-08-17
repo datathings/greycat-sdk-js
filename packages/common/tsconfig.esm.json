@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "rootDir": "src",
     "outDir": "dist/esm",
-    "declaration": false,
-    "declarationMap": false,
+    "declarationDir": "dist/typings",
+    "declaration": true,
+    "declarationMap": true,
   },
 
   "include": [

@@ -2,6 +2,7 @@
   "private": true,
   "name": "greycat-ts",
   "scripts": {
+    "clean": "./scripts/clean.js",
     "build": "./scripts/build.js",
     "package": "./scripts/package.js"
   },

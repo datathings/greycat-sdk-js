@@ -48,6 +48,6 @@ loadData(rnProvider, 'autre-lieu', './data/OED-AutreLieu-2018.csv');
 // loadData(rnProvider, 'piscine', './data/OED-Piscine-2018.csv');
 
 Console::println('Data loaded successfully');
-Console::println("Min time = ${Time::new(minTime).toLocale()}");
-Console::println("Max time = ${Time::new(maxTime).toLocale()}");
+Console::println("Min time = ${Time::ms(minTime).toLocale()}");
+Console::println("Max time = ${Time::ms(maxTime).toLocale()}");
 // =============================

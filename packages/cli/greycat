@@ -26,10 +26,10 @@ case $PLATFORM in
   Linux)
     case $ARCH in
       x86_64)
-        "${SCRIPT_DIRECTORY}/bin/x64-cuda-11/greycat" -v &> /dev/null
+        "${SCRIPT_DIRECTORY}/bin/x64-cuda-11/greycat" -v > /dev/null 2>&1
         [ $? -eq 0 ] && "${SCRIPT_DIRECTORY}/bin/x64-cuda-11/greycat" "$@" && exit $?;
         # unable to find cuda-11
-        "${SCRIPT_DIRECTORY}/bin/x64-cuda-10-2/greycat" -v &> /dev/null
+        "${SCRIPT_DIRECTORY}/bin/x64-cuda-10-2/greycat" -v > /dev/null 2>&1
         [ $? -eq 0 ] && "${SCRIPT_DIRECTORY}/bin/x64-cuda-10-2/greycat" "$@" && exit $?;
         # unable to find cuda-10-2
         "${SCRIPT_DIRECTORY}/bin/x64-libc/greycat" "$@"

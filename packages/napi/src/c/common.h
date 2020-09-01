@@ -87,7 +87,7 @@ extern napi_ref gresolver_ref;
 
 bool validate_constructors_refs(napi_env env);
 
-void context_error_handler(gctx_t *ctx);
+void context_error_handler(gctx_t *ctx, gc_rt_error_t *err);
 
 napi_value to_js_object(napi_env env, ggraph_t *graph, gslot_t data, gptype_t data_type);
 

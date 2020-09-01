@@ -170,7 +170,7 @@ napi_value graph__destroy(napi_env env, napi_callback_info info) {
     return NULL;
 }
 
-void context_error_handler(gctx_t *ctx);
+void context_error_handler(gctx_t *ctx, gc_rt_error_t *err);
 
 napi_value graph__create_context(napi_env env, napi_callback_info info) {
     size_t argc = 1;

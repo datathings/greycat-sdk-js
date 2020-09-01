@@ -11,21 +11,18 @@
 #include <greycat/ggraph.h>
 #include <greycat/runtime/gobject.h>
 
-void context_error_handler(gctx_t *ctx) {
+void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
     napi_env env = (napi_env) ctx->ext.env;
     if (env != NULL) {
         ggraph_t *graph = (ggraph_t *) ctx->header.type->graph;
 
-        size_t stack_len = 0;
-        gctx__stackframes(ctx, NULL, &stack_len, 0);
-        gstackframe_t frames[stack_len];
-        gctx__stackframes(ctx, frames, &stack_len, stack_len);
-
         gstring_t *g_stack = ggraph__create_string(graph);
-        gctx__stacktrace(frames, stack_len, g_stack);
+        gc_rt_error__stack_to_string(err, g_stack);
+        gstring__close(g_stack);
+
 
         napi_value reason;
-        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, ctx->error->buffer, ctx->error->size, &reason));
+        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, err->msg == NULL ? "" : err->msg->buffer, err->msg == NULL ? 0 : err->msg->size, &reason));
 
         napi_value stack;
         NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, g_stack->buffer, g_stack->size, &stack));
@@ -145,7 +142,7 @@ napi_value context__get_graph(napi_env env, napi_callback_info info) {
     }
 
     napi_value js_graph;
-    NAPI_CALL(env, napi_get_reference_value(env, ((ggraph_t*)ctx->header.type->graph)->ext.companion, &js_graph));
+    NAPI_CALL(env, napi_get_reference_value(env, ((ggraph_t *) ctx->header.type->graph)->ext.companion, &js_graph));
 
     return js_graph;
 }

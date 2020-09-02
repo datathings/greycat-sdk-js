@@ -42,7 +42,7 @@ async function genNativeModule(distDir = DEFAULT_DIST, variant = 'x64-libc', ver
 }
 
 async function copyBinInCLI(distDir = DEFAULT_DIST, variant = 'x64-libc') {
-  const greycat = path.resolve(distDir, variant, 'bin', 'greycat');
+  const greycat = path.resolve(distDir, variant, 'bin', 'greycat.shell');
   if (await exists(greycat)) {
     const destDir = path.resolve(__dirname, '..', 'packages', 'cli', 'bin', variant);
     await mkdirp(destDir);

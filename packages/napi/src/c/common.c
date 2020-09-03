@@ -219,7 +219,7 @@ napi_value to_js_object(napi_env env, ggraph_t *graph, gslot_t data, gptype_t da
     }
 
     case gc_sbi_slot_type_time:
-    case gc_sbi_slot_type_geocode:
+    case gc_sbi_slot_type_geo:
     case gc_sbi_slot_type_ref:
     default:
         // TODO

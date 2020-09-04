@@ -4,8 +4,8 @@
 #include <emscripten/em_asm.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/glog.h>
 #include <greycat/language/gcl_parser.h>
+#include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
 #include <greycat/runtime/gstring.h>
 

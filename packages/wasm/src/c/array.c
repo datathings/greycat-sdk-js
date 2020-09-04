@@ -1,9 +1,9 @@
 #include <string.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/glog.h>
+#include <greycat/log.h>
+#include <greycat/runtime/array.h>
 #include <greycat/runtime/gstring.h>
-#include <greycat/runtime/struct/garray.h>
 
 ggraph_t *array__graph(garray_t *arr) { return arr->header.type->graph; }
 

@@ -6,7 +6,7 @@
 #include <emscripten/em_asm.h>
 
 #include <greycat/galloc.h>
-#include <greycat/glog.h>
+#include <greycat/log.h>
 
 static struct {
     void *udata;

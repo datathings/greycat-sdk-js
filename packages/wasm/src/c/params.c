@@ -4,7 +4,7 @@
 #include <greycat/function/gfunction.h>
 #include <greycat/galloc.h>
 #include <greycat/ggraph.h>
-#include <greycat/glog.h>
+#include <greycat/log.h>
 #include <greycat/runtime/gstring.h>
 
 gparam_t *params__create(uint32_t capacity) { return g_malloc(capacity * sizeof(gparam_t) + (sizeof(uint64_t) * capacity)); }

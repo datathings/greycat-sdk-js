@@ -3,7 +3,7 @@
 
 #include <node_api.h>
 
-#include <greycat/glog.h>
+#include <greycat/log.h>
 
 #include "common.h"
 

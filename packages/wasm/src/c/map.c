@@ -1,5 +1,5 @@
 #include <greycat/ggraph.h>
-#include <greycat/glog.h>
+#include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
 #include <greycat/runtime/struct/gmap.h>
 

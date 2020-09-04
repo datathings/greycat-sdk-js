@@ -6,7 +6,7 @@
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/ggraph.h>
 #include <greycat/language/gcl_parser.h>
-#include <greycat/runtime/struct/garray.h>
+#include <greycat/runtime/array.h>
 
 #include "common.h"
 
@@ -207,7 +207,7 @@ napi_value function__get_graph(napi_env env, napi_callback_info info) {
     }
 
     napi_value js_graph;
-    NAPI_CALL(env, napi_get_reference_value(env, ((ggraph_t*)func->header.type->graph)->ext.companion, &js_graph));
+    NAPI_CALL(env, napi_get_reference_value(env, ((ggraph_t *) func->header.type->graph)->ext.companion, &js_graph));
     return js_graph;
 }
 
@@ -258,16 +258,16 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
     int32_t p_name;
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &p_name));
 
-    garray_t *p_types = ggraph__create_array((ggraph_t *) func->header.type->graph);
+    gc_rt_array_t *p_types = ggraph__create_array((ggraph_t *) func->header.type->graph);
     uint32_t types_len;
     NAPI_CALL(env, napi_get_array_length(env, argv[2], &types_len));
-    garray__resize(p_types, types_len);
+    gc_rt_array__resize(p_types, types_len);
     napi_value elem;
     for (uint32_t i = 0; i < types_len; i++) {
         NAPI_CALL(env, napi_get_element(env, argv[2], i, &elem));
         int32_t elem_type;
         NAPI_CALL(env, napi_get_value_int32(env, elem, &elem_type));
-        garray__set_int(p_types, i, elem_type);
+        gc_rt_array__set_slot(p_types, i, (gslot_t){.i32 = elem_type}, gc_sbi_slot_type_i32);
     }
 
     bool is_optional = false;

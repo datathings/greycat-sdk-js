@@ -8,9 +8,9 @@
 #include <greycat/function/gfunction.h>
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/ggraph.h>
-#include <greycat/glog.h>
+#include <greycat/log.h>
+#include <greycat/runtime/array.h>
 #include <greycat/runtime/gstring.h>
-#include <greycat/runtime/struct/garray.h>
 
 #include "common.h"
 
@@ -32,7 +32,7 @@ static const int64_t JS_MAX_INT = 9007199254740991;
 
 int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_value);
 static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj);
-static void populate_garray(napi_env env, napi_value arr, garray_t *garr);
+static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr);
 static void populate_gmap(napi_env env, napi_value map, gmap_t *gmap);
 
 bool validate_constructors_refs(napi_env env) {
@@ -322,7 +322,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gslot_t *da
         bool is_array;
         NAPI_CALL_RETURN_VOID(env, napi_is_array(env, value, &is_array));
         if (is_array) {
-            garray_t *arr = ggraph__create_array(graph);
+            gc_rt_array_t *arr = ggraph__create_array(graph);
             populate_garray(env, value, arr);
             data->object = (gobject_t *) arr;
             return;
@@ -435,13 +435,13 @@ napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t *
     return js_func;
 }
 
-static void populate_garray(napi_env env, napi_value arr, garray_t *garr) {
+static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr) {
     ggraph_t *graph = (ggraph_t *) garr->header.type->graph;
 
     uint32_t arr_length;
     NAPI_CALL_RETURN_VOID(env, napi_get_array_length(env, arr, &arr_length));
 
-    garray__resize(garr, arr_length);
+    gc_rt_array__resize(garr, arr_length);
 
     gslot_t value;
     gptype_t value_type;
@@ -449,7 +449,7 @@ static void populate_garray(napi_env env, napi_value arr, garray_t *garr) {
     for (uint32_t i = 0; i < arr_length; i++) {
         NAPI_CALL_RETURN_VOID(env, napi_get_element(env, arr, i, &elem));
         from_js_object(env, elem, graph, &value, &value_type);
-        garray__set_slot(garr, i, value, value_type);
+        gc_rt_array__set_slot(garr, i, value, value_type);
         if (value_type == gc_sbi_slot_type_object) {
             gobject__un_mark(value.object);
         }

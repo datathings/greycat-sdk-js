@@ -64,7 +64,7 @@ napi_value object__get_key(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &key));
 
     gptype_t result_type;
-    gslot_t result = gobject__get_slot(obj, key, &result_type);
+    gc_rt_slot_t result = gobject__get_slot(obj, key, &result_type);
 
     return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
@@ -87,7 +87,7 @@ napi_value object__get_element(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &offset));
 
     gptype_t result_type;
-    gslot_t result = gobject__get_slot_at(obj, offset, NULL, &result_type);
+    gc_rt_slot_t result = gobject__get_slot_at(obj, offset, NULL, &result_type);
 
     return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
@@ -121,7 +121,7 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
         ggraph__declare_meta(graph, key, name);
     }
 
-    gslot_t slot;
+    gc_rt_slot_t slot;
     gptype_t type;
     from_js_object(env, argv[2], (ggraph_t *) obj->type->graph, &slot, &type);
     gobject__set_slot(obj, key, slot, type);

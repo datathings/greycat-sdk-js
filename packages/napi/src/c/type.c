@@ -242,7 +242,7 @@ napi_value type__declare_static_attribute(napi_env env, napi_callback_info info)
         ggraph__declare_meta((ggraph_t *) type->graph, key, name);
     }
 
-    gslot_t slot;
+    gc_rt_slot_t slot;
     gptype_t slot_type;
     from_js_object(env, argv[2], (ggraph_t *) type->graph, &slot, &slot_type);
     gtype__declare_static(type, key, slot, slot_type);

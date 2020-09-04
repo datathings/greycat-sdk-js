@@ -99,7 +99,7 @@ bool is_instanceof_gtype(napi_env env, napi_value instance) {
     return result;
 }
 
-napi_value to_js_object(napi_env env, ggraph_t *graph, gslot_t data, gptype_t data_type) {
+napi_value to_js_object(napi_env env, ggraph_t *graph, gc_rt_slot_t data, gptype_t data_type) {
     napi_value value = NULL;
 
     switch (data_type) {
@@ -230,7 +230,7 @@ napi_value to_js_object(napi_env env, ggraph_t *graph, gslot_t data, gptype_t da
     return value;
 }
 
-void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gslot_t *data, gptype_t *data_type) {
+void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_t *data, gptype_t *data_type) {
     napi_valuetype type;
     NAPI_CALL_RETURN_VOID(env, napi_typeof(env, value, &type));
 
@@ -443,7 +443,7 @@ static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr) {
 
     gc_rt_array__resize(garr, arr_length);
 
-    gslot_t value;
+    gc_rt_slot_t value;
     gptype_t value_type;
     napi_value elem;
     for (uint32_t i = 0; i < arr_length; i++) {
@@ -479,7 +479,7 @@ static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
 
     napi_value js_key, js_value;
     int32_t hashed_key = 0;
-    gslot_t value;
+    gc_rt_slot_t value;
     gptype_t value_type;
     for (uint32_t i = 0; i < obj_keys_length; i++) {
         NAPI_CALL_RETURN_VOID(env, napi_get_element(env, obj_keys, i, &js_key));
@@ -501,11 +501,11 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
 
     ggraph_t *graph = (ggraph_t *) gmap->header.type->graph;
 
-    gslot_t key;
+    gc_rt_slot_t key;
     gptype_t key_type;
     from_js_object(env, argv[0], graph, &key, &key_type);
 
-    gslot_t value;
+    gc_rt_slot_t value;
     gptype_t value_type;
     from_js_object(env, argv[1], graph, &value, &value_type);
 

@@ -267,7 +267,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
         NAPI_CALL(env, napi_get_element(env, argv[2], i, &elem));
         int32_t elem_type;
         NAPI_CALL(env, napi_get_value_int32(env, elem, &elem_type));
-        gc_rt_array__set_slot(p_types, i, (gslot_t){.i32 = elem_type}, gc_sbi_slot_type_i32);
+        gc_rt_array__set_slot(p_types, i, (gc_rt_slot_t){.i32 = elem_type}, gc_sbi_slot_type_i32);
     }
 
     bool is_optional = false;

@@ -19,12 +19,12 @@ napi_value map__get(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gslot_t key;
+    gc_rt_slot_t key;
     gptype_t key_type;
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     gptype_t value_type;
-    gslot_t value = gmap__get(map, key, key_type, &value_type);
+    gc_rt_slot_t value = gmap__get(map, key, key_type, &value_type);
 
     return to_js_object(env, (ggraph_t *) map->header.type->graph, value, value_type);
 }
@@ -66,11 +66,11 @@ napi_value map__set(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gslot_t key;
+    gc_rt_slot_t key;
     gptype_t key_type;
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
-    gslot_t value;
+    gc_rt_slot_t value;
     gptype_t value_type;
     from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
@@ -93,11 +93,11 @@ napi_value map__put(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gslot_t key;
+    gc_rt_slot_t key;
     gptype_t key_type;
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
-    gslot_t value;
+    gc_rt_slot_t value;
     gptype_t value_type;
     from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
@@ -120,7 +120,7 @@ napi_value map__remove(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gslot_t key;
+    gc_rt_slot_t key;
     gptype_t key_type;
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
@@ -130,7 +130,7 @@ napi_value map__remove(napi_env env, napi_callback_info info) {
     return result;
 }
 
-void map__iterator_function(gslot_t *key, gptype_t *key_type, gslot_t *value, gptype_t *value_type) {}
+void map__iterator_function(gc_rt_slot_t *key, gptype_t *key_type, gc_rt_slot_t *value, gptype_t *value_type) {}
 
 napi_value map__foreach(napi_env env, napi_callback_info info) {
     size_t argc = 2;
@@ -151,7 +151,7 @@ napi_value map__foreach(napi_env env, napi_callback_info info) {
 
     // dont even bother looping if there is no entry
     if (map->size > 0) {
-        gslot_t key, value;
+        gc_rt_slot_t key, value;
         gptype_t key_type, value_type;
         uint32_t found = 0;
         for (uint32_t i = 0; i < map->capacity; i++) {

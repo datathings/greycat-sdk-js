@@ -1,4 +1,5 @@
 !dist
+dist/**/*.{js,d.ts}.map
 dist/*.tgz
 generator
 scripts

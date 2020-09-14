@@ -1,0 +1,6 @@
+{
+  "extensions": ["ts"],
+  "spec": "packages/*/test/**/*.test.ts",
+  "require": "ts-node/register",
+  "inline-diffs": true
+}

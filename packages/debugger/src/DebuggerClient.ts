@@ -1,343 +1,226 @@
 import { Socket } from 'net';
 import { EventEmitter } from 'events';
-import { IBreakpoint } from './model/IBreakpoint';
-import { IDebuggerEvent, IBreakpointsInfoEvent, IStackTraceEvent, ICurrentInfoEvent } from './protocol';
-import { IDebuggerClient } from './model/IDebuggerClient';
-import { ISourceBreakpoint } from './model';
-import { IStackFrame } from './model/IStackFrame';
-import { ICurrentInfo } from './model/ICurrentInfo';
-
-const MESSAGE_REGEX = /([^:]*)(:([\s\S]*))?/;
+import { Msg, parse, Code, Cmd } from './protocol';
+import { IBreakpoint, ICurrentInfo, IDebuggerClient, ISourceBreakpoint, IStackFrame } from './types';
+import { DebuggerError } from './error';
+import { Ctx } from './internal_types';
 
 export class DebuggerClient implements IDebuggerClient {
-  private _socket: Socket | null;
-  private _isStarted: boolean;
-  private _error: Error | null;
-  private _debugEventEmitter: EventEmitter;
+  private _socket: Socket;
+  private _connected: boolean;
+  private _pendingRequests: EventEmitter[];
+  private _debugEvent: EventEmitter;
 
   constructor() {
-    this._socket = null;
-    this._isStarted = false;
-    this._error = null;
-    this._debugEventEmitter = new EventEmitter();
+    this._socket = new Socket();
+    this._connected = false;
+    this._pendingRequests = [];
+    this._debugEvent = new EventEmitter();
+
+    const messages: Msg[] = [];
+    const ctx: Ctx = { buf: Buffer.from([]) };
+    this._socket.on('data', (chunk) => {
+      ctx.buf = Buffer.concat([ctx.buf, chunk]);
+      parse(ctx, messages);
+      let msg = messages.shift();
+      while (msg) {
+        switch (msg.code) {
+          // debug events
+          case Code.BREAK:
+            this._debugEvent.emit(msg.code, msg.info);
+            break;
+
+          case Code.EXCEPTION:
+            this._debugEvent.emit(msg.code, msg.exception);
+            break;
+
+          // request messages
+          default: {
+            const emitter = this._pendingRequests.shift();
+            if (emitter) {
+              emitter.emit('resolve', msg);
+            } else {
+              // lost message
+              console.error(`Lost message: ${msg}`);
+            }
+          }
+        }
+        msg = messages.shift();
+      }
+    });
   }
 
-  async start(port: number = 9494) {
-    if (this._socket) {
-      throw new Error(`Already started`);
+  get connected() {
+    return this._connected;
+  }
+
+  async connect(port: number = 9494, timeout = 3000) {
+    if (this._connected) {
+      throw new Error(`DebuggerClient is already connected to :${this._socket.remotePort}`);
     }
 
     return new Promise<void>((resolve, reject) => {
-      this._socket = new Socket({ readable: true, writable: true });
-      this._socket.once('error', reject);
-      let data = '';
-      this._socket.on('data', (buffer) => {
-        data += buffer.toString('utf-8');
-        // tslint:disable-next-line:no-console
-        // console.log('--------- DATA ---------');
-        // console.log(data);
-        // console.log('------------------------');
-        let msgEndIndex = data.indexOf('\r\n');
-        while (msgEndIndex !== -1) {
-          const msg = data.substr(0, msgEndIndex);
-          this._parseMessage(msg);
-          data = data.substr(msgEndIndex + 2); // + 2 is '\n\n' length
-          msgEndIndex = data.indexOf('\r\n');
-        }
-      });
-      this._socket.on('close', this._onClose.bind(this));
-      this._socket.on('error', this._onError.bind(this));
+      const timeoutHandler = () => {
+        this._socket.destroy(new Error('Connection timeout'));
+      };
+      this._socket.on('error', reject);
+      this._socket.on('timeout', timeoutHandler);
 
-      this._socket.connect({ port }, () => {
-        this._isStarted = true;
-        this._socket?.off('error', reject);
+      this._socket.setTimeout(timeout);
+      this._socket.connect(port, async () => {
+        // clean-up reject/timeout handlers
+        this._socket.off('error', reject);
+
+        try {
+          await this.getBreakpoints();
+          this._socket.off('timeout', timeoutHandler);
+        } catch (err) {
+          this._socket.destroy(err);
+          return;
+        }
+
+        // register close event
+        this._socket.once('close', (hadError) => {
+          this._connected = false;
+          this._debugEvent.emit('close', hadError);
+        });
+        // register error event
+        this._socket.once('error', (err) => {
+          this._debugEvent.emit('error', err);
+        });
+        // all good
+        this._connected = true;
         resolve();
       });
     });
   }
 
+  async quit() {
+    return new Promise<void>((r, e) => {
+      this._socket.write(Cmd.QUIT, (err) => err ? e(err) : r());
+    });
+  }
+
   async stop() {
-    return new Promise<void>((resolve, reject) => {
-      if (this._isStarted && this._socket) {
-        this._socket.write('s', (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      } else {
-        reject(new Error('Socket is not connected'));
-      }
+    return new Promise<void>((r, e) => {
+      this._socket.write(Cmd.STOP, (err) => err ? e(err) : r());
     });
   }
 
-  async removeBreakpoints() {
-    return new Promise<void>((resolve, reject) => {
-      if (this._isStarted && this._socket) {
-        this._socket.write('b', (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      } else {
-        reject(new Error('Socket is not connected'));
-      }
-    });
+  async removeBreakpoints(uri?: string) {
+    const cmd = uri === undefined ? Cmd.REMOVE : `${Cmd.REMOVE} "${uri}"`;
+    const msg = await this._sendCmd(cmd);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.REMOVE}' debugger`, msg);
   }
 
-  async setBreakpoints(uri: string, breakpoints: IBreakpoint[]) {
-    return new Promise<void>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      const msg = `b "${uri}" ${breakpoints.map((b) => `${b.line}${b.column ? `:${b.column}` : ''}`).join(' ')}`;
-      this._socket.write(msg, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+  async setBreakpoints(uri: string, breakpoints: IBreakpoint[]): Promise<void> {
+    const msg = await this._sendCmd(`${Cmd.BREAKPOINTS} "${uri}"${bpts(breakpoints)}`);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.BREAKPOINTS}' debugger`, msg);
   }
 
-  async getBreakpoints() {
-    return new Promise<ISourceBreakpoint[]>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      const responseHandler = (e: IBreakpointsInfoEvent) => {
-        resolve(
-          e.breakpoints.map((b) => ({
-            uri: b.source,
-            location: { line: b.location[0], column: b.location[1] },
-          })),
-        );
-      };
-
-      this._debugEventEmitter.once('?', responseHandler);
-      this._socket.write('?', (err) => {
-        if (err) {
-          this._debugEventEmitter.off('?', responseHandler);
-          reject(err);
-        }
-      });
-    });
+  async getBreakpoints(): Promise<ISourceBreakpoint[]> {
+    const msg = await this._sendCmd(Cmd.GET_BREAKPOINTS);
+    if (msg.code === Code.BREAKPOINTS) {
+      return msg.breakpoints;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.GET_BREAKPOINTS}' debugger`, msg);
   }
 
-  async getCurrentInfo() {
-    return new Promise<ICurrentInfo | {}>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      const responseHandler = (e: ICurrentInfoEvent) => resolve(e.info);
-      this._debugEventEmitter.once('v', responseHandler);
-      this._socket.write('v', (err) => {
-        if (err) {
-          this._debugEventEmitter.off('v', responseHandler);
-          reject(err);
-        }
-      });
-    });
+  async getCurrentInfo(): Promise<ICurrentInfo> {
+    const msg = await this._sendCmd(Cmd.INFO);
+    if (msg.code === Code.INFO) {
+      return msg.info;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.INFO}' debugger`, msg);
   }
 
-  async getStackFrames(startFrame: number = 0, levels: number = 0) {
-    return new Promise<IStackFrame[]>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      const responseHandler = (e: IStackTraceEvent) => resolve(e.frames);
-
-      this._debugEventEmitter.once('t', responseHandler);
-      this._socket.write(`t ${startFrame} ${levels}`, (err) => {
-        if (err) {
-          this._debugEventEmitter.off('t', responseHandler);
-          reject(err);
-        }
-      });
-    });
+  async getStackFrames(startFrame: number = 0, levels: number = 0): Promise<IStackFrame[]> {
+    const msg = await this._sendCmd(`${Cmd.FRAMES} ${startFrame} ${levels}`);
+    if (msg.code === Code.FRAMES) {
+      return msg.frames;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.FRAMES}' debugger`, msg);
   }
 
   async continue() {
-    return new Promise<void>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      this._socket.write('c', (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    const msg = await this._sendCmd(Cmd.CONTINUE);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.CONTINUE}' debugger`, msg);
   }
 
   async next() {
-    return new Promise<void>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      this._socket.write('n', (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
-  async pause() {
-    return new Promise<void>((resolve, reject) => {
-      if (!this._isStarted || this._socket == null) {
-        reject(new Error('Debugger client must be started'));
-        return;
-      }
-
-      this._socket.write('p', (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
-  on(eventType: IDebuggerEvent['type'] | 'error', cb: (...args: any[]) => void) {
-    this._debugEventEmitter.on(eventType, cb);
-  }
-
-  private _validateEventType(header: string): header is IDebuggerEvent['type'] {
-    return header === 'exit' || header === 'b' || header === 'e' || header === '?' || header === 't' || header === 'v';
-  }
-
-  // @ts-ignore
-  private _parseMessage(msg: string) {
-    const result = MESSAGE_REGEX.exec(msg);
-    if (result) {
-      if (this._validateEventType(result[1])) {
-        const type = result[1];
-        let event: IDebuggerEvent | undefined;
-        let error: any;
-
-        switch (type) {
-          case 'exit': {
-            event = { type, hadError: false };
-            break;
-          }
-
-          case 'b': {
-            let msgBody;
-            try {
-              msgBody = JSON.parse(result[3]);
-              event = { type, info: msgBody };
-            } catch (err) {
-              error = err;
-            }
-            break;
-          }
-
-          case 'v': {
-            let msgBody;
-            try {
-              msgBody = JSON.parse(result[3]);
-              event = { type, info: msgBody };
-            } catch (err) {
-              error = err;
-            }
-            break;
-          }
-
-          case 'e': {
-            let msgBody;
-            try {
-              msgBody = JSON.parse(result[3]);
-              event = {
-                type,
-                reason: msgBody.reason,
-                stack: msgBody.stack,
-                location: { line: msgBody.location[0], column: msgBody.location[1] },
-              };
-            } catch (err) {
-              error = err;
-            }
-            break;
-          }
-
-          case 't': {
-            let msgBody;
-            try {
-              msgBody = JSON.parse(result[3]);
-              event = { type, frames: msgBody };
-            } catch (err) {
-              error = err;
-            }
-            break;
-          }
-
-          case '?': {
-            let msgBody;
-            try {
-              msgBody = JSON.parse(result[3]);
-              event = { type, breakpoints: msgBody };
-            } catch (err) {
-              error = err;
-            }
-          }
-        }
-
-        if (event) {
-          this._debugEventEmitter.emit(type, event);
-        }
-        if (error) {
-          if (error instanceof SyntaxError) {
-            // output raw message on JSON syntaxerror
-            process.stdout.cursorTo(0);
-            process.stdout.clearLine(1);
-            console.log('------- raw message --------');
-            console.log(msg);
-            console.log('----------------------------');
-          }
-          this._debugEventEmitter.emit(
-            'error',
-            `Something went wrong while parsing '${type}' event (${error.message})`,
-          );
-        }
-      } else {
-        this._debugEventEmitter.emit('error', `Unknown event type '${result[1]}'`);
-      }
+    const msg = await this._sendCmd(Cmd.NEXT);
+    if (msg.code === Code.OK) {
+      return;
     }
+    throw new DebuggerError(`Unable to send '${Cmd.NEXT}' debugger`, msg);
   }
 
-  private _onError(err: Error) {
-    this._error = err;
+  async pause(): Promise<void> {
+    const msg = await this._sendCmd(Cmd.PAUSE);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.PAUSE}' debugger`, msg);
   }
 
-  private _onClose(hadError: boolean) {
-    this._isStarted = false;
-    this._socket?.removeAllListeners();
-    this._socket = null;
-    this._debugEventEmitter.emit('exit', hadError);
+  async stepIn(): Promise<void> {
+    const msg = await this._sendCmd(Cmd.STEP_IN);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.STEP_IN}' debugger`, msg);
   }
 
-  get lastError() {
-    return this._error;
+  async stepOut(): Promise<void> {
+    const msg = await this._sendCmd(Cmd.STEP_OUT);
+    if (msg.code === Code.OK) {
+      return;
+    }
+    throw new DebuggerError(`Unable to send '${Cmd.STEP_OUT}' debugger`, msg);
   }
+
+  on(event: Code.BREAK | Code.EXCEPTION | 'error' | 'close', handler: (arg: any) => void) {
+    this._debugEvent.on(event, handler);
+  }
+
+  private async _sendCmd(buf: Buffer | string): Promise<Msg> {
+    const emitter = new EventEmitter();
+    this._pendingRequests.push(emitter);
+
+    const promise = new Promise<Msg>((r, e) => {
+      emitter.on('resolve', r);
+      emitter.on('reject', e);
+    });
+
+    try {
+      await new Promise((r, e) => {
+        this._socket.write(buf, (err) => err ? e(err) : r());
+      });
+    } catch (err) {
+      // if something goes wrong while sending message: remove queued msg
+      this._pendingRequests.pop();
+      // re-throw error
+      throw err;
+    }
+
+    return promise;
+  }
+}
+
+export function bpts(breakpoints: IBreakpoint[]): string {
+  if (breakpoints.length === 0) {
+    return '';
+  }
+  return breakpoints.map((b) => {
+    return b.column === undefined ? `${b.line}` : `${b.line}:${b.column}`;
+  }).reduce((prev, next) => `${prev} ${next}`, ' '); // add space if at least one bpt
 }

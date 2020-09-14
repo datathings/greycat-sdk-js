@@ -1,3 +1,5 @@
+!dist
+dist/**/*.{js,d.ts}.map
 src/
 tsconfig.json
 tsconfig.build.json

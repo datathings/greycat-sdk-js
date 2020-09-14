@@ -7,6 +7,7 @@
     "declarationDir": "dist/typings",
     "declaration": true,
     "declarationMap": true,
+    "types": ["mocha", "node"],
   },
 
   "include": [

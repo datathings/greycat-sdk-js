@@ -1,3 +1,4 @@
 export * from './DebuggerClient';
-export * from './model';
+export * from './types';
 export * from './protocol';
+export * from './error';

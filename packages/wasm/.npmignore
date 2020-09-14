@@ -1,4 +1,5 @@
 lib/*.tsbuildinfo
+dist/**/*.{js,d.ts}.map
 src/
 package.json.in
 CMakeLists.txt

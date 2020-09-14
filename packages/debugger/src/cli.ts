@@ -1,30 +1,22 @@
 #!/usr/bin/env node
 import readline from 'readline';
 import { DebuggerClient } from './DebuggerClient';
-import { IBreakpoint, IDebuggerClient, ICurrentInfo } from './model';
-
-let port = 9494;
-if (process.argv.length > 2) {
-  try {
-    port = parseInt(process.argv[2], 10);
-  } catch (err) {
-    console.error(`Unable to parse the first command-line argument as an integer (port must be a number)`);
-    console.error(err.message);
-    process.exit(1);
-  }
-}
+import { IBreakpoint, IDebuggerClient, ICurrentInfo } from './types';
+import { Code } from './protocol';
 
 function printHelp() {
   console.log(`
-  - ?   shows the current breakpoints
   - b   set breakpoints: "<uri>" (<number>(:<number>)?)*
   - c   continue
+  - f   current stack frames
+  - g   shows the current breakpoints
   - h   shows this help
+  - i   shows the current variables info
   - n   next
   - p   pause
+  - q   quit
+  - r   remove breakpoints: "<uri>"? (if not uri specified, removes all)
   - s   stop the debugger
-  - t   current stack frames
-  - v   shows the current variables info
 `);
 }
 
@@ -38,6 +30,9 @@ function printInfo(info: ICurrentInfo) {
 }
 
 async function main() {
+  const [, , portArg] = process.argv;
+  const port = parseInt(portArg || '9494', 10);
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -45,61 +40,69 @@ async function main() {
   });
 
   const client: IDebuggerClient = new DebuggerClient();
-  client.on('exit', async () => {
+
+  client.on('close', () => {
+    process.stdout.cursorTo(0);
+    process.stdout.clearLine(1);
+
+    console.log(`Connection closed.`);
+
     rl.close();
   });
-  client.on('b', (event) => {
+
+  client.on('error', (err) => {
     process.stdout.cursorTo(0);
     process.stdout.clearLine(1);
-    printInfo(event.info);
-    rl.prompt();
-  });
-  client.on('e', (event) => {
-    process.stdout.cursorTo(0);
-    process.stdout.clearLine(1);
-    console.dir(event, { depth: Infinity });
-    rl.prompt();
-  });
-  client.on('error', (msg) => {
-    process.stdout.cursorTo(0);
-    process.stdout.clearLine(1);
-    console.log(msg);
+    console.log(`Connection error: ${err.message}`);
     rl.prompt();
   });
 
-  await client.start(port);
+  client.on(Code.BREAK, (info) => {
+    process.stdout.cursorTo(0);
+    process.stdout.clearLine(1);
+    printInfo(info);
+    rl.prompt();
+  });
+
+  client.on(Code.EXCEPTION, (ex) => {
+    process.stdout.cursorTo(0);
+    process.stdout.clearLine(1);
+    console.dir(ex, { depth: Infinity });
+    rl.prompt();
+  });
+
+  await client.connect(port);
+
   console.log(`Debugger attached to :${port}`);
   printHelp();
 
   rl.on('line', async (input) => {
     try {
-      const result = input.trim().split(' ');
-      const cmd = result.slice(1);
-      switch (result[0]) {
+      const [cmd, ...args] = input.trim().split(' ');
+      switch (cmd) {
         case 'h':
           printHelp();
           break;
 
         case 'b': {
-          if (cmd.length >= 1) {
-            const uriRes = cmd[0].match(/"([^"]+)"/);
-            if (uriRes && uriRes[1]) {
-              const uri = uriRes[1];
-              const bps: IBreakpoint[] = [];
-              for (let i = 1; i < cmd.length; i++) {
-                const bptRes = cmd[i].match(/(\d+)(:(\d+))?/);
-                if (bptRes && bptRes.length >= 2) {
-                  const bp: IBreakpoint = { line: parseInt(bptRes[1], 10) };
-                  if (bptRes[3] !== undefined) {
-                    bp.column = parseInt(bptRes[3], 10);
-                  }
-                  bps.push(bp);
+          const uriRes = args[0].match(/"([^"]+)"/);
+          if (uriRes && uriRes[1]) {
+            const uri = uriRes[1];
+            const bps: IBreakpoint[] = [];
+            for (let i = 1; i < args.length; i++) {
+              const bptRes = args[i].match(/(\d+)(:(\d+))?/);
+              if (bptRes && bptRes.length >= 2) {
+                const bp: IBreakpoint = { line: parseInt(bptRes[1], 10) };
+                if (bptRes[3] !== undefined) {
+                  bp.column = parseInt(bptRes[3], 10);
                 }
+                bps.push(bp);
               }
-              await client.setBreakpoints(uri, bps);
             }
+            await client.setBreakpoints(uri, bps);
           } else {
-            await client.removeBreakpoints();
+            console.log('[BAD_FORMAT] use: b "<uri>" (<number>(:<number>)?)+');
+            console.log('  eg. b "path/to/file.gcl" 6:42\n');
           }
           break;
         }
@@ -111,6 +114,22 @@ async function main() {
         case 'n':
           await client.next();
           break;
+
+        case 'r': {
+          if (args.length === 0) {
+            await client.removeBreakpoints();
+          } else {
+            const uriRes = args[0].match(/"([^"]+)"/);
+            if (uriRes && uriRes[1]) {
+              const uri = uriRes[1];
+              await client.removeBreakpoints(uri);
+            } else {
+              console.log('[BAD_FORMAT] use: r "<uri>"');
+              console.log('  eg. r "path/to/file.gcl"\n');
+            }
+          }
+          break;
+        }
 
         case 'p':
           await client.pause();
@@ -135,26 +154,30 @@ async function main() {
           break;
         }
 
-        case 'v': {
+        case 'i': {
           const info = await client.getCurrentInfo();
           printInfo(info);
           break;
         }
 
-        case '?': {
+        case 'g': {
           const bps = await client.getBreakpoints();
           bps.forEach((b) => {
-            console.log(` - ${b.uri}:${b.location.line}:${b.location.column ? b.location.column : 0}`);
+            console.log(` - ${b.source}:${b.location[0]}:${b.location[1] ? b.location[1] : 0}`);
           });
           break;
         }
+
+        case 'q':
+          await client.quit();
+          break;
 
         case 's':
           await client.stop();
           break;
 
         default:
-          console.log(`unknown command '${cmd}'`);
+          console.log(`Unknown command '${cmd}'`);
           printHelp();
           break;
       }
@@ -164,8 +187,11 @@ async function main() {
       console.log(err.message);
     }
     rl.prompt();
-  }).on('close', () => {
+  }).on('close', async () => {
     console.log('Bye');
+    if (client.connected) {
+      await client.quit();
+    }
     process.exit(0);
   });
 
@@ -173,6 +199,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(`Oops!\n\n${err.message}`);
+  console.error(err.message);
   process.exit(1);
 });

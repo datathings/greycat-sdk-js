@@ -1,7 +1,7 @@
 #include <node_api.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/runtime/struct/gmap.h>
+#include <greycat/runtime/map.h>
 
 #include "common.h"
 
@@ -11,7 +11,7 @@ napi_value map__get(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {
@@ -24,7 +24,7 @@ napi_value map__get(napi_env env, napi_callback_info info) {
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     gptype_t value_type;
-    gc_rt_slot_t value = gmap__get(map, key, key_type, &value_type);
+    gc_rt_slot_t value = gc_rt_map__get(map, key, key_type, &value_type);
 
     return to_js_object(env, (ggraph_t *) map->header.type->graph, value, value_type);
 }
@@ -47,7 +47,7 @@ napi_value map__get(napi_env env, napi_callback_info info) {
 //   gptype_t key_type;
 //   from_js_object(env, argv[1], map->header.type->graph, &key, &key_type);
 
-//   // gmap__mget()
+//   // gc_rt_map__mget()
 
 //   return NULL;
 // }
@@ -58,7 +58,7 @@ napi_value map__set(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {
@@ -74,7 +74,7 @@ napi_value map__set(napi_env env, napi_callback_info info) {
     gptype_t value_type;
     from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
-    gmap__set(map, key, key_type, value, value_type);
+    gc_rt_map__set(map, key, key_type, value, value_type);
 
     return NULL;
 }
@@ -85,7 +85,7 @@ napi_value map__put(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {
@@ -101,7 +101,7 @@ napi_value map__put(napi_env env, napi_callback_info info) {
     gptype_t value_type;
     from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
-    gmap__put(map, key, key_type, value, value_type);
+    gc_rt_map__put(map, key, key_type, value, value_type);
 
     return NULL;
 }
@@ -112,7 +112,7 @@ napi_value map__remove(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {
@@ -125,7 +125,7 @@ napi_value map__remove(napi_env env, napi_callback_info info) {
     from_js_object(env, argv[1], (ggraph_t *) map->header.type->graph, &key, &key_type);
 
     napi_value result;
-    NAPI_CALL(env, napi_get_boolean(env, gmap__remove(map, key, key_type), &result));
+    NAPI_CALL(env, napi_get_boolean(env, gc_rt_map__remove(map, key, key_type), &result));
 
     return result;
 }
@@ -139,7 +139,7 @@ napi_value map__foreach(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, &recv, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {
@@ -155,7 +155,7 @@ napi_value map__foreach(napi_env env, napi_callback_info info) {
         gptype_t key_type, value_type;
         uint32_t found = 0;
         for (uint32_t i = 0; i < map->capacity; i++) {
-            bool has_value = gmap__get_at(map, i, &key, &key_type, &value, &value_type);
+            bool has_value = gc_rt_map__get_at(map, i, &key, &key_type, &value, &value_type);
             if (has_value) {
                 napi_value params[2] = {
                   to_js_object(env, graph, key, key_type),
@@ -180,7 +180,7 @@ napi_value map__size(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gmap_t *map;
+    gc_rt_map_t *map;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &map));
 
     if (map == NULL) {

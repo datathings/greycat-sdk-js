@@ -1,7 +1,7 @@
 #include <greycat/ggraph.h>
 #include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
-#include <greycat/runtime/struct/gmap.h>
+#include <greycat/runtime/map.h>
 
 #include "common.h"
 

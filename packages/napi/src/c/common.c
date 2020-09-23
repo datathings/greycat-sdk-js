@@ -33,7 +33,7 @@ static const int64_t JS_MAX_INT = 9007199254740991;
 int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_value);
 static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj);
 static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr);
-static void populate_gmap(napi_env env, napi_value map, gmap_t *gmap);
+static void populate_gmap(napi_env env, napi_value map, gc_rt_map_t *gmap);
 
 bool validate_constructors_refs(napi_env env) {
     if (gobject_constructor_ref == NULL) {
@@ -336,7 +336,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, global, "Map", &map_ctr));
         NAPI_CALL_RETURN_VOID(env, napi_instanceof(env, value, map_ctr, &is_map));
         if (is_map) {
-            gmap_t *map = ggraph__create_map(graph);
+            gc_rt_map_t *map = ggraph__create_map(graph);
             populate_gmap(env, value, map);
             data->object = (gobject_t *) map;
             return;
@@ -496,7 +496,7 @@ static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
 static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
     size_t argc[2];
     napi_value argv[2];
-    gmap_t *gmap;
+    gc_rt_map_t *gmap;
     NAPI_CALL(env, napi_get_cb_info(env, info, argc, argv, NULL, (void **) &gmap));
 
     ggraph_t *graph = (ggraph_t *) gmap->header.type->graph;
@@ -509,7 +509,7 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
     gptype_t value_type;
     from_js_object(env, argv[1], graph, &value, &value_type);
 
-    gmap__set(gmap, key, key_type, value, value_type);
+    gc_rt_map__set(gmap, key, key_type, value, value_type);
     if (value_type == gc_sbi_slot_type_object) {
         gobject__un_mark(value.object);
     }
@@ -517,7 +517,7 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
     return NULL;
 }
 
-static void populate_gmap(napi_env env, napi_value map, gmap_t *gmap) {
+static void populate_gmap(napi_env env, napi_value map, gc_rt_map_t *gmap) {
     napi_value map_size_fn, map_foreach_fn;
     NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, map, "size", &map_size_fn));
     NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, map, "forEach", &map_foreach_fn));

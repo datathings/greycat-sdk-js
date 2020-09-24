@@ -9,16 +9,16 @@
 
 #include <greycat/function/gctx.h>
 #include <greycat/ggraph.h>
-#include <greycat/runtime/gobject.h>
+#include <greycat/rt/object.h>
 
 void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
     napi_env env = (napi_env) ctx->ext.env;
     if (env != NULL) {
         ggraph_t *graph = (ggraph_t *) ctx->header.type->graph;
 
-        gstring_t *g_stack = ggraph__create_string(graph);
+        gc_rt_string_t *g_stack = ggraph__create_string(graph);
         gc_rt_error__stack_to_string(err, g_stack);
-        gstring__close(g_stack);
+        gc_rt_string__close(g_stack);
 
 
         napi_value reason;
@@ -28,7 +28,7 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
         NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, g_stack->buffer, g_stack->size, &stack));
 
         // release gstring_t stacktrace
-        gobject__un_mark((gobject_t *) g_stack);
+        gc_rt_object__un_mark((gobject_t *) g_stack);
 
         napi_value error_ctr;
         NAPI_CALL_RETURN_VOID(env, napi_get_reference_value(env, gerror_constructor_ref, &error_ctr));
@@ -45,7 +45,7 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
         NAPI_CALL_RETURN_VOID(env, napi_call_function(env, js_ctx, js_ctx_onerror, 1, &error, NULL));
     }
     // release gctx error
-    gobject__un_mark((gobject_t *) ctx->error);
+    gc_rt_object__un_mark((gobject_t *) ctx->error);
     ctx->error = NULL;
 }
 
@@ -95,7 +95,7 @@ napi_value context__set_key(napi_env env, napi_callback_info info) {
     gctx__declare_slot(ctx, key, slot, type);
 
     if (type == gc_sbi_slot_type_object) {
-        gobject__un_mark(slot.object);
+        gc_rt_object__un_mark(slot.object);
     }
 
     return NULL;
@@ -121,7 +121,7 @@ napi_value context__set_result(napi_env env, napi_callback_info info) {
     gctx__set_result(ctx, slot, type);
 
     if (type == gc_sbi_slot_type_object) {
-        gobject__un_mark(slot.object);
+        gc_rt_object__un_mark(slot.object);
     }
 
     return NULL;

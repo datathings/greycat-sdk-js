@@ -7,7 +7,7 @@
 #include <greycat/language/gcl_parser.h>
 #include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
-#include <greycat/runtime/gstring.h>
+#include <greycat/rt/string.h>
 
 #include "common.h"
 

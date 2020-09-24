@@ -6,11 +6,11 @@
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/ggraph.h>
 #include <greycat/language/gcl_parser.h>
-#include <greycat/runtime/array.h>
+#include <greycat/rt/array.h>
 
 #include "common.h"
 
-static gstring_t *gcl_napi_resolver(ggraph_t *graph, gstring_t *target, gstring_t *current) {
+static gc_rt_string_t *gcl_napi_resolver(ggraph_t *graph, gc_rt_string_t *target, gc_rt_string_t *current) {
     if (gresolver_ref == NULL) {
         return gcl_default_resolver(graph, target, current);
     }
@@ -46,9 +46,9 @@ static gstring_t *gcl_napi_resolver(ggraph_t *graph, gstring_t *target, gstring_
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, NULL, 0, &len));
         char buf[len + 1];
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, buf, len, &len));
-        gstring_t *content = ggraph__create_string(graph);
-        gstring__add_raw_string_ln(content, buf, len);
-        gstring__close(content);
+        gc_rt_string_t *content = ggraph__create_string(graph);
+        gc_rt_string__add_raw_string_ln(content, buf, len);
+        gc_rt_string__close(content);
         return content;
     }
 
@@ -188,7 +188,7 @@ napi_value function__execute(napi_env env, napi_callback_info info) {
     gfunction__add_call_function_direct(wrapped_fn, func, src);
     gfunction__add_external(wrapped_fn, callback_ref, IS_EXTERNAL_FUNC, src);
     gfunction__execute(wrapped_fn, ctx);
-    gobject__un_mark((gobject_t *) wrapped_fn);
+    gc_rt_object__un_mark((gobject_t *) wrapped_fn);
     return NULL;
 }
 
@@ -280,7 +280,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
 
     gfunction__add_check_mparam(func, p_name, p_types, (gfunction_op_src_t){.line = 0, .offset = 0}, is_optional);
 
-    gobject__un_mark((gobject_t *) p_types);
+    gc_rt_object__un_mark((gobject_t *) p_types);
 
     return NULL;
 }

@@ -24,7 +24,7 @@ napi_value array__add_element(napi_env env, napi_callback_info info) {
   gc_rt_array__add_slot(arr, slot, slot_type);
 
   if (slot_type == gc_sbi_slot_type_object) {
-    gobject__un_mark(slot.object);
+      gc_rt_object__un_mark(slot.object);
   }
 
   return NULL;
@@ -97,7 +97,7 @@ napi_value array__set_element(napi_env env, napi_callback_info info) {
   gc_rt_array__set_slot(arr, offset, slot, slot_type);
 
   if (slot_type == gc_sbi_slot_type_object) {
-    gobject__un_mark(slot.object);
+      gc_rt_object__un_mark(slot.object);
   }
 
   return NULL;

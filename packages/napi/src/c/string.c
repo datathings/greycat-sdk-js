@@ -1,6 +1,6 @@
 #include <node_api.h>
 
-#include <greycat/runtime/gstring.h>
+#include <greycat/rt/string.h>
 
 #include "common.h"
 
@@ -10,7 +10,7 @@ napi_value string__close(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gstring_t *str;
+    gc_rt_string_t *str;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &str));
 
     if (str == NULL) {
@@ -18,7 +18,7 @@ napi_value string__close(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gstring__close(str);
+    gc_rt_string__close(str);
 
     return NULL;
 }
@@ -29,7 +29,7 @@ napi_value string__reset(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gstring_t *str;
+    gc_rt_string_t *str;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &str));
 
     if (str == NULL) {
@@ -37,7 +37,7 @@ napi_value string__reset(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gstring__reset(str);
+    gc_rt_string__reset(str);
 
     return NULL;
 }
@@ -48,7 +48,7 @@ napi_value string__value(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gstring_t *str;
+    gc_rt_string_t *str;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &str));
 
     if (str == NULL) {
@@ -68,7 +68,7 @@ napi_value string__prepare(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gstring_t *str;
+    gc_rt_string_t *str;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &str));
 
     if (str == NULL) {
@@ -79,7 +79,7 @@ napi_value string__prepare(napi_env env, napi_callback_info info) {
     uint32_t needed;
     NAPI_CALL(env, napi_get_value_uint32(env, argv[1], &needed));
 
-    gstring__prepare(str, needed);
+    gc_rt_string__prepare(str, needed);
 
     return NULL;
 }
@@ -90,7 +90,7 @@ napi_value string__size(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gstring_t *str;
+    gc_rt_string_t *str;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &str));
 
     if (str == NULL) {

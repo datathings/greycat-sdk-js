@@ -1,7 +1,7 @@
 #include <node_api.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/runtime/gstring.h>
+#include <greycat/rt/string.h>
 
 #include "common.h"
 
@@ -19,14 +19,14 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gstring_t *str = ggraph__create_string((ggraph_t *) obj->type->graph);
+    gc_rt_string_t *str = ggraph__create_string((ggraph_t *) obj->type->graph);
     obj->type->to_json(obj, (gobject_t*)str, false);
-    gstring__close(str);
+    gc_rt_string__close(str);
 
     napi_value value;
     NAPI_CALL(env, napi_create_string_utf8(env, str->buffer, str->size, &value));
 
-    gobject__un_mark((gobject_t *) str);
+    gc_rt_object__un_mark((gobject_t *) str);
 
     return value;
 }
@@ -41,7 +41,7 @@ napi_value object__un_mark(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_remove_wrap(env, argv[0], (void **) &obj));
     // printf("unmark & remove wrap: %p\n", obj);
 
-    gobject__un_mark(obj);
+    gc_rt_object__un_mark(obj);
 
     return NULL;
 }
@@ -64,7 +64,7 @@ napi_value object__get_key(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &key));
 
     gptype_t result_type;
-    gc_rt_slot_t result = gobject__get_slot(obj, key, &result_type);
+    gc_rt_slot_t result = gc_rt_object__get_slot(obj, key, &result_type);
 
     return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
@@ -87,7 +87,7 @@ napi_value object__get_element(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &offset));
 
     gptype_t result_type;
-    gc_rt_slot_t result = gobject__get_slot_at(obj, offset, NULL, &result_type);
+    gc_rt_slot_t result = gc_rt_object__get_slot_at(obj, offset, NULL, &result_type);
 
     return to_js_object(env, (ggraph_t *) obj->type->graph, result, result_type);
 }
@@ -124,10 +124,10 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
     gc_rt_slot_t slot;
     gptype_t type;
     from_js_object(env, argv[2], (ggraph_t *) obj->type->graph, &slot, &type);
-    gobject__set_slot(obj, key, slot, type);
+    gc_rt_object__set_slot(obj, key, slot, type);
 
     if (type == gc_sbi_slot_type_object) {
-        gobject__un_mark(slot.object);
+        gc_rt_object__un_mark(slot.object);
     }
 
     return NULL;

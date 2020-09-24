@@ -1,7 +1,7 @@
 #include <greycat/common/gcommon.h>
 #include <greycat/ggraph.h>
-#include <greycat/runtime/gstring.h>
-#include <greycat/runtime/gtype.h>
+#include <greycat/rt/gtype.h>
+#include <greycat/rt/string.h>
 
 ggraph_t *object__graph(gobject_t *self) { return self->type->graph; }
 

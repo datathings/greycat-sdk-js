@@ -9,8 +9,8 @@
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/ggraph.h>
 #include <greycat/log.h>
-#include <greycat/runtime/array.h>
-#include <greycat/runtime/gstring.h>
+#include <greycat/rt/array.h>
+#include <greycat/rt/string.h>
 
 #include "common.h"
 
@@ -165,7 +165,7 @@ napi_value to_js_object(napi_env env, ggraph_t *graph, gc_rt_slot_t data, gptype
     case gc_sbi_slot_type_object: {
         switch (data.object->type->key) {
         case g_String: {
-            gstring_t *str = (gstring_t *) data.object;
+            gc_rt_string_t *str = (gc_rt_string_t *) data.object;
             NAPI_CALL(env, napi_create_string_utf8(env, str->buffer, str->size, &value));
             break;
         }
@@ -279,11 +279,11 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         *data_type = gc_sbi_slot_type_object;
         size_t str_len;
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-        gstring_t *g_str = ggraph__create_string(graph);
-        gstring__prepare(g_str, str_len + 1);
+        gc_rt_string_t *g_str = ggraph__create_string(graph);
+        gc_rt_string__prepare(g_str, str_len + 1);
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
         g_str->size += str_len;
-        gstring__close(g_str);
+        gc_rt_string__close(g_str);
         data->object = (gobject_t *) g_str;
         return;
     }
@@ -314,7 +314,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
             // calling code of 'from_js_object' is expected to un_mark objects
             // in the case of a GArray, GObject, GMap, GFunction, it means that JS is using the object
             // so we have to increase marks in order to prevent the next unmark to release it
-            gobject__mark(data->object);
+            gc_rt_object__mark(data->object);
             break;
         }
 
@@ -351,11 +351,11 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
             *data_type = gc_sbi_slot_type_object;
             size_t str_len;
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-            gstring_t *g_str = ggraph__create_string(graph);
-            gstring__prepare(g_str, str_len + 1);
+            gc_rt_string_t *g_str = ggraph__create_string(graph);
+            gc_rt_string__prepare(g_str, str_len + 1);
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
             g_str->size += str_len;
-            gstring__close(g_str);
+            gc_rt_string__close(g_str);
             data->object = (gobject_t *) g_str;
             return;
         }
@@ -384,20 +384,20 @@ int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_val
         napi_throw_error(env, NULL, "Unable to read js string length");
         return 0;
     }
-    gstring_t *g_str = ggraph__create_string(graph);
-    gstring__prepare(g_str, str_len + 1);
+    gc_rt_string_t *g_str = ggraph__create_string(graph);
+    gc_rt_string__prepare(g_str, str_len + 1);
     status = napi_get_value_string_utf8(env, str_value, g_str->buffer, str_len + 1, &str_len);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, "Unable to read js string content");
         return 0;
     }
     g_str->size += str_len;
-    gstring__close(g_str);
+    gc_rt_string__close(g_str);
     int32_t key = hash(g_str->buffer);
     if (graph->useMeta && !ggraph__is_meta(graph, key)) {
         ggraph__declare_meta(graph, key, g_str->buffer);
     }
-    gobject__un_mark((gobject_t *) g_str);
+    gc_rt_object__un_mark((gobject_t *) g_str);
     return key;
 }
 
@@ -451,7 +451,7 @@ static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr) {
         from_js_object(env, elem, graph, &value, &value_type);
         gc_rt_array__set_slot(garr, i, value, value_type);
         if (value_type == gc_sbi_slot_type_object) {
-            gobject__un_mark(value.object);
+            gc_rt_object__un_mark(value.object);
         }
     }
 }
@@ -486,9 +486,9 @@ static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
         NAPI_CALL_RETURN_VOID(env, napi_get_property(env, obj, js_key, &js_value));
         declare_object_key(env, js_key, gobj, &hashed_key);
         from_js_object(env, js_value, graph, &value, &value_type);
-        gobject__set_slot(gobj, hashed_key, value, value_type);
+        gc_rt_object__set_slot(gobj, hashed_key, value, value_type);
         if (value_type == gc_sbi_slot_type_object) {
-            gobject__un_mark(value.object);
+            gc_rt_object__un_mark(value.object);
         }
     }
 }
@@ -511,7 +511,7 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
 
     gc_rt_map__set(gmap, key, key_type, value, value_type);
     if (value_type == gc_sbi_slot_type_object) {
-        gobject__un_mark(value.object);
+        gc_rt_object__un_mark(value.object);
     }
 
     return NULL;

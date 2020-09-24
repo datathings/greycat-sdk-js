@@ -1,7 +1,7 @@
 #include <node_api.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/runtime/gtype.h>
+#include <greycat/rt/gtype.h>
 
 #include "common.h"
 
@@ -69,7 +69,7 @@ napi_value type__name(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, "Unwrapped type is null (type__name)");
         return NULL;
     }
-    gstring_t *type_name = ggraph__meta((ggraph_t *) type->graph, type->key);
+    gc_rt_string_t *type_name = ggraph__meta((ggraph_t *) type->graph, type->key);
     if (type_name == NULL) {
         return NULL;
     }
@@ -248,7 +248,7 @@ napi_value type__declare_static_attribute(napi_env env, napi_callback_info info)
     gtype__declare_static(type, key, slot, slot_type);
 
     if (slot_type == gc_sbi_slot_type_object) {
-        gobject__un_mark(slot.object);
+        gc_rt_object__un_mark(slot.object);
     }
 
     return NULL;

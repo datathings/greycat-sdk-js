@@ -1,7 +1,7 @@
 #include <node_api.h>
 
 #include <greycat/ggraph.h>
-#include <greycat/runtime/map.h>
+#include <greycat/rt/map.h>
 
 #include "common.h"
 

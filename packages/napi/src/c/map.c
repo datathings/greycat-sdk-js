@@ -101,7 +101,7 @@ napi_value map__put(napi_env env, napi_callback_info info) {
     gptype_t value_type;
     from_js_object(env, argv[2], (ggraph_t *) map->header.type->graph, &value, &value_type);
 
-    gc_rt_map__put(map, key, key_type, value, value_type);
+    gc_rt_map__set(map, key, key_type, value, value_type);
 
     return NULL;
 }

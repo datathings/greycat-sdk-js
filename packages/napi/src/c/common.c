@@ -263,7 +263,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         }
 
         // int32
-        if (number >= INT_MIN && number <= INT_MAX) {
+        if (number >= INT32_MIN && number <= INT32_MAX) {
             *data_type = gc_sbi_slot_type_i32;
             data->i32 = (int32_t) number;
             return;

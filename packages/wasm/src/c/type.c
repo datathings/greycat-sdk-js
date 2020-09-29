@@ -3,8 +3,8 @@
 #include <greycat/common/gcommon.h>
 #include <greycat/ggraph.h>
 #include <greycat/log.h>
-#include <greycat/rt/gtype.h>
 #include <greycat/rt/string.h>
+#include <greycat/rt/type.h>
 
 #include "common.h"
 

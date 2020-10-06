@@ -90,7 +90,7 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     int64_t bufferSize;
     NAPI_CALL(env, napi_get_value_int64(env, argv[2], &bufferSize));
 
-    ggraph_t *ggraph = ggraph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
+    ggraph_t *ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
     napi_ref js_graph_ref;
     NAPI_CALL(env, napi_wrap(env, argv[0], ggraph, NULL, NULL, NULL));
     NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &js_graph_ref));
@@ -120,7 +120,7 @@ napi_value graph__declare_meta(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_string_utf8(env, argv[1], str, str_len + 1, &str_len));
 
     int32_t key = hash(str);
-    ggraph__declare_meta(graph, key, str);
+    gc_graph__declare_meta(graph, key, str);
 
     napi_value key_value;
     NAPI_CALL(env, napi_create_int32(env, key, &key_value));
@@ -146,7 +146,7 @@ napi_value graph__is_meta(napi_env env, napi_callback_info info) {
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &key));
 
     napi_value isMeta;
-    NAPI_CALL(env, napi_get_boolean(env, ggraph__is_meta(graph, key), &isMeta));
+    NAPI_CALL(env, napi_get_boolean(env, gc_graph__is_meta(graph, key), &isMeta));
 
     return isMeta;
 }
@@ -165,7 +165,7 @@ napi_value graph__destroy(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    ggraph__destroy(graph);
+    gc_graph__destroy(graph);
 
     return NULL;
 }

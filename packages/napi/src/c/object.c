@@ -19,7 +19,7 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gc_rt_string_t *str = ggraph__create_string((ggraph_t *) obj->type->graph);
+    gc_rt_string_t *str = gc_graph__create_string((ggraph_t *) obj->type->graph);
     obj->type->to_json(obj, (gobject_t*)str, false);
     gc_rt_string__close(str);
 
@@ -117,8 +117,8 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
 
     ggraph_t *graph = (ggraph_t *) obj->type->graph;
     int32_t key = hash(name);
-    if (!ggraph__is_meta(graph, key)) {
-        ggraph__declare_meta(graph, key, name);
+    if (!gc_graph__is_meta(graph, key)) {
+        gc_graph__declare_meta(graph, key, name);
     }
 
     gc_rt_slot_t slot;

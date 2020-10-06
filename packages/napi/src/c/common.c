@@ -279,7 +279,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         *data_type = gc_sbi_slot_type_object;
         size_t str_len;
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-        gc_rt_string_t *g_str = ggraph__create_string(graph);
+        gc_rt_string_t *g_str = gc_graph__create_string(graph);
         gc_rt_string__prepare(g_str, str_len + 1);
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
         g_str->size += str_len;
@@ -322,7 +322,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         bool is_array;
         NAPI_CALL_RETURN_VOID(env, napi_is_array(env, value, &is_array));
         if (is_array) {
-            gc_rt_array_t *arr = ggraph__create_array(graph);
+            gc_rt_array_t *arr = gc_graph__create_array(graph);
             populate_garray(env, value, arr);
             data->object = (gobject_t *) arr;
             return;
@@ -336,7 +336,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
         NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, global, "Map", &map_ctr));
         NAPI_CALL_RETURN_VOID(env, napi_instanceof(env, value, map_ctr, &is_map));
         if (is_map) {
-            gc_rt_map_t *map = ggraph__create_map(graph);
+            gc_rt_map_t *map = gc_graph__create_map(graph);
             populate_gmap(env, value, map);
             data->object = (gobject_t *) map;
             return;
@@ -351,7 +351,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
             *data_type = gc_sbi_slot_type_object;
             size_t str_len;
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-            gc_rt_string_t *g_str = ggraph__create_string(graph);
+            gc_rt_string_t *g_str = gc_graph__create_string(graph);
             gc_rt_string__prepare(g_str, str_len + 1);
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
             g_str->size += str_len;
@@ -362,7 +362,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
 
         // falls back to instance of Object
         // TODO update this to handle user-defined types
-        gobject_t *obj = ggraph__create_open_object(graph);
+        gobject_t *obj = gc_graph__create_open_object(graph);
         populate_gobject(env, value, obj);
         data->object = obj;
         return;
@@ -384,7 +384,7 @@ int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_val
         napi_throw_error(env, NULL, "Unable to read js string length");
         return 0;
     }
-    gc_rt_string_t *g_str = ggraph__create_string(graph);
+    gc_rt_string_t *g_str = gc_graph__create_string(graph);
     gc_rt_string__prepare(g_str, str_len + 1);
     status = napi_get_value_string_utf8(env, str_value, g_str->buffer, str_len + 1, &str_len);
     if (status != napi_ok) {
@@ -394,15 +394,15 @@ int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_val
     g_str->size += str_len;
     gc_rt_string__close(g_str);
     int32_t key = hash(g_str->buffer);
-    if (graph->useMeta && !ggraph__is_meta(graph, key)) {
-        ggraph__declare_meta(graph, key, g_str->buffer);
+    if (graph->useMeta && !gc_graph__is_meta(graph, key)) {
+        gc_graph__declare_meta(graph, key, g_str->buffer);
     }
     gc_rt_object__un_mark((gobject_t *) g_str);
     return key;
 }
 
 napi_value greycat__create_context(napi_env env, ggraph_t *graph) {
-    gctx_t *ctx = ggraph__create_context(graph);
+    gctx_t *ctx = gc_graph__create_context(graph);
 
     napi_value gcontext_constructor;
     napi_value js_ctx;
@@ -420,7 +420,7 @@ napi_value greycat__create_context(napi_env env, ggraph_t *graph) {
 }
 
 napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t **result) {
-    gfunction_t *g_fn = ggraph__create_function(graph);
+    gfunction_t *g_fn = gc_graph__create_function(graph);
 
     napi_value gfunction_constructor;
     NAPI_CALL(env, napi_get_reference_value(env, gfunction_constructor_ref, &gfunction_constructor));
@@ -464,8 +464,8 @@ static void declare_object_key(napi_env env, napi_value key, gobject_t *obj, int
     *hashed_key = hash(c_key);
 
     ggraph_t *graph = (ggraph_t *) obj->type->graph;
-    if (!ggraph__is_meta(graph, *hashed_key)) {
-        ggraph__declare_meta(graph, *hashed_key, c_key);
+    if (!gc_graph__is_meta(graph, *hashed_key)) {
+        gc_graph__declare_meta(graph, *hashed_key, c_key);
     }
 }
 

@@ -46,7 +46,7 @@ static gc_rt_string_t *gcl_napi_resolver(ggraph_t *graph, gc_rt_string_t *target
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, NULL, 0, &len));
         char buf[len + 1];
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, buf, len, &len));
-        gc_rt_string_t *content = ggraph__create_string(graph);
+        gc_rt_string_t *content = gc_graph__create_string(graph);
         gc_rt_string__add_raw_string_ln(content, buf, len);
         gc_rt_string__close(content);
         return content;
@@ -184,7 +184,7 @@ napi_value function__execute(napi_env env, napi_callback_info info) {
 
     gfunction_op_src_t src = (gfunction_op_src_t){.line = 0, .offset = 0};
 
-    gfunction_t *wrapped_fn = ggraph__create_function((ggraph_t *) func->header.type->graph);
+    gfunction_t *wrapped_fn = gc_graph__create_function((ggraph_t *) func->header.type->graph);
     gfunction__add_call_function_direct(wrapped_fn, func, src);
     gfunction__add_external(wrapped_fn, callback_ref, IS_EXTERNAL_FUNC, src);
     gfunction__execute(wrapped_fn, ctx);
@@ -258,7 +258,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
     int32_t p_name;
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &p_name));
 
-    gc_rt_array_t *p_types = ggraph__create_array((ggraph_t *) func->header.type->graph);
+    gc_rt_array_t *p_types = gc_graph__create_array((ggraph_t *) func->header.type->graph);
     uint32_t types_len;
     NAPI_CALL(env, napi_get_array_length(env, argv[2], &types_len));
     gc_rt_array__resize(p_types, types_len);

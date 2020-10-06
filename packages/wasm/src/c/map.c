@@ -1,4 +1,4 @@
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
 #include <greycat/rt/map.h>

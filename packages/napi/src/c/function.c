@@ -4,13 +4,13 @@
 
 #include <greycat/function/gfunction.h>
 #include <greycat/function/gfunction_ops.h>
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/language/gcl_parser.h>
 #include <greycat/rt/array.h>
 
 #include "common.h"
 
-static gc_rt_string_t *gcl_napi_resolver(ggraph_t *graph, gc_rt_string_t *target, gc_rt_string_t *current) {
+static gc_rt_string_t *gcl_napi_resolver(gc_graph_t *graph, gc_rt_string_t *target, gc_rt_string_t *current) {
     if (gresolver_ref == NULL) {
         return gcl_default_resolver(graph, target, current);
     }
@@ -87,7 +87,7 @@ napi_value function__parse(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    bool parseRes = gcl_parse(script, uri, (ggraph_t *) func->header.type->graph, &func, gcl_napi_resolver, false);
+    bool parseRes = gcl_parse(script, uri, (gc_graph_t *) func->header.type->graph, &func, gcl_napi_resolver, false);
     if (uri != NULL) {
         g_free(uri);
     }
@@ -154,7 +154,7 @@ napi_value function__create_context(napi_env env, napi_callback_info info) {
     gfunction_t *function;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &function));
 
-    return greycat__create_context(env, (ggraph_t *) function->header.type->graph);
+    return greycat__create_context(env, (gc_graph_t *) function->header.type->graph);
 }
 
 napi_value function__execute(napi_env env, napi_callback_info info) {
@@ -184,7 +184,7 @@ napi_value function__execute(napi_env env, napi_callback_info info) {
 
     gfunction_op_src_t src = (gfunction_op_src_t){.line = 0, .offset = 0};
 
-    gfunction_t *wrapped_fn = gc_graph__create_function((ggraph_t *) func->header.type->graph);
+    gfunction_t *wrapped_fn = gc_graph__create_function((gc_graph_t *) func->header.type->graph);
     gfunction__add_call_function_direct(wrapped_fn, func, src);
     gfunction__add_external(wrapped_fn, callback_ref, IS_EXTERNAL_FUNC, src);
     gfunction__execute(wrapped_fn, ctx);
@@ -207,7 +207,7 @@ napi_value function__get_graph(napi_env env, napi_callback_info info) {
     }
 
     napi_value js_graph;
-    NAPI_CALL(env, napi_get_reference_value(env, ((ggraph_t *) func->header.type->graph)->ext.companion, &js_graph));
+    NAPI_CALL(env, napi_get_reference_value(env, ((gc_graph_t *) func->header.type->graph)->ext.companion, &js_graph));
     return js_graph;
 }
 
@@ -258,7 +258,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
     int32_t p_name;
     NAPI_CALL(env, napi_get_value_int32(env, argv[1], &p_name));
 
-    gc_rt_array_t *p_types = gc_graph__create_array((ggraph_t *) func->header.type->graph);
+    gc_rt_array_t *p_types = gc_graph__create_array((gc_graph_t *) func->header.type->graph);
     uint32_t types_len;
     NAPI_CALL(env, napi_get_array_length(env, argv[2], &types_len));
     gc_rt_array__resize(p_types, types_len);

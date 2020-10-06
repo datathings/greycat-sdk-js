@@ -1,6 +1,6 @@
 #include <node_api.h>
 
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/rt/type.h>
 
 #include "common.h"
@@ -11,7 +11,7 @@ napi_value type__wrap(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
 
     if (graph == NULL) {
@@ -69,7 +69,7 @@ napi_value type__name(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, "Unwrapped type is null (type__name)");
         return NULL;
     }
-    gc_rt_string_t *type_name = gc_graph__meta((ggraph_t *) type->graph, type->key);
+    gc_rt_string_t *type_name = gc_graph__meta((gc_graph_t *) type->graph, type->key);
     if (type_name == NULL) {
         return NULL;
     }
@@ -116,7 +116,7 @@ napi_value type__seal(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gc_graph__declare_type((ggraph_t *) type->graph, type);
+    gc_graph__declare_type((gc_graph_t *) type->graph, type);
 
     return NULL;
 }
@@ -157,7 +157,7 @@ napi_value type__declare_attribute(napi_env env, napi_callback_info info) {
     int32_t type_key;
     NAPI_CALL(env, napi_get_value_int32(env, argv[2], &type_key));
 
-    if (!gc_graph__is_meta((ggraph_t *) type->graph, type_key)) {
+    if (!gc_graph__is_meta((gc_graph_t *) type->graph, type_key)) {
         napi_throw_error(env, NULL, "Attribute type is unknown");
         return NULL;
     }
@@ -169,8 +169,8 @@ napi_value type__declare_attribute(napi_env env, napi_callback_info info) {
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!gc_graph__is_meta((ggraph_t *) type->graph, key)) {
-        gc_graph__declare_meta((ggraph_t *) type->graph, key, name);
+    if (!gc_graph__is_meta((gc_graph_t *) type->graph, key)) {
+        gc_graph__declare_meta((gc_graph_t *) type->graph, key, name);
     }
 
     gc_rt_type__declare_attribute(type, key, type_key);
@@ -199,8 +199,8 @@ napi_value type__declare_function(napi_env env, napi_callback_info info) {
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!gc_graph__is_meta((ggraph_t *) type->graph, key)) {
-        gc_graph__declare_meta((ggraph_t *) type->graph, key, name);
+    if (!gc_graph__is_meta((gc_graph_t *) type->graph, key)) {
+        gc_graph__declare_meta((gc_graph_t *) type->graph, key, name);
     }
 
     gfunction_t *func;
@@ -238,13 +238,13 @@ napi_value type__declare_static_attribute(napi_env env, napi_callback_info info)
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!gc_graph__is_meta((ggraph_t *) type->graph, key)) {
-        gc_graph__declare_meta((ggraph_t *) type->graph, key, name);
+    if (!gc_graph__is_meta((gc_graph_t *) type->graph, key)) {
+        gc_graph__declare_meta((gc_graph_t *) type->graph, key, name);
     }
 
     gc_rt_slot_t slot;
     gptype_t slot_type;
-    from_js_object(env, argv[2], (ggraph_t *) type->graph, &slot, &slot_type);
+    from_js_object(env, argv[2], (gc_graph_t *) type->graph, &slot, &slot_type);
     gc_rt_type__declare_static(type, key, slot, slot_type);
 
     if (slot_type == gc_sbi_slot_type_object) {
@@ -275,8 +275,8 @@ napi_value type__declare_static_function(napi_env env, napi_callback_info info) 
     int32_t key = hash(name);
 
     // declare attribute name as meta if not already declared
-    if (!gc_graph__is_meta((ggraph_t *) type->graph, key)) {
-        gc_graph__declare_meta((ggraph_t *) type->graph, key, name);
+    if (!gc_graph__is_meta((gc_graph_t *) type->graph, key)) {
+        gc_graph__declare_meta((gc_graph_t *) type->graph, key, name);
     }
 
     gfunction_t *func;
@@ -308,7 +308,7 @@ napi_value type__graph(napi_env env, napi_callback_info info) {
     }
 
     napi_value js_graph;
-    NAPI_CALL(env, napi_get_reference_value(env, (napi_ref) ((ggraph_t*)type->graph)->ext.companion, &js_graph));
+    NAPI_CALL(env, napi_get_reference_value(env, (napi_ref) ((gc_graph_t *)type->graph)->ext.companion, &js_graph));
 
     return js_graph;
 }

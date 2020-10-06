@@ -3,7 +3,7 @@
 
 #include <node_api.h>
 
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 
 #include "common.h"
 
@@ -90,7 +90,7 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     int64_t bufferSize;
     NAPI_CALL(env, napi_get_value_int64(env, argv[2], &bufferSize));
 
-    ggraph_t *ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
+    gc_graph_t *ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
     napi_ref js_graph_ref;
     NAPI_CALL(env, napi_wrap(env, argv[0], ggraph, NULL, NULL, NULL));
     NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &js_graph_ref));
@@ -112,7 +112,7 @@ napi_value graph__declare_meta(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
     size_t str_len;
     NAPI_CALL(env, napi_get_value_string_utf8(env, argv[1], NULL, 0, &str_len));
@@ -134,7 +134,7 @@ napi_value graph__is_meta(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
 
     if (graph == NULL) {
@@ -157,7 +157,7 @@ napi_value graph__destroy(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
 
     if (graph == NULL) {
@@ -178,7 +178,7 @@ napi_value graph__create_context(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
 
     if (graph == NULL) {
@@ -195,7 +195,7 @@ napi_value graph__create_function(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    ggraph_t *graph;
+    gc_graph_t *graph;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &graph));
 
     if (graph == NULL) {

@@ -3,7 +3,7 @@
 #include <greycat/function/gctx.h>
 #include <greycat/function/gfunction.h>
 #include <greycat/galloc.h>
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/log.h>
 #include <greycat/rt/string.h>
 

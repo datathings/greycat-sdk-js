@@ -4,7 +4,7 @@
 #include <emscripten/em_asm.h>
 
 #include <greycat/function/gctx.h>
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 
 #include "common.h"
 

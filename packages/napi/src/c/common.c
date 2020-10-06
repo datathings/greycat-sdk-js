@@ -7,7 +7,7 @@
 #include <greycat/common/gkeys.h>
 #include <greycat/function/gfunction.h>
 #include <greycat/function/gfunction_ops.h>
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/log.h>
 #include <greycat/rt/array.h>
 #include <greycat/rt/string.h>
@@ -30,7 +30,7 @@ napi_ref glogger_ref = NULL;
 
 static const int64_t JS_MAX_INT = 9007199254740991;
 
-int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_value);
+int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_value);
 static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj);
 static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr);
 static void populate_gmap(napi_env env, napi_value map, gc_rt_map_t *gmap);
@@ -99,7 +99,7 @@ bool is_instanceof_gtype(napi_env env, napi_value instance) {
     return result;
 }
 
-napi_value to_js_object(napi_env env, ggraph_t *graph, gc_rt_slot_t data, gptype_t data_type) {
+napi_value to_js_object(napi_env env, gc_graph_t *graph, gc_rt_slot_t data, gptype_t data_type) {
     napi_value value = NULL;
 
     switch (data_type) {
@@ -230,7 +230,7 @@ napi_value to_js_object(napi_env env, ggraph_t *graph, gc_rt_slot_t data, gptype
     return value;
 }
 
-void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_t *data, gptype_t *data_type) {
+void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slot_t *data, gptype_t *data_type) {
     napi_valuetype type;
     NAPI_CALL_RETURN_VOID(env, napi_typeof(env, value, &type));
 
@@ -376,7 +376,7 @@ void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_
     }
 }
 
-int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_value) {
+int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_value) {
     napi_status status;
     size_t str_len;
     status = napi_get_value_string_utf8(env, str_value, NULL, 0, &str_len);
@@ -401,7 +401,7 @@ int32_t g_key_from_napi_string(napi_env env, ggraph_t *graph, napi_value str_val
     return key;
 }
 
-napi_value greycat__create_context(napi_env env, ggraph_t *graph) {
+napi_value greycat__create_context(napi_env env, gc_graph_t *graph) {
     gctx_t *ctx = gc_graph__create_context(graph);
 
     napi_value gcontext_constructor;
@@ -419,7 +419,7 @@ napi_value greycat__create_context(napi_env env, ggraph_t *graph) {
     return js_ctx;
 }
 
-napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t **result) {
+napi_value greycat__create_function(napi_env env, gc_graph_t *graph, gfunction_t **result) {
     gfunction_t *g_fn = gc_graph__create_function(graph);
 
     napi_value gfunction_constructor;
@@ -436,7 +436,7 @@ napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t *
 }
 
 static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr) {
-    ggraph_t *graph = (ggraph_t *) garr->header.type->graph;
+    gc_graph_t *graph = (gc_graph_t *) garr->header.type->graph;
 
     uint32_t arr_length;
     NAPI_CALL_RETURN_VOID(env, napi_get_array_length(env, arr, &arr_length));
@@ -463,14 +463,14 @@ static void declare_object_key(napi_env env, napi_value key, gobject_t *obj, int
     NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, key, c_key, key_len + 1, &key_len));
     *hashed_key = hash(c_key);
 
-    ggraph_t *graph = (ggraph_t *) obj->type->graph;
+    gc_graph_t *graph = (gc_graph_t *) obj->type->graph;
     if (!gc_graph__is_meta(graph, *hashed_key)) {
         gc_graph__declare_meta(graph, *hashed_key, c_key);
     }
 }
 
 static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
-    ggraph_t *graph = (ggraph_t *) gobj->type->graph;
+    gc_graph_t *graph = (gc_graph_t *) gobj->type->graph;
 
     napi_value obj_keys;
     uint32_t obj_keys_length;
@@ -499,7 +499,7 @@ static napi_value js_map_iterator(napi_env env, napi_callback_info info) {
     gc_rt_map_t *gmap;
     NAPI_CALL(env, napi_get_cb_info(env, info, argc, argv, NULL, (void **) &gmap));
 
-    ggraph_t *graph = (ggraph_t *) gmap->header.type->graph;
+    gc_graph_t *graph = (gc_graph_t *) gmap->header.type->graph;
 
     gc_rt_slot_t key;
     gptype_t key_type;

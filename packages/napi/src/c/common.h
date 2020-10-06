@@ -4,10 +4,9 @@
 #include <stdio.h>
 #include <node_api.h>
 
-#include <greycat/ggraph.h>
-#include <greycat/function/gfunction.h>
 #include <greycat/function/gctx.h>
-#include <greycat/ggraph.h>
+#include <greycat/function/gfunction.h>
+#include <greycat/graph.h>
 
 // Empty value so that macros here are able to return NULL or void
 #define NAPI_RETVAL_NOTHING  // Intentionally blank #define
@@ -89,11 +88,11 @@ bool validate_constructors_refs(napi_env env);
 
 void context_error_handler(gctx_t *ctx, gc_rt_error_t *err);
 
-napi_value to_js_object(napi_env env, ggraph_t *graph, gc_rt_slot_t data, gptype_t data_type);
+napi_value to_js_object(napi_env env, gc_graph_t *graph, gc_rt_slot_t data, gptype_t data_type);
 
-void from_js_object(napi_env env, napi_value value, ggraph_t *graph, gc_rt_slot_t *data, gptype_t *data_type);
+void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slot_t *data, gptype_t *data_type);
 
-napi_value greycat__create_context(napi_env env, ggraph_t *graph);
+napi_value greycat__create_context(napi_env env, gc_graph_t *graph);
 
 /**
  * @param env
@@ -101,6 +100,6 @@ napi_value greycat__create_context(napi_env env, ggraph_t *graph);
  * @param g_fn if not NULL => the wrapped gfunction_t*
  * @returns a js GFunction instance
  */
-napi_value greycat__create_function(napi_env env, ggraph_t *graph, gfunction_t **g_fn);
+napi_value greycat__create_function(napi_env env, gc_graph_t *graph, gfunction_t **g_fn);
 
 #endif //greycat_napi_common_h

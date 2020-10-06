@@ -1,5 +1,5 @@
 #include <greycat/common/gcommon.h>
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/rt/string.h>
 #include <greycat/rt/type.h>
 

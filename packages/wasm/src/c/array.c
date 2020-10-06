@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <greycat/ggraph.h>
+#include <greycat/graph.h>
 #include <greycat/log.h>
 #include <greycat/rt/array.h>
 #include <greycat/rt/string.h>

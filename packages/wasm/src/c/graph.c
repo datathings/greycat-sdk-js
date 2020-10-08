@@ -4,10 +4,10 @@
 #include <emscripten/em_asm.h>
 
 #include <greycat/graph.h>
-#include <greycat/language/gcl_parser.h>
 #include <greycat/log.h>
 #include <greycat/memory/gmemory.h>
 #include <greycat/rt/string.h>
+#include <greycat/vm/parser.h>
 
 #include "common.h"
 

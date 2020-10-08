@@ -5,8 +5,8 @@
 #include <greycat/function/gfunction.h>
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/graph.h>
-#include <greycat/language/gcl_parser.h>
 #include <greycat/log.h>
+#include <greycat/vm/parser.h>
 
 #include "common.h"
 

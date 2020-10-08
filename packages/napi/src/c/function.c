@@ -5,8 +5,8 @@
 #include <greycat/function/gfunction.h>
 #include <greycat/function/gfunction_ops.h>
 #include <greycat/graph.h>
-#include <greycat/language/gcl_parser.h>
 #include <greycat/rt/array.h>
+#include <greycat/vm/parser.h>
 
 #include "common.h"
 
@@ -47,8 +47,8 @@ static gc_rt_string_t *gcl_napi_resolver(gc_graph_t *graph, gc_rt_string_t *targ
         char buf[len + 1];
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, buf, len, &len));
         gc_rt_string_t *content = gc_graph__create_string(graph);
-        gc_rt_string__add_raw_string_ln(content, buf, len);
-        gc_rt_string__close(content);
+        gc_rt_buffer__add_raw_string_ln(content, buf, len);
+        gc_rt_buffer__close(content);
         return content;
     }
 

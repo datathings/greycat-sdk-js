@@ -283,7 +283,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         gc_rt_string__prepare(g_str, str_len + 1);
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
         g_str->size += str_len;
-        gc_rt_string__close(g_str);
+        gc_rt_buffer__close(g_str);
         data->object = (gobject_t *) g_str;
         return;
     }
@@ -355,7 +355,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
             gc_rt_string__prepare(g_str, str_len + 1);
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
             g_str->size += str_len;
-            gc_rt_string__close(g_str);
+            gc_rt_buffer__close(g_str);
             data->object = (gobject_t *) g_str;
             return;
         }
@@ -392,7 +392,7 @@ int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_v
         return 0;
     }
     g_str->size += str_len;
-    gc_rt_string__close(g_str);
+    gc_rt_buffer__close(g_str);
     int32_t key = hash(g_str->buffer);
     if (graph->useMeta && !gc_graph__is_meta(graph, key)) {
         gc_graph__declare_meta(graph, key, g_str->buffer);

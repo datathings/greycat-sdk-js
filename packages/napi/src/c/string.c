@@ -18,7 +18,7 @@ napi_value string__close(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gc_rt_string__close(str);
+    gc_rt_buffer__close(str);
 
     return NULL;
 }

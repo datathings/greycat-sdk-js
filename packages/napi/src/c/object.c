@@ -21,7 +21,7 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
 
     gc_rt_string_t *str = gc_graph__create_string((gc_graph_t *) obj->type->graph);
     obj->type->to_json(obj, (gobject_t*)str, false);
-    gc_rt_string__close(str);
+    gc_rt_buffer__close(str);
 
     napi_value value;
     NAPI_CALL(env, napi_create_string_utf8(env, str->buffer, str->size, &value));

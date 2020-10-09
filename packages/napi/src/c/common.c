@@ -281,7 +281,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
         gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
         gc_rt_buffer__prepare(g_str, str_len + 1);
-        NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
+        NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->data, str_len + 1, &str_len));
         g_str->size += str_len;
         gc_rt_buffer__close(g_str);
         data->object = (gc_rt_object_t *) g_str;
@@ -353,7 +353,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
             gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
             gc_rt_buffer__prepare(g_str, str_len + 1);
-            NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
+            NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->data, str_len + 1, &str_len));
             g_str->size += str_len;
             gc_rt_buffer__close(g_str);
             data->object = (gc_rt_object_t *) g_str;
@@ -386,16 +386,16 @@ int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_v
     }
     gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
     gc_rt_buffer__prepare(g_str, str_len + 1);
-    status = napi_get_value_string_utf8(env, str_value, g_str->buffer, str_len + 1, &str_len);
+    status = napi_get_value_string_utf8(env, str_value, g_str->data, str_len + 1, &str_len);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, "Unable to read js string content");
         return 0;
     }
     g_str->size += str_len;
     gc_rt_buffer__close(g_str);
-    int32_t key = hash(g_str->buffer);
+    int32_t key = hash(g_str->data);
     if (graph->useMeta && !gc_graph__is_meta(graph, key)) {
-        gc_graph__declare_meta(graph, key, g_str->buffer);
+        gc_graph__declare_meta(graph, key, g_str->data);
     }
     gc_rt_object__un_mark((gc_rt_object_t *) g_str);
     return key;

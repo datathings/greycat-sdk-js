@@ -21,10 +21,10 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
         gc_rt_buffer__close(g_stack);
 
         napi_value reason;
-        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, err->msg == NULL ? "" : err->msg->buffer, err->msg == NULL ? 0 : err->msg->size, &reason));
+        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, err->msg == NULL ? "" : err->msg->data, err->msg == NULL ? 0 : err->msg->size, &reason));
 
         napi_value stack;
-        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, g_stack->buffer, g_stack->size, &stack));
+        NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, g_stack->data, g_stack->size, &stack));
 
         // release gstring_t stacktrace
         gc_rt_object__un_mark((gc_rt_object_t *) g_stack);

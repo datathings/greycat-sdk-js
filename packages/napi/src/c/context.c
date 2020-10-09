@@ -16,10 +16,9 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
     if (env != NULL) {
         gc_graph_t *graph = (gc_graph_t *) ctx->header.type->graph;
 
-        gc_rt_string_t *g_stack = gc_graph__create_string(graph);
+        gc_rt_buffer_t *g_stack = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
         gc_rt_error__stack_to_string(err, g_stack);
         gc_rt_buffer__close(g_stack);
-
 
         napi_value reason;
         NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, err->msg == NULL ? "" : err->msg->buffer, err->msg == NULL ? 0 : err->msg->size, &reason));
@@ -28,7 +27,7 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
         NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, g_stack->buffer, g_stack->size, &stack));
 
         // release gstring_t stacktrace
-        gc_rt_object__un_mark((gobject_t *) g_stack);
+        gc_rt_object__un_mark((gc_rt_object_t *) g_stack);
 
         napi_value error_ctr;
         NAPI_CALL_RETURN_VOID(env, napi_get_reference_value(env, gerror_constructor_ref, &error_ctr));
@@ -45,7 +44,7 @@ void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
         NAPI_CALL_RETURN_VOID(env, napi_call_function(env, js_ctx, js_ctx_onerror, 1, &error, NULL));
     }
     // release gctx error
-    gc_rt_object__un_mark((gobject_t *) ctx->error);
+    gc_rt_object__un_mark((gc_rt_object_t *) ctx->error);
     ctx->error = NULL;
 }
 

@@ -10,7 +10,7 @@
 
 #include "common.h"
 
-static gc_rt_string_t *gcl_napi_resolver(gc_graph_t *graph, gc_rt_string_t *target, gc_rt_string_t *current) {
+static gc_rt_buffer_t *gcl_napi_resolver(gc_graph_t *graph, gc_rt_string_t *target, gc_rt_string_t *current) {
     if (gresolver_ref == NULL) {
         return gcl_default_resolver(graph, target, current);
     }
@@ -46,7 +46,7 @@ static gc_rt_string_t *gcl_napi_resolver(gc_graph_t *graph, gc_rt_string_t *targ
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, NULL, 0, &len));
         char buf[len + 1];
         NAPI_CALL(env, napi_get_value_string_utf8(env, content_str, buf, len, &len));
-        gc_rt_string_t *content = gc_graph__create_string(graph);
+        gc_rt_buffer_t *content = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
         gc_rt_buffer__add_raw_string_ln(content, buf, len);
         gc_rt_buffer__close(content);
         return content;
@@ -188,7 +188,7 @@ napi_value function__execute(napi_env env, napi_callback_info info) {
     gfunction__add_call_function_direct(wrapped_fn, func, src);
     gfunction__add_external(wrapped_fn, callback_ref, IS_EXTERNAL_FUNC, src);
     gfunction__execute(wrapped_fn, ctx);
-    gc_rt_object__un_mark((gobject_t *) wrapped_fn);
+    gc_rt_object__un_mark((gc_rt_object_t *) wrapped_fn);
     return NULL;
 }
 
@@ -280,7 +280,7 @@ napi_value function__add_mparam(napi_env env, napi_callback_info info) {
 
     gfunction__add_check_mparam(func, p_name, p_types, (gfunction_op_src_t){.line = 0, .offset = 0}, is_optional);
 
-    gc_rt_object__un_mark((gobject_t *) p_types);
+    gc_rt_object__un_mark((gc_rt_object_t *) p_types);
 
     return NULL;
 }

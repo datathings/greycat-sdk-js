@@ -11,7 +11,7 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gobject_t *obj;
+    gc_rt_object_t *obj;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &obj));
 
     if (obj == NULL) {
@@ -19,14 +19,14 @@ napi_value object__to_json(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gc_rt_string_t *str = gc_graph__create_string((gc_graph_t *) obj->type->graph);
-    obj->type->to_json(obj, (gobject_t*)str, false);
+    gc_rt_buffer_t *str = (gc_rt_buffer_t *) gc_graph__create_object((gc_graph_t *) obj->type->graph, g_Buffer);
+    obj->type->to_json(obj, (gc_rt_object_t *)str, false);
     gc_rt_buffer__close(str);
 
     napi_value value;
     NAPI_CALL(env, napi_create_string_utf8(env, str->buffer, str->size, &value));
 
-    gc_rt_object__un_mark((gobject_t *) str);
+    gc_rt_object__un_mark((gc_rt_object_t *) str);
 
     return value;
 }
@@ -37,7 +37,7 @@ napi_value object__un_mark(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gobject_t *obj;
+    gc_rt_object_t *obj;
     NAPI_CALL(env, napi_remove_wrap(env, argv[0], (void **) &obj));
     // printf("unmark & remove wrap: %p\n", obj);
 
@@ -52,7 +52,7 @@ napi_value object__get_key(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gobject_t *obj;
+    gc_rt_object_t *obj;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &obj));
 
     if (obj == NULL) {
@@ -75,7 +75,7 @@ napi_value object__get_element(napi_env env, napi_callback_info info) {
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-    gobject_t *obj;
+    gc_rt_object_t *obj;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &obj));
 
     if (obj == NULL) {
@@ -102,7 +102,7 @@ napi_value object__set_key(napi_env env, napi_callback_info info) {
         return NULL;
     }
 
-    gobject_t *obj;
+    gc_rt_object_t *obj;
     NAPI_CALL(env, napi_unwrap(env, argv[0], (void **) &obj));
 
     if (obj == NULL) {

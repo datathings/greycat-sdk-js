@@ -31,7 +31,7 @@ napi_ref glogger_ref = NULL;
 static const int64_t JS_MAX_INT = 9007199254740991;
 
 int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_value);
-static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj);
+static void populate_gobject(napi_env env, napi_value obj, gc_rt_object_t *gobj);
 static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr);
 static void populate_gmap(napi_env env, napi_value map, gc_rt_map_t *gmap);
 
@@ -279,12 +279,12 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         *data_type = gc_sbi_slot_type_object;
         size_t str_len;
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-        gc_rt_string_t *g_str = gc_graph__create_string(graph);
-        gc_rt_string__prepare(g_str, str_len + 1);
+        gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
+        gc_rt_buffer__prepare(g_str, str_len + 1);
         NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
         g_str->size += str_len;
         gc_rt_buffer__close(g_str);
-        data->object = (gobject_t *) g_str;
+        data->object = (gc_rt_object_t *) g_str;
         return;
     }
 
@@ -301,7 +301,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         napi_ref body_ref;
         NAPI_CALL_RETURN_VOID(env, napi_create_reference(env, value, 1, &body_ref));
         gfunction__add_external(fn, body_ref, IS_EXTERNAL_FUNC, (gfunction_op_src_t){.line = 0, .offset = 0});
-        data->object = (gobject_t *) fn;
+        data->object = (gc_rt_object_t *) fn;
         return;
     }
 
@@ -324,7 +324,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         if (is_array) {
             gc_rt_array_t *arr = gc_graph__create_array(graph);
             populate_garray(env, value, arr);
-            data->object = (gobject_t *) arr;
+            data->object = (gc_rt_object_t *) arr;
             return;
         }
 
@@ -338,7 +338,7 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
         if (is_map) {
             gc_rt_map_t *map = gc_graph__create_map(graph);
             populate_gmap(env, value, map);
-            data->object = (gobject_t *) map;
+            data->object = (gc_rt_object_t *) map;
             return;
         }
 
@@ -351,18 +351,18 @@ void from_js_object(napi_env env, napi_value value, gc_graph_t *graph, gc_rt_slo
             *data_type = gc_sbi_slot_type_object;
             size_t str_len;
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, NULL, 0, &str_len));
-            gc_rt_string_t *g_str = gc_graph__create_string(graph);
-            gc_rt_string__prepare(g_str, str_len + 1);
+            gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
+            gc_rt_buffer__prepare(g_str, str_len + 1);
             NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, value, g_str->buffer, str_len + 1, &str_len));
             g_str->size += str_len;
             gc_rt_buffer__close(g_str);
-            data->object = (gobject_t *) g_str;
+            data->object = (gc_rt_object_t *) g_str;
             return;
         }
 
         // falls back to instance of Object
         // TODO update this to handle user-defined types
-        gobject_t *obj = gc_graph__create_open_object(graph);
+        gc_rt_object_t *obj = gc_graph__create_open_object(graph);
         populate_gobject(env, value, obj);
         data->object = obj;
         return;
@@ -384,8 +384,8 @@ int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_v
         napi_throw_error(env, NULL, "Unable to read js string length");
         return 0;
     }
-    gc_rt_string_t *g_str = gc_graph__create_string(graph);
-    gc_rt_string__prepare(g_str, str_len + 1);
+    gc_rt_buffer_t *g_str = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
+    gc_rt_buffer__prepare(g_str, str_len + 1);
     status = napi_get_value_string_utf8(env, str_value, g_str->buffer, str_len + 1, &str_len);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, "Unable to read js string content");
@@ -397,7 +397,7 @@ int32_t g_key_from_napi_string(napi_env env, gc_graph_t *graph, napi_value str_v
     if (graph->useMeta && !gc_graph__is_meta(graph, key)) {
         gc_graph__declare_meta(graph, key, g_str->buffer);
     }
-    gc_rt_object__un_mark((gobject_t *) g_str);
+    gc_rt_object__un_mark((gc_rt_object_t *) g_str);
     return key;
 }
 
@@ -456,7 +456,7 @@ static void populate_garray(napi_env env, napi_value arr, gc_rt_array_t *garr) {
     }
 }
 
-static void declare_object_key(napi_env env, napi_value key, gobject_t *obj, int32_t *hashed_key) {
+static void declare_object_key(napi_env env, napi_value key, gc_rt_object_t *obj, int32_t *hashed_key) {
     size_t key_len;
     NAPI_CALL_RETURN_VOID(env, napi_get_value_string_utf8(env, key, NULL, 0, &key_len));
     char c_key[key_len + 1];
@@ -469,7 +469,7 @@ static void declare_object_key(napi_env env, napi_value key, gobject_t *obj, int
     }
 }
 
-static void populate_gobject(napi_env env, napi_value obj, gobject_t *gobj) {
+static void populate_gobject(napi_env env, napi_value obj, gc_rt_object_t *gobj) {
     gc_graph_t *graph = (gc_graph_t *) gobj->type->graph;
 
     napi_value obj_keys;

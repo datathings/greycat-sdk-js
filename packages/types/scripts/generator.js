@@ -19,7 +19,7 @@ async function generateStdTypes() {
 
 async function generateKeys() {
   const generator = path.resolve(DIST_DIR, `tools/greycat_ts_keys`);
-  const keys = path.resolve(ROOT_PROJECT_PATH, 'src/greycat/common/gkeys.txt');
+  const keys = path.resolve(ROOT_PROJECT_PATH, 'src/common/gkeys.txt');
   const dstKeys = path.resolve(PROJECT_PATH, 'src/keys.ts');
   const dstMetakeys = path.resolve(PROJECT_PATH, 'src/metakeys.ts');
   const p = spawn(generator, [keys, dstKeys, dstMetakeys], { cwd: PROJECT_PATH });

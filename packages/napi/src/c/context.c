@@ -1,6 +1,5 @@
 #define NAPI_EXPERIMENTAL
 
-
 #include <stdio.h>
 
 #include <node_api.h>
@@ -14,7 +13,7 @@
 void context_error_handler(gctx_t *ctx, gc_rt_error_t *err) {
     napi_env env = (napi_env) ctx->ext.env;
     if (env != NULL) {
-        gc_graph_t *graph = (gc_graph_t *) ctx->header.type->graph;
+        gc_graph_t *graph = (gc_graph_t *) ctx->graph;
 
         gc_rt_buffer_t *g_stack = (gc_rt_buffer_t *) gc_graph__create_object(graph, g_Buffer);
         gc_rt_error__stack_to_string(err, g_stack);
@@ -68,7 +67,7 @@ napi_value context__get_key(napi_env env, napi_callback_info info) {
     gptype_t result_type;
     gc_rt_slot_t result = gctx__get(ctx, key, &result_type);
 
-    return to_js_object(env, (gc_graph_t *) ctx->header.type->graph, result, result_type);
+    return to_js_object(env, (gc_graph_t *) ctx->graph, result, result_type);
 }
 
 napi_value context__set_key(napi_env env, napi_callback_info info) {
@@ -89,7 +88,7 @@ napi_value context__set_key(napi_env env, napi_callback_info info) {
 
     gc_rt_slot_t slot;
     gptype_t type;
-    from_js_object(env, argv[2], (gc_graph_t *) ctx->header.type->graph, &slot, &type);
+    from_js_object(env, argv[2], (gc_graph_t *) ctx->graph, &slot, &type);
 
     gctx__declare_slot(ctx, key, slot, type);
 
@@ -115,7 +114,7 @@ napi_value context__set_result(napi_env env, napi_callback_info info) {
 
     gc_rt_slot_t slot;
     gptype_t type;
-    from_js_object(env, argv[1], (gc_graph_t *) ctx->header.type->graph, &slot, &type);
+    from_js_object(env, argv[1], (gc_graph_t *) ctx->graph, &slot, &type);
 
     gctx__set_result(ctx, slot, type);
 
@@ -141,7 +140,7 @@ napi_value context__get_graph(napi_env env, napi_callback_info info) {
     }
 
     napi_value js_graph;
-    NAPI_CALL(env, napi_get_reference_value(env, ((gc_graph_t *) ctx->header.type->graph)->ext.companion, &js_graph));
+    NAPI_CALL(env, napi_get_reference_value(env, ((gc_graph_t *) ctx->graph)->ext.companion, &js_graph));
 
     return js_graph;
 }

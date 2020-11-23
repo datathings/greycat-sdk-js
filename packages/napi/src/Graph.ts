@@ -4,8 +4,8 @@ import { GType } from './GType';
 
 export class Graph implements IGraph {
 
-  constructor(cacheSize = 100000, bufferSize = 1000) {
-    addon.graph__wrap(this, cacheSize, bufferSize);
+  constructor(cacheSize = 1000 * 1024 * 1024, bufferSize = 10 * 1024 * 1024, storePath?: string) {
+    addon.graph__wrap(this, cacheSize, bufferSize, storePath);
   }
 
   declareType(name: string, isOpen?: boolean | undefined): IType {

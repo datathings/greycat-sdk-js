@@ -49,6 +49,7 @@ void greycat_ext_console_print(napi_env env, const char *format, ...) {
     napi_value js_msg;
     NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, (size_t) len, &js_msg));
     NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, print, 1, &js_msg, NULL));
+    g_free(msg);
 }
 
 void greycat_ext_console_println(napi_env env, const char *format, ...) {
@@ -74,14 +75,15 @@ void greycat_ext_console_println(napi_env env, const char *format, ...) {
     napi_value js_msg;
     NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, (size_t) len, &js_msg));
     NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, println, 1, &js_msg, NULL));
+    g_free(msg);
 }
 
 napi_value graph__wrap(napi_env env, napi_callback_info info) {
     if (!validate_constructors_refs(env)) {
         return NULL;
     }
-    size_t argc = 3;
-    napi_value argv[3];
+    size_t argc = 4;
+    napi_value argv[4];
 
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
@@ -90,7 +92,24 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     int64_t bufferSize;
     NAPI_CALL(env, napi_get_value_int64(env, argv[2], &bufferSize));
 
-    gc_graph_t *ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
+    napi_value undefined;
+    NAPI_CALL(env, napi_get_undefined(env, &undefined));
+    napi_valuetype store_path_type;
+    NAPI_CALL(env, napi_typeof(env, argv[3], &store_path_type));
+
+    gc_graph_t *ggraph;
+    if (store_path_type == napi_string) {
+        size_t store_path_len;
+        NAPI_CALL(env, napi_get_value_string_utf8(env, argv[3], NULL, (size_t) NULL, &store_path_len));
+
+        char store_path[store_path_len + 1];
+        NAPI_CALL(env, napi_get_value_string_utf8(env, argv[3], store_path, store_path_len + 1, &store_path_len));
+
+        ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, store_path);
+    } else {
+        ggraph = gc_graph__create((uint64_t) cacheSize, (uint64_t) bufferSize, true, NULL);
+    }
+
     napi_ref js_graph_ref;
     NAPI_CALL(env, napi_wrap(env, argv[0], ggraph, NULL, NULL, NULL));
     NAPI_CALL(env, napi_create_reference(env, argv[0], 1, &js_graph_ref));
@@ -102,6 +121,8 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     ggraph->ext_body = (ggraph_ext_body_t *) greycat_ext_body;
     ggraph->ext_console.print = (ggraph_ext_console_fn_t *) greycat_ext_console_print;
     ggraph->ext_console.println = (ggraph_ext_console_fn_t *) greycat_ext_console_println;
+
+    ggraph->ext_console.println(env, "Hello world %s\n", ", how are you?");
 
     return NULL;
 }

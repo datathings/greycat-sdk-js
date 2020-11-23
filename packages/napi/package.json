@@ -6,9 +6,6 @@
   "typings": "./dist/typings/index.d.ts",
   "author": "DataThings S.à.r.l",
   "license": "MIT",
-  "bin": {
-    "greycat-print-lib": "./lib/print-lib.js"
-  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn compile",

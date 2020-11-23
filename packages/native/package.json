@@ -1,7 +1,6 @@
 {
   "name": "@greycat/native",
   "version": "0.0.0",
-  "private": true,
   "description": "Greycat Native N-API Bindings",
   "main": "greycat.node",
   "typings": "greycat-native.d.ts",

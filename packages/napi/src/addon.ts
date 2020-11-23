@@ -14,7 +14,11 @@ switch (arch) {
           try { _addon = require('@greycat/native-x64-cuda-10-2'); } catch {/*noop*/}
         }
         if (!_addon) {
-          _addon = require('@greycat/native-x64-libc');
+          if (process.env.GREYCAT_MUSL === 'true') {
+            _addon = require('@greycat/native-x64-musl');
+          } else {
+            _addon = require('@greycat/native-x64-libc');
+          }
         }
         break;
 

@@ -122,8 +122,6 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     ggraph->ext_console.print = (ggraph_ext_console_fn_t *) greycat_ext_console_print;
     ggraph->ext_console.println = (ggraph_ext_console_fn_t *) greycat_ext_console_println;
 
-    ggraph->ext_console.println(env, "Hello world %s\n", ", how are you?");
-
     return NULL;
 }
 

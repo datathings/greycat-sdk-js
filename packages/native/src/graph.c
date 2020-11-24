@@ -26,20 +26,27 @@ void greycat_ext_cleaner(napi_ref ref, napi_env env, uint64_t id) {
     return;
 }
 
-void greycat_ext_console_print(napi_env env, const char *format, ...) {
+static void greycat_ext_console_format(char **dest, size_t *dest_len, const char* format, ...) {
     va_list args;
-    int len;
-    char *msg;
     /* Compute length of original message */
     va_start(args, format);
-    len = vsnprintf(NULL, 0, format, args);
+    int len = vsnprintf(NULL, 0, format, args);
     va_end(args);
     /* Allocate space for original message */
-    uint32_t msg_len = (uint32_t) len + 1;
-    msg = (char *) g_malloc((size_t) msg_len);
+    *dest_len = len + 1;
+    *dest = (char *) g_malloc(*dest_len);
     /* Write original message to string */
     va_start(args, format);
-    vsnprintf(msg, (size_t) msg_len, format, args);
+    vsnprintf(*dest, *dest_len, format, args);
+    va_end(args);
+}
+
+void greycat_ext_console_print(napi_env env, const char *format, ...) {
+    char *msg;
+    size_t msg_len = 0;
+    va_list args;
+    va_start(args, format);
+    greycat_ext_console_format(&msg, &msg_len, format, args);
     va_end(args);
 
     napi_value console;
@@ -47,25 +54,35 @@ void greycat_ext_console_print(napi_env env, const char *format, ...) {
     napi_value print;
     NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, console, "print", &print));
     napi_value js_msg;
-    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, (size_t) len, &js_msg));
+    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, msg_len, &js_msg));
+    NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, print, 1, &js_msg, NULL));
+    g_free(msg);
+}
+
+void greycat_ext_console_eprint(napi_env env, const char *format, ...) {
+    char *msg;
+    size_t msg_len = 0;
+    va_list args;
+    va_start(args, format);
+    greycat_ext_console_format(&msg, &msg_len, format, args);
+    va_end(args);
+
+    napi_value console;
+    NAPI_CALL_RETURN_VOID(env, napi_get_reference_value(env, gconsole_ref, &console));
+    napi_value print;
+    NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, console, "eprint", &print));
+    napi_value js_msg;
+    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, msg_len, &js_msg));
     NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, print, 1, &js_msg, NULL));
     g_free(msg);
 }
 
 void greycat_ext_console_println(napi_env env, const char *format, ...) {
-    va_list args;
-    int len;
     char *msg;
-    /* Compute length of original message */
+    size_t msg_len = 0;
+    va_list args;
     va_start(args, format);
-    len = vsnprintf(NULL, 0, format, args);
-    va_end(args);
-    /* Allocate space for original message */
-    uint32_t msg_len = (uint32_t) len + 1;
-    msg = (char *) g_malloc((size_t) msg_len);
-    /* Write original message to string */
-    va_start(args, format);
-    vsnprintf(msg, (size_t) msg_len, format, args);
+    greycat_ext_console_format(&msg, &msg_len, format, args);
     va_end(args);
 
     napi_value console;
@@ -73,7 +90,25 @@ void greycat_ext_console_println(napi_env env, const char *format, ...) {
     napi_value println;
     NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, console, "println", &println));
     napi_value js_msg;
-    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, (size_t) len, &js_msg));
+    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, msg_len, &js_msg));
+    NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, println, 1, &js_msg, NULL));
+    g_free(msg);
+}
+
+void greycat_ext_console_eprintln(napi_env env, const char *format, ...) {
+    char *msg;
+    size_t msg_len = 0;
+    va_list args;
+    va_start(args, format);
+    greycat_ext_console_format(&msg, &msg_len, format, args);
+    va_end(args);
+
+    napi_value console;
+    NAPI_CALL_RETURN_VOID(env, napi_get_reference_value(env, gconsole_ref, &console));
+    napi_value println;
+    NAPI_CALL_RETURN_VOID(env, napi_get_named_property(env, console, "eprintln", &println));
+    napi_value js_msg;
+    NAPI_CALL_RETURN_VOID(env, napi_create_string_utf8(env, msg, msg_len, &js_msg));
     NAPI_CALL_RETURN_VOID(env, napi_call_function(env, console, println, 1, &js_msg, NULL));
     g_free(msg);
 }
@@ -121,6 +156,8 @@ napi_value graph__wrap(napi_env env, napi_callback_info info) {
     ggraph->ext_body = (ggraph_ext_body_t *) greycat_ext_body;
     ggraph->ext_console.print = (ggraph_ext_console_fn_t *) greycat_ext_console_print;
     ggraph->ext_console.println = (ggraph_ext_console_fn_t *) greycat_ext_console_println;
+    ggraph->ext_console.eprint = (ggraph_ext_console_fn_t *) greycat_ext_console_eprint;
+    ggraph->ext_console.eprintln = (ggraph_ext_console_fn_t *) greycat_ext_console_eprintln;
 
     return NULL;
 }

@@ -51,6 +51,8 @@ export class GreycatClient implements IGreycatClient {
     private _console: IConsole = {
       print: process.stdout.write.bind(process.stdout),
       println: process.stdout.write.bind(process.stdout),
+      eprint: process.stderr.write.bind(process.stderr),
+      eprintln: process.stderr.write.bind(process.stderr),
     },
   ) {
     this._isStarted = false;

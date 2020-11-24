@@ -12,6 +12,8 @@ addon.register_glogger(console);
 addon.register_gconsole({
   print: process.stdout.write.bind(process.stdout),
   println: process.stdout.write.bind(process.stdout),
+  eprint: process.stderr.write.bind(process.stderr),
+  eprintln: process.stderr.write.bind(process.stderr),
 });
 addon.register_gobject_constructor(GObject);
 addon.register_garray_constructor(GArray);

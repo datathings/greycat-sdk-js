@@ -208,6 +208,12 @@ async function main() {
         println: (content) => {
           server.send({ event: 'console', method: 'println', content });
         },
+        eprint: (content) => {
+          server.send({ event: 'console', method: 'eprint', content });
+        },
+        eprintln: (content) => {
+          server.send({ event: 'console', method: 'eprintln', content });
+        },
       },
     });
     const server = new GreycatServer(loggerAdapter);

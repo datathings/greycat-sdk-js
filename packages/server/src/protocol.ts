@@ -30,7 +30,7 @@ export interface ResponseLog {
 export interface ResponseConsole {
   event: 'console';
   id?: string;
-  method: 'print' | 'println';
+  method: 'print' | 'println' | 'eprint' | 'eprintln';
   content: string;
 }
 

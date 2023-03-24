@@ -1,1 +1,0 @@
-var map = Map {}; map.set("foo", 42);

@@ -1,6 +1,0 @@
-dist/**/*.{js,d.ts}.map
-fixtures
-samples
-src
-tsconfig.json
-test

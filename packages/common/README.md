@@ -1,3 +1,0 @@
-# GreyCat JavaScript Common
-
-TODO

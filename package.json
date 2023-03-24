@@ -1,0 +1,50 @@
+{
+  "name": "@greycat/core",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "dist/esm/index.js",
+  "typings": "dist/typings/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/typings/index.d.ts",
+      "import": "./dist/esm/index.js"
+    }
+  },
+  "files": [
+    "dist/esm"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run build:esm && npm run build:typings && npm run build:bundle",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:typings": "tsc -p tsconfig.typings.json",
+    "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat-core.min.js --minify --sourcemap",
+    "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
+    "test": "npm run build:esm && mocha --enable-source-maps",
+    "dist": "npm run pack"
+  },
+  "author": "DataThings s.a <contact@datathings.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@greycat/lib-std": "5.3.272-oid-debug",
+    "@greycat/rpc": "5.3.272-oid-debug"
+  },
+  "devDependencies": {
+    "@types/mocha": "10.0.1",
+    "@types/node": "16.11.7",
+    "@typescript-eslint/eslint-plugin": "5.54.1",
+    "esbuild": "0.17.11",
+    "eslint": "8.35.0",
+    "eslint-plugin-require-extensions": "0.1.2",
+    "mocha": "10.2.0",
+    "prettier": "2.8.4",
+    "typescript": "4.9.5"
+  },
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "publishConfig": {
+    "@greycat:registry": "https://hub.datathings.com/api/v4/projects/289/packages/npm/"
+  }
+}

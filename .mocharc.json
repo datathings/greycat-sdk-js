@@ -1,0 +1,5 @@
+{
+  "extensions": ["js"],
+  "spec": "dist/**/*.test.js",
+  "ignore": ["node_modules"]
+}

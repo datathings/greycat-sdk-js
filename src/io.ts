@@ -150,7 +150,7 @@ export class AbiReader extends Reader {
       return ty.loader(r, ty);
     },
     [PrimitiveType.time]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_time_offset];
+      const ty = r.abi.types[r.abi.core_time_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.duration]: (r) => {

@@ -13,10 +13,23 @@ const greycat = await GreyCat.init({
 console.timeEnd('abi');
 
 console.time('value');
-const value = await greycat.call(args[0]);
-console.timeEnd('value');
-if (typeof value === 'object') {
-  console.dir({ ctor: value.constructor.name, typeName: value.type.name, json: value.toJSON() });
-} else {
-  console.log({ [typeof value]: value });
+try {
+  const value = await greycat.call(args[0]);
+  if (Array.isArray(value)) {
+    console.log({ array: value });
+  } else if (value instanceof Map) {
+    const o = {};
+    value.forEach((value, key) => {
+      o[key] = value;
+    });
+    console.log({ map: o });
+  } else if (typeof value === 'object') {
+    console.log({ [value.constructor.name]: JSON.parse(JSON.stringify(value)) });
+  } else {
+    console.log({ [typeof value]: value });
+  }
+} catch (err) {
+  console.log({ error: err });
+} finally {
+  console.timeEnd('value');
 }

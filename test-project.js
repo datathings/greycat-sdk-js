@@ -1,10 +1,11 @@
 import { GreyCat } from './dist/esm/index.js';
 
-console.time('abi');
+console.time('init');
 const greycat = await GreyCat.init({
   url: new URL('http://localhost:8080'),
 });
-console.timeEnd('abi');
+console.timeEnd('init');
+console.log();
 
 const fqns = [
   'project::foo',
@@ -26,11 +27,13 @@ const fqns = [
 ];
 
 for (const fqn of fqns) {
+  console.time(fqn);
   await call(fqn);
+  console.timeEnd(fqn);
+  console.log();
 }
 
 async function call(method) {
-  console.time('value');
   try {
     const value = await greycat.call(method);
     if (Array.isArray(value)) {
@@ -48,7 +51,5 @@ async function call(method) {
     }
   } catch (err) {
     console.log({ error: err });
-  } finally {
-    console.timeEnd('value');
   }
 }

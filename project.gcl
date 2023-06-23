@@ -1,0 +1,94 @@
+type Foo {}
+
+@expose
+fn foo() {
+  return Foo {};
+}
+
+@expose
+fn identity(x: any?): any? {
+  return x;
+}
+
+@expose
+fn int(): int {
+  return 42;
+}
+
+@expose
+fn float(): float {
+  return 3.14;
+}
+
+@expose
+fn bool(): bool {
+  return true;
+}
+
+@expose
+fn string(): String {
+  return "hello world";
+}
+
+@expose
+fn empty_array(): Array {
+  return [];
+}
+
+@expose
+fn int_array(): Array<int> {
+  return [1, 10, 100];
+}
+
+@expose
+fn float_array(): Array {
+  return [0.5, 1.0, 1.5];
+}
+
+@expose
+fn map(): Map {
+  var map = Map::new();
+  map.set(0, "key=0");
+  map.set("hello", "key=\"hello\"");
+  return map;
+}
+
+@expose
+fn throw() {
+  throw "custom error message";
+}
+
+@expose
+fn inline_object() {
+  return { name: "GreyCat", type: "Database", version: 6.0 };
+}
+
+type Person {
+  name: String;
+  age: int;
+}
+
+@expose
+fn person(): Person {
+  return Person { name: "John", age: 42 };
+}
+
+@expose
+fn enum_value(): TimeZone {
+  return TimeZone::Europe_Paris;
+}
+
+@expose
+fn time(): time {
+  return 42_time;
+}
+
+@expose
+fn duration(): duration {
+  return 42_min;
+}
+
+@expose
+fn geo(): geo {
+  return geo::new(49.59633210916421, 6.128472726330299);
+}

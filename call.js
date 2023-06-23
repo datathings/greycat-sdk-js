@@ -24,7 +24,7 @@ try {
     });
     console.log({ map: o });
   } else if (typeof value === 'object') {
-    console.log({ [value.constructor.name]: JSON.parse(JSON.stringify(value)) });
+    console.log(JSON.parse(JSON.stringify(value)));
   } else {
     console.log({ [typeof value]: value });
   }

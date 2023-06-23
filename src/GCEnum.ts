@@ -23,6 +23,9 @@ export class GCEnum extends GCObject {
   }
 
   override toJSON() {
-    return `${this.type.name}.${this.key}`;
+    return {
+      _type: this.type.name,
+      field: this.key,
+    };
   }
 }

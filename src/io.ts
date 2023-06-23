@@ -146,7 +146,7 @@ export class AbiReader extends Reader {
       return ty.loader(r, ty);
     },
     [PrimitiveType.geo]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_geo_offset];
+      const ty = r.abi.types[r.abi.core_geo_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.time]: (r) => {

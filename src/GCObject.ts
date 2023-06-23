@@ -70,7 +70,7 @@ export class GCObject {
       return { _type: this.type.name };
     }
 
-    const json: Record<string, Value> = {};
+    const json: Record<string, Value> = { _type: this.type.name };
     for (let i = 0; i < this.attributes.length; i++) {
       if (typeof this.attributes[i] === 'bigint') {
         if ((this.attributes[i] as bigint) > Number.MAX_SAFE_INTEGER) {

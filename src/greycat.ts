@@ -1,5 +1,6 @@
 import { Abi } from './abi.js';
 import { AbiReader, AbiWriter } from './io.js';
+import { Error as GCError } from './std/core/Error.js';
 import { std } from './std.js';
 import { Library, Value } from './types.js';
 
@@ -86,15 +87,25 @@ export class GreyCat {
       headers: { accept: 'application/octet-stream', 'content-type': 'application/octet-stream' },
       signal,
     });
+    if (res.status === 404) {
+      const data = await res.json();
+      throw new Error(`calling '${method}' failed with message "${data.value}"`);
+    }
     const data = await res.arrayBuffer();
-    return this.deserialize(data) as T;
+    const value = this.deserializeWithHeader(data);
+    if (res.status >= 200 && res.status < 300) {
+      return value as T;
+    }
+    const err = value as GCError;
+    throw new Error(
+      `calling '${method}' failed with code ${err.code} and message "${
+        err.msg.length > 0 ? err.msg : err.value?.toString()
+      }"`,
+    );
   }
 
   /**
    * Serializes the given `value` into ABI-compliant binary format.
-   *
-   * @param value
-   * @returns
    */
   serialize(value: Value): Uint8Array {
     const writer = new AbiWriter(this._abi, this._capacity);
@@ -104,12 +115,17 @@ export class GreyCat {
 
   /**
    * Deserializes one value from the given `ArrayBuffer`.
-   *
-   * @param data
-   * @returns
    */
   deserialize(data: ArrayBuffer): Value {
     return new AbiReader(this._abi, data).deserialize();
+  }
+
+  /**
+   * Deserializes ABI headers, then
+   * deserializes one value from the given `ArrayBuffer`
+   */
+  deserializeWithHeader(data: ArrayBuffer): Value {
+    return new AbiReader(this._abi, data).deserializeWithHeaders();
   }
 }
 

@@ -1,4 +1,4 @@
-import { GreyCat, Reader } from './dist/esm/index.js';
+import { Reader } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
 if (args.length !== 1) {
@@ -6,8 +6,9 @@ if (args.length !== 1) {
   process.exit(1);
 }
 
-const greycat = await GreyCat.init({
-  url: new URL('http://localhost:8080'),
-});
+const res = await fetch(`http://localhost:8080/${args[0]}`, { headers: { accept: 'application/octet-stream' } });
 
-const value = await greycat.call(args[0]);
+const reader = new Reader(await res.arrayBuffer());
+
+const type = reader.read_u8();
+console.log({ type });

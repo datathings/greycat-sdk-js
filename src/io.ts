@@ -174,6 +174,22 @@ export class AbiReader extends Reader {
     super(buf);
   }
 
+  deserializeWithHeaders(): Value {
+    const major = this.read_u16();
+    if (major !== Abi.protocol_version) {
+      throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${major})`);
+    }
+    const magic = this.read_u16();
+    if (magic !== this.abi.magic) {
+      throw new Error(`magic number mismatch (expected=${this.abi.magic}, actual=${magic})`);
+    }
+    const version = this.read_u32();
+    if (version !== this.abi.version) {
+      throw new Error(`version number mismatch (expected=${this.abi.version}, actual=${version})`);
+    }
+    return this.deserialize();
+  }
+
   deserialize(): Value {
     const id = this.read_u8();
     const deserializer = this.deserializers[id as PrimitiveType];

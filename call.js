@@ -15,4 +15,8 @@ console.timeEnd('abi');
 console.time('value');
 const value = await greycat.call(args[0]);
 console.timeEnd('value');
-console.dir(value);
+if (typeof value === 'object') {
+  console.dir({ ctor: value.constructor.name, typeName: value.type.name, json: value.toJSON() });
+} else {
+  console.log({ [typeof value]: value });
+}

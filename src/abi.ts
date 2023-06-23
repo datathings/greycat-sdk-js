@@ -1,18 +1,28 @@
 import { Reader } from './io.js';
 import { GCEnum } from './GCEnum.js';
 import { GCObject } from './GCObject.js';
-import { IDeserialize, Library, IObjCtor, PrimitiveType } from './types.js';
+import { ILoader, Library, IFactory, PrimitiveType, Value } from './types.js';
 
 export class Abi {
+  static readonly protocol_version = 1;
+
+  readonly magic: number;
+  readonly version: number;
+  readonly crc: bigint;
+
   /** Maps all the ABI symbols to their respective offset in `this.symbols` */
-  readonly symbol_to_id: Map<string, number>;
-  /** Maps fqn to AbiType */
-  readonly fqn_to_type: Map<string, AbiType>;
-  readonly loaders: Map<string, IDeserialize>;
+  readonly id_by_symbol: Map<string, number>;
+  readonly type_by_fqn: Map<string, AbiType>;
+  readonly fn_by_fqn: Map<string, AbiFunction>;
   readonly libs_by_name: Map<string, Library>;
-  readonly factories: Map<string, IObjCtor>;
+
+  readonly loaders: Map<string, ILoader>;
+  readonly factories: Map<string, IFactory>;
+
   readonly symbols: string[] = [];
   readonly types: AbiType[] = [];
+  readonly functions: AbiFunction[] = [];
+
   readonly core_string_offset: number = 0;
   readonly core_duration_offset: number = 0;
   readonly core_time_offset: number = 0;
@@ -24,13 +34,15 @@ export class Abi {
   readonly core_node_geo_offset: number = 0;
   readonly core_array_offset: number = 0;
   readonly core_map_offset: number = 0;
+  readonly core_cubic_offset: number = 0;
 
-  constructor(buffer: Uint8Array, readonly libraries: Library[]) {
-    this.symbol_to_id = new Map();
-    this.fqn_to_type = new Map();
+  constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
+    this.id_by_symbol = new Map();
+    this.type_by_fqn = new Map();
     this.loaders = new Map();
     this.factories = new Map();
     this.libs_by_name = new Map();
+    this.fn_by_fqn = new Map();
 
     for (let i = 0; i < libraries.length; i++) {
       const lib = libraries[i];
@@ -39,21 +51,39 @@ export class Abi {
     }
 
     const cursor = new Reader(buffer);
+
+    const major = cursor.read_u16();
+
+    if (major !== Abi.protocol_version) {
+      throw new Error(`ABI protocol version mismatch (expected=${Abi.protocol_version}, actual=${major})`);
+    }
+
+    this.magic = cursor.read_u16();
+    this.version = cursor.read_u32();
+    this.crc = cursor.read_u64();
+
+    /* const symbols_size = */ cursor.read_u64();
     const symbols_len = cursor.read_u32();
-    this.symbols = new Array(symbols_len);
+    this.symbols = new Array(symbols_len + 1);
     this.symbols[0] = ''; // symbol zero is a special symbol for "not found"
 
-    for (let i = 0; i < symbols_len; i++) {
+    for (let i = 1; i < this.symbols.length; i++) {
       const len = cursor.read_u32();
       const symbol = cursor.read_string(len);
-      this.symbols[i + 1] = symbol;
-      this.symbol_to_id.set(symbol, i + 1);
+      this.symbols[i] = symbol;
+      this.id_by_symbol.set(symbol, i);
     }
+
+    /* const types_size = */ cursor.read_u64();
     const types_len = cursor.read_u32();
     this.types = new Array(types_len);
-    for (let i = 0; i < types_len; i++) {
+
+    /* const attrs_len = */ cursor.read_u32();
+
+    for (let i = 0; i < this.types.length; i++) {
       const module = cursor.read_u32();
       const name = cursor.read_u32();
+      const lib_name = cursor.read_u32();
       const attributes_len = cursor.read_u32();
       /* const attributes_offset =  */ cursor.read_u32(); // unused
       /* const mapped_prog_type_offset =  */ cursor.read_u32(); // unused
@@ -88,9 +118,10 @@ export class Abi {
         );
       }
 
-      const fqn = `${this.symbols[module]}.${this.symbols[name]}`;
+      const fqn = `${this.symbols[module]}::${this.symbols[name]}`;
       const type = new AbiType(
         i,
+        this.symbols[lib_name],
         fqn,
         mapped_abi_type_offset,
         masked_abi_type_offset,
@@ -103,7 +134,7 @@ export class Abi {
         this,
       );
       if (type.mapped_type_off == i) {
-        this.fqn_to_type.set(type.name, type);
+        this.type_by_fqn.set(type.name, type);
       }
 
       this.types[i] = type;
@@ -142,20 +173,87 @@ export class Abi {
         if (this.symbols[name] === 'nodeIndex') {
           this.core_node_index_offset = i;
         }
+        if (this.symbols[name] === 'cubic') {
+          this.core_cubic_offset = i;
+        }
       }
+    }
+
+    /* const functions_size = */ cursor.read_u64();
+    const functions_len = cursor.read_u32();
+    this.functions = new Array(functions_len);
+    for (let i = 0; i < functions_len; i++) {
+      const offset = cursor.read_u32(); // FIXME no longer needed
+      const module = cursor.read_u32();
+      const type = cursor.read_u32();
+      const name = cursor.read_u32();
+      const lib = cursor.read_u32();
+      const arity = cursor.read_u32(); // FIXME u8 is enough here
+      const params = new Array(arity);
+      for (let p = 0; p < arity; p++) {
+        const nullable = cursor.read_u8() === 1;
+        const param_type = cursor.read_u32();
+        const param_symbol = cursor.read_u32();
+        params[i] = new AbiParam(this.symbols[param_symbol], this.types[param_type], nullable);
+      }
+      const return_type = cursor.read_u32();
+      const return_nullable = cursor.read_u8() === 1;
+      const is_task = cursor.read_u8() === 1;
+
+      const fqn =
+        type === 0
+          ? `${this.symbols[module]}::${this.symbols[name]}`
+          : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
+      this.functions[i] = new AbiFunction(
+        offset,
+        this.symbols[lib],
+        fqn,
+        params,
+        this.types[return_type],
+        return_nullable,
+        is_task,
+      );
+      this.fn_by_fqn.set(fqn, this.functions[i]);
     }
 
     for (let i = 0; i < libraries.length; i++) {
       libraries[i].init(this);
     }
   }
+
+  create(name: string, attributes: Value[]) {
+    const t = this.type_by_fqn.get(name);
+    if (t == undefined) {
+      return null;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, ...attributes);
+  }
+
+  createGeo(lat: number, lng: number) {
+    const t = this.types[this.core_geo_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, lat, lng);
+  }
+
+  createTime(value: bigint) {
+    const t = this.types[this.core_time_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, value);
+  }
+
+  createDuration(value: bigint) {
+    const t = this.types[this.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, value);
+  }
 }
 
 export class AbiType {
-  static readonly error_loader: IDeserialize = (_, type) => {
-    throw new Error(`no registered loader for native type '${type.name}'`);
+  static readonly error_loader: ILoader = (_, type) => {
+    throw new Error(`no registered loader for '${type.name}'`);
   };
-  static readonly enum_loader: IDeserialize = (r, type) => {
+  static readonly enum_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
     const valueOffset = r.read_u32();
     const abiTypeAtt = type.attrs[valueOffset];
@@ -163,7 +261,7 @@ export class AbiType {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return programType.enum_values![abiTypeAtt.mapped_att_offset];
   };
-  static readonly object_loader: IDeserialize = (r, type) => {
+  static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
     const attrs = new Array(programType.attrs.length);
     for (let i = 0; i < attrs.length; i++) {
@@ -173,22 +271,24 @@ export class AbiType {
         attrs[att.mapped_att_offset] = value;
       }
     }
-    if (programType.ctor == null) {
+    if (programType.factory == null) {
       return new GCObject(programType, attrs);
     }
-    return new programType.ctor(programType, attrs);
+    return new programType.factory(programType, attrs);
   };
 
   readonly attrs_by_name: Map<string, number>;
   readonly enum_values: GCEnum[] | null;
-  readonly load: IDeserialize;
-  readonly ctor: IObjCtor | null;
+  readonly loader: ILoader;
+  readonly factory: IFactory | null;
+  generated_offsets: number[] = [];
 
   constructor(
     /**
      * Offset of this type in `Abi.types[]`
      */
     readonly offset: number,
+    readonly lib_name: string,
     /** fully qualified name */
     readonly name: string,
     readonly mapped_type_off: number,
@@ -197,13 +297,13 @@ export class AbiType {
     readonly is_enum: boolean,
     readonly is_masked: boolean,
     readonly attrs: AbiAttribute[],
-    load: IDeserialize | undefined,
-    ctor: IObjCtor | undefined,
+    loader: ILoader | undefined,
+    factory: IFactory | undefined,
     readonly abi: Abi,
   ) {
     this.attrs_by_name = new Map();
     this.enum_values = null;
-    this.ctor = ctor ?? null;
+    this.factory = factory ?? null;
 
     for (let i = 0; i < attrs.length; i++) {
       this.attrs_by_name.set(attrs[i].name, i);
@@ -213,23 +313,47 @@ export class AbiType {
       // in case this is an enum, create all the values
       if (is_enum) {
         this.enum_values = new Array(attrs.length);
-        for (let i = 0; i < attrs.length; i++) {
-          if (ctor == null) {
-            this.enum_values[i] = new GCEnum(this, i, attrs[i].name, null);
+        for (let offset = 0; offset < attrs.length; offset++) {
+          if (factory == null) {
+            this.enum_values[offset] = new GCEnum(this, offset, attrs[offset].name, null);
           } else {
-            this.enum_values[i] = new ctor(this, i, attrs[i].name, null) as GCEnum;
+            this.enum_values[offset] = new factory(this, offset, attrs[offset].name, null) as GCEnum;
           }
         }
       }
     }
-    if (load != null) {
-      this.load = load;
+    if (loader != null) {
+      this.loader = loader;
     } else if (this.is_native) {
-      this.load = AbiType.error_loader;
+      this.loader = AbiType.error_loader;
     } else if (this.is_enum) {
-      this.load = AbiType.enum_loader;
+      this.loader = AbiType.enum_loader;
     } else {
-      this.load = AbiType.object_loader;
+      this.loader = AbiType.object_loader;
+    }
+  }
+
+  resolveGeneratedOffsets(...attributeNames: string[]) {
+    this.generated_offsets = new Array(attributeNames.length);
+    for (let i = 0; i < attributeNames.length; i++) {
+      const resolved = this.attrs_by_name.get(attributeNames[i]);
+      if (resolved == undefined) {
+        throw new Error('unmapped generated attribute, please re-generate');
+      }
+      this.generated_offsets[i] = resolved;
+    }
+  }
+
+  resolveGeneratedOffsetWithValues(...nameValues: GCEnum[]) {
+    this.generated_offsets = new Array(nameValues.length / 2);
+    for (let i = 0; i < nameValues.length; i += 2) {
+      const resolved = this.attrs_by_name.get(nameValues[i].toString());
+      if (resolved == undefined) {
+        throw new Error('unmapped generated enum field, please re-generate');
+      }
+      this.generated_offsets[i / 2] = resolved;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.enum_values![resolved].value = nameValues[i + 1];
     }
   }
 }
@@ -249,4 +373,20 @@ export class AbiAttribute {
     readonly nullable: boolean,
     readonly mapped: boolean,
   ) {}
+}
+
+export class AbiFunction {
+  constructor(
+    readonly offset: number,
+    readonly lib: string,
+    readonly fqn: string,
+    readonly params: AbiParam[],
+    readonly return_type: AbiType,
+    readonly return_type_nullable: boolean,
+    readonly is_task: boolean,
+  ) {}
+}
+
+export class AbiParam {
+  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) {}
 }

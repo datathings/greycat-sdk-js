@@ -1,8 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@greycat/lib-std': 5.3.272-oid-debug
-  '@greycat/rpc': 5.3.272-oid-debug
   '@types/mocha': 10.0.1
   '@types/node': 16.11.7
   '@typescript-eslint/eslint-plugin': 5.54.1
@@ -12,10 +10,6 @@ specifiers:
   mocha: 10.2.0
   prettier: 2.8.4
   typescript: 4.9.5
-
-dependencies:
-  '@greycat/lib-std': 5.3.272-oid-debug
-  '@greycat/rpc': 5.3.272-oid-debug
 
 devDependencies:
   '@types/mocha': 10.0.1
@@ -249,17 +243,6 @@ packages:
     resolution: {integrity: sha512-JXdzbRiWclLVoD8sNUjR443VVlYqiYmDVT6rGUEIEHU5YJW0gaVZwV2xgM7D4arkvASqD0IlLUVjHiFuxaftRw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
-
-  /@greycat/lib-std/5.3.272-oid-debug:
-    resolution: {integrity: sha1-vDDq0/XCCu++TFPluaweO/m6J3o=, tarball: '@greycat/lib-std/-/@greycat/lib-std-5.3.272-oid-debug.tgz'}
-    engines: {node: '>=16.13.0'}
-    dependencies:
-      '@greycat/rpc': 5.3.272-oid-debug
-    dev: false
-
-  /@greycat/rpc/5.3.272-oid-debug:
-    resolution: {integrity: sha1-J3gZcHvqmFl5TL2QmagXidKxI6Q=, tarball: '@greycat/rpc/-/@greycat/rpc-5.3.272-oid-debug.tgz'}
-    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}

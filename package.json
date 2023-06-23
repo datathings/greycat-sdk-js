@@ -1,5 +1,5 @@
 {
-  "name": "@greycat/core",
+  "name": "@greycat/sdk",
   "version": "0.0.0",
   "type": "module",
   "module": "dist/esm/index.js",
@@ -15,21 +15,17 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run build:esm && npm run build:typings && npm run build:bundle",
-    "build:esm": "tsc -p tsconfig.json",
-    "build:typings": "tsc -p tsconfig.typings.json",
-    "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat-core.min.js --minify --sourcemap",
+    "build": "pnpm run build:esm && pnpm run build:bundle",
+    "build:esm": "tsc -b tsconfig.json",
+    "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js --minify --sourcemap",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
-    "test": "npm run build:esm && mocha --enable-source-maps",
-    "dist": "npm run pack"
+    "test": "pnpm run build:esm && mocha --enable-source-maps",
+    "dist": "pnpm run pack"
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "MIT",
-  "dependencies": {
-    "@greycat/lib-std": "5.3.272-oid-debug",
-    "@greycat/rpc": "5.3.272-oid-debug"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "10.0.1",
     "@types/node": "16.11.7",

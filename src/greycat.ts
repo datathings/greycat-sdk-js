@@ -1,6 +1,6 @@
 import { Abi } from './abi.js';
 import { AbiReader, AbiWriter } from './io.js';
-import { stdlib } from './std.js';
+import { std } from './std.js';
 import { Library, Value } from './types.js';
 
 export interface Options {
@@ -46,10 +46,10 @@ export class GreyCat {
    * @returns a GreyCat instance to initiate call requests to the backend.
    * @throws on IO and ABI parse errors
    */
-  static async init({ url, libraries = [stdlib], capacity, signal }: WithoutAbiOptions): Promise<GreyCat> {
+  static async init({ url, libraries = [std], capacity, signal }: WithoutAbiOptions): Promise<GreyCat> {
     const cleanUrl = normalizeUrl(url);
-    const res = await fetch(`${cleanUrl}/runtime/Runtime/abi`, { method: 'POST', signal });
-    const data = new Uint8Array(await res.arrayBuffer());
+    const res = await fetch(`${cleanUrl}/runtime::Runtime::abi`, { method: 'POST', signal });
+    const data = await res.arrayBuffer();
     const abi = new Abi(data, libraries);
     return new GreyCat(cleanUrl, abi, capacity);
   }
@@ -78,6 +78,7 @@ export class GreyCat {
         writer.serialize(params[i]);
       }
       body = writer.buffer;
+      writer.clear();
     }
     const res = await fetch(url, {
       method: 'POST',
@@ -85,7 +86,7 @@ export class GreyCat {
       headers: { accept: 'application/octet-stream', 'content-type': 'application/octet-stream' },
       signal,
     });
-    const data = new Uint8Array(await res.arrayBuffer());
+    const data = await res.arrayBuffer();
     return this.deserialize(data) as T;
   }
 
@@ -102,12 +103,12 @@ export class GreyCat {
   }
 
   /**
-   * Deserializes one value from the given Uint8Array.
+   * Deserializes one value from the given `ArrayBuffer`.
    *
    * @param data
    * @returns
    */
-  deserialize(data: Uint8Array): Value {
+  deserialize(data: ArrayBuffer): Value {
     return new AbiReader(this._abi, data).deserialize();
   }
 }

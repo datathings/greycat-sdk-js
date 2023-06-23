@@ -1,10 +1,10 @@
 import { Abi } from './abi.js';
-import { IDeserialize, PrimitiveType, Value } from './types.js';
-import * as core from './native/core/index.js';
+import { ILoader, PrimitiveType, Value } from './types.js';
+import * as core from './std/core/index.js';
 import { GCEnum } from './GCEnum.js';
 import { GCObject } from './GCObject.js';
 
-const deserialize_error: IDeserialize = () => {
+const deserialize_error: ILoader = () => {
   throw new Error(`invalid primitive type`);
 };
 
@@ -22,68 +22,75 @@ export class Reader {
   protected _view: DataView;
   readonly txt: TextDecoder;
 
-  constructor(protected readonly _buf: Uint8Array) {
+  constructor(protected readonly _buf: ArrayBuffer) {
     // see https://v8.dev/blog/dataview if you don't trust me on using DataView rather than manual LE reads on _buf
-    this._view = new DataView(this._buf.buffer);
+    this._view = new DataView(this._buf);
     this.txt = new TextDecoder('utf-8');
   }
 
   get is_empty(): boolean {
-    return this._curr === this._buf.length;
+    return this._curr === this._buf.byteLength;
   }
 
   read_u8(): number {
-    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
     const v = this._view.getUint8(this._curr);
     this._curr += 1;
     return v;
   }
 
   read_i8(): number {
-    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
     const v = this._view.getInt8(this._curr);
     this._curr += 1;
     return v;
   }
 
+  read_u16(): number {
+    assert_buffer_has_enough_bytes(this._curr + 2 <= this._buf.byteLength);
+    const v = this._view.getUint16(this._curr, true);
+    this._curr += 2;
+    return v;
+  }
+
   read_u32(): number {
     this._view.byteOffset;
-    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.byteLength);
     const v = this._view.getUint32(this._curr, true);
     this._curr += 4;
     return v;
   }
 
   read_i32(): number {
-    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.byteLength);
     const v = this._view.getInt32(this._curr, true);
     this._curr += 4;
     return v;
   }
 
   read_u64(): bigint {
-    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getBigUint64(this._curr, true);
     this._curr += 8;
     return v;
   }
 
   read_i64(): bigint {
-    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getBigInt64(this._curr, true);
     this._curr += 8;
     return v;
   }
 
   read_f32(): number {
-    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 4 <= this._buf.byteLength);
     const v = this._view.getFloat32(this._curr, true);
     this._curr += 4;
     return v;
   }
 
   read_f64(): number {
-    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.length);
+    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getFloat64(this._curr, true);
     this._curr += 8;
     return v;
@@ -97,8 +104,8 @@ export class Reader {
     return this.txt.decode(bytes);
   }
 
-  take(n: number): Uint8Array {
-    assert_buffer_has_enough_bytes(this._curr + n <= this._buf.length);
+  take(n: number): ArrayBuffer {
+    assert_buffer_has_enough_bytes(this._curr + n <= this._buf.byteLength);
     const v = this._buf.slice(this._curr, this._curr + n);
     this._curr += n;
     return v;
@@ -112,41 +119,73 @@ export class AbiReader extends Reader {
   /**
    * Deserializes an ABI value to a JavaScript `Value`
    */
-  readonly deserializers: Record<number, IDeserialize> = {
-    [PrimitiveType.null]: () => null,
+  readonly deserializers: Record<PrimitiveType, ILoader> = {
+    [PrimitiveType.null]: this.read_null.bind(this),
     [PrimitiveType.bool]: this.read_bool.bind(this),
     [PrimitiveType.char]: this.read_char.bind(this),
     [PrimitiveType.int]: this.read_i64.bind(this),
     [PrimitiveType.float]: this.read_f64.bind(this),
-    [PrimitiveType.node]: core.node.load,
-    [PrimitiveType.node_time]: core.nodeTime.load,
-    [PrimitiveType.node_index]: core.nodeIndex.load,
-    [PrimitiveType.node_list]: core.nodeList.load,
-    [PrimitiveType.node_geo]: core.nodeGeo.load,
-    [PrimitiveType.geo]: core.nodeGeo.load,
-    [PrimitiveType.time]: core.time.load,
-    [PrimitiveType.duration]: core.duration.load,
+    [PrimitiveType.node]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.node_time]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_time_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.node_index]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_index_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.node_list]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_list_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.node_geo]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_geo_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.geo]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_geo_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.time]: (r) => {
+      const ty = r.abi.types[r.abi.core_node_time_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.duration]: (r) => {
+      const ty = r.abi.types[r.abi.core_duration_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.cubic]: (r) => {
+      const ty = r.abi.types[r.abi.core_cubic_offset];
+      return ty.loader(r, ty);
+    },
     [PrimitiveType.enum]: this.read_enum.bind(this),
     [PrimitiveType.object]: this.read_object.bind(this),
     [PrimitiveType.block]: deserialize_error,
     [PrimitiveType.block_ref]: deserialize_error,
-    [PrimitiveType.function_ref]: deserialize_error,
+    [PrimitiveType.function]: deserialize_error,
     [PrimitiveType.undefined]: () => undefined,
     [PrimitiveType.stringlit]: this.read_stringlit.bind(this),
   };
 
-  constructor(readonly abi: Abi, buf: Uint8Array) {
+  constructor(readonly abi: Abi, buf: ArrayBuffer) {
     super(buf);
   }
 
   deserialize(): Value {
     const id = this.read_u8();
-    const deserializer = this.deserializers[id];
+    const deserializer = this.deserializers[id as PrimitiveType];
     const type = this.abi.types[id];
     if (!deserializer || !type) {
       throw new Error(`unknown type #${id}`);
     }
     return deserializer(this, type);
+  }
+
+  read_null(): null {
+    return null;
   }
 
   read_stringlit(): string {
@@ -155,7 +194,7 @@ export class AbiReader extends Reader {
   }
 
   read_bool(): boolean {
-    return this.read_u8() > 0;
+    return this.read_u8() != 0;
   }
 
   read_char(): string {
@@ -165,10 +204,10 @@ export class AbiReader extends Reader {
   read_object(): Value {
     const id = this.read_u32();
     const type = this.abi.types[id];
-    if (!type.load) {
+    if (!type.loader) {
       throw new Error(`unable to load type '${type.name}' (not registered)`);
     }
-    return type.load(this, type);
+    return type.loader(this, type);
   }
 
   read_enum(): GCEnum {
@@ -193,7 +232,7 @@ export class Writer {
 
   constructor(capacity = 2048) {
     this._buf = new Uint8Array(capacity);
-    // see https://v8.dev/blog/dataview if you don't trust me on using DataView rather than manual LE writes to _buf
+    // see https://v8.dev/blog/dataview
     this._view = new DataView(this._buf.buffer);
     this.txt = new TextEncoder();
   }
@@ -326,7 +365,7 @@ export class AbiWriter extends Writer {
       }
     };
     const string_serializer = (value: string) => {
-      const off = this.abi.symbol_to_id.get(value);
+      const off = this.abi.id_by_symbol.get(value);
       if (off === undefined) {
         this.write_u8(PrimitiveType.object);
         this.write_u32(this.abi.core_string_offset);

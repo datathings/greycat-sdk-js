@@ -6,7 +6,7 @@ import { GCObject } from '../../GCObject.js';
 export class Queue<T extends Value> extends GCObject {
   static readonly _type = 'util::Queue' as const;
 
-  constructor(type: AbiType, readonly queue: LinkedList<T>) {
+  constructor(type: AbiType, readonly queue: LinkedList<T> = new LinkedList()) {
     super(type);
   }
 

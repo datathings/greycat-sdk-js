@@ -1,8 +1,4 @@
-import { Abi } from './abi.js';
-import { ILoader, PrimitiveType, Value } from './types.js';
-import * as core from './std/core/index.js';
-import { GCEnum } from './GCEnum.js';
-import { GCObject } from './GCObject.js';
+import { Abi, ILoader, PrimitiveType, Value, GCEnum, GCObject, std_n } from './index.js';
 
 const deserialize_error: ILoader = () => {
   throw new Error(`invalid primitive type`);
@@ -411,9 +407,9 @@ export class AbiWriter extends Writer {
         } else if (value instanceof String || value instanceof Symbol) {
           string_serializer(value.toString());
         } else if (value instanceof Array) {
-          new core.Array(this.abi.types[this.abi.core_array_offset], value);
+          new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value);
         } else if (value instanceof Map) {
-          new core.Map(this.abi.types[this.abi.core_map_offset], value);
+          new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value);
         } else if (value instanceof GCObject) {
           value.save(this);
         } else {

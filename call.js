@@ -24,7 +24,19 @@ try {
     });
     console.log({ map: o });
   } else if (typeof value === 'object') {
-    console.log(JSON.parse(JSON.stringify(value)));
+    console.log(
+      JSON.parse(
+        JSON.stringify(value, (key, value) => {
+          if (typeof value === 'bigint') {
+            if (value < Number.MAX_SAFE_INTEGER) {
+              return Number(value);
+            }
+            return `$bigint:${value}`;
+          }
+          return value;
+        }),
+      ),
+    );
   } else {
     console.log({ [typeof value]: value });
   }

@@ -1,4 +1,4 @@
-import { AbiType } from './abi.js';
+import { AbiType } from './index.js';
 import { AbiWriter } from './io.js';
 import { PrimitiveType, Value } from './types.js';
 

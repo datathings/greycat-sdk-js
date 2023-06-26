@@ -1,8 +1,8 @@
 import { Abi } from './abi.js';
-import { AbiReader, AbiWriter } from './io.js';
-import { Error as GCError } from './std/core/Error.js';
-import { std } from './std.js';
+import { stdlib } from './index.js';
+import * as std from './std/std/index.js';
 import { Library, Value } from './types.js';
+import { AbiReader, AbiWriter } from './io.js';
 
 export interface Options {
   /** URL of the GreyCat server */
@@ -47,7 +47,7 @@ export class GreyCat {
    * @returns a GreyCat instance to initiate call requests to the backend.
    * @throws on IO and ABI parse errors
    */
-  static async init({ url, libraries = [std], capacity, signal }: WithoutAbiOptions): Promise<GreyCat> {
+  static async init({ url, libraries = [stdlib], capacity, signal }: WithoutAbiOptions): Promise<GreyCat> {
     const cleanUrl = normalizeUrl(url);
     const res = await fetch(`${cleanUrl}/runtime::Runtime::abi`, { method: 'POST', signal });
     const data = await res.arrayBuffer();
@@ -96,7 +96,7 @@ export class GreyCat {
     if (res.status >= 200 && res.status < 300) {
       return value as T;
     }
-    const err = value as GCError;
+    const err = value as std.core.Error;
     throw new Error(
       `calling '${method}' failed with code ${err.code} and message "${
         err.msg.length > 0 ? err.msg : err.value?.toString()

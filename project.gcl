@@ -92,3 +92,47 @@ fn duration(): duration {
 fn geo(): geo {
   return geo::new(49.59633210916421, 6.128472726330299);
 }
+
+@expose
+@write
+fn node(): node<int> {
+  return node::new(42);
+}
+
+@expose
+@write
+fn nodeTime(): nodeTime<int> {
+  var n = nodeTime::newAt(0_time, 0);
+  n.setAt(1_time, 10);
+  n.setAt(2_time, 100);
+  return n;
+}
+
+@expose
+@write
+fn nodeList(): nodeList {
+  return nodeList::new();
+}
+
+@expose
+@write
+fn nodeGeo(): nodeGeo {
+  return nodeGeo::new();
+}
+
+@expose
+@write
+fn nodeIndex(): nodeIndex {
+  return nodeIndex::new();
+}
+
+@expose
+fn table(): Table {
+  var table = Table::new(4, true);
+  for (var row = 0; row < 5; row++) {
+    for (var col = 0; col < 4; col++) {
+      table.set(row, col, "row ${row} col ${col}");
+    }
+  }
+  return table;
+}

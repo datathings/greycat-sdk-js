@@ -1,7 +1,4 @@
-import { Abi, AbiType } from './abi.js';
-import { AbiReader } from './io.js';
-import { GCObject } from './GCObject.js';
-import { GCEnum } from './GCEnum.js';
+import type { GCEnum, GCObject, AbiReader, Abi, AbiType } from './index.js';
 
 type ExtractValues<T> = T[keyof T];
 

@@ -1,7 +1,6 @@
-import { AbiType } from './abi.js';
+import { GCObject, AbiType } from './index.js';
 import { AbiWriter } from './io.js';
 import { PrimitiveType, Value } from './types.js';
-import { GCObject } from './GCObject.js';
 
 export class GCEnum extends GCObject {
   constructor(

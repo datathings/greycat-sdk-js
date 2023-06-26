@@ -1,7 +1,7 @@
-import { Reader } from './io.js';
-import { GCEnum } from './GCEnum.js';
 import { GCObject } from './GCObject.js';
-import { ILoader, Library, IFactory, PrimitiveType, Value } from './types.js';
+import { GCEnum } from './index.js';
+import { Reader } from './io.js';
+import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
 
 export class Abi {
   static readonly protocol_version = 1;
@@ -344,16 +344,31 @@ export class AbiType {
     }
   }
 
-  resolveGeneratedOffsetWithValues(...nameValues: GCEnum[]) {
-    this.generated_offsets = new Array(nameValues.length / 2);
-    for (let i = 0; i < nameValues.length; i += 2) {
-      const resolved = this.attrs_by_name.get(nameValues[i].toString());
+  /**
+   * `values` must be a list of enum field name followed by the value (or null if none), repeated as many time as there are fields in the enum
+   *
+   * ```gcl
+   * enum TrafficLight {
+   *    Green(0);
+   *    Yellow(1);
+   *    Red(2);
+   * }
+   * ```
+   * Should have `resolveGeneratedOffsetWithValues()` called as:
+   * ```ts
+   * .resolveGeneratedOffsetWithValues('Green', 0, 'Yellow', 1, 'Red', 2)
+   * ```
+   */
+  resolveGeneratedOffsetWithValues(...values: unknown[]) {
+    this.generated_offsets = new Array(values.length / 2);
+    for (let i = 0; i < values.length; i += 2) {
+      const resolved = this.attrs_by_name.get(values[i] as string);
       if (resolved == undefined) {
         throw new Error('unmapped generated enum field, please re-generate');
       }
       this.generated_offsets[i / 2] = resolved;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.enum_values![resolved].value = nameValues[i + 1];
+      this.enum_values![resolved].value = values[i + 1] as Value;
     }
   }
 }

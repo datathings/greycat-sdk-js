@@ -24,6 +24,11 @@ const fqns = [
   'project::time',
   'project::duration',
   'project::geo',
+  'project::node',
+  'project::nodeTime',
+  'project::nodeList',
+  'project::nodeGeo',
+  'project::nodeIndex',
 ];
 
 for (const fqn of fqns) {

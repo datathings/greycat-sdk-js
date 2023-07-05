@@ -1,3 +1,5 @@
+use runtime;
+
 type Foo {}
 
 @expose
@@ -46,8 +48,8 @@ fn float_array(): Array {
 }
 
 @expose
-fn map(): Map {
-  var map = Map::new();
+fn map(): Map<any, String> {
+  var map = Map<any, String>::new();
   map.set(0, "key=0");
   map.set("hello", "key=\"hello\"");
   return map;
@@ -136,3 +138,16 @@ fn table(): Table {
   }
   return table;
 }
+
+@expose
+fn me(): User {
+  return User::me();
+}
+
+@expose
+fn say(msg: String): String {
+  return "Hello, ${msg}";
+}
+
+@expose
+task myTask() {}

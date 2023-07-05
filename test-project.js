@@ -29,6 +29,7 @@ const fqns = [
   'project::nodeList',
   'project::nodeGeo',
   'project::nodeIndex',
+  'project::me',
 ];
 
 for (const fqn of fqns) {

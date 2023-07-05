@@ -183,7 +183,6 @@ export class Abi {
     const functions_len = cursor.read_u32();
     this.functions = new Array(functions_len);
     for (let i = 0; i < functions_len; i++) {
-      const offset = cursor.read_u32(); // FIXME no longer needed
       const module = cursor.read_u32();
       const type = cursor.read_u32();
       const name = cursor.read_u32();
@@ -205,7 +204,6 @@ export class Abi {
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
       this.functions[i] = new AbiFunction(
-        offset,
         this.symbols[lib],
         fqn,
         params,
@@ -392,7 +390,6 @@ export class AbiAttribute {
 
 export class AbiFunction {
   constructor(
-    readonly offset: number,
     readonly lib: string,
     readonly fqn: string,
     readonly params: AbiParam[],

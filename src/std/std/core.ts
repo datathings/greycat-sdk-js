@@ -31,7 +31,7 @@ export class GeoBox extends GCObject {
   }
 }
 
-export class nodeList<T> extends std_n.core.nodeList {
+export class nodeList extends std_n.core.nodeList {
   static override readonly _type = 'core::nodeList';
 
   public static create(abi: Abi): nodeList {
@@ -2307,7 +2307,7 @@ export class nodeIndexBucket extends std_n.core.nodeIndexBucket {
   }
 }
 
-export class node<T> extends std_n.core.node {
+export class node extends std_n.core.node {
   static override readonly _type = 'core::node';
 
   public static create(abi: Abi): node {
@@ -2315,7 +2315,7 @@ export class node<T> extends std_n.core.node {
   }
 }
 
-export class nodeTimeCursor<T> extends std_n.core.nodeTimeCursor {
+export class nodeTimeCursor extends std_n.core.nodeTimeCursor {
   static override readonly _type = 'core::nodeTimeCursor';
 
   public static create(abi: Abi): nodeTimeCursor {
@@ -2753,7 +2753,7 @@ export class duration extends std_n.core.duration {
   }
 }
 
-export class nodeTime<T> extends std_n.core.nodeTime {
+export class nodeTime extends std_n.core.nodeTime {
   static override readonly _type = 'core::nodeTime';
 
   public static create(abi: Abi): nodeTime {
@@ -2835,7 +2835,7 @@ export class Tuple<T,U> extends GCObject {
   }
 }
 
-export class nodeIndex<K,V> extends std_n.core.nodeIndex {
+export class nodeIndex extends std_n.core.nodeIndex {
   static override readonly _type = 'core::nodeIndex';
 
   public static create(abi: Abi): nodeIndex {
@@ -2899,7 +2899,7 @@ export class DatePart extends GCEnum {
   }
 }
 
-export class nodeGeo<T> extends std_n.core.nodeGeo {
+export class nodeGeo extends std_n.core.nodeGeo {
   static override readonly _type = 'core::nodeGeo';
 
   public static create(abi: Abi): nodeGeo {

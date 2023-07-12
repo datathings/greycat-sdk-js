@@ -6,12 +6,12 @@ import { GCObject } from '../../GCObject.js';
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint | number) {
     super(type);
   }
 
   static load(r: AbiReader, ty: AbiType): duration {
-    const value = r.read_i64();
+    const value = r.read_i64_number();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as duration;
   }
@@ -23,15 +23,21 @@ export class duration extends GCObject {
 
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.duration);
-    w.write_i64(this.value);
+    w.write_i64_number(this.value);
   }
 
   get s(): number {
-    return Number(this.value / 1_000_000n);
+    if (typeof this.value === 'bigint') {
+      return Number(this.value / 1_000_000n);
+    }
+    return this.value / 1_000_000;
   }
 
   get us(): number {
-    return Number(this.value % 1_000_000n);
+    if (typeof this.value === 'bigint') {
+      return Number(this.value % 1_000_000n);
+    }
+    return this.value % 1_000_000;
   }
 
   override toJSON() {

@@ -71,10 +71,30 @@ export class Reader {
     return v;
   }
 
+  read_u64_number(): bigint | number {
+    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
+    const v = this._view.getBigUint64(this._curr, true);
+    this._curr += 8;
+    if (v <= Number.MAX_SAFE_INTEGER) {
+      return Number(v);
+    }
+    return v;
+  }
+
   read_i64(): bigint {
     assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getBigInt64(this._curr, true);
     this._curr += 8;
+    return v;
+  }
+
+  read_i64_number(): bigint | number {
+    assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
+    const v = this._view.getBigInt64(this._curr, true);
+    this._curr += 8;
+    if (v <= Number.MAX_SAFE_INTEGER) {
+      return Number(v);
+    }
     return v;
   }
 
@@ -307,9 +327,21 @@ export class Writer {
     this._curr += 8;
   }
 
+  write_u64_number(v: bigint | number) {
+    this._reserve(8);
+    this._view.setBigUint64(this._curr, typeof v === 'bigint' ? v : BigInt(v), true);
+    this._curr += 8;
+  }
+
   write_i64(v: bigint) {
     this._reserve(8);
     this._view.setBigInt64(this._curr, v, true);
+    this._curr += 8;
+  }
+
+  write_i64_number(v: bigint | number) {
+    this._reserve(8);
+    this._view.setBigInt64(this._curr, typeof v === 'bigint' ? v : BigInt(v), true);
     this._curr += 8;
   }
 

@@ -1,3 +1,5 @@
+// @library("algebra");
+
 use runtime;
 
 type Foo {}
@@ -92,7 +94,7 @@ fn duration(): duration {
 
 @expose
 fn geo(): geo {
-  return geo::new(49.59633210916421, 6.128472726330299);
+  return geo::new(49.596332, 6.128472);
 }
 
 @expose

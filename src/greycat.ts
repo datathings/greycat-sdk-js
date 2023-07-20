@@ -1,42 +1,21 @@
 import { Abi } from './abi.js';
 import { stdlib } from './index.js';
-import * as std from './std/std/index.js';
-import { Library, Value } from './types.js';
+import * as std from './std/index.js';
+import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
-
-export interface Options {
-  /** URL of the GreyCat server */
-  url: URL;
-  /**
-   * Write buffer capacity. Defaults to `2048` (2KB)
-   */
-  capacity?: number;
-}
-
-export interface WithoutAbiOptions extends Options {
-  /** This signal is given to the request that loads the ABI. */
-  signal?: AbortSignal;
-  /** Libraries to use for (de-)serialization. By default, only "core" is loaded. */
-  libraries?: Library[];
-}
-
-export interface WithAbiOptions extends Options {
-  /** The ABI to use internally */
-  abi: Abi;
-}
 
 export class GreyCat {
   /** GreyCat's api endpoint normalized (does not contain a trailing slash) */
-  private _api: string;
+  readonly api: string;
   /** The current GreyCat ABI */
-  private _abi: Abi;
+  readonly abi: Abi;
   /** used by `WriteBuffer` to initialize its capacity */
-  private _capacity: number;
+  readonly capacity: number;
 
   private constructor(api: string, abi: Abi, capacity = 2048) {
-    this._api = api;
-    this._abi = abi;
-    this._capacity = capacity;
+    this.api = api;
+    this.abi = abi;
+    this.capacity = capacity;
   }
 
   /**
@@ -68,13 +47,13 @@ export class GreyCat {
    * @param method the exposed endpoint to call, without leading slash
    * (eg. `'runtime/User/me'`)
    * @param params a list of parameters to send for the call
-   * @param signal an optional `AbortSignal` to cancel the promise
+   * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
   async call<T = unknown>(method: string, params?: Value[], signal?: AbortSignal): Promise<T> {
-    const url = `${this._api}/${method}`;
+    const url = `${this.api}/${method}`;
     let body: Uint8Array | undefined;
     if (params && params.length > 0) {
-      const writer = new AbiWriter(this._abi, this._capacity);
+      const writer = new AbiWriter(this.abi, this.capacity);
       for (let i = 0; i < params.length; i++) {
         writer.serialize(params[i]);
       }
@@ -108,7 +87,7 @@ export class GreyCat {
    * Serializes the given `value` into ABI-compliant binary format.
    */
   serialize(value: Value): Uint8Array {
-    const writer = new AbiWriter(this._abi, this._capacity);
+    const writer = new AbiWriter(this.abi, this.capacity);
     writer.serialize(value);
     return writer.buffer;
   }
@@ -117,7 +96,7 @@ export class GreyCat {
    * Deserializes one value from the given `ArrayBuffer`.
    */
   deserialize(data: ArrayBuffer): Value {
-    return new AbiReader(this._abi, data).deserialize();
+    return new AbiReader(this.abi, data).deserialize();
   }
 
   /**
@@ -125,7 +104,7 @@ export class GreyCat {
    * deserializes one value from the given `ArrayBuffer`
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
-    return new AbiReader(this._abi, data).deserializeWithHeaders();
+    return new AbiReader(this.abi, data).deserializeWithHeaders();
   }
 }
 

@@ -3,7 +3,7 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
-export class Table<T extends Value> extends GCObject {
+export class Table extends GCObject {
   static readonly _type = 'core::Table' as const;
 
   constructor(
@@ -11,13 +11,12 @@ export class Table<T extends Value> extends GCObject {
     public cols: number,
     public rows: number,
     public meta: TableColumnMeta[] | null,
-    public data: T[],
+    public data: Value[],
   ) {
     super(type);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static load(r: AbiReader, type: AbiType): Table<any> {
+  static load(r: AbiReader, type: AbiType): Table {
     const cols = r.read_u32();
     const rows = r.read_u32();
     const use_meta = r.read_bool();
@@ -47,8 +46,8 @@ export class Table<T extends Value> extends GCObject {
       data[i] = r.deserialize();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
-    return new type.factory!(type, cols, rows, meta, data) as Table<any>;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new type.factory!(type, cols, rows, meta, data) as Table;
   }
 
   override save(w: AbiWriter) {

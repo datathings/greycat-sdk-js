@@ -35,6 +35,16 @@ export class Abi {
   readonly core_array_offset: number = 0;
   readonly core_map_offset: number = 0;
   readonly core_cubic_offset: number = 0;
+  readonly core_tu2d_offset: number = 0;
+  readonly core_tu3d_offset: number = 0;
+  readonly core_tu4d_offset: number = 0;
+  readonly core_tu5d_offset: number = 0;
+  readonly core_tu6d_offset: number = 0;
+  readonly core_tu10d_offset: number = 0;
+  readonly core_tuf2d_offset: number = 0;
+  readonly core_tuf3d_offset: number = 0;
+  readonly core_tuf4d_offset: number = 0;
+  readonly core_function_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.id_by_symbol = new Map();
@@ -63,8 +73,8 @@ export class Abi {
     this.crc = cursor.read_u64();
 
     /* const symbols_size = */ cursor.read_u64();
-    const symbols_len = cursor.read_u32();
-    this.symbols = new Array(symbols_len + 1);
+    const nb_symbols = cursor.read_u32();
+    this.symbols = new Array(nb_symbols + 1);
     this.symbols[0] = ''; // symbol zero is a special symbol for "not found"
 
     for (let i = 1; i < this.symbols.length; i++) {
@@ -75,10 +85,10 @@ export class Abi {
     }
 
     /* const types_size = */ cursor.read_u64();
-    const types_len = cursor.read_u32();
-    this.types = new Array(types_len);
+    const nb_types = cursor.read_u32();
+    /* const nb_attrs = */ cursor.read_u32();
 
-    /* const attrs_len = */ cursor.read_u32();
+    this.types = new Array(nb_types);
 
     for (let i = 0; i < this.types.length; i++) {
       const module = cursor.read_u32();
@@ -89,15 +99,16 @@ export class Abi {
       /* const mapped_prog_type_offset =  */ cursor.read_u32(); // unused
       const mapped_abi_type_offset = cursor.read_u32();
       const masked_abi_type_offset = cursor.read_u32();
+      const nullable_nb_bytes = cursor.read_u32();
       const is_native = cursor.read_u8() > 0;
+      const is_abstract = cursor.read_u8() > 0;
       const is_enum = cursor.read_u8() > 0;
       const is_masked = cursor.read_u8() > 0;
 
       const attrs: AbiAttribute[] = new Array(attributes_len);
       for (let i = 0; i < attributes_len; i++) {
         const name = cursor.read_u32();
-        const type_mod = cursor.read_u32();
-        const type_name = cursor.read_u32();
+        const abi_type = cursor.read_u32();
         const prog_type_offset = cursor.read_u32();
         const mapped_any_offset = cursor.read_u32();
         const mapped_att_offset = cursor.read_u32();
@@ -107,8 +118,7 @@ export class Abi {
 
         attrs[i] = new AbiAttribute(
           this.symbols[name],
-          this.symbols[type_mod],
-          this.symbols[type_name],
+          abi_type,
           prog_type_offset,
           mapped_any_offset,
           mapped_att_offset,
@@ -125,7 +135,9 @@ export class Abi {
         fqn,
         mapped_abi_type_offset,
         masked_abi_type_offset,
+        nullable_nb_bytes,
         is_native,
+        is_abstract,
         is_enum,
         is_masked,
         attrs,
@@ -140,41 +152,33 @@ export class Abi {
       this.types[i] = type;
 
       if (this.symbols[module] === 'core') {
-        if (this.symbols[name] === 'String') {
-          this.core_string_offset = i;
-        }
-        if (this.symbols[name] === 'Array') {
-          this.core_array_offset = i;
-        }
-        if (this.symbols[name] === 'Map') {
-          this.core_map_offset = i;
-        }
-        if (this.symbols[name] === 'geo') {
-          this.core_geo_offset = i;
-        }
-        if (this.symbols[name] === 'duration') {
-          this.core_duration_offset = i;
-        }
-        if (this.symbols[name] === 'time') {
-          this.core_time_offset = i;
-        }
-        if (this.symbols[name] === 'node') {
-          this.core_node_offset = i;
-        }
-        if (this.symbols[name] === 'nodeTime') {
-          this.core_node_time_offset = i;
-        }
-        if (this.symbols[name] === 'nodeList') {
-          this.core_node_list_offset = i;
-        }
-        if (this.symbols[name] === 'nodeGeo') {
-          this.core_node_geo_offset = i;
-        }
-        if (this.symbols[name] === 'nodeIndex') {
-          this.core_node_index_offset = i;
-        }
-        if (this.symbols[name] === 'cubic') {
-          this.core_cubic_offset = i;
+        // prettier-ignore
+        switch (this.symbols[name]) {
+          case 'String':    this.core_string_offset     = i; break;
+          case 'Array':     this.core_array_offset      = i; break;
+          case 'Map':       this.core_map_offset        = i; break;
+          case 'geo':       this.core_geo_offset        = i; break;
+          case 'duration':  this.core_duration_offset   = i; break;
+          case 'time':      this.core_time_offset       = i; break;
+          case 'node':      this.core_node_offset       = i; break;
+          case 'nodeTime':  this.core_node_time_offset  = i; break;
+          case 'nodeList':  this.core_node_list_offset  = i; break;
+          case 'nodeGeo':   this.core_node_geo_offset   = i; break;
+          case 'nodeIndex': this.core_node_index_offset = i; break;
+          case 'cubic':     this.core_cubic_offset      = i; break;
+          case 'tu2d':      this.core_tu2d_offset       = i; break;
+          case 'tu3d':      this.core_tu3d_offset       = i; break;
+          case 'tu4d':      this.core_tu4d_offset       = i; break;
+          case 'tu5d':      this.core_tu5d_offset       = i; break;
+          case 'tu6d':      this.core_tu6d_offset       = i; break;
+          case 'tu10d':     this.core_tu10d_offset      = i; break;
+          case 'tuf2d':     this.core_tuf2d_offset      = i; break;
+          case 'tuf3d':     this.core_tuf3d_offset      = i; break;
+          case 'tuf4d':     this.core_tuf4d_offset      = i; break;
+          case 'function':  this.core_function_offset   = i; break;
+          default:
+            // noop
+            break;
         }
       }
     }
@@ -204,7 +208,10 @@ export class Abi {
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
       this.functions[i] = new AbiFunction(
-        this.symbols[lib],
+        lib,
+        module,
+        type,
+        name,
         fqn,
         params,
         this.types[return_type],
@@ -277,6 +284,7 @@ export class AbiType {
 
   readonly attrs_by_name: Map<string, number>;
   readonly enum_values: GCEnum[] | null;
+  static_values: Value[];
   readonly loader: ILoader;
   readonly factory: IFactory | null;
   generated_offsets: number[] = [];
@@ -291,7 +299,9 @@ export class AbiType {
     readonly name: string,
     readonly mapped_type_off: number,
     readonly masked_type_off: number,
+    readonly nullable_nb_bytes: number,
     readonly is_native: boolean,
+    readonly is_abstract: boolean,
     readonly is_enum: boolean,
     readonly is_masked: boolean,
     readonly attrs: AbiAttribute[],
@@ -301,6 +311,7 @@ export class AbiType {
   ) {
     this.attrs_by_name = new Map();
     this.enum_values = null;
+    this.static_values = [];
     this.factory = factory ?? null;
 
     for (let i = 0; i < attrs.length; i++) {
@@ -375,10 +386,7 @@ export class AbiAttribute {
   constructor(
     /** attribute name */
     readonly name: string,
-    /** module name */
-    readonly mod: string,
-    /** type name */
-    readonly type: string,
+    readonly abi_type: number,
     readonly prog_type_offset: number,
     readonly mapped_any_offset: number,
     readonly mapped_att_offset: number,
@@ -390,7 +398,10 @@ export class AbiAttribute {
 
 export class AbiFunction {
   constructor(
-    readonly lib: string,
+    readonly lib: number,
+    readonly module: number,
+    readonly type: number,
+    readonly name: number,
     readonly fqn: string,
     readonly params: AbiParam[],
     readonly return_type: AbiType,

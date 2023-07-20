@@ -2,7 +2,7 @@ import { GreyCat } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
 if (args.length !== 1) {
-  console.log('usage: node sandbox.js <path/to/endpoint>');
+  console.log(`usage: node ${process.argv[1]} <path/to/endpoint>`);
   process.exit(1);
 }
 
@@ -15,6 +15,14 @@ console.timeEnd('abi');
 console.time('value');
 try {
   const value = await greycat.call(args[0]);
+  displayValue(value);
+} catch (err) {
+  console.log({ error: err });
+} finally {
+  console.timeEnd('value');
+}
+
+function displayValue(value) {
   if (Array.isArray(value)) {
     console.log({ array: value });
   } else if (value instanceof Map) {
@@ -26,7 +34,7 @@ try {
   } else if (typeof value === 'object') {
     console.log(
       JSON.parse(
-        JSON.stringify(value, (key, value) => {
+        JSON.stringify(value, (_, value) => {
           if (typeof value === 'bigint') {
             if (value < Number.MAX_SAFE_INTEGER) {
               return Number(value);
@@ -40,8 +48,4 @@ try {
   } else {
     console.log({ [typeof value]: value });
   }
-} catch (err) {
-  console.log({ error: err });
-} finally {
-  console.timeEnd('value');
 }

@@ -1,4 +1,4 @@
-import { Abi, ILoader, PrimitiveType, Value, GCEnum, GCObject, std_n } from './index.js';
+import { Abi, ILoader, PrimitiveType, Value, GCEnum, GCObject, std_n, AbiFunction } from './index.js';
 
 const deserialize_error: ILoader = () => {
   throw new Error(`invalid primitive type`);
@@ -14,18 +14,41 @@ function assert_buffer_has_enough_bytes(expr: boolean) {
  * Little-endian cursor over an array of bytes
  */
 export class Reader {
+  protected readonly _buf: Uint8Array;
   protected _curr = 0;
   protected _view: DataView;
   readonly txt: TextDecoder;
 
-  constructor(protected readonly _buf: ArrayBuffer) {
+  constructor(buf: ArrayBuffer) {
+    this._buf = new Uint8Array(buf, 0, buf.byteLength);
     // see https://v8.dev/blog/dataview if you don't trust me on using DataView rather than manual LE reads on _buf
-    this._view = new DataView(this._buf);
+    this._view = new DataView(buf);
     this.txt = new TextDecoder('utf-8');
   }
 
   get is_empty(): boolean {
     return this._curr === this._buf.byteLength;
+  }
+
+  read_varint32(): number {
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
+    const header = this._buf[this._curr];
+    const nbytes = varint_32_len(header);
+    const bytes = new Uint8Array(nbytes);
+    bytes.set(this._buf.slice(this._curr, this._curr + nbytes), 0);
+    this._curr += nbytes;
+    return varint_32_unpack(bytes);
+  }
+
+  read_varint64(): bigint | number {
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
+    const header = this._buf[this._curr];
+    const nbytes = varint_64_len(header);
+    const bytes = new Uint8Array(nbytes);
+    bytes.set(this._buf.slice(this._curr, this._curr + nbytes), 0);
+    this._curr += nbytes;
+    const v = sign_of(varint_64_unpack(bytes));
+    return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
   }
 
   read_u8(): number {
@@ -139,7 +162,7 @@ export class AbiReader extends Reader {
     [PrimitiveType.null]: this.read_null.bind(this),
     [PrimitiveType.bool]: this.read_bool.bind(this),
     [PrimitiveType.char]: this.read_char.bind(this),
-    [PrimitiveType.int]: this.read_i64.bind(this),
+    [PrimitiveType.int]: this.read_varint64.bind(this),
     [PrimitiveType.float]: this.read_f64.bind(this),
     [PrimitiveType.node]: (r) => {
       const ty = r.abi.types[r.abi.core_node_offset];
@@ -177,11 +200,50 @@ export class AbiReader extends Reader {
       const ty = r.abi.types[r.abi.core_cubic_offset];
       return ty.loader(r, ty);
     },
+    [PrimitiveType.tu2d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu2d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tu3d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu3d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tu4d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu4d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tu5d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu5d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tu6d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu6d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tu10d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tu10d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tuf2d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tuf2d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tuf3d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tuf3d_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.tuf4d]: (r) => {
+      const ty = r.abi.types[r.abi.core_tuf4d_offset];
+      return ty.loader(r, ty);
+    },
     [PrimitiveType.enum]: this.read_enum.bind(this),
     [PrimitiveType.object]: this.read_object.bind(this),
-    [PrimitiveType.block]: deserialize_error,
     [PrimitiveType.block_ref]: deserialize_error,
-    [PrimitiveType.function]: deserialize_error,
+    [PrimitiveType.function]: (r) => {
+      const ty = r.abi.types[r.abi.core_function_offset];
+      // TODO function type does not exist, shall we use AbiFunction or a specific Function type that only contains the resolved u32 of the function?
+      return ty.loader(r, ty);
+    },
     [PrimitiveType.undefined]: () => undefined,
     [PrimitiveType.stringlit]: this.read_stringlit.bind(this),
   };
@@ -190,7 +252,16 @@ export class AbiReader extends Reader {
     super(buf);
   }
 
+  /**
+   * Reads `major(u16)`, `magic(u16)` and `version(u32)` prior to calling `deserialize()`
+   * @returns {Value}
+   */
   deserializeWithHeaders(): Value {
+    this.headers();
+    return this.deserialize();
+  }
+
+  headers(): void {
     const major = this.read_u16();
     if (major !== Abi.protocol_version) {
       throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${major})`);
@@ -203,9 +274,12 @@ export class AbiReader extends Reader {
     if (version !== this.abi.version) {
       throw new Error(`version number mismatch (expected=${this.abi.version}, actual=${version})`);
     }
-    return this.deserialize();
   }
 
+  /**
+   * Reads a type byte and deserializes based on the corresponding `PrimitiveType`
+   * @returns {Value}
+   */
   deserialize(): Value {
     const id = this.read_u8();
     const deserializer = this.deserializers[id as PrimitiveType];
@@ -221,7 +295,8 @@ export class AbiReader extends Reader {
   }
 
   read_stringlit(): string {
-    const id = this.read_u32();
+    let id = this.read_varint32();
+    id >>= 1;
     return this.abi.symbols[id];
   }
 
@@ -234,22 +309,37 @@ export class AbiReader extends Reader {
   }
 
   read_object(): Value {
-    const id = this.read_u32();
+    const id = this.read_varint32();
     const type = this.abi.types[id];
-    if (!type.loader) {
-      throw new Error(`unable to load type '${type.name}' (not registered)`);
+    if (type === undefined) {
+      throw new Error(`unknown type id '${id}'`);
     }
     return type.loader(this, type);
   }
 
   read_enum(): GCEnum {
-    const id = this.read_u32();
-    const off = this.read_u32();
+    const id = this.read_varint32();
+    const off = this.read_varint32();
     const type = this.abi.types[id];
     const attr = type.attrs[off];
     // We want this line to actually fail at runtime if the value cannot be found
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new GCEnum(type, off, attr.name, type.enum_values![attr.mapped_att_offset]);
+  }
+
+  read_function(): AbiFunction {
+    const module = this.read_varint32();
+    const type = this.read_varint32();
+    const name = this.read_varint32();
+    const fqn =
+      type === 0
+        ? `${this.abi.symbols[module]}::${this.abi.symbols[name]}`
+        : `${this.abi.symbols[module]}::${this.abi.symbols[type]}::${this.abi.symbols[name]}`;
+    const fn = this.abi.fn_by_fqn.get(fqn);
+    if (fn === undefined) {
+      throw new Error(`unknown function '${fqn}'`);
+    }
+    return fn;
   }
 }
 
@@ -319,6 +409,155 @@ export class Writer {
     this._reserve(4);
     this._view.setInt32(this._curr, v, true);
     this._curr += 4;
+  }
+
+  write_varint32(v: number) {
+    if (v < 0x80) {
+      this._buf[this._curr] = v & 0x7f;
+      this._curr += 1;
+      return;
+    }
+
+    if (v < 1 << 14) {
+      this._reserve(2);
+      this._buf[this._curr] = v & 0x3f;
+      this._buf[this._curr] |= 0x80;
+      this._buf[this._curr + 1] = (v >> 6) & 0xff;
+      this._curr += 2;
+      return;
+    }
+
+    if (v < 1 << 21) {
+      this._reserve(3);
+      this._buf[this._curr] = v & 0x1f;
+      this._buf[this._curr] |= 0xc0;
+      this._buf[this._curr + 1] = (v >> 5) & 0xff;
+      this._buf[this._curr + 2] = (v >> 13) & 0xff;
+      this._curr += 3;
+      return;
+    }
+
+    if (v < 1 << 28) {
+      this._reserve(4);
+      this._buf[this._curr] = v & 0xf;
+      this._buf[this._curr] |= 0xe0;
+      this._buf[this._curr + 1] = (v >> 4) & 0xff;
+      this._buf[this._curr + 2] = (v >> 12) & 0xff;
+      this._buf[this._curr + 3] = (v >> 20) & 0xff;
+      this._curr += 4;
+      return;
+    }
+
+    this._reserve(5);
+    this._buf[this._curr] = v & 0x7;
+    this._buf[this._curr] |= 0xf0;
+    this._buf[this._curr + 1] = (v >> 3) & 0xff;
+    this._buf[this._curr + 2] = (v >> 11) & 0xff;
+    this._buf[this._curr + 3] = (v >> 19) & 0xff;
+    this._buf[this._curr + 4] = (v >> 27) & 0xff;
+    this._curr += 5;
+  }
+
+  write_varint64(v: bigint) {
+    if (v < 0x80) {
+      this._buf[this._curr] = Number(v & 0x7fn);
+      this._curr += 1;
+      return;
+    }
+
+    if (v < 1 << 14) {
+      this._reserve(2);
+      this._buf[this._curr] = Number(v & 0x3fn);
+      this._buf[this._curr] |= 0x80;
+      this._buf[this._curr + 1] = Number(v >> 6n) & 0xff;
+      this._curr += 2;
+      return;
+    }
+
+    if (v < 1 << 21) {
+      this._reserve(3);
+      this._buf[this._curr] = Number(v & 0x1fn);
+      this._buf[this._curr] |= 0xc0;
+      this._buf[this._curr + 1] = Number(v >> 5n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 13n) & 0xff;
+      this._curr += 3;
+      return;
+    }
+
+    if (v < 1 << 28) {
+      this._reserve(4);
+      this._buf[this._curr] = Number(v & 0xfn);
+      this._buf[this._curr] |= 0xe0;
+      this._buf[this._curr + 1] = Number(v >> 4n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 12n) & 0xff;
+      this._buf[this._curr + 3] = Number(v >> 20n) & 0xff;
+      this._curr += 4;
+      return;
+    }
+
+    if (v < 1n << 35n) {
+      this._reserve(5);
+      this._buf[this._curr] = Number(v & 0x7n);
+      this._buf[this._curr] |= 0xf0;
+      this._buf[this._curr + 1] = Number(v >> 3n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 11n) & 0xff;
+      this._buf[this._curr + 3] = Number(v >> 19n) & 0xff;
+      this._buf[this._curr + 4] = Number(v >> 27n) & 0xff;
+      this._curr += 5;
+      return;
+    }
+
+    if (v < 1n << 42n) {
+      this._reserve(6);
+      this._buf[this._curr] = Number(v & 0x3n);
+      this._buf[this._curr] |= 0xf8;
+      this._buf[this._curr + 1] = Number(v >> 2n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 10n) & 0xff;
+      this._buf[this._curr + 3] = Number(v >> 18n) & 0xff;
+      this._buf[this._curr + 4] = Number(v >> 26n) & 0xff;
+      this._buf[this._curr + 5] = Number(v >> 34n) & 0xff;
+      return 6;
+    }
+    if (v < 1n << 49n) {
+      this._reserve(7);
+      this._buf[this._curr] = Number(v & 0x1n);
+      this._buf[this._curr] |= 0xfc;
+      this._buf[this._curr + 1] = Number(v >> 1n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 9n) & 0xff;
+      this._buf[this._curr + 3] = Number(v >> 17n) & 0xff;
+      this._buf[this._curr + 4] = Number(v >> 25n) & 0xff;
+      this._buf[this._curr + 5] = Number(v >> 33n) & 0xff;
+      this._buf[this._curr + 6] = Number(v >> 41n) & 0xff;
+      this._curr += 7;
+      return;
+    }
+
+    if (v < 1n << 56n) {
+      this._reserve(8);
+      this._buf[this._curr] = 0xfe;
+      this._buf[this._curr + 1] = Number(v >> 0n) & 0xff;
+      this._buf[this._curr + 2] = Number(v >> 8n) & 0xff;
+      this._buf[this._curr + 3] = Number(v >> 16n) & 0xff;
+      this._buf[this._curr + 4] = Number(v >> 24n) & 0xff;
+      this._buf[this._curr + 5] = Number(v >> 32n) & 0xff;
+      this._buf[this._curr + 6] = Number(v >> 40n) & 0xff;
+      this._buf[this._curr + 7] = Number(v >> 48n) & 0xff;
+      this._curr += 8;
+      return;
+    }
+
+    this._reserve(9);
+    this._buf[this._curr] = 0xff;
+    this._buf[this._curr + 1] = Number(v >> 0n) & 0xff;
+    this._buf[this._curr + 2] = Number(v >> 8n) & 0xff;
+    this._buf[this._curr + 5] = Number(v >> 32n) & 0xff;
+    this._buf[this._curr + 3] = Number(v >> 16n) & 0xff;
+    this._buf[this._curr + 4] = Number(v >> 24n) & 0xff;
+    this._buf[this._curr + 6] = Number(v >> 40n) & 0xff;
+    this._buf[this._curr + 7] = Number(v >> 48n) & 0xff;
+    this._buf[this._curr + 8] = Number(v >> 56n) & 0xff;
+    this._curr += 9;
+    return;
   }
 
   write_u64(v: bigint) {
@@ -392,76 +631,281 @@ export class Writer {
  * A growable Uint8Array to write little-endian values
  */
 export class AbiWriter extends Writer {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly serializers: Record<string, (v: any) => void>;
-
   constructor(readonly abi: Abi, capacity = 2048) {
     super(capacity);
-
-    const number_serializer = (value: number) => {
-      // checks if value is a float or not
-      if (value % 1 === 0) {
-        this.write_u8(PrimitiveType.int);
-        this.write_i64(BigInt(value));
-      } else {
-        this.write_u8(PrimitiveType.float);
-        this.write_f64(value);
-      }
-    };
-    const string_serializer = (value: string) => {
-      const off = this.abi.id_by_symbol.get(value);
-      if (off === undefined) {
-        this.write_u8(PrimitiveType.object);
-        this.write_u32(this.abi.core_string_offset);
-        this.write_string(value);
-      } else {
-        this.write_u8(PrimitiveType.stringlit);
-        this.write_u32(off);
-      }
-    };
-    this.serializers = {
-      bigint: (v: bigint) => {
-        this.write_u8(PrimitiveType.int);
-        this.write_i64(v);
-      },
-      boolean: (v: boolean) => {
-        this.write_u8(PrimitiveType.bool);
-        this.write_bool(v);
-      },
-      undefined: () => {
-        this.write_u8(PrimitiveType.undefined);
-      },
-      number: number_serializer,
-      string: string_serializer,
-      object: (value: object) => {
-        if (value === null) {
-          this.write_u8(PrimitiveType.null);
-        } else if (value instanceof String || value instanceof Symbol) {
-          string_serializer(value.toString());
-        } else if (value instanceof Array) {
-          new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value);
-        } else if (value instanceof Map) {
-          new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value);
-        } else if (value instanceof GCObject) {
-          value.save(this);
-        } else {
-          throw new Error(`unhandled type '${value.constructor.name}' for serialization`);
-        }
-      },
-      function: () => {
-        throw new Error(`unhandled type 'function' for serialization`);
-      },
-      symbol: (s: symbol) => {
-        if (s.description) {
-          string_serializer(s.description);
-        } else {
-          throw new Error(`unable to serialize type 'Symbol' without description field`);
-        }
-      },
-    } as const;
   }
 
   serialize(value: Value): void {
-    this.serializers[typeof value](value);
+    // Typescript does not understand that 'value' as param must be of the right type
+    // in regard to the method because we used typeof value;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this[typeof value] as any)(value);
   }
+
+  /**
+   * Serializes a `number` as either an `int` or a `float` based on its value
+   */
+  number(value: number): void {
+    // checks if value is a float or not
+    if (value % 1 === 0) {
+      this.write_u8(PrimitiveType.int);
+      this.write_i64(BigInt(value));
+    } else {
+      this.write_u8(PrimitiveType.float);
+      this.write_f64(value);
+    }
+  }
+
+  /**
+   * Serializes a `boolean`
+   */
+  boolean(value: boolean): void {
+    this.write_u8(PrimitiveType.bool);
+    this.write_bool(value);
+  }
+
+  /**
+   * Serializes `undefined`
+   */
+  undefined(): void {
+    this.write_u8(PrimitiveType.undefined);
+  }
+
+  /**
+   * Serializes a `string` either as a `stringlit` or an `object` (string)
+   * based on whether or not the value is already present in the ABI symbols
+   */
+  string(value: string): void {
+    let off = this.abi.id_by_symbol.get(value);
+    if (off === undefined) {
+      this.write_u8(PrimitiveType.object);
+      this.write_varint32(this.abi.core_string_offset);
+      this.write_string(value);
+    } else {
+      this.write_u8(PrimitiveType.stringlit);
+      off <<= 1;
+      off |= 1;
+      this.write_varint32(off);
+    }
+  }
+
+  /**
+   * Serializes a `bigint` as `int`
+   */
+  bigint(value: bigint): void {
+    this.write_u8(PrimitiveType.int);
+    this.write_i64(value);
+  }
+
+  /**
+   * Serializes an `object` to either `null`, `object` (string), `object` (array), `object` (map)
+   * or using the `GCObject.save()` method based on the value.
+   */
+  object(value: object): void {
+    if (value === null) {
+      this.write_u8(PrimitiveType.null);
+    } else if (value instanceof String) {
+      this.string(value.valueOf());
+    } else if (value instanceof Symbol) {
+      this.symbol(value.valueOf());
+    } else if (value instanceof Array) {
+      new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value).save(this);
+    } else if (value instanceof Map) {
+      new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).save(this);
+    } else if (value instanceof GCObject) {
+      value.save(this);
+    } else {
+      throw new Error(`unhandled type '${value.constructor.name}' for serialization`);
+    }
+  }
+
+  /**
+   * This always throws
+   */
+  function(): void {
+    throw new Error('Javascript function are not serializable');
+  }
+
+  symbol(value: symbol): void {
+    if (value.description) {
+      this.string(value.description);
+      return;
+    }
+    this.write_u8(PrimitiveType.null);
+  }
+}
+
+function varint_32_len(header: number) {
+  if ((header & 0x80) === 0) {
+    return 1;
+  }
+  if ((header & 0x40) === 0) {
+    return 2;
+  }
+  if ((header & 0x20) === 0) {
+    return 3;
+  }
+  if ((header & 0x10) === 0) {
+    return 4;
+  }
+  return 5;
+}
+
+function varint_64_len(header: number) {
+  if ((header & 0x80) === 0) {
+    return 1;
+  }
+  if ((header & 0x40) === 0) {
+    return 2;
+  }
+  if ((header & 0x20) === 0) {
+    return 3;
+  }
+  if ((header & 0x10) === 0) {
+    return 4;
+  }
+  if ((header & 0x08) === 0) {
+    return 5;
+  }
+  if ((header & 0x04) === 0) {
+    return 6;
+  }
+  if ((header & 0x02) === 0) {
+    return 7;
+  }
+  if ((header & 0x01) === 0) {
+    return 8;
+  }
+  return 9;
+}
+
+function varint_32_unpack(bytes: Uint8Array): number {
+  const n = bytes.byteLength;
+  switch (n) {
+    case 1:
+      return bytes[0] & 0x7f;
+    case 2:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0x3f) |
+        (bytes[1] << 6)
+      );
+    case 3:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0x1f) |
+        (bytes[1] <<  5)  |
+        (bytes[2] << 13)
+      );
+    case 4:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0xf) |
+        (bytes[1] <<  4) |
+        (bytes[2] << 12) |
+        (bytes[3] << 20)
+      );
+    case 5:
+      // prettier-ignore
+      return Number(
+        (BigInt(bytes[0]) & 0x7n) |
+        (BigInt(bytes[1]) <<  3n) |
+        (BigInt(bytes[2]) << 11n) |
+        (BigInt(bytes[3]) << 19n) |
+        (BigInt(bytes[4]) << 27n)
+      );
+    default:
+      throw new Error(`unexpected varint32 length of ${n} bytes`);
+  }
+}
+
+function varint_64_unpack(bytes: Uint8Array): bigint | number {
+  const n = bytes.byteLength;
+  switch (n) {
+    case 1:
+      return bytes[0] & 0x7f;
+    case 2:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0x3f) |
+        (bytes[1] << 6)
+      );
+    case 3:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0x1f) |
+        (bytes[1] <<  5)  |
+        (bytes[2] << 13)
+      );
+    case 4:
+      // prettier-ignore
+      return (
+        (bytes[0] & 0xf) |
+        (bytes[1] <<  4) |
+        (bytes[2] << 12) |
+        (bytes[3] << 20)
+      );
+    case 5:
+      // prettier-ignore
+      return (
+        (BigInt(bytes[0]) & 0x7n) |
+        (BigInt(bytes[1]) <<  3n) |
+        (BigInt(bytes[2]) << 11n) |
+        (BigInt(bytes[3]) << 19n) |
+        (BigInt(bytes[4]) << 27n)
+      );
+    case 6:
+      // prettier-ignore
+      return (
+        (BigInt(bytes[0]) & 0x3n) |
+        (BigInt(bytes[1]) <<  2n) |
+        (BigInt(bytes[2]) << 10n) |
+        (BigInt(bytes[3]) << 18n) |
+        (BigInt(bytes[4]) << 26n) |
+        (BigInt(bytes[5]) << 34n)
+      );
+    case 7:
+      // prettier-ignore
+      return (
+        (BigInt(bytes[0]) & 0x1n) |
+        (BigInt(bytes[1]) <<  1n) |
+        (BigInt(bytes[2]) <<  9n) |
+        (BigInt(bytes[3]) << 17n) |
+        (BigInt(bytes[4]) << 25n) |
+        (BigInt(bytes[5]) << 33n) |
+        (BigInt(bytes[6]) << 41n)
+      );
+    case 8:
+      // prettier-ignore
+      return (
+        BigInt(bytes[1])          |
+        (BigInt(bytes[2]) <<  8n) |
+        (BigInt(bytes[3]) << 16n) |
+        (BigInt(bytes[4]) << 24n) |
+        (BigInt(bytes[5]) << 32n) |
+        (BigInt(bytes[6]) << 40n) |
+        (BigInt(bytes[7]) << 48n)
+      );
+    case 9:
+      // prettier-ignore
+      return (
+        BigInt(bytes[1])          |
+        (BigInt(bytes[2]) <<  8n) |
+        (BigInt(bytes[3]) << 16n) |
+        (BigInt(bytes[4]) << 24n) |
+        (BigInt(bytes[5]) << 32n) |
+        (BigInt(bytes[6]) << 40n) |
+        (BigInt(bytes[7]) << 48n) |
+        (BigInt(bytes[8]) << 56n)
+      );
+    default:
+      throw new Error(`unexpected varint64 length of ${n} bytes`);
+  }
+}
+
+function sign_of(n: bigint | number): bigint | number {
+  if (typeof n === 'bigint') {
+    return (n >> 1n) ^ -(n & 1n);
+  }
+  return (n >>> 1) ^ -(n & 1);
 }

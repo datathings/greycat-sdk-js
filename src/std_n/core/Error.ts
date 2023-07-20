@@ -67,7 +67,7 @@ export class Error extends GCObject {
   }
 }
 
-class ErrorFrame {
+export class ErrorFrame {
   constructor(
     public module: number,
     public type: number,

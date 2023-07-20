@@ -3,23 +3,23 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
-export class Queue<T extends Value> extends GCObject {
+export class Queue extends GCObject {
   static readonly _type = 'util::Queue' as const;
 
-  constructor(type: AbiType, readonly queue: LinkedList<T> = new LinkedList()) {
+  constructor(type: AbiType, readonly queue: LinkedList<Value> = new LinkedList()) {
     super(type);
   }
 
-  pushBack(v: T): void {
+  pushBack(v: Value): void {
     this.queue.pushBack(v);
   }
-  pushFront(v: T): void {
+  pushFront(v: Value): void {
     this.queue.pushFront(v);
   }
-  popBack(): T | null {
+  popBack(): Value | null {
     return this.queue.popBack();
   }
-  popFront(): T | null {
+  popFront(): Value | null {
     return this.queue.popFront();
   }
   size(): number {
@@ -43,7 +43,7 @@ export class Queue<T extends Value> extends GCObject {
     }
   }
 
-  static load<T extends Value = Value>(r: AbiReader, type: AbiType): Queue<T> {
+  static load(r: AbiReader, type: AbiType): Queue {
     /* const width = */ r.read_i64();
     const size = r.read_u32();
     const capacity = r.read_u32();
@@ -61,7 +61,7 @@ export class Queue<T extends Value> extends GCObject {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, queue) as Queue<T>;
+    return new type.factory!(type, queue) as Queue;
   }
 }
 

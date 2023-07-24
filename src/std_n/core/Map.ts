@@ -2,6 +2,7 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import { GCEnum } from '../../index.js';
 
 export class Map extends GCObject {
   static readonly _type = 'core::Map' as const;
@@ -20,7 +21,7 @@ export class Map extends GCObject {
     });
   }
 
-  static load(r: AbiReader): globalThis.Map<Value, Value> {
+  static load(r: AbiReader, ty: AbiType) {
     const len = r.read_u32();
     const map = new globalThis.Map<Value, Value>();
 
@@ -30,7 +31,7 @@ export class Map extends GCObject {
       map.set(key, value);
     }
 
-    return map;
+    return new Map(ty, map);
   }
 
   override toJSON() {
@@ -41,6 +42,8 @@ export class Map extends GCObject {
         json['null'] = value;
       } else if (key === undefined) {
         json['undefined'] = value;
+      } else if (key instanceof GCEnum) {
+        json[`${key.type.name}::${key.key}`] = value;
       } else {
         json[key.toString()] = value;
       }

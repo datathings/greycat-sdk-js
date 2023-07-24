@@ -9,10 +9,10 @@ export class nodeIndexBucket extends GCObject {
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
     w.write_u32(this.type.offset);
-    if (this.attributes) {
-      w.write_u32(this.attributes.length);
-      for (let i = 0; i < this.attributes.length; i++) {
-        w.serialize(this.attributes[i]);
+    if (this.$values) {
+      w.write_u32(this.$values.length);
+      for (let i = 0; i < this.$values.length; i++) {
+        w.serialize(this.$values[i]);
       }
     } else {
       w.write_u32(0);

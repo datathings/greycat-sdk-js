@@ -28,9 +28,9 @@ export class time extends GCObject {
 
   get epoch(): number {
     if (typeof this.value === 'bigint') {
-      return Number(this.value / 1_000_000n);
+      return Math.round(Number(this.value / 1_000_000n));
     }
-    return this.value / 1_000_000;
+    return Math.round(this.value / 1_000_000);
   }
 
   get us(): number {

@@ -1,15 +1,22 @@
-const buffer = new ArrayBuffer(8);
+const buffer = new ArrayBuffer(4);
 
 // const u8view = new Uint8Array(buffer);
 const u32view = new Uint32Array(buffer);
 const f32view = new Float32Array(buffer);
 // const u64view = new BigUint64Array(buffer);
 
+// deinterleave masks
 const BI_MASK32 = 0xfffffffffn;
 const BI_MASK21 = 0x0001fffffn;
 const BI_MASK12 = 0x0fffn;
-// const MASK32 = 0xfffffffff;
-const MASK21 = 0x0001fffff;
+
+// unsigned => signed
+const INT32_MIN = -2147483648;
+const INT21_MIN = -1048576;
+const INT16_MIN = -32768;
+const INT12_MIN = -2048;
+const INT10_MIN = -512;
+const INT6_MIN = -32;
 
 // prettier-ignore
 export function interleave64_2d(x0: number, x1: number): bigint {
@@ -310,13 +317,6 @@ export function deinterleave64_10d(x: bigint): [number, number, number, number, 
   ]
 }
 
-const INT32_MIN = -2147483648;
-const INT21_MIN = -1048576;
-const INT16_MIN = -32768;
-const INT12_MIN = -2048;
-const INT10_MIN = -512;
-const INT6_MIN = -32;
-
 export function interleave64_2di(x0: number, x1: number): bigint {
   return interleave64_2d(x0 + INT32_MIN, x1 + INT32_MIN);
 }
@@ -454,25 +454,40 @@ export function interleave64_3df(x0: number, x1: number, x2: number): bigint {
 
 export function deinterleave64_3df(x: bigint): [number, number, number] {
   const res = deinterleave64_3d(x);
-  MASK21;
-  res[0] = res[0] + INT21_MIN;
-  res[0] <<= 21;
-  res[1] = res[1] + INT21_MIN;
-  res[1] <<= 21;
-  res[2] = res[2] + INT21_MIN;
-  res[2] <<= 21;
+  u32view[0] = res[0] + INT21_MIN;
+  u32view[0] <<= 11;
+  res[0] = f32view[0];
+
+  u32view[0] = res[1] + INT21_MIN;
+  u32view[0] <<= 11;
+  res[1] = f32view[0];
+
+  u32view[0] = res[2] + INT21_MIN;
+  u32view[0] <<= 11;
+  res[2] = f32view[0];
   return res;
+}
+
+export function interleave64_4df(x0: number, x1: number, x2: number, x3: number): bigint {
+  return interleave64_4d(x0 - INT16_MIN, x1 - INT16_MIN, x2 - INT16_MIN, x3 - INT16_MIN);
 }
 
 export function deinterleave64_4df(x: bigint): [number, number, number, number] {
   const res = deinterleave64_4d(x);
-  res[0] = res[0] + INT16_MIN;
-  res[0] <<= 16; // x = x * 2^16
-  res[1] = res[1] + INT16_MIN;
-  res[1] <<= 16;
-  res[2] = res[2] + INT16_MIN;
-  res[2] <<= 16;
-  res[3] = res[3] + INT16_MIN;
-  res[3] <<= 16;
+  u32view[0] = res[0] + INT16_MIN;
+  u32view[0] <<= 16;
+  res[0] = f32view[0];
+
+  u32view[0] = res[1] + INT16_MIN;
+  u32view[0] <<= 16;
+  res[1] = f32view[0];
+
+  u32view[0] = res[2] + INT16_MIN;
+  u32view[0] <<= 16;
+  res[2] = f32view[0];
+
+  u32view[0] = res[3] + INT16_MIN;
+  u32view[0] <<= 16;
+  res[3] = f32view[0];
   return res;
 }

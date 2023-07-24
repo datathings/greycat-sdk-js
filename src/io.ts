@@ -98,10 +98,7 @@ export class Reader {
     assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getBigUint64(this._curr, true);
     this._curr += 8;
-    if (v <= Number.MAX_SAFE_INTEGER) {
-      return Number(v);
-    }
-    return v;
+    return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
   }
 
   read_i64(): bigint {
@@ -115,10 +112,7 @@ export class Reader {
     assert_buffer_has_enough_bytes(this._curr + 8 <= this._buf.byteLength);
     const v = this._view.getBigInt64(this._curr, true);
     this._curr += 8;
-    if (v <= Number.MAX_SAFE_INTEGER) {
-      return Number(v);
-    }
-    return v;
+    return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
   }
 
   read_f32(): number {

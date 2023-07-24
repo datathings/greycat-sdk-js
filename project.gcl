@@ -119,7 +119,7 @@ fn write_core(out: AbiWriter) {
 }
 
 fn write_debug(out: AbiWriter) {
-  out.write(TypeAttr{
+  out.write(TypeAttr {
     name: "",
     is_static: false,
   });

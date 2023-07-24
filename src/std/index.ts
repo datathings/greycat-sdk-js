@@ -192,7 +192,7 @@ export const stdlib: Library = {
     this.mapped[15].resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
     this.mapped[16] = abi.type_by_fqn.get(core.Table._type)!;
     this.mapped[17] = abi.type_by_fqn.get(core.geo._type)!;
-    this.mapped[17].static_values = [abi.createGeo(-85.05112876,-179.999999958),abi.createGeo(85.05112876,179.999999958)];
+    this.mapped[17].static_values = [abi.createGeo(-85.0511287602,-179.9999999581),abi.createGeo(85.0511287602,179.9999999581)];
     this.mapped[18] = abi.type_by_fqn.get(core.ti6d._type)!;
     this.mapped[19] = abi.type_by_fqn.get(core.Tensor._type)!;
     this.mapped[20] = abi.type_by_fqn.get(core.GeoCircle._type)!;
@@ -280,7 +280,7 @@ export const stdlib: Library = {
     this.mapped[77] = abi.type_by_fqn.get(runtime.License._type)!;
     this.mapped[77].resolveGeneratedOffsets('name','start','end','company','max_workers','max_memory','max_store','extra_1','extra_2','extra_3','extra_4');
     this.mapped[78] = abi.type_by_fqn.get(math.MathConstants._type)!;
-    this.mapped[78].static_values = [2.718281828,1.442695041,0.434294482,0.693147181,2.302585093,3.141592654,1.570796327,0.785398163,0.318309886,0.636619772,1.128379167,1.414213562,0.707106781];
+    this.mapped[78].static_values = [2.7182818285,1.4426950409,0.4342944819,0.6931471806,2.302585093,3.1415926536,1.5707963268,0.7853981634,0.3183098862,0.6366197724,1.1283791671,1.4142135624,0.7071067812];
     this.mapped[79] = abi.type_by_fqn.get(io.FileEntry._type)!;
     this.mapped[80] = abi.type_by_fqn.get(io.AbiReader._type)!;
     this.mapped[81] = abi.type_by_fqn.get(io.CSVColumnString._type)!;

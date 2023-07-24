@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { Abi, AbiReader, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, stdlib, std } from './dist/esm/index.js';
 import assert from 'node:assert';
 
 const buffer = (await readFile('gcdata/store/abi')).buffer;
@@ -11,6 +11,7 @@ const reader = new AbiReader(abi, data);
 reader.headers(); // read headers
 
 const expected_values = [
+  // std::core
   true,
   '*',
   0,
@@ -138,6 +139,179 @@ const expected_values = [
   { _type: 'core::tf2d', x0: 13.369999885559082, x1: 12.420000076293945 },
   { _type: 'core::tf3d', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
   { _type: 'core::tf4d', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
+
+  // std::debug
+  { _type: 'debug::TypeAttr', name: '', is_static: false },
+  { _type: 'debug::TypeDesc', module: '', name: '', methods: [], attrs: [], is_abstract: true, is_enum: false },
+  { _type: 'debug::TypeRef', name: '', module: '', nullable: true },
+  { _type: 'debug::FnParam', name: '', type: { _type: 'debug::TypeRef', name: '', module: '', nullable: true } },
+  { _type: 'debug::FnMode', field: 'read_only' },
+  {
+    _type: 'debug::FnDesc',
+    module: '',
+    name: '',
+    params: [],
+    is_static: true,
+    is_task: false,
+    is_exclusive: true,
+    is_reserved: false,
+    is_exposed: true,
+    mode: { _type: 'debug::FnMode', field: 'read_only' },
+    permissions: [],
+  },
+  {
+    _type: 'debug::ModVarDesc',
+    module: '',
+    name: '',
+    type: {
+      _type: 'debug::TypeRef',
+      name: '',
+      module: '',
+      nullable: true,
+    },
+  },
+  {
+    _type: 'debug::ModDesc',
+    name: '',
+    lib: '',
+    functions: [],
+    types: [],
+    vars: [],
+  },
+
+  // std::io
+  { _type: 'io::FileDescriptor', uri: '' },
+  { _type: 'io::Env' },
+  { _type: 'io::TextEncoder', field: 'plain' },
+  { _type: 'io::BinaryFormat' },
+  { _type: 'io::JsonFormat' },
+  { _type: 'io::TextFormat' },
+  { _type: 'io::CSVColumnString' },
+  { _type: 'io::CSVColumnInteger' },
+  { _type: 'io::CSVColumnFloat' },
+  { _type: 'io::CSVColumnBoolean' },
+  { _type: 'io::CSVColumnTime' },
+  { _type: 'io::CSVColumnDate' },
+  { _type: 'io::CSVColumnIgnored' },
+  {
+    _type: 'io::CSVFormat',
+    header_lines: 12,
+    infer: true,
+    separator: ',',
+    string_delimiter: '"',
+    decimal_separator: '.',
+    thousands_separator: '_',
+    columns: [],
+  },
+  { _type: 'io::JSON' },
+
+  // std::math
+  2.7182818284590455, // MathConstants::e
+  1.4426950408889634, // MathConstants::log_2e
+  0.43429448190325187, // MathConstants::log_10e
+  0.6931471805599453, // MathConstants::ln2
+  2.302585092994046, // MathConstants::ln10
+  3.141592653589793, // MathConstants::pi
+  1.5707963267948966, // MathConstants::pi_2
+  0.7853981633974484, // MathConstants::pi_4
+  0.31830988618379064, // MathConstants::m1_pi
+  0.6366197723675813, // MathConstants::m2_pi
+  1.1283791670955126, // MathConstants::m2_sqrt_pi
+  1.414213562373095, // MathConstants::sqrt2
+  0.7071067811865476, // MathConstants::sqrt1_2
+
+  // std::runtime
+  {
+    _type: 'runtime::Task',
+    id: 13,
+    user: 37,
+    mod: '',
+    type: '',
+    fun: '',
+    progress: 13.37,
+    remaining: { _type: 'core::duration', s: 0, us: 42 },
+    creation: { _type: 'core::time', epoch: 0, us: 42 },
+    status: { _type: 'runtime::TaskStatus', field: 'empty' },
+    sub_waiting: 0,
+    sub_tasks_all: 1,
+  },
+  { _type: 'runtime::TaskStatus', field: 'cancelled' },
+  { _type: 'runtime::Runtime' },
+  {
+    _type: 'runtime::RuntimeInfo',
+    version: '',
+    arch: '',
+    timezone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
+    license: {
+      _type: 'runtime::License',
+      start: { _type: 'core::time', epoch: 0, us: 13 },
+      end: { _type: 'core::time', epoch: 0, us: 37 },
+      max_workers: 12,
+      max_memory: 42,
+      max_store: 0,
+    },
+    io_threads: 13,
+    bg_threads: 37,
+    fg_threads: 42,
+    mem_total: 12,
+    mem_worker: 0,
+    nb_ctx: 1,
+  },
+  { _type: 'runtime::SecurityFields' },
+  { _type: 'runtime::UserGroup', id: 12, name: '', activated: false },
+  { _type: 'runtime::OpenIDConnect', url: '', clientId: '' },
+  { _type: 'runtime::UserRole', name: '', permissions: [] },
+  {
+    _type: 'runtime::PeriodicTask',
+    name: '',
+    user_id: 12,
+    start: { _type: 'core::time', epoch: 0, us: 13 },
+    every: { _type: 'core::duration', s: 0, us: 37 },
+  },
+  { _type: 'runtime::User', id: 12, name: '', activated: false, external: true },
+  {
+    _type: 'runtime::UserGroupPolicy',
+    group_id: 12,
+    type: { _type: 'runtime::UserGroupPolicyType', field: 'execute' },
+  },
+  { _type: 'runtime::UserGroupPolicyType', field: 'read' },
+  {
+    _type: 'runtime::License',
+    start: { _type: 'core::time', epoch: 0, us: 13 },
+    end: { _type: 'core::time', epoch: 0, us: 37 },
+    max_workers: 12,
+    max_memory: 42,
+    max_store: 0,
+  },
+  {
+    _type: 'runtime::StoreStat',
+    capacity_bytes: 13,
+    allocated_bytes: 37,
+    allocated_ratio: 13.37,
+    remained_bytes: 12,
+    remained_ratio: 4.2,
+    used_bytes: 42,
+    used_ratio: 0.1,
+    available_bytes: 0,
+    available_ratio: 0.2,
+  },
+  { _type: 'runtime::System' },
+  { _type: 'runtime::SecurityPolicy', entities: [], credentials: {}, roles: {} },
+
+  // std::util
+  { _type: 'util::Random', seed: 42, v: 13.37 },
+  { _type: 'util::Buffer' },
+  { _type: 'util::Assert' },
+  { _type: 'util::ProgressTracker' },
+  { _type: 'util::NdEncoding' },
+  { _type: 'util::Iban' },
+  { _type: 'util::Gaussian' },
+  { _type: 'util::GaussianProfile' },
+  null, // TODO expected { _type: 'util::TimeWindow' },
+  // { _type: 'util::SlidingWindow' },
+  // { _type: 'util::Queue' },
+  // { _type: 'util::HistogramBucket' },
+  // { _type: 'util::Crypto' },
 ];
 
 for (const expected of expected_values) {

@@ -3,22 +3,22 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
-export class tu2d extends GCObject {
-  static readonly _type = 'core::tu2d' as const;
+export class tf4d extends GCObject {
+  static readonly _type = 'core::tf4d' as const;
 
   constructor(type: AbiType, public value: bigint) {
     super(type);
   }
 
-  static load(r: AbiReader, ty: AbiType): tu2d {
+  static load(r: AbiReader, ty: AbiType): tf4d {
     const value = r.read_u64();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as tu2d;
+    return new ty.factory!(ty, value) as tf4d;
   }
 
-  static fromJSON(o: unknown): tu2d {
-    Object.setPrototypeOf(o, tu2d.prototype);
-    return o as tu2d;
+  static fromJSON(o: unknown): tf4d {
+    Object.setPrototypeOf(o, tf4d.prototype);
+    return o as tf4d;
   }
 
   override save(w: AbiWriter) {

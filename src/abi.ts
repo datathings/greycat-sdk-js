@@ -11,8 +11,10 @@ export class Abi {
   readonly crc: bigint;
 
   /** Maps all the ABI symbols to their respective offset in `this.symbols` */
-  readonly id_by_symbol: Map<string, number>;
+  readonly off_by_symbol: Map<string, number>;
+  /** not the full fqn `<module>::<name>` only */
   readonly type_by_fqn: Map<string, AbiType>;
+  /** not the full fqn `<module>::<name>` only */
   readonly fn_by_fqn: Map<string, AbiFunction>;
   readonly libs_by_name: Map<string, Library>;
 
@@ -47,7 +49,7 @@ export class Abi {
   readonly core_function_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
-    this.id_by_symbol = new Map();
+    this.off_by_symbol = new Map();
     this.type_by_fqn = new Map();
     this.loaders = new Map();
     this.factories = new Map();
@@ -81,7 +83,7 @@ export class Abi {
       const len = cursor.read_u32();
       const symbol = cursor.read_string(len);
       this.symbols[i] = symbol;
-      this.id_by_symbol.set(symbol, i);
+      this.off_by_symbol.set(symbol, i);
     }
 
     /* const types_size = */ cursor.read_u64();
@@ -166,15 +168,15 @@ export class Abi {
           case 'nodeGeo':   this.core_node_geo_offset   = i; break;
           case 'nodeIndex': this.core_node_index_offset = i; break;
           case 'cubic':     this.core_cubic_offset      = i; break;
-          case 'tu2d':      this.core_tu2d_offset       = i; break;
-          case 'tu3d':      this.core_tu3d_offset       = i; break;
-          case 'tu4d':      this.core_tu4d_offset       = i; break;
-          case 'tu5d':      this.core_tu5d_offset       = i; break;
-          case 'tu6d':      this.core_tu6d_offset       = i; break;
-          case 'tu10d':     this.core_tu10d_offset      = i; break;
-          case 'tuf2d':     this.core_tuf2d_offset      = i; break;
-          case 'tuf3d':     this.core_tuf3d_offset      = i; break;
-          case 'tuf4d':     this.core_tuf4d_offset      = i; break;
+          case 'ti2d':      this.core_tu2d_offset       = i; break;
+          case 'ti3d':      this.core_tu3d_offset       = i; break;
+          case 'ti4d':      this.core_tu4d_offset       = i; break;
+          case 'ti5d':      this.core_tu5d_offset       = i; break;
+          case 'ti6d':      this.core_tu6d_offset       = i; break;
+          case 'ti10d':     this.core_tu10d_offset      = i; break;
+          case 'tf2d':      this.core_tuf2d_offset      = i; break;
+          case 'tf3d':      this.core_tuf3d_offset      = i; break;
+          case 'tf4d':      this.core_tuf4d_offset      = i; break;
           case 'function':  this.core_function_offset   = i; break;
           default:
             // noop
@@ -252,6 +254,85 @@ export class Abi {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, value);
   }
+
+  createTu2d(x0: bigint | number, x1: bigint | number) {
+    const t = this.types[this.core_tu2d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1);
+  }
+
+  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
+    const t = this.types[this.core_tu3d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2);
+  }
+
+  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
+    const t = this.types[this.core_tu4d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2, x3);
+  }
+
+  // prettier-ignore
+  createTu5d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+  ) {
+    const t = this.types[this.core_tu5d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2, x3, x4);
+  }
+
+  createTu6d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+    x5: bigint | number,
+  ) {
+    const t = this.types[this.core_tu6d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2, x3, x4, x5);
+  }
+
+  createTu10d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+    x5: bigint | number,
+    x6: bigint | number,
+    x7: bigint | number,
+    x8: bigint | number,
+    x9: bigint | number,
+  ) {
+    const t = this.types[this.core_tu10d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+  }
+
+  createTuf2d(x0: number, x1: number) {
+    const t = this.types[this.core_tuf2d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1);
+  }
+
+  createTuf3d(x0: number, x1: number, x2: number) {
+    const t = this.types[this.core_tuf3d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2);
+  }
+
+  createTuf4d(x0: number, x1: number, x2: number, x3: number) {
+    const t = this.types[this.core_tuf4d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new t.factory!(t, x0, x1, x2, x3);
+  }
 }
 
 export class AbiType {
@@ -260,7 +341,7 @@ export class AbiType {
   };
   static readonly enum_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
-    const valueOffset = r.read_u32();
+    const valueOffset = r.read_varint32();
     const abiTypeAtt = type.attrs[valueOffset];
     // this is an enum, so we know `enum_values` is gonna be initialized
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -269,9 +350,46 @@ export class AbiType {
   static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
     const attrs = new Array(programType.attrs.length);
-    for (let i = 0; i < attrs.length; i++) {
-      const att = type.attrs[i];
-      const value = r.deserialize();
+    const previous_nullable = new Uint8Array(r.take(type.nullable_nb_bytes));
+    let nullable_offset = -1;
+    for (let attOffset = 0; attOffset < type.attrs.length; attOffset++) {
+      const att = type.attrs[attOffset];
+      let value: Value;
+      if (att.nullable) {
+        ++nullable_offset;
+        if (0 == ((previous_nullable[nullable_offset >> 3] >> (nullable_offset & 7)) & 1)) {
+          continue;
+        }
+      }
+      let loadType = att.sbi_type;
+      if (loadType === PrimitiveType.undefined) {
+        loadType = r.read_u8() as PrimitiveType;
+      }
+
+      const attType = type.abi.types[att.abi_type];
+      switch (loadType) {
+        case PrimitiveType.enum: {
+          value = this.enum_loader(r, attType);
+          break;
+        }
+        case PrimitiveType.object: {
+          if (attType.is_native) {
+            value = attType.loader(r, attType);
+          } else {
+            let xAttType = attType;
+            if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
+              const id = r.read_varint32();
+              xAttType = type.abi.types[id];
+            }
+            value = xAttType.loader(r, xAttType);
+          }
+          break;
+        }
+        default: {
+          value = r.deserializers[att.sbi_type](r);
+          break;
+        }
+      }
       if (att.mapped) {
         attrs[att.mapped_att_offset] = value;
       }

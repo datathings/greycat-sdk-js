@@ -45,73 +45,55 @@ export class ModDesc extends $sdk.GCObject {
     super.set(super.type.generated_offsets[4], v);
   }
  static create($g: $sdk.GreyCat, name: string, lib: string, functions: Array<$std.debug.FnDesc>, types: Array<$std.debug.TypeDesc>, vars: Array<$std.debug.ModVarDesc>): ModDesc {
-    return new ModDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[77], name, lib, functions, types, vars);
+    return new ModDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[102], name, lib, functions, types, vars);
   }
 }
 
-export class TypeAttr extends $sdk.GCObject {
-  static readonly _type = 'debug::TypeAttr';
+export class TypeDesc extends $sdk.GCObject {
+  static readonly _type = 'debug::TypeDesc';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
   }
 
-  public get_name(): string {
-    return super.get(super.type.generated_offsets[0]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_type(): $std.debug.TypeRef | null {
-    return super.get(super.type.generated_offsets[1]) as $std.debug.TypeRef | null;
-  }
-  public set_type(v: $std.debug.TypeRef | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
-  public get_is_static(): boolean {
-    return super.get(super.type.generated_offsets[2]) as boolean;
-  }
-  public set_is_static(v: boolean) {
-    super.set(super.type.generated_offsets[2], v);
-  }
- static create($g: $sdk.GreyCat, name: string, type: $std.debug.TypeRef | null, is_static: boolean): TypeAttr {
-    return new TypeAttr($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[78], name, type, is_static);
-  }
-}
-
-export class TypeRef extends $sdk.GCObject {
-  static readonly _type = 'debug::TypeRef';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string {
-    return super.get(super.type.generated_offsets[0]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.type.generated_offsets[0], v);
-  }
   public get_module(): string {
-    return super.get(super.type.generated_offsets[1]) as string;
+    return super.get(super.type.generated_offsets[0]) as string;
   }
   public set_module(v: string) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_name(): string {
+    return super.get(super.type.generated_offsets[1]) as string;
+  }
+  public set_name(v: string) {
     super.set(super.type.generated_offsets[1], v);
   }
-  public get_generics(): Array<$std.debug.TypeRef> | null {
-    return super.get(super.type.generated_offsets[2]) as Array<$std.debug.TypeRef> | null;
+  public get_methods(): Array<$std.debug.FnDesc> {
+    return super.get(super.type.generated_offsets[2]) as Array<$std.debug.FnDesc>;
   }
-  public set_generics(v: Array<$std.debug.TypeRef> | null) {
+  public set_methods(v: Array<$std.debug.FnDesc>) {
     super.set(super.type.generated_offsets[2], v);
   }
-  public get_nullable(): boolean {
-    return super.get(super.type.generated_offsets[3]) as boolean;
+  public get_attrs(): Array<$std.debug.TypeAttr> {
+    return super.get(super.type.generated_offsets[3]) as Array<$std.debug.TypeAttr>;
   }
-  public set_nullable(v: boolean) {
+  public set_attrs(v: Array<$std.debug.TypeAttr>) {
     super.set(super.type.generated_offsets[3], v);
   }
- static create($g: $sdk.GreyCat, name: string, module: string, generics: Array<$std.debug.TypeRef> | null, nullable: boolean): TypeRef {
-    return new TypeRef($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79], name, module, generics, nullable);
+  public get_is_abstract(): boolean {
+    return super.get(super.type.generated_offsets[4]) as boolean;
+  }
+  public set_is_abstract(v: boolean) {
+    super.set(super.type.generated_offsets[4], v);
+  }
+  public get_is_enum(): boolean {
+    return super.get(super.type.generated_offsets[5]) as boolean;
+  }
+  public set_is_enum(v: boolean) {
+    super.set(super.type.generated_offsets[5], v);
+  }
+ static create($g: $sdk.GreyCat, module: string, name: string, methods: Array<$std.debug.FnDesc>, attrs: Array<$std.debug.TypeAttr>, is_abstract: boolean, is_enum: boolean): TypeDesc {
+    return new TypeDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[103], module, name, methods, attrs, is_abstract, is_enum);
   }
 }
 
@@ -123,23 +105,47 @@ export class FnMode extends $sdk.GCEnum {
   }
 
   public static read_only($g: $sdk.GreyCat): $std.debug.FnMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[104];
     return t.enum_values![t.generated_offsets[0]] as $std.debug.FnMode;
   }
   public static copy_on_write($g: $sdk.GreyCat): $std.debug.FnMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[104];
     return t.enum_values![t.generated_offsets[1]] as $std.debug.FnMode;
   }
   public static volatile($g: $sdk.GreyCat): $std.debug.FnMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[104];
     return t.enum_values![t.generated_offsets[2]] as $std.debug.FnMode;
   }
   public static write($g: $sdk.GreyCat): $std.debug.FnMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[104];
     return t.enum_values![t.generated_offsets[3]] as $std.debug.FnMode;
   }
  static create($g: $sdk.GreyCat): FnMode {
-    return new FnMode($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80]);
+    return new FnMode($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[104]);
+  }
+}
+
+export class FnParam extends $sdk.GCObject {
+  static readonly _type = 'debug::FnParam';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string {
+    return super.get(super.type.generated_offsets[0]) as string;
+  }
+  public set_name(v: string) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_type(): $std.debug.TypeRef {
+    return super.get(super.type.generated_offsets[1]) as $std.debug.TypeRef;
+  }
+  public set_type(v: $std.debug.TypeRef) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string, type: $std.debug.TypeRef): FnParam {
+    return new FnParam($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[105], name, type);
   }
 }
 
@@ -223,60 +229,42 @@ export class FnDesc extends $sdk.GCObject {
     super.set(super.type.generated_offsets[11], v);
   }
  static create($g: $sdk.GreyCat, module: string, name: string, parent_type: string | null, params: Array<$std.debug.FnParam>, return_type: $std.debug.TypeRef | null, is_static: boolean, is_task: boolean, is_exclusive: boolean, is_reserved: boolean, is_exposed: boolean, mode: $std.debug.FnMode, permissions: Array<string>): FnDesc {
-    return new FnDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[81], module, name, parent_type, params, return_type, is_static, is_task, is_exclusive, is_reserved, is_exposed, mode, permissions);
+    return new FnDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[106], module, name, parent_type, params, return_type, is_static, is_task, is_exclusive, is_reserved, is_exposed, mode, permissions);
   }
 }
 
-export class TypeDesc extends $sdk.GCObject {
-  static readonly _type = 'debug::TypeDesc';
+export class TypeAttr extends $sdk.GCObject {
+  static readonly _type = 'debug::TypeAttr';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
   }
 
-  public get_module(): string {
+  public get_name(): string {
     return super.get(super.type.generated_offsets[0]) as string;
   }
-  public set_module(v: string) {
+  public set_name(v: string) {
     super.set(super.type.generated_offsets[0], v);
   }
-  public get_name(): string {
-    return super.get(super.type.generated_offsets[1]) as string;
+  public get_type(): $std.debug.TypeRef | null {
+    return super.get(super.type.generated_offsets[1]) as $std.debug.TypeRef | null;
   }
-  public set_name(v: string) {
+  public set_type(v: $std.debug.TypeRef | null) {
     super.set(super.type.generated_offsets[1], v);
   }
-  public get_methods(): Array<$std.debug.FnDesc> {
-    return super.get(super.type.generated_offsets[2]) as Array<$std.debug.FnDesc>;
+  public get_is_static(): boolean {
+    return super.get(super.type.generated_offsets[2]) as boolean;
   }
-  public set_methods(v: Array<$std.debug.FnDesc>) {
+  public set_is_static(v: boolean) {
     super.set(super.type.generated_offsets[2], v);
   }
-  public get_attrs(): Array<$std.debug.TypeAttr> {
-    return super.get(super.type.generated_offsets[3]) as Array<$std.debug.TypeAttr>;
-  }
-  public set_attrs(v: Array<$std.debug.TypeAttr>) {
-    super.set(super.type.generated_offsets[3], v);
-  }
-  public get_is_abstract(): boolean {
-    return super.get(super.type.generated_offsets[4]) as boolean;
-  }
-  public set_is_abstract(v: boolean) {
-    super.set(super.type.generated_offsets[4], v);
-  }
-  public get_is_enum(): boolean {
-    return super.get(super.type.generated_offsets[5]) as boolean;
-  }
-  public set_is_enum(v: boolean) {
-    super.set(super.type.generated_offsets[5], v);
-  }
- static create($g: $sdk.GreyCat, module: string, name: string, methods: Array<$std.debug.FnDesc>, attrs: Array<$std.debug.TypeAttr>, is_abstract: boolean, is_enum: boolean): TypeDesc {
-    return new TypeDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82], module, name, methods, attrs, is_abstract, is_enum);
+ static create($g: $sdk.GreyCat, name: string, type: $std.debug.TypeRef | null, is_static: boolean): TypeAttr {
+    return new TypeAttr($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[107], name, type, is_static);
   }
 }
 
-export class FnParam extends $sdk.GCObject {
-  static readonly _type = 'debug::FnParam';
+export class TypeRef extends $sdk.GCObject {
+  static readonly _type = 'debug::TypeRef';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
@@ -288,14 +276,26 @@ export class FnParam extends $sdk.GCObject {
   public set_name(v: string) {
     super.set(super.type.generated_offsets[0], v);
   }
-  public get_type(): $std.debug.TypeRef {
-    return super.get(super.type.generated_offsets[1]) as $std.debug.TypeRef;
+  public get_module(): string {
+    return super.get(super.type.generated_offsets[1]) as string;
   }
-  public set_type(v: $std.debug.TypeRef) {
+  public set_module(v: string) {
     super.set(super.type.generated_offsets[1], v);
   }
- static create($g: $sdk.GreyCat, name: string, type: $std.debug.TypeRef): FnParam {
-    return new FnParam($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[83], name, type);
+  public get_generics(): Array<$std.debug.TypeRef> | null {
+    return super.get(super.type.generated_offsets[2]) as Array<$std.debug.TypeRef> | null;
+  }
+  public set_generics(v: Array<$std.debug.TypeRef> | null) {
+    super.set(super.type.generated_offsets[2], v);
+  }
+  public get_nullable(): boolean {
+    return super.get(super.type.generated_offsets[3]) as boolean;
+  }
+  public set_nullable(v: boolean) {
+    super.set(super.type.generated_offsets[3], v);
+  }
+ static create($g: $sdk.GreyCat, name: string, module: string, generics: Array<$std.debug.TypeRef> | null, nullable: boolean): TypeRef {
+    return new TypeRef($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[108], name, module, generics, nullable);
   }
 }
 
@@ -325,7 +325,7 @@ export class ModVarDesc extends $sdk.GCObject {
     super.set(super.type.generated_offsets[2], v);
   }
  static create($g: $sdk.GreyCat, module: string, name: string, type: $std.debug.TypeRef): ModVarDesc {
-    return new ModVarDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[84], module, name, type);
+    return new ModVarDesc($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[109], module, name, type);
   }
 }
 

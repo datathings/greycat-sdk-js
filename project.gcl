@@ -90,7 +90,7 @@ fn write_core(out: AbiWriter) {
   out.write(GeoCircle::new(42_geo, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
   out.write(Map<geo, time>::new());
-  out.write(duration::new(12, DurationUnit::microseconds));
+  out.write(12_us);
   out.write(nodeTime<nodeGeo>::new());
   out.write(Array<nodeTime>::new(0));
   out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));

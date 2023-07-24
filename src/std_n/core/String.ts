@@ -12,12 +12,15 @@ export class String extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(w.abi.core_string_offset);
+    w.write_varint32(w.abi.core_string_offset);
     w.write_string(this.value);
   }
 
   static load(r: AbiReader): string {
-    const len = r.read_u32();
-    return r.read_string(len);
+    const len = r.read_varint32();
+    if (len & 1) {
+      return r.abi.symbols[len >> 1];
+    }
+    return r.read_string(len >> 1);
   }
 }

@@ -1,6 +1,6 @@
-import { Abi, ILoader, PrimitiveType, Value, GCEnum, GCObject, std_n, AbiFunction } from './index.js';
+import { Abi, PrimitiveType, Value, GCEnum, GCObject, std_n, AbiFunction, IPrimitiveLoader } from './index.js';
 
-const deserialize_error: ILoader = () => {
+const deserialize_error: IPrimitiveLoader = () => {
   throw new Error(`invalid primitive type`);
 };
 
@@ -158,7 +158,7 @@ export class AbiReader extends Reader {
   /**
    * Deserializes an ABI value to a JavaScript `Value`
    */
-  readonly deserializers: Record<PrimitiveType, ILoader> = {
+  readonly deserializers: Record<PrimitiveType, IPrimitiveLoader> = {
     [PrimitiveType.null]: this.read_null.bind(this),
     [PrimitiveType.bool]: this.read_bool.bind(this),
     [PrimitiveType.char]: this.read_char.bind(this),
@@ -283,11 +283,10 @@ export class AbiReader extends Reader {
   deserialize(): Value {
     const id = this.read_u8();
     const deserializer = this.deserializers[id as PrimitiveType];
-    const type = this.abi.types[id];
-    if (!deserializer || !type) {
-      throw new Error(`unknown type #${id}`);
+    if (!deserializer) {
+      throw new Error(`unknown primitive type <${id}>`);
     }
-    return deserializer(this, type);
+    return deserializer(this);
   }
 
   read_null(): null {
@@ -676,7 +675,7 @@ export class AbiWriter extends Writer {
    * based on whether or not the value is already present in the ABI symbols
    */
   string(value: string): void {
-    let off = this.abi.id_by_symbol.get(value);
+    let off = this.abi.off_by_symbol.get(value);
     if (off === undefined) {
       this.write_u8(PrimitiveType.object);
       this.write_varint32(this.abi.core_string_offset);

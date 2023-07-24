@@ -39,6 +39,7 @@ export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type IFactory = { new (type: AbiType, ...attributes: any[]): GCObject };
+export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
 export type Value =
   | GCObject

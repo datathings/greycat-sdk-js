@@ -181,7 +181,6 @@ const expected_values = [
 
   // std::io
   { _type: 'io::FileDescriptor', uri: '' },
-  { _type: 'io::Env' },
   { _type: 'io::TextEncoder', field: 'plain' },
   { _type: 'io::BinaryFormat' },
   { _type: 'io::JsonFormat' },

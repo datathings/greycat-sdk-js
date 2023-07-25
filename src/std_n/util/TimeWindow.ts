@@ -40,7 +40,7 @@ export class TimeWindow extends GCObject {
   }
 
   static load(r: AbiReader, type: AbiType): TimeWindow {
-    const timeWidth = r.read_i64();
+    const timeWidth = r.read_vi64();
     const sum_type = r.read_u8();
     const sum = r.read_f64();
     const sumsq = r.read_f64();

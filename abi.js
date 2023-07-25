@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { Abi, AbiReader, stdlib, std } from './dist/esm/index.js';
+import { Abi, AbiReader, stdlib } from './dist/esm/index.js';
 import assert from 'node:assert';
 
 const buffer = (await readFile('gcdata/store/abi')).buffer;
@@ -103,7 +103,7 @@ const expected_values = [
     },
     radius: 13.37,
   },
-  { _type: 'core::Date', iso: '<todo>', timeZone: 191 }, // TODO this is not what we actually expect
+  { _type: 'core::Date', iso: '<todo>', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
   { _type: 'core::nodeTime', ref: '0000000000000003' },
   [],
   { _type: 'core::Tuple', x: null, y: null },
@@ -306,10 +306,10 @@ const expected_values = [
   { _type: 'util::Iban' },
   { _type: 'util::Gaussian' },
   { _type: 'util::GaussianProfile' },
-  null, // FIXME expected { _type: 'util::TimeWindow' },
-  null, // FIXME { _type: 'util::SlidingWindow' },
-  null, // FIXME { _type: 'util::Queue' },
-  null, // FIXME { _type: 'util::HistogramBucket' },
+  { _type: 'util::TimeWindow' },
+  { _type: 'util::SlidingWindow' },
+  { _type: 'util::Queue' },
+  { _type: 'util::HistogramBucket', field: 'from' },
   { _type: 'util::Crypto' },
 ];
 

@@ -32,22 +32,39 @@ export class Reader {
 
   read_vu32(): number {
     assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
-    const header = this._buf[this._curr];
-    const nbytes = varint_32_len(header);
-    const bytes = new Uint8Array(nbytes);
-    bytes.set(this._buf.slice(this._curr, this._curr + nbytes), 0);
-    this._curr += nbytes;
-    return varint_32_unpack(bytes);
+    let header = this._buf[this._curr];
+    let value = header & 0x7f;
+    if (!(header & 0x80)) {
+      this._curr += 1;
+      return value;
+    }
+    header = this._buf[this._curr + 1];
+    value |= (header & 0x7f) << 7;
+    if (!(header & 0x80)) {
+      this._curr += 2;
+      return value;
+    }
+    header = this._buf[this._curr + 2];
+    value |= (header & 0x7f) << 14;
+    if (!(header & 0x80)) {
+      this._curr += 3;
+      return value;
+    }
+    header = this._buf[this._curr + 3];
+    value |= (header & 0x7f) << 21;
+    if (!(header & 0x80)) {
+      this._curr += 4;
+      return value;
+    }
+    header = this._buf[this._curr + 4];
+    value |= header << 28;
+    this._curr += 5;
+    return value;
   }
 
   read_vi64(): bigint | number {
-    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
-    const header = this._buf[this._curr];
-    const nbytes = varint_64_len(header);
-    const bytes = new Uint8Array(nbytes);
-    bytes.set(this._buf.slice(this._curr, this._curr + nbytes), 0);
-    this._curr += nbytes;
-    const v = sign_of(varint_64_unpack(bytes));
+    const v = this._read_varint_64();
+    // lets try to keep it simple if the value is within JavaScript's number range
     return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
   }
 
@@ -142,6 +159,62 @@ export class Reader {
     const v = this._buf.slice(this._curr, this._curr + n);
     this._curr += n;
     return v;
+  }
+
+  private _read_varint_64(): bigint {
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
+    let header = this._buf[this._curr];
+    let unpacked = BigInt(header) & 0x7fn;
+    if (!(header & 0x80)) {
+      this._curr += 1;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 1];
+    unpacked |= (BigInt(header) & 0x7fn) << 7n;
+    if (!(header & 0x80)) {
+      this._curr += 2;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 2];
+    unpacked |= (BigInt(header) & 0x7fn) << 14n;
+    if (!(header & 0x80)) {
+      this._curr += 3;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 3];
+    unpacked |= (BigInt(header) & 0x7fn) << 21n;
+    if (!(header & 0x80)) {
+      this._curr += 4;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 4];
+    unpacked |= (BigInt(header) & 0x7fn) << 28n;
+    if (!(header & 0x80)) {
+      this._curr += 5;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 5];
+    unpacked |= (BigInt(header) & 0x7fn) << 35n;
+    if (!(header & 0x80)) {
+      this._curr += 6;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 6];
+    unpacked |= (BigInt(header) & 0x7fn) << 42n;
+    if (!(header & 0x80)) {
+      this._curr += 7;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 7];
+    unpacked |= (BigInt(header) & 0x7fn) << 49n;
+    if (!(header & 0x80)) {
+      this._curr += 8;
+      return (unpacked >> 1n) ^ -(unpacked & 1n);
+    }
+    header = this._buf[this._curr + 8];
+    unpacked |= BigInt(header) << 56n;
+    this._curr += 9;
+    return (unpacked >> 1n) ^ -(unpacked & 1n);
   }
 }
 
@@ -726,179 +799,4 @@ export class AbiWriter extends Writer {
     }
     this.write_u8(PrimitiveType.null);
   }
-}
-
-function varint_32_len(header: number) {
-  if ((header & 0x80) === 0) {
-    return 1;
-  }
-  if ((header & 0x40) === 0) {
-    return 2;
-  }
-  if ((header & 0x20) === 0) {
-    return 3;
-  }
-  if ((header & 0x10) === 0) {
-    return 4;
-  }
-  return 5;
-}
-
-function varint_64_len(header: number) {
-  if ((header & 0x80) === 0) {
-    return 1;
-  }
-  if ((header & 0x40) === 0) {
-    return 2;
-  }
-  if ((header & 0x20) === 0) {
-    return 3;
-  }
-  if ((header & 0x10) === 0) {
-    return 4;
-  }
-  if ((header & 0x08) === 0) {
-    return 5;
-  }
-  if ((header & 0x04) === 0) {
-    return 6;
-  }
-  if ((header & 0x02) === 0) {
-    return 7;
-  }
-  if ((header & 0x01) === 0) {
-    return 8;
-  }
-  return 9;
-}
-
-function varint_32_unpack(bytes: Uint8Array): number {
-  const n = bytes.byteLength;
-  switch (n) {
-    case 1:
-      return bytes[0] & 0x7f;
-    case 2:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0x3f) |
-        (bytes[1] << 6)
-      );
-    case 3:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0x1f) |
-        (bytes[1] <<  5)  |
-        (bytes[2] << 13)
-      );
-    case 4:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0xf) |
-        (bytes[1] <<  4) |
-        (bytes[2] << 12) |
-        (bytes[3] << 20)
-      );
-    case 5:
-      // prettier-ignore
-      return Number(
-        (BigInt(bytes[0]) & 0x7n) |
-        (BigInt(bytes[1]) <<  3n) |
-        (BigInt(bytes[2]) << 11n) |
-        (BigInt(bytes[3]) << 19n) |
-        (BigInt(bytes[4]) << 27n)
-      );
-    default:
-      throw new Error(`unexpected varint32 length of ${n} bytes`);
-  }
-}
-
-function varint_64_unpack(bytes: Uint8Array): bigint | number {
-  const n = bytes.byteLength;
-  switch (n) {
-    case 1:
-      return bytes[0] & 0x7f;
-    case 2:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0x3f) |
-        (bytes[1] << 6)
-      );
-    case 3:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0x1f) |
-        (bytes[1] <<  5)  |
-        (bytes[2] << 13)
-      );
-    case 4:
-      // prettier-ignore
-      return (
-        (bytes[0] & 0xf) |
-        (bytes[1] <<  4) |
-        (bytes[2] << 12) |
-        (bytes[3] << 20)
-      );
-    case 5:
-      // prettier-ignore
-      return (
-        (BigInt(bytes[0]) & 0x7n) |
-        (BigInt(bytes[1]) <<  3n) |
-        (BigInt(bytes[2]) << 11n) |
-        (BigInt(bytes[3]) << 19n) |
-        (BigInt(bytes[4]) << 27n)
-      );
-    case 6:
-      // prettier-ignore
-      return (
-        (BigInt(bytes[0]) & 0x3n) |
-        (BigInt(bytes[1]) <<  2n) |
-        (BigInt(bytes[2]) << 10n) |
-        (BigInt(bytes[3]) << 18n) |
-        (BigInt(bytes[4]) << 26n) |
-        (BigInt(bytes[5]) << 34n)
-      );
-    case 7:
-      // prettier-ignore
-      return (
-        (BigInt(bytes[0]) & 0x1n) |
-        (BigInt(bytes[1]) <<  1n) |
-        (BigInt(bytes[2]) <<  9n) |
-        (BigInt(bytes[3]) << 17n) |
-        (BigInt(bytes[4]) << 25n) |
-        (BigInt(bytes[5]) << 33n) |
-        (BigInt(bytes[6]) << 41n)
-      );
-    case 8:
-      // prettier-ignore
-      return (
-        BigInt(bytes[1])          |
-        (BigInt(bytes[2]) <<  8n) |
-        (BigInt(bytes[3]) << 16n) |
-        (BigInt(bytes[4]) << 24n) |
-        (BigInt(bytes[5]) << 32n) |
-        (BigInt(bytes[6]) << 40n) |
-        (BigInt(bytes[7]) << 48n)
-      );
-    case 9:
-      // prettier-ignore
-      return (
-        BigInt(bytes[1])          |
-        (BigInt(bytes[2]) <<  8n) |
-        (BigInt(bytes[3]) << 16n) |
-        (BigInt(bytes[4]) << 24n) |
-        (BigInt(bytes[5]) << 32n) |
-        (BigInt(bytes[6]) << 40n) |
-        (BigInt(bytes[7]) << 48n) |
-        (BigInt(bytes[8]) << 56n)
-      );
-    default:
-      throw new Error(`unexpected varint64 length of ${n} bytes`);
-  }
-}
-
-function sign_of(n: bigint | number): bigint | number {
-  if (typeof n === 'bigint') {
-    return (n >> 1n) ^ -(n & 1n);
-  }
-  return (n >>> 1) ^ -(n & 1);
 }

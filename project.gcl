@@ -323,7 +323,7 @@ fn write_util(out: AbiWriter) {
   out.write(Assert{});
   out.write(ProgressTracker::new());
   out.write(NdEncoding{});
-  // out.write(Iban::new(""));
+  out.write(Iban::new(""));
   out.write(Gaussian::new());
   // out.write(Quantizer::new()); // unsupported
   out.write(GaussianProfile::new(0));

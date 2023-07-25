@@ -11,16 +11,17 @@ export class GaussianProfile extends GCObject {
   }
 
   override save(w: AbiWriter): void {
-    w.write_i8(PrimitiveType.object);
-    w.write_i32(this.type.offset);
-    w.write_i32(this.size);
-    w.write_i32(this.data.length);
+    w.write_u8(PrimitiveType.object);
+    w.write_u32(this.type.offset);
+    w.write_u32(this.size);
+    w.write_u32(this.data.byteLength);
     w.write_all(this.data);
   }
 
   static load(r: AbiReader, type: AbiType): GaussianProfile {
-    const size = r.read_i32();
-    const data = r.take(size);
+    const size = r.read_u32();
+    const bin_len = r.read_u32();
+    const data = r.take(bin_len);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new type.factory!(type, size, data) as GaussianProfile;
   }

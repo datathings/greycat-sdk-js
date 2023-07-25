@@ -9,9 +9,9 @@ export class GCFunction extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.function);
-    w.write_varint32(this.fn.module);
-    w.write_varint32(this.fn.type);
-    w.write_varint32(this.fn.name);
+    w.write_vu32(this.fn.module);
+    w.write_vu32(this.fn.type);
+    w.write_vu32(this.fn.name);
   }
 
   override toJSON() {

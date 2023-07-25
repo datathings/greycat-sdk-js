@@ -14,14 +14,14 @@ export class GeoPoly extends GCObject {
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
     w.write_u32(this.type.offset);
-    w.write_u32(this.points.length);
+    w.write_vu32(this.points.length);
     for (let i = 0; i < this.points.length; i++) {
       this.points[i].save(w);
     }
   }
 
   static load(r: AbiReader, type: AbiType): GeoPoly {
-    const len = r.read_u32();
+    const len = r.read_vu32();
     const points = new Array(len);
     const geoType = r.abi.types[r.abi.core_geo_offset];
     for (let i = 0; i < len; i++) {

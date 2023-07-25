@@ -47,6 +47,7 @@ export class Abi {
   readonly core_tuf3d_offset: number = 0;
   readonly core_tuf4d_offset: number = 0;
   readonly core_function_offset: number = 0;
+  readonly core_timezone_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.off_by_symbol = new Map();
@@ -178,6 +179,7 @@ export class Abi {
           case 'tf3d':      this.core_tuf3d_offset      = i; break;
           case 'tf4d':      this.core_tuf4d_offset      = i; break;
           case 'function':  this.core_function_offset   = i; break;
+          case 'TimeZone':  this.core_timezone_offset   = i; break;
           default:
             // noop
             break;
@@ -341,7 +343,7 @@ export class AbiType {
   };
   static readonly enum_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
-    const valueOffset = r.read_varint32();
+    const valueOffset = r.read_vu32();
     const abiTypeAtt = type.attrs[valueOffset];
     // this is an enum, so we know `enum_values` is gonna be initialized
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -378,7 +380,7 @@ export class AbiType {
           } else {
             let xAttType = attType;
             if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
-              const id = r.read_varint32();
+              const id = r.read_vu32();
               xAttType = type.abi.types[id];
             }
             value = xAttType.loader(r, xAttType);

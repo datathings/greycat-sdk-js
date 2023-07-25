@@ -30,7 +30,7 @@ export class Reader {
     return this._curr === this._buf.byteLength;
   }
 
-  read_varint32(): number {
+  read_vu32(): number {
     assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
     const header = this._buf[this._curr];
     const nbytes = varint_32_len(header);
@@ -40,7 +40,7 @@ export class Reader {
     return varint_32_unpack(bytes);
   }
 
-  read_varint64(): bigint | number {
+  read_vi64(): bigint | number {
     assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
     const header = this._buf[this._curr];
     const nbytes = varint_64_len(header);
@@ -156,7 +156,7 @@ export class AbiReader extends Reader {
     [PrimitiveType.null]: this.read_null.bind(this),
     [PrimitiveType.bool]: this.read_bool.bind(this),
     [PrimitiveType.char]: this.read_char.bind(this),
-    [PrimitiveType.int]: this.read_varint64.bind(this),
+    [PrimitiveType.int]: this.read_vi64.bind(this),
     [PrimitiveType.float]: this.read_f64.bind(this),
     [PrimitiveType.node]: (r) => {
       const ty = r.abi.types[r.abi.core_node_offset];
@@ -288,7 +288,7 @@ export class AbiReader extends Reader {
   }
 
   read_stringlit(): string {
-    let id = this.read_varint32();
+    let id = this.read_vu32();
     id >>= 1;
     return this.abi.symbols[id];
   }
@@ -302,7 +302,7 @@ export class AbiReader extends Reader {
   }
 
   read_object(): Value {
-    const id = this.read_varint32();
+    const id = this.read_vu32();
     const type = this.abi.types[id];
     if (type === undefined) {
       throw new Error(`unknown type id '${id}'`);
@@ -311,8 +311,8 @@ export class AbiReader extends Reader {
   }
 
   read_enum(): GCEnum {
-    const id = this.read_varint32();
-    const off = this.read_varint32();
+    const id = this.read_vu32();
+    const off = this.read_vu32();
     const type = this.abi.types[id];
     const attr = type.attrs[off];
     // We want this line to actually fail at runtime if the value cannot be found
@@ -321,9 +321,9 @@ export class AbiReader extends Reader {
   }
 
   read_function(): AbiFunction {
-    const module = this.read_varint32();
-    const type = this.read_varint32();
-    const name = this.read_varint32();
+    const module = this.read_vu32();
+    const type = this.read_vu32();
+    const name = this.read_vu32();
     const fqn =
       type === 0
         ? `${this.abi.symbols[module]}::${this.abi.symbols[name]}`
@@ -404,7 +404,7 @@ export class Writer {
     this._curr += 4;
   }
 
-  write_varint32(v: number) {
+  write_vu32(v: number) {
     if (v < 0x80) {
       this._buf[this._curr] = v & 0x7f;
       this._curr += 1;
@@ -451,7 +451,7 @@ export class Writer {
     this._curr += 5;
   }
 
-  write_varint64(v: bigint) {
+  write_vi64(v: bigint) {
     if (v < 0x80) {
       this._buf[this._curr] = Number(v & 0x7fn);
       this._curr += 1;
@@ -672,13 +672,13 @@ export class AbiWriter extends Writer {
     let off = this.abi.off_by_symbol.get(value);
     if (off === undefined) {
       this.write_u8(PrimitiveType.object);
-      this.write_varint32(this.abi.core_string_offset);
+      this.write_vu32(this.abi.core_string_offset);
       this.write_string(value);
     } else {
       this.write_u8(PrimitiveType.stringlit);
       off <<= 1;
       off |= 1;
-      this.write_varint32(off);
+      this.write_vu32(off);
     }
   }
 

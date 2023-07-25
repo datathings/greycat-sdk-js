@@ -27,10 +27,10 @@ export class Gaussian extends GCObject {
     w.write_u32(this.type.offset);
     w.write_f64(this.sum);
     w.write_f64(this.sumSq);
-    w.write_u64(this.size);
-    w.write_u64(this.nbAccepted);
-    w.write_u64(this.nbRejected);
-    w.write_u64(this.nbNull);
+    w.write_vi64(this.size);
+    w.write_vi64(this.nbAccepted);
+    w.write_vi64(this.nbRejected);
+    w.write_vi64(this.nbNull);
     w.write_f64(this.min);
     w.write_f64(this.max);
     w.write_f64(this.minBound);
@@ -40,10 +40,10 @@ export class Gaussian extends GCObject {
   static load(r: AbiReader, type: AbiType): Gaussian {
     const sum = r.read_f64();
     const sumSq = r.read_f64();
-    const size = r.read_u64();
-    const nbAccepted = r.read_u64();
-    const nbRejected = r.read_u64();
-    const nbNull = r.read_u64();
+    const size = r.read_vi64();
+    const nbAccepted = r.read_vi64();
+    const nbRejected = r.read_vi64();
+    const nbNull = r.read_vi64();
     const min = r.read_f64();
     const max = r.read_f64();
     const minBound = r.read_f64();

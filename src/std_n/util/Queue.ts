@@ -32,11 +32,11 @@ export class Queue extends GCObject {
 
     const size = this.queue.size();
     const size_n = BigInt(size);
-    w.write_i64(size_n);
-    w.write_u32(size);
-    w.write_u32(size);
-    w.write_i64(size_n);
-    w.write_i64(0n);
+    w.write_vi64(size_n);
+    w.write_vu32(size);
+    w.write_vu32(size);
+    w.write_vi64(size_n);
+    w.write_vi64(0n);
 
     for (const v of this.queue) {
       w.serialize(v);
@@ -44,11 +44,11 @@ export class Queue extends GCObject {
   }
 
   static load(r: AbiReader, type: AbiType): Queue {
-    /* const width = */ r.read_i64();
-    const size = r.read_u32();
-    const capacity = r.read_u32();
-    /* const head =  */ r.read_i64();
-    /* const tail =  */ r.read_i64();
+    /* const width = */ r.read_vi64();
+    const size = r.read_vu32();
+    const capacity = r.read_vu32();
+    /* const head =  */ r.read_vi64();
+    /* const tail =  */ r.read_vi64();
 
     const queue = new LinkedList();
 

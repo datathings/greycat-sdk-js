@@ -17,9 +17,9 @@ export class Error extends GCObject {
   }
 
   static load(r: AbiReader, type: AbiType): Error {
-    const code = r.read_u32();
-    const frames_len = r.read_u32();
-    const msg_len = r.read_u32();
+    const code = r.read_vu32();
+    const frames_len = r.read_vu32();
+    const msg_len = r.read_vu32();
     const frames: ErrorFrame[] = new Array(frames_len);
     for (let i = 0; i < frames_len; i++) {
       frames[i] = ErrorFrame.load(r);
@@ -38,9 +38,9 @@ export class Error extends GCObject {
 
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
-    w.write_u32(this.code);
-    w.write_u32(this.frames.length);
+    w.write_vu32(this.type.offset);
+    w.write_vu32(this.code);
+    w.write_vu32(this.frames.length);
     const msg_bytes = w.txt.encode(this.msg);
     w.write_u32(msg_bytes.length);
     for (let i = 0; i < this.frames.length; i++) {
@@ -77,20 +77,20 @@ export class ErrorFrame {
   ) {}
 
   static load(r: AbiReader): ErrorFrame {
-    const mod_symbol = r.read_u32();
-    const type_symbol = r.read_u32();
-    const fn_symbol = r.read_u32();
-    const line = r.read_u32();
-    const column = r.read_u32();
+    const mod_symbol = r.read_vu32();
+    const type_symbol = r.read_vu32();
+    const fn_symbol = r.read_vu32();
+    const line = r.read_vu32();
+    const column = r.read_vu32();
 
     return new ErrorFrame(mod_symbol, type_symbol, fn_symbol, line, column);
   }
 
   save(w: AbiWriter) {
-    w.write_u32(this.module);
-    w.write_u32(this.type);
-    w.write_u32(this.fn);
-    w.write_u32(this.line);
-    w.write_u32(this.column);
+    w.write_vu32(this.module);
+    w.write_vu32(this.type);
+    w.write_vu32(this.fn);
+    w.write_vu32(this.line);
+    w.write_vu32(this.column);
   }
 }

@@ -25,14 +25,14 @@ export class SlidingWindow extends GCObject {
     w.write_u8(PrimitiveType.object);
     w.write_u32(this.type.offset);
 
-    w.write_i64(this.width);
+    w.write_vi64(this.width);
     w.write_u8(this.sum_type);
     w.write_f64(this.sum);
     w.write_f64(this.sumsq);
-    w.write_u32(this.size);
-    w.write_u32(this.capacity);
-    w.write_i64(this.head);
-    w.write_i64(this.tail);
+    w.write_vu32(this.size);
+    w.write_vu32(this.capacity);
+    w.write_vi64(this.head);
+    w.write_vi64(this.tail);
 
     for (let i = 0; i < this.values.length; i++) {
       w.serialize(this.values[i]);
@@ -40,14 +40,14 @@ export class SlidingWindow extends GCObject {
   }
 
   static load(r: AbiReader, type: AbiType): SlidingWindow {
-    const width = r.read_i64();
+    const width = r.read_vi64();
     const sum_type = r.read_u8();
     const sum = r.read_f64();
     const sumsq = r.read_f64();
-    const size = r.read_u32();
-    const capacity = r.read_u32();
-    const head = r.read_i64();
-    const tail = r.read_i64();
+    const size = r.read_vu32();
+    const capacity = r.read_vu32();
+    const head = r.read_vi64();
+    const tail = r.read_vi64();
 
     const values = new Array(capacity);
     for (let i = 0; i < capacity; i++) {

@@ -2,6 +2,10 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import { core } from '../../std/index.js';
+
+// date.c: gc_core_Date__load (l.161)
+// time.c: gc_gmtime_r_safe ()
 
 export class Date extends GCObject {
   static readonly _type = 'core::Date' as const;
@@ -10,17 +14,21 @@ export class Date extends GCObject {
     type: AbiType,
     public localizedEpochS: bigint | number,
     public epochUs: bigint | number,
-    public timeZone: number,
+    public timeZone: core.TimeZone,
   ) {
     super(type);
   }
 
   static load(r: AbiReader, type: AbiType): Date {
-    const localizedEpochS = r.read_i64_number();
-    const epochUs = r.read_i64_number();
-    const timeZone = r.read_i32();
+    const localizedEpochS = r.read_vi64();
+    const epochUs = r.read_vi64();
+    const tzFieldOff = r.read_vu32();
+    const tzType = r.abi.types[r.abi.core_timezone_offset];
+    // safety: if core.TimeZone does not exist, you have bigger problems
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, localizedEpochS, epochUs, timeZone) as Date;
+    const tz = tzType.enum_values![tzFieldOff];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new type.factory!(type, localizedEpochS, epochUs, tz) as Date;
   }
 
   static fromJSON(o: unknown): Date {
@@ -31,9 +39,9 @@ export class Date extends GCObject {
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.object);
     w.write_u32(this.type.offset);
-    w.write_i64_number(this.localizedEpochS);
-    w.write_i64_number(this.epochUs);
-    w.write_i32(this.timeZone);
+    w.write_vi64(BigInt(this.localizedEpochS));
+    w.write_vi64(BigInt(this.epochUs));
+    w.write_vu32(this.timeZone.offset);
   }
 
   override toJSON() {

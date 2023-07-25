@@ -324,7 +324,7 @@ fn write_util(out: AbiWriter) {
   out.write(Assert{});
   out.write(ProgressTracker::new());
   out.write(NdEncoding{});
-  out.write(Iban::new(""));
+  // out.write(Iban::new(""));
   out.write(Gaussian::new());
   // out.write(Quantizer::new()); // unsupported
   out.write(GaussianProfile::new(0));
@@ -357,4 +357,38 @@ fn write_util(out: AbiWriter) {
     */
     // out.write(ByteArray{}); // segfault
     out.write(Crypto{});
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // out.write(BoxPlotF64 {
+  //   min: 0.0,
+  //   max: 13.37,
+  //   whiskerLow: 0.37,
+  //   whiskerHigh: 13.0,
+  //   percentile1: 1.0,
+  //   percentile5: 2.0,
+  //   percentile25: 5.0,
+  //   percentile50: 6.5,
+  //   percentile75: 10.0,
+  //   percentile95: 11.5,
+  //   percentile99: 12.5,
+  //   countOutliersLow: 12,
+  //   countOutliersHigh: 42,
+  //   percentageOutliersLow: 12.0,
+  //   percentageOutliersHigh: 42.0,
+  //   sum: 42.12,
+  //   avg: 7.2,
+  //   std: 3.9,
+  //   size: 42,
+  // });
+  // out.write(ByteArray{}); // segfault
 }

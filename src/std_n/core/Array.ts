@@ -13,14 +13,14 @@ export class Array extends GCObject {
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
     w.write_u32(w.abi.core_array_offset);
-    w.write_u32(this.arr.length);
+    w.write_vu32(this.arr.length);
     for (let i = 0; i < this.arr.length; i++) {
       w.serialize(this.arr[i]);
     }
   }
 
   static load(r: AbiReader): globalThis.Array<Value> {
-    const len = r.read_u32();
+    const len = r.read_vu32();
     const arr = new globalThis.Array(len);
     for (let i = 0; i < len; i++) {
       arr[i] = r.deserialize();

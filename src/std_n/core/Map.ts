@@ -14,7 +14,7 @@ export class Map extends GCObject {
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
     w.write_u32(w.abi.core_map_offset);
-    w.write_u32(this.map.size);
+    w.write_vu32(this.map.size);
     this.map.forEach((value, key) => {
       w.serialize(key);
       w.serialize(value);
@@ -22,7 +22,7 @@ export class Map extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType) {
-    const len = r.read_u32();
+    const len = r.read_vu32();
     const map = new globalThis.Map<Value, Value>();
 
     for (let i = 0; i < len; i++) {

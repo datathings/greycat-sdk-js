@@ -11,7 +11,7 @@ export class time extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType): time {
-    const value = r.read_i64_number();
+    const value = r.read_vi64();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as time;
   }
@@ -23,7 +23,7 @@ export class time extends GCObject {
 
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.time);
-    w.write_i64_number(this.value);
+    w.write_vi64(BigInt(this.value));
   }
 
   get epoch(): number {

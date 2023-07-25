@@ -307,11 +307,11 @@ const expected_values = [
   { _type: 'util::Iban' },
   { _type: 'util::Gaussian' },
   { _type: 'util::GaussianProfile' },
-  null, // TODO expected { _type: 'util::TimeWindow' },
-  // { _type: 'util::SlidingWindow' },
-  // { _type: 'util::Queue' },
-  // { _type: 'util::HistogramBucket' },
-  // { _type: 'util::Crypto' },
+  null, // FIXME expected { _type: 'util::TimeWindow' },
+  null, // FIXME { _type: 'util::SlidingWindow' },
+  null, // FIXME { _type: 'util::Queue' },
+  null, // FIXME { _type: 'util::HistogramBucket' },
+  { _type: 'util::Crypto' },
 ];
 
 for (const expected of expected_values) {

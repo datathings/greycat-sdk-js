@@ -27,46 +27,46 @@ export class CsvColumnString extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_trim(): boolean | null {
-    return super.get(super.type.generated_offsets[2]) as boolean | null;
+    return super.get(super.$type.generated_offsets[2]) as boolean | null;
   }
   public set_trim(v: boolean | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_try_number(): boolean | null {
-    return super.get(super.type.generated_offsets[3]) as boolean | null;
+    return super.get(super.$type.generated_offsets[3]) as boolean | null;
   }
   public set_try_number(v: boolean | null) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_try_json(): boolean | null {
-    return super.get(super.type.generated_offsets[4]) as boolean | null;
+    return super.get(super.$type.generated_offsets[4]) as boolean | null;
   }
   public set_try_json(v: boolean | null) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_values(): Array<string> | null {
-    return super.get(super.type.generated_offsets[5]) as Array<string> | null;
+    return super.get(super.$type.generated_offsets[5]) as Array<string> | null;
   }
   public set_values(v: Array<string> | null) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_encoder(): $std.io.TextEncoder | null {
-    return super.get(super.type.generated_offsets[6]) as $std.io.TextEncoder | null;
+    return super.get(super.$type.generated_offsets[6]) as $std.io.TextEncoder | null;
   }
   public set_encoder(v: $std.io.TextEncoder | null) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: $std.io.TextEncoder | null): CsvColumnString {
     return new CsvColumnString($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58], name, mandatory, trim, try_number, try_json, values, encoder);
@@ -87,34 +87,34 @@ export class CsvColumnDate extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_format(): string | null {
-    return super.get(super.type.generated_offsets[2]) as string | null;
+    return super.get(super.$type.generated_offsets[2]) as string | null;
   }
   public set_format(v: string | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_tz(): $std.core.TimeZone | null {
-    return super.get(super.type.generated_offsets[3]) as $std.core.TimeZone | null;
+    return super.get(super.$type.generated_offsets[3]) as $std.core.TimeZone | null;
   }
   public set_tz(v: $std.core.TimeZone | null) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_as_time(): boolean | null {
-    return super.get(super.type.generated_offsets[4]) as boolean | null;
+    return super.get(super.$type.generated_offsets[4]) as boolean | null;
   }
   public set_as_time(v: boolean | null) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: $std.core.TimeZone | null, as_time: boolean | null): CsvColumnDate {
     return new CsvColumnDate($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[62], name, mandatory, format, tz, as_time);
@@ -129,16 +129,16 @@ export class CsvColumnIgnored extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnIgnored {
     return new CsvColumnIgnored($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63], name, mandatory);
@@ -207,16 +207,16 @@ export class CsvColumn extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumn {
     return new CsvColumn($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[71], name, mandatory);
@@ -243,22 +243,22 @@ export class CsvColumnTime extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_unit(): $std.core.DurationUnit | null {
-    return super.get(super.type.generated_offsets[2]) as $std.core.DurationUnit | null;
+    return super.get(super.$type.generated_offsets[2]) as $std.core.DurationUnit | null;
   }
   public set_unit(v: $std.core.DurationUnit | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: $std.core.DurationUnit | null): CsvColumnTime {
     return new CsvColumnTime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[73], name, mandatory, unit);
@@ -273,16 +273,16 @@ export class CsvColumnBoolean extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnBoolean {
     return new CsvColumnBoolean($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74], name, mandatory);
@@ -297,22 +297,22 @@ export class FileDescriptor extends $sdk.GCObject {
   }
 
   public get_uri(): string {
-    return super.get(super.type.generated_offsets[0]) as string;
+    return super.get(super.$type.generated_offsets[0]) as string;
   }
   public set_uri(v: string) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_size(): bigint | number | null {
-    return super.get(super.type.generated_offsets[1]) as bigint | number | null;
+    return super.get(super.$type.generated_offsets[1]) as bigint | number | null;
   }
   public set_size(v: bigint | number | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_last_modification(): $sdk.std.core.time | null {
-    return super.get(super.type.generated_offsets[2]) as $sdk.std.core.time | null;
+    return super.get(super.$type.generated_offsets[2]) as $sdk.std.core.time | null;
   }
   public set_last_modification(v: $sdk.std.core.time | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
  static create($g: $sdk.GreyCat, uri: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): FileDescriptor {
     return new FileDescriptor($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[75], uri, size, last_modification);
@@ -333,46 +333,46 @@ export class CsvFormat extends $sdk.GCObject {
   }
 
   public get_header_lines(): bigint | number | null {
-    return super.get(super.type.generated_offsets[0]) as bigint | number | null;
+    return super.get(super.$type.generated_offsets[0]) as bigint | number | null;
   }
   public set_header_lines(v: bigint | number | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_infer(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_infer(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_separator(): string | null {
-    return super.get(super.type.generated_offsets[2]) as string | null;
+    return super.get(super.$type.generated_offsets[2]) as string | null;
   }
   public set_separator(v: string | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_string_delimiter(): string | null {
-    return super.get(super.type.generated_offsets[3]) as string | null;
+    return super.get(super.$type.generated_offsets[3]) as string | null;
   }
   public set_string_delimiter(v: string | null) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_decimal_separator(): string | null {
-    return super.get(super.type.generated_offsets[4]) as string | null;
+    return super.get(super.$type.generated_offsets[4]) as string | null;
   }
   public set_decimal_separator(v: string | null) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_thousands_separator(): string | null {
-    return super.get(super.type.generated_offsets[5]) as string | null;
+    return super.get(super.$type.generated_offsets[5]) as string | null;
   }
   public set_thousands_separator(v: string | null) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_columns(): Array<$std.io.CsvColumn> | null {
-    return super.get(super.type.generated_offsets[6]) as Array<$std.io.CsvColumn> | null;
+    return super.get(super.$type.generated_offsets[6]) as Array<$std.io.CsvColumn> | null;
   }
   public set_columns(v: Array<$std.io.CsvColumn> | null) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
  static create($g: $sdk.GreyCat, header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<$std.io.CsvColumn> | null): CsvFormat {
     return new CsvFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
@@ -387,16 +387,16 @@ export class CsvColumnInteger extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnInteger {
     return new CsvColumnInteger($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80], name, mandatory);
@@ -411,16 +411,16 @@ export class CsvColumnFloat extends $sdk.GCObject {
   }
 
   public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
+    return super.get(super.$type.generated_offsets[1]) as boolean | null;
   }
   public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnFloat {
     return new CsvColumnFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[81], name, mandatory);

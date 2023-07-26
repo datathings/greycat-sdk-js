@@ -654,7 +654,7 @@ export class Writer {
   write_string(v: string) {
     const bytes = this.txt.encode(v);
     this._reserve(bytes.length + 4); // +4 for the u32 length
-    this.write_u32(bytes.byteLength);
+    this.write_u32(bytes.byteLength << 1);
     this.write_all(bytes);
   }
 }
@@ -675,6 +675,17 @@ export class AbiWriter extends Writer {
   }
 
   /**
+   * Serializes the given value without type header
+   * @param value
+   */
+  serializeRaw(value: Value): void {
+    // Typescript does not understand that 'value' as param must be of the right type
+    // in regard to the method because we used typeof value;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this[`raw_${typeof value}`] as any)(value);
+  }
+
+  /**
    * Serializes a `number` as either an `int` or a `float` based on its value
    */
   number(value: number): void {
@@ -688,6 +699,14 @@ export class AbiWriter extends Writer {
     }
   }
 
+  raw_number(value: number): void {
+    if (value % 1 === 0) {
+      this.write_vi64(BigInt(value));
+    } else {
+      this.write_f64(value);
+    }
+  }
+
   /**
    * Serializes a `boolean`
    */
@@ -696,14 +715,27 @@ export class AbiWriter extends Writer {
     this.write_bool(value);
   }
 
+  raw_boolean(value: boolean): void {
+    this.write_bool(value);
+  }
+
   /**
    * Serializes `undefined`
    */
   undefined(): void {
-    this.write_u8(PrimitiveType.undefined);
+    throw new Error(`Javascript 'undefined' is not serializable`);
+  }
+
+  raw_undefined(): void {
+    throw new Error(`Javascript 'undefined' is not serializable`);
   }
 
   char(c: string): void {
+    this.write_u8(PrimitiveType.char);
+    this.raw_char(c);
+  }
+
+  raw_char(c: string): void {
     if (c.length > 1) {
       throw new Error(`a 'char' is one ASCII character, got '${c}'`);
     }
@@ -719,17 +751,26 @@ export class AbiWriter extends Writer {
    * based on whether or not the value is already present in the ABI symbols
    */
   string(value: string): void {
-    let off = this.abi.off_by_symbol.get(value);
+    const off = this.abi.off_by_symbol.get(value);
     if (off === undefined) {
       this.write_u8(PrimitiveType.object);
       this.write_vu32(this.abi.core_string_offset);
       this.write_string(value);
-    } else {
-      this.write_u8(PrimitiveType.stringlit);
-      off <<= 1;
-      off |= 1;
-      this.write_vu32(off);
+      return;
     }
+
+    this.write_u8(PrimitiveType.stringlit);
+    this.write_vu32((off << 1) | 1);
+  }
+
+  raw_string(value: string): void {
+    const off = this.abi.off_by_symbol.get(value);
+    if (off === undefined) {
+      this.write_string(value);
+      return;
+    }
+
+    this.write_vu32((off << 1) | 1);
   }
 
   /**
@@ -740,13 +781,17 @@ export class AbiWriter extends Writer {
     this.write_vi64(value);
   }
 
+  raw_bigint(value: bigint): void {
+    this.write_vi64(value);
+  }
+
   /**
    * Serializes an `object` to either `null`, `object` (string), `object` (array), `object` (map)
    * or using the `GCObject.save()` method based on the value.
    */
   object(value: object): void {
-    if (value === null) {
-      this.write_u8(PrimitiveType.null);
+    if (value instanceof GCObject) {
+      value.save(this);
     } else if (value instanceof String) {
       this.string(value.valueOf());
     } else if (value instanceof Symbol) {
@@ -755,10 +800,32 @@ export class AbiWriter extends Writer {
       new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value).save(this);
     } else if (value instanceof Map) {
       new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).save(this);
-    } else if (value instanceof GCObject) {
-      value.save(this);
+    } else if (value === null) {
+      this.write_u8(PrimitiveType.null);
     } else {
-      throw new Error(`unhandled type '${value.constructor.name}' for serialization`);
+      throw new Error(`type '${value.constructor.name}' cannot be serialized`);
+    }
+  }
+
+  /**
+   * Serializes an `object` just like `object()` does but without the header
+   * @param value
+   */
+  raw_object(value: object): void {
+    if (value instanceof GCObject) {
+      value.saveContent(this);
+    } else if (value instanceof String) {
+      this.raw_string(value.valueOf());
+    } else if (value instanceof Symbol) {
+      this.raw_symbol(value.valueOf());
+    } else if (value instanceof Array) {
+      new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value).saveContent(this);
+    } else if (value instanceof Map) {
+      new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).saveContent(this);
+    } else if (value === null) {
+      // noop, 'null' are skipped when serializing without type header
+    } else {
+      throw new Error(`type '${value.constructor.name}' cannot be serialized`);
     }
   }
 
@@ -766,7 +833,11 @@ export class AbiWriter extends Writer {
    * This always throws
    */
   function(): void {
-    throw new Error('Javascript function are not serializable');
+    throw new Error('Javascript functions are not serializable');
+  }
+
+  raw_function(): void {
+    throw new Error('Javascript functions are not serializable');
   }
 
   symbol(value: symbol): void {
@@ -774,7 +845,15 @@ export class AbiWriter extends Writer {
       this.string(value.description);
       return;
     }
-    this.write_u8(PrimitiveType.null);
+    throw new Error('Javascript symbol without descriptions are not serializable');
+  }
+
+  raw_symbol(value: symbol): void {
+    if (value.description) {
+      this.raw_string(value.description);
+      return;
+    }
+    throw new Error('Javascript symbol without descriptions are not serializable');
   }
 }
 

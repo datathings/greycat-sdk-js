@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Tensor extends GCObject {
@@ -49,9 +48,7 @@ export class Tensor extends GCObject {
     return new type.factory!(type, shape, tensorType, size, data) as Tensor;
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter): void {
     w.write_i8(this.shape.length);
     w.write_u8(this.tensorType);
     for (let i = 0; i < this.shape.length; i++) {

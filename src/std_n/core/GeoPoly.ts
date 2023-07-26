@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { geo } from './geo.js';
 
@@ -11,9 +10,7 @@ export class GeoPoly extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter): void {
     w.write_vu32(this.points.length);
     for (let i = 0; i < this.points.length; i++) {
       this.points[i].save(w);
@@ -38,7 +35,7 @@ export class GeoPoly extends GCObject {
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       points: this.points,
     };
   }

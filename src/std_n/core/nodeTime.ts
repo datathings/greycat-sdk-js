@@ -21,8 +21,11 @@ export class nodeTime extends GCObject {
     return o as nodeTime;
   }
 
-  override save(w: AbiWriter) {
+  override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.node_time);
+  }
+
+  override saveContent(w: AbiWriter) {
     w.write_u64(this.value);
   }
 
@@ -35,7 +38,7 @@ export class nodeTime extends GCObject {
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       ref: this.ref,
     };
   }

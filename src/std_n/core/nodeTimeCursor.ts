@@ -19,13 +19,13 @@ export class nodeTimeCursor extends GCObject {
     return o as nodeTimeCursor;
   }
 
-  override save(_w: AbiWriter) {
+  override saveContent(_w: AbiWriter) {
     throw new Error(`${nodeTimeCursor._type}: is not implemented yet`);
   }
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
     };
   }
 }

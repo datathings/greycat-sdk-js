@@ -21,8 +21,11 @@ export class time extends GCObject {
     return o as time;
   }
 
-  override save(w: AbiWriter) {
+  override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.time);
+  }
+
+  override saveContent(w: AbiWriter) {
     w.write_vi64(BigInt(this.value));
   }
 
@@ -42,7 +45,7 @@ export class time extends GCObject {
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       epoch: this.epoch,
       us: this.us,
     };

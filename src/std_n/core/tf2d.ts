@@ -22,14 +22,17 @@ export class tf2d extends GCObject {
     return o as tf2d;
   }
 
-  override save(w: AbiWriter) {
-    w.write_u8(PrimitiveType.tu2d);
+  override saveHeader(w: AbiWriter): void {
+    w.write_u8(PrimitiveType.tuf2d);
+  }
+
+  override saveContent(w: AbiWriter) {
     w.write_u64(interleave64_2df(this.x0, this.x1));
   }
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       x0: this.x0,
       x1: this.x1,
     };

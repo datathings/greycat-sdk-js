@@ -1,6 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, Value } from '../../types.js';
+import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class TimeWindow extends GCObject {
@@ -21,10 +21,7 @@ export class TimeWindow extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
-
+  override saveContent(w: AbiWriter): void {
     w.write_i64(BigInt(this.timeWidth));
     w.write_u8(this.sum_type);
     w.write_f64(this.sum);

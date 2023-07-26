@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { core } from '../../std/index.js';
 
@@ -36,9 +35,7 @@ export class Date extends GCObject {
     return o as Date;
   }
 
-  override save(w: AbiWriter) {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter) {
     w.write_vi64(BigInt(this.localizedEpochS));
     w.write_vi64(BigInt(this.epochUs));
     w.write_vu32(this.timeZone.offset);
@@ -46,7 +43,7 @@ export class Date extends GCObject {
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       iso: '<todo>',
       timeZone: this.timeZone,
     };

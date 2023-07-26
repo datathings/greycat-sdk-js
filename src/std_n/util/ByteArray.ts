@@ -1,7 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { GCObject } from '../../GCObject.js';
-import { PrimitiveType } from '../../types.js';
 
 export class ByteArray extends GCObject {
   static readonly _type = 'util::ByteArray' as const;
@@ -10,9 +9,7 @@ export class ByteArray extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter): void {
     w.write_vu32(this.data.byteLength);
     w.write_all(this.data);
   }

@@ -10,7 +10,7 @@ export class Quantizer extends GCObject {
     throw new Error(`${Quantizer._type}: is not implemented yet`);
   }
 
-  override save(_w: AbiWriter): void {
+  override saveContent(_w: AbiWriter): void {
     throw new Error(`${Quantizer._type}: is not implemented yet`);
   }
 

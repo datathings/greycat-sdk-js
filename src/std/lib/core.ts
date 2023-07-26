@@ -17,16 +17,16 @@ export class GeoBox extends $sdk.GCObject {
   }
 
   public get_sw(): $sdk.std.core.geo {
-    return super.get(super.type.generated_offsets[0]) as $sdk.std.core.geo;
+    return super.get(super.$type.generated_offsets[0]) as $sdk.std.core.geo;
   }
   public set_sw(v: $sdk.std.core.geo) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_ne(): $sdk.std.core.geo {
-    return super.get(super.type.generated_offsets[1]) as $sdk.std.core.geo;
+    return super.get(super.$type.generated_offsets[1]) as $sdk.std.core.geo;
   }
   public set_ne(v: $sdk.std.core.geo) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, sw: $sdk.std.core.geo, ne: $sdk.std.core.geo): GeoBox {
     return new GeoBox($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[1], sw, ne);
@@ -2309,46 +2309,46 @@ export class TableColumnMeta extends $sdk.GCObject {
   }
 
   public get_type(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
+    return super.get(super.$type.generated_offsets[0]) as string | null;
   }
   public set_type(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_size(): bigint | number {
-    return super.get(super.type.generated_offsets[1]) as bigint | number;
+    return super.get(super.$type.generated_offsets[1]) as bigint | number;
   }
   public set_size(v: bigint | number) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_index(): boolean {
-    return super.get(super.type.generated_offsets[2]) as boolean;
+    return super.get(super.$type.generated_offsets[2]) as boolean;
   }
   public set_index(v: boolean) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_min(): any | null {
-    return super.get(super.type.generated_offsets[3]);
+    return super.get(super.$type.generated_offsets[3]);
   }
   public set_min(v: any | null) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_max(): any | null {
-    return super.get(super.type.generated_offsets[4]);
+    return super.get(super.$type.generated_offsets[4]);
   }
   public set_max(v: any | null) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_avg(): any | null {
-    return super.get(super.type.generated_offsets[5]);
+    return super.get(super.$type.generated_offsets[5]);
   }
   public set_avg(v: any | null) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_std(): any | null {
-    return super.get(super.type.generated_offsets[6]);
+    return super.get(super.$type.generated_offsets[6]);
   }
   public set_std(v: any | null) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
  static create($g: $sdk.GreyCat, type: string | null, size: bigint | number, index: boolean, min: any | null, max: any | null, avg: any | null, std: any | null): TableColumnMeta {
     return new TableColumnMeta($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[7], type, size, index, min, max, avg, std);
@@ -2675,16 +2675,16 @@ export class GeoCircle extends $sdk.GCObject {
   }
 
   public get_center(): $sdk.std.core.geo {
-    return super.get(super.type.generated_offsets[0]) as $sdk.std.core.geo;
+    return super.get(super.$type.generated_offsets[0]) as $sdk.std.core.geo;
   }
   public set_center(v: $sdk.std.core.geo) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_radius(): number {
-    return super.get(super.type.generated_offsets[1]) as number;
+    return super.get(super.$type.generated_offsets[1]) as number;
   }
   public set_radius(v: number) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, center: $sdk.std.core.geo, radius: number): GeoCircle {
     return new GeoCircle($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[20], center, radius);
@@ -2725,22 +2725,22 @@ export class NodeTimeInfo extends $sdk.GCObject {
   }
 
   public get_size(): bigint | number {
-    return super.get(super.type.generated_offsets[0]) as bigint | number;
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
   }
   public set_size(v: bigint | number) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_from(): $sdk.std.core.time | null {
-    return super.get(super.type.generated_offsets[1]) as $sdk.std.core.time | null;
+    return super.get(super.$type.generated_offsets[1]) as $sdk.std.core.time | null;
   }
   public set_from(v: $sdk.std.core.time | null) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_to(): $sdk.std.core.time | null {
-    return super.get(super.type.generated_offsets[2]) as $sdk.std.core.time | null;
+    return super.get(super.$type.generated_offsets[2]) as $sdk.std.core.time | null;
   }
   public set_to(v: $sdk.std.core.time | null) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
  static create($g: $sdk.GreyCat, size: bigint | number, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null): NodeTimeInfo {
     return new NodeTimeInfo($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[29], size, from, to);
@@ -2755,16 +2755,16 @@ export class Tuple extends $sdk.GCObject {
   }
 
   public get_x(): any {
-    return super.get(super.type.generated_offsets[0]);
+    return super.get(super.$type.generated_offsets[0]);
   }
   public set_x(v: any) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_y(): any {
-    return super.get(super.type.generated_offsets[1]);
+    return super.get(super.$type.generated_offsets[1]);
   }
   public set_y(v: any) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, x: any, y: any): Tuple {
     return new Tuple($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[30], x, y);

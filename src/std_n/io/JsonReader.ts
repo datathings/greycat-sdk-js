@@ -8,7 +8,7 @@ export class JsonReader extends sdk.GCObject {
     throw new Error(`'${JsonReader._type}' is not supported`);
   }
 
-  override save(_w: sdk.AbiWriter): void {
+  override saveContent(_w: sdk.AbiWriter): void {
     throw new Error(`'${JsonReader._type}' is not supported`);
   }
 

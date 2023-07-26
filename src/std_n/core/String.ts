@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class String extends GCObject {
@@ -10,9 +9,7 @@ export class String extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(w.abi.core_string_offset);
+  override saveContent(w: AbiWriter): void {
     w.write_string(this.value);
   }
 

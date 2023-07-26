@@ -29,14 +29,17 @@ export class ti5d extends GCObject {
     return o as ti5d;
   }
 
-  override save(w: AbiWriter) {
-    w.write_u8(PrimitiveType.tu2d);
+  override saveHeader(w: AbiWriter): void {
+    w.write_u8(PrimitiveType.tu5d);
+  }
+
+  override saveContent(w: AbiWriter) {
     w.write_u64(interleave64_5di(this.x0, this.x1, this.x2, this.x3, this.x4));
   }
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       x0: this.x0,
       x1: this.x1,
       x2: this.x2,

@@ -1,6 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, Value } from '../../types.js';
+import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GCEnum } from '../../index.js';
 
@@ -11,9 +11,7 @@ export class Map extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(w.abi.core_map_offset);
+  override saveContent(w: AbiWriter): void {
     w.write_vu32(this.map.size);
     this.map.forEach((value, key) => {
       w.serialize(key);
@@ -43,7 +41,7 @@ export class Map extends GCObject {
       } else if (key === undefined) {
         json['undefined'] = value;
       } else if (key instanceof GCEnum) {
-        json[`${key.type.name}::${key.key}`] = value;
+        json[`${key.$type.name}::${key.key}`] = value;
       } else {
         json[key.toString()] = value;
       }

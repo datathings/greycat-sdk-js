@@ -21,118 +21,118 @@ export class BoxPlotI64 extends $sdk.GCObject {
   }
 
   public get_min(): any {
-    return super.get(super.type.generated_offsets[0]);
+    return super.get(super.$type.generated_offsets[0]);
   }
   public set_min(v: any) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_max(): any {
-    return super.get(super.type.generated_offsets[1]);
+    return super.get(super.$type.generated_offsets[1]);
   }
   public set_max(v: any) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_whiskerLow(): any {
-    return super.get(super.type.generated_offsets[2]);
+    return super.get(super.$type.generated_offsets[2]);
   }
   public set_whiskerLow(v: any) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_whiskerHigh(): any {
-    return super.get(super.type.generated_offsets[3]);
+    return super.get(super.$type.generated_offsets[3]);
   }
   public set_whiskerHigh(v: any) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_percentile1(): any {
-    return super.get(super.type.generated_offsets[4]);
+    return super.get(super.$type.generated_offsets[4]);
   }
   public set_percentile1(v: any) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_percentile5(): any {
-    return super.get(super.type.generated_offsets[5]);
+    return super.get(super.$type.generated_offsets[5]);
   }
   public set_percentile5(v: any) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_percentile25(): any {
-    return super.get(super.type.generated_offsets[6]);
+    return super.get(super.$type.generated_offsets[6]);
   }
   public set_percentile25(v: any) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
   public get_percentile50(): any {
-    return super.get(super.type.generated_offsets[7]);
+    return super.get(super.$type.generated_offsets[7]);
   }
   public set_percentile50(v: any) {
-    super.set(super.type.generated_offsets[7], v);
+    super.set(super.$type.generated_offsets[7], v);
   }
   public get_percentile75(): any {
-    return super.get(super.type.generated_offsets[8]);
+    return super.get(super.$type.generated_offsets[8]);
   }
   public set_percentile75(v: any) {
-    super.set(super.type.generated_offsets[8], v);
+    super.set(super.$type.generated_offsets[8], v);
   }
   public get_percentile95(): any {
-    return super.get(super.type.generated_offsets[9]);
+    return super.get(super.$type.generated_offsets[9]);
   }
   public set_percentile95(v: any) {
-    super.set(super.type.generated_offsets[9], v);
+    super.set(super.$type.generated_offsets[9], v);
   }
   public get_percentile99(): any {
-    return super.get(super.type.generated_offsets[10]);
+    return super.get(super.$type.generated_offsets[10]);
   }
   public set_percentile99(v: any) {
-    super.set(super.type.generated_offsets[10], v);
+    super.set(super.$type.generated_offsets[10], v);
   }
   public get_countOutliersLow(): bigint | number {
-    return super.get(super.type.generated_offsets[11]) as bigint | number;
+    return super.get(super.$type.generated_offsets[11]) as bigint | number;
   }
   public set_countOutliersLow(v: bigint | number) {
-    super.set(super.type.generated_offsets[11], v);
+    super.set(super.$type.generated_offsets[11], v);
   }
   public get_countOutliersHigh(): bigint | number {
-    return super.get(super.type.generated_offsets[12]) as bigint | number;
+    return super.get(super.$type.generated_offsets[12]) as bigint | number;
   }
   public set_countOutliersHigh(v: bigint | number) {
-    super.set(super.type.generated_offsets[12], v);
+    super.set(super.$type.generated_offsets[12], v);
   }
   public get_percentageOutliersLow(): number {
-    return super.get(super.type.generated_offsets[13]) as number;
+    return super.get(super.$type.generated_offsets[13]) as number;
   }
   public set_percentageOutliersLow(v: number) {
-    super.set(super.type.generated_offsets[13], v);
+    super.set(super.$type.generated_offsets[13], v);
   }
   public get_percentageOutliersHigh(): number {
-    return super.get(super.type.generated_offsets[14]) as number;
+    return super.get(super.$type.generated_offsets[14]) as number;
   }
   public set_percentageOutliersHigh(v: number) {
-    super.set(super.type.generated_offsets[14], v);
+    super.set(super.$type.generated_offsets[14], v);
   }
   public get_sum(): number {
-    return super.get(super.type.generated_offsets[15]) as number;
+    return super.get(super.$type.generated_offsets[15]) as number;
   }
   public set_sum(v: number) {
-    super.set(super.type.generated_offsets[15], v);
+    super.set(super.$type.generated_offsets[15], v);
   }
   public get_avg(): number {
-    return super.get(super.type.generated_offsets[16]) as number;
+    return super.get(super.$type.generated_offsets[16]) as number;
   }
   public set_avg(v: number) {
-    super.set(super.type.generated_offsets[16], v);
+    super.set(super.$type.generated_offsets[16], v);
   }
   public get_std(): number {
-    return super.get(super.type.generated_offsets[17]) as number;
+    return super.get(super.$type.generated_offsets[17]) as number;
   }
   public set_std(v: number) {
-    super.set(super.type.generated_offsets[17], v);
+    super.set(super.$type.generated_offsets[17], v);
   }
   public get_size(): bigint | number {
-    return super.get(super.type.generated_offsets[18]) as bigint | number;
+    return super.get(super.$type.generated_offsets[18]) as bigint | number;
   }
   public set_size(v: bigint | number) {
-    super.set(super.type.generated_offsets[18], v);
+    super.set(super.$type.generated_offsets[18], v);
   }
  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotI64 {
     return new BoxPlotI64($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[95], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
@@ -147,118 +147,118 @@ export class BoxPlot<T = any> extends $sdk.GCObject {
   }
 
   public get_min(): any {
-    return super.get(super.type.generated_offsets[0]);
+    return super.get(super.$type.generated_offsets[0]);
   }
   public set_min(v: any) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_max(): any {
-    return super.get(super.type.generated_offsets[1]);
+    return super.get(super.$type.generated_offsets[1]);
   }
   public set_max(v: any) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_whiskerLow(): any {
-    return super.get(super.type.generated_offsets[2]);
+    return super.get(super.$type.generated_offsets[2]);
   }
   public set_whiskerLow(v: any) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_whiskerHigh(): any {
-    return super.get(super.type.generated_offsets[3]);
+    return super.get(super.$type.generated_offsets[3]);
   }
   public set_whiskerHigh(v: any) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_percentile1(): any {
-    return super.get(super.type.generated_offsets[4]);
+    return super.get(super.$type.generated_offsets[4]);
   }
   public set_percentile1(v: any) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_percentile5(): any {
-    return super.get(super.type.generated_offsets[5]);
+    return super.get(super.$type.generated_offsets[5]);
   }
   public set_percentile5(v: any) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_percentile25(): any {
-    return super.get(super.type.generated_offsets[6]);
+    return super.get(super.$type.generated_offsets[6]);
   }
   public set_percentile25(v: any) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
   public get_percentile50(): any {
-    return super.get(super.type.generated_offsets[7]);
+    return super.get(super.$type.generated_offsets[7]);
   }
   public set_percentile50(v: any) {
-    super.set(super.type.generated_offsets[7], v);
+    super.set(super.$type.generated_offsets[7], v);
   }
   public get_percentile75(): any {
-    return super.get(super.type.generated_offsets[8]);
+    return super.get(super.$type.generated_offsets[8]);
   }
   public set_percentile75(v: any) {
-    super.set(super.type.generated_offsets[8], v);
+    super.set(super.$type.generated_offsets[8], v);
   }
   public get_percentile95(): any {
-    return super.get(super.type.generated_offsets[9]);
+    return super.get(super.$type.generated_offsets[9]);
   }
   public set_percentile95(v: any) {
-    super.set(super.type.generated_offsets[9], v);
+    super.set(super.$type.generated_offsets[9], v);
   }
   public get_percentile99(): any {
-    return super.get(super.type.generated_offsets[10]);
+    return super.get(super.$type.generated_offsets[10]);
   }
   public set_percentile99(v: any) {
-    super.set(super.type.generated_offsets[10], v);
+    super.set(super.$type.generated_offsets[10], v);
   }
   public get_countOutliersLow(): bigint | number {
-    return super.get(super.type.generated_offsets[11]) as bigint | number;
+    return super.get(super.$type.generated_offsets[11]) as bigint | number;
   }
   public set_countOutliersLow(v: bigint | number) {
-    super.set(super.type.generated_offsets[11], v);
+    super.set(super.$type.generated_offsets[11], v);
   }
   public get_countOutliersHigh(): bigint | number {
-    return super.get(super.type.generated_offsets[12]) as bigint | number;
+    return super.get(super.$type.generated_offsets[12]) as bigint | number;
   }
   public set_countOutliersHigh(v: bigint | number) {
-    super.set(super.type.generated_offsets[12], v);
+    super.set(super.$type.generated_offsets[12], v);
   }
   public get_percentageOutliersLow(): number {
-    return super.get(super.type.generated_offsets[13]) as number;
+    return super.get(super.$type.generated_offsets[13]) as number;
   }
   public set_percentageOutliersLow(v: number) {
-    super.set(super.type.generated_offsets[13], v);
+    super.set(super.$type.generated_offsets[13], v);
   }
   public get_percentageOutliersHigh(): number {
-    return super.get(super.type.generated_offsets[14]) as number;
+    return super.get(super.$type.generated_offsets[14]) as number;
   }
   public set_percentageOutliersHigh(v: number) {
-    super.set(super.type.generated_offsets[14], v);
+    super.set(super.$type.generated_offsets[14], v);
   }
   public get_sum(): number {
-    return super.get(super.type.generated_offsets[15]) as number;
+    return super.get(super.$type.generated_offsets[15]) as number;
   }
   public set_sum(v: number) {
-    super.set(super.type.generated_offsets[15], v);
+    super.set(super.$type.generated_offsets[15], v);
   }
   public get_avg(): number {
-    return super.get(super.type.generated_offsets[16]) as number;
+    return super.get(super.$type.generated_offsets[16]) as number;
   }
   public set_avg(v: number) {
-    super.set(super.type.generated_offsets[16], v);
+    super.set(super.$type.generated_offsets[16], v);
   }
   public get_std(): number {
-    return super.get(super.type.generated_offsets[17]) as number;
+    return super.get(super.$type.generated_offsets[17]) as number;
   }
   public set_std(v: number) {
-    super.set(super.type.generated_offsets[17], v);
+    super.set(super.$type.generated_offsets[17], v);
   }
   public get_size(): bigint | number {
-    return super.get(super.type.generated_offsets[18]) as bigint | number;
+    return super.get(super.$type.generated_offsets[18]) as bigint | number;
   }
   public set_size(v: bigint | number) {
-    super.set(super.type.generated_offsets[18], v);
+    super.set(super.$type.generated_offsets[18], v);
   }
  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlot {
     return new BoxPlot($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[96], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
@@ -277,16 +277,16 @@ export class Random extends $sdk.GCObject {
   }
 
   public get_seed(): bigint | number {
-    return super.get(super.type.generated_offsets[0]) as bigint | number;
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
   }
   public set_seed(v: bigint | number) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_v(): number {
-    return super.get(super.type.generated_offsets[1]) as number;
+    return super.get(super.$type.generated_offsets[1]) as number;
   }
   public set_v(v: number) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
  static create($g: $sdk.GreyCat, seed: bigint | number, v: number): Random {
     return new Random($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[99], seed, v);
@@ -359,118 +359,118 @@ export class BoxPlotF64 extends $sdk.GCObject {
   }
 
   public get_min(): any {
-    return super.get(super.type.generated_offsets[0]);
+    return super.get(super.$type.generated_offsets[0]);
   }
   public set_min(v: any) {
-    super.set(super.type.generated_offsets[0], v);
+    super.set(super.$type.generated_offsets[0], v);
   }
   public get_max(): any {
-    return super.get(super.type.generated_offsets[1]);
+    return super.get(super.$type.generated_offsets[1]);
   }
   public set_max(v: any) {
-    super.set(super.type.generated_offsets[1], v);
+    super.set(super.$type.generated_offsets[1], v);
   }
   public get_whiskerLow(): any {
-    return super.get(super.type.generated_offsets[2]);
+    return super.get(super.$type.generated_offsets[2]);
   }
   public set_whiskerLow(v: any) {
-    super.set(super.type.generated_offsets[2], v);
+    super.set(super.$type.generated_offsets[2], v);
   }
   public get_whiskerHigh(): any {
-    return super.get(super.type.generated_offsets[3]);
+    return super.get(super.$type.generated_offsets[3]);
   }
   public set_whiskerHigh(v: any) {
-    super.set(super.type.generated_offsets[3], v);
+    super.set(super.$type.generated_offsets[3], v);
   }
   public get_percentile1(): any {
-    return super.get(super.type.generated_offsets[4]);
+    return super.get(super.$type.generated_offsets[4]);
   }
   public set_percentile1(v: any) {
-    super.set(super.type.generated_offsets[4], v);
+    super.set(super.$type.generated_offsets[4], v);
   }
   public get_percentile5(): any {
-    return super.get(super.type.generated_offsets[5]);
+    return super.get(super.$type.generated_offsets[5]);
   }
   public set_percentile5(v: any) {
-    super.set(super.type.generated_offsets[5], v);
+    super.set(super.$type.generated_offsets[5], v);
   }
   public get_percentile25(): any {
-    return super.get(super.type.generated_offsets[6]);
+    return super.get(super.$type.generated_offsets[6]);
   }
   public set_percentile25(v: any) {
-    super.set(super.type.generated_offsets[6], v);
+    super.set(super.$type.generated_offsets[6], v);
   }
   public get_percentile50(): any {
-    return super.get(super.type.generated_offsets[7]);
+    return super.get(super.$type.generated_offsets[7]);
   }
   public set_percentile50(v: any) {
-    super.set(super.type.generated_offsets[7], v);
+    super.set(super.$type.generated_offsets[7], v);
   }
   public get_percentile75(): any {
-    return super.get(super.type.generated_offsets[8]);
+    return super.get(super.$type.generated_offsets[8]);
   }
   public set_percentile75(v: any) {
-    super.set(super.type.generated_offsets[8], v);
+    super.set(super.$type.generated_offsets[8], v);
   }
   public get_percentile95(): any {
-    return super.get(super.type.generated_offsets[9]);
+    return super.get(super.$type.generated_offsets[9]);
   }
   public set_percentile95(v: any) {
-    super.set(super.type.generated_offsets[9], v);
+    super.set(super.$type.generated_offsets[9], v);
   }
   public get_percentile99(): any {
-    return super.get(super.type.generated_offsets[10]);
+    return super.get(super.$type.generated_offsets[10]);
   }
   public set_percentile99(v: any) {
-    super.set(super.type.generated_offsets[10], v);
+    super.set(super.$type.generated_offsets[10], v);
   }
   public get_countOutliersLow(): bigint | number {
-    return super.get(super.type.generated_offsets[11]) as bigint | number;
+    return super.get(super.$type.generated_offsets[11]) as bigint | number;
   }
   public set_countOutliersLow(v: bigint | number) {
-    super.set(super.type.generated_offsets[11], v);
+    super.set(super.$type.generated_offsets[11], v);
   }
   public get_countOutliersHigh(): bigint | number {
-    return super.get(super.type.generated_offsets[12]) as bigint | number;
+    return super.get(super.$type.generated_offsets[12]) as bigint | number;
   }
   public set_countOutliersHigh(v: bigint | number) {
-    super.set(super.type.generated_offsets[12], v);
+    super.set(super.$type.generated_offsets[12], v);
   }
   public get_percentageOutliersLow(): number {
-    return super.get(super.type.generated_offsets[13]) as number;
+    return super.get(super.$type.generated_offsets[13]) as number;
   }
   public set_percentageOutliersLow(v: number) {
-    super.set(super.type.generated_offsets[13], v);
+    super.set(super.$type.generated_offsets[13], v);
   }
   public get_percentageOutliersHigh(): number {
-    return super.get(super.type.generated_offsets[14]) as number;
+    return super.get(super.$type.generated_offsets[14]) as number;
   }
   public set_percentageOutliersHigh(v: number) {
-    super.set(super.type.generated_offsets[14], v);
+    super.set(super.$type.generated_offsets[14], v);
   }
   public get_sum(): number {
-    return super.get(super.type.generated_offsets[15]) as number;
+    return super.get(super.$type.generated_offsets[15]) as number;
   }
   public set_sum(v: number) {
-    super.set(super.type.generated_offsets[15], v);
+    super.set(super.$type.generated_offsets[15], v);
   }
   public get_avg(): number {
-    return super.get(super.type.generated_offsets[16]) as number;
+    return super.get(super.$type.generated_offsets[16]) as number;
   }
   public set_avg(v: number) {
-    super.set(super.type.generated_offsets[16], v);
+    super.set(super.$type.generated_offsets[16], v);
   }
   public get_std(): number {
-    return super.get(super.type.generated_offsets[17]) as number;
+    return super.get(super.$type.generated_offsets[17]) as number;
   }
   public set_std(v: number) {
-    super.set(super.type.generated_offsets[17], v);
+    super.set(super.$type.generated_offsets[17], v);
   }
   public get_size(): bigint | number {
-    return super.get(super.type.generated_offsets[18]) as bigint | number;
+    return super.get(super.$type.generated_offsets[18]) as bigint | number;
   }
   public set_size(v: bigint | number) {
-    super.set(super.type.generated_offsets[18], v);
+    super.set(super.$type.generated_offsets[18], v);
   }
  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotF64 {
     return new BoxPlotF64($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[109], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);

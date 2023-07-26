@@ -1,6 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, Value } from '../../types.js';
+import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Error extends GCObject {
@@ -36,9 +36,7 @@ export class Error extends GCObject {
     return o as Error;
   }
 
-  override save(w: AbiWriter) {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter) {
     w.write_vu32(this.code);
     w.write_vu32(this.frames.length);
     const msg_bytes = w.txt.encode(this.msg);
@@ -52,14 +50,14 @@ export class Error extends GCObject {
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       code: this.code,
       msg: this.msg,
       value: this.value,
       stack: this.frames.map((f) => ({
-        module: this.type.abi.symbols[f.module],
-        type: f.type === 0 ? undefined : this.type.abi.symbols[f.type],
-        fn: this.type.abi.symbols[f.fn],
+        module: this.$type.abi.symbols[f.module],
+        type: f.type === 0 ? undefined : this.$type.abi.symbols[f.type],
+        fn: this.$type.abi.symbols[f.fn],
         line: f.line,
         column: f.column,
       })),

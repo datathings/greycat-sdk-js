@@ -23,15 +23,18 @@ export class geo extends GCObject {
     return o as geo;
   }
 
-  override save(w: AbiWriter) {
+  override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.geo);
+  }
+
+  override saveContent(w: AbiWriter) {
     w.write_u64(this.value);
   }
 
   override toJSON() {
     const [lat, lng] = geoDecode(this.value);
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       lat,
       lng,
     };

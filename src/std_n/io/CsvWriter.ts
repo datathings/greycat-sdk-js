@@ -10,7 +10,7 @@ export class CsvWriter extends GCObject {
     throw new Error(`'${CsvWriter._type}' is not supported`);
   }
 
-  override save(_w: AbiWriter): void {
+  override saveContent(_w: AbiWriter): void {
     throw new Error(`'${CsvWriter._type}' is not supported`);
   }
 

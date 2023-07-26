@@ -15,15 +15,18 @@ export class GCEnum extends GCObject {
     super(type, [offset, key, value]);
   }
 
-  override save(w: AbiWriter): void {
+  override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.enum);
-    w.write_vu32(this.type.offset);
+    w.write_vu32(this.$type.offset);
+  }
+
+  override saveContent(w: AbiWriter): void {
     w.write_vu32(this.offset);
   }
 
   override toJSON() {
     return {
-      _type: this.type.name,
+      _type: this.$type.name,
       field: this.key,
     };
   }

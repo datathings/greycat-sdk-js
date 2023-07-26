@@ -1,7 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { GCObject } from '../../GCObject.js';
-import { PrimitiveType } from '../../types.js';
 
 export class ProgressTracker extends GCObject {
   static readonly _type = 'util::ProgressTracker' as const;
@@ -24,10 +23,7 @@ export class ProgressTracker extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
-
+  override saveContent(w: AbiWriter): void {
     w.write_i64(this.initial_time);
     w.write_i64(this.last_time);
     w.write_i64(this.previous_time);

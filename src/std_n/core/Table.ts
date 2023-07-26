@@ -50,9 +50,7 @@ export class Table extends GCObject {
     return new type.factory!(type, cols, rows, meta, data) as Table;
   }
 
-  override save(w: AbiWriter) {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter) {
     w.write_u32(this.cols);
     w.write_u32(this.rows);
     if (this.meta) {

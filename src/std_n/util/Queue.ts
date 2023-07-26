@@ -1,6 +1,6 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, Value } from '../../types.js';
+import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Queue extends GCObject {
@@ -26,10 +26,7 @@ export class Queue extends GCObject {
     return this.queue.size();
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
-
+  override saveContent(w: AbiWriter): void {
     const size = this.queue.size();
     const size_n = BigInt(size);
     w.write_vi64(size_n);

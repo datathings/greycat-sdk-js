@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class GaussianProfile extends GCObject {
@@ -10,9 +9,7 @@ export class GaussianProfile extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
+  override saveContent(w: AbiWriter): void {
     w.write_u32(this.size);
     w.write_u32(this.data.byteLength);
     w.write_all(this.data);

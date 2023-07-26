@@ -1,6 +1,5 @@
 import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class HistogramI64 extends GCObject {
@@ -33,10 +32,7 @@ export class HistogramI64 extends GCObject {
     super(type);
   }
 
-  override save(w: AbiWriter): void {
-    w.write_u8(PrimitiveType.object);
-    w.write_vu32(this.type.offset);
-
+  override saveContent(w: AbiWriter): void {
     w.write_i64(this.real_min);
     w.write_i64(this.real_max);
     w.write_i64(this.min);

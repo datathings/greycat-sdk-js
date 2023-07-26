@@ -10,7 +10,7 @@ export class Directory extends GCObject {
     throw new Error(`'${Directory._type}' is not supported`);
   }
 
-  override save(_w: AbiWriter): void {
+  override saveContent(_w: AbiWriter): void {
     throw new Error(`'${Directory._type}' is not supported`);
   }
 

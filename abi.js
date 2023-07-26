@@ -1,5 +1,6 @@
+// @ts-check
 import { readFile } from 'node:fs/promises';
-import { Abi, AbiReader, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, stdlib } from './dist/esm/index.js';
 import assert from 'node:assert';
 
 const buffer = (await readFile('gcdata/store/abi')).buffer;

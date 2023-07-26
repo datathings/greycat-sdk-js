@@ -444,12 +444,16 @@ export class Writer {
    * @param n number of bytes
    */
   private _reserve(n: number): void {
-    if (this._curr + n < this._buf.length) {
+    if (this._buf.length >= this._curr + n) {
       return;
     }
-    const newBuffer = new Uint8Array(this._buf.length * 2);
-    newBuffer.set(this._buf, 0);
-    this._buf = newBuffer;
+    let newLen = this._buf.length * 2;
+    if (newLen < n) {
+      newLen = closestUpperPowerOf2(n + this._buf.length);
+    }
+    const newBuf = new Uint8Array(newLen);
+    newBuf.set(this._buf, 0);
+    this._buf = newBuf;
     this._view = new DataView(this._buf.buffer);
   }
 
@@ -478,152 +482,114 @@ export class Writer {
   }
 
   write_vu32(v: number) {
+    this._reserve(5); // maximum byte length of a varint 32
+
+    this._buf[this._curr] = v & 0x7f;
     if (v < 0x80) {
-      this._buf[this._curr] = v & 0x7f;
-      this._curr += 1;
+      this._curr++;
       return;
     }
 
-    if (v < 1 << 14) {
-      this._reserve(2);
-      this._buf[this._curr] = v & 0x3f;
-      this._buf[this._curr] |= 0x80;
-      this._buf[this._curr + 1] = (v >> 6) & 0xff;
-      this._curr += 2;
+    this._buf[this._curr++] |= 0x80;
+    v >>= 7;
+    this._buf[this._curr] = v & 0x7f;
+    if (v < 0x80) {
+      this._curr++;
       return;
     }
 
-    if (v < 1 << 21) {
-      this._reserve(3);
-      this._buf[this._curr] = v & 0x1f;
-      this._buf[this._curr] |= 0xc0;
-      this._buf[this._curr + 1] = (v >> 5) & 0xff;
-      this._buf[this._curr + 2] = (v >> 13) & 0xff;
-      this._curr += 3;
+    this._buf[this._curr++] |= 0x80;
+    v >>= 7;
+    this._buf[this._curr] = v & 0x7f;
+    if (v < 0x80) {
+      this._curr++;
       return;
     }
 
-    if (v < 1 << 28) {
-      this._reserve(4);
-      this._buf[this._curr] = v & 0xf;
-      this._buf[this._curr] |= 0xe0;
-      this._buf[this._curr + 1] = (v >> 4) & 0xff;
-      this._buf[this._curr + 2] = (v >> 12) & 0xff;
-      this._buf[this._curr + 3] = (v >> 20) & 0xff;
-      this._curr += 4;
+    this._buf[this._curr++] |= 0x80;
+    v >>= 7;
+    this._buf[this._curr] = v & 0x7f;
+    if (v < 0x80) {
+      this._curr++;
       return;
     }
 
-    this._reserve(5);
-    this._buf[this._curr] = v & 0x7;
-    this._buf[this._curr] |= 0xf0;
-    this._buf[this._curr + 1] = (v >> 3) & 0xff;
-    this._buf[this._curr + 2] = (v >> 11) & 0xff;
-    this._buf[this._curr + 3] = (v >> 19) & 0xff;
-    this._buf[this._curr + 4] = (v >> 27) & 0xff;
-    this._curr += 5;
+    this._buf[this._curr++] |= 0x80;
+    v >>= 7;
+    this._buf[this._curr] = v;
+    this._curr++;
   }
 
   write_vi64(v: bigint) {
-    if (v < 0x80) {
-      this._buf[this._curr] = Number(v & 0x7fn);
-      this._curr += 1;
-      return;
-    }
-
-    if (v < 1 << 14) {
-      this._reserve(2);
-      this._buf[this._curr] = Number(v & 0x3fn);
-      this._buf[this._curr] |= 0x80;
-      this._buf[this._curr + 1] = Number(v >> 6n) & 0xff;
-      this._curr += 2;
-      return;
-    }
-
-    if (v < 1 << 21) {
-      this._reserve(3);
-      this._buf[this._curr] = Number(v & 0x1fn);
-      this._buf[this._curr] |= 0xc0;
-      this._buf[this._curr + 1] = Number(v >> 5n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 13n) & 0xff;
-      this._curr += 3;
-      return;
-    }
-
-    if (v < 1 << 28) {
-      this._reserve(4);
-      this._buf[this._curr] = Number(v & 0xfn);
-      this._buf[this._curr] |= 0xe0;
-      this._buf[this._curr + 1] = Number(v >> 4n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 12n) & 0xff;
-      this._buf[this._curr + 3] = Number(v >> 20n) & 0xff;
-      this._curr += 4;
-      return;
-    }
-
-    if (v < 1n << 35n) {
-      this._reserve(5);
-      this._buf[this._curr] = Number(v & 0x7n);
-      this._buf[this._curr] |= 0xf0;
-      this._buf[this._curr + 1] = Number(v >> 3n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 11n) & 0xff;
-      this._buf[this._curr + 3] = Number(v >> 19n) & 0xff;
-      this._buf[this._curr + 4] = Number(v >> 27n) & 0xff;
-      this._curr += 5;
-      return;
-    }
-
-    if (v < 1n << 42n) {
-      this._reserve(6);
-      this._buf[this._curr] = Number(v & 0x3n);
-      this._buf[this._curr] |= 0xf8;
-      this._buf[this._curr + 1] = Number(v >> 2n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 10n) & 0xff;
-      this._buf[this._curr + 3] = Number(v >> 18n) & 0xff;
-      this._buf[this._curr + 4] = Number(v >> 26n) & 0xff;
-      this._buf[this._curr + 5] = Number(v >> 34n) & 0xff;
-      return 6;
-    }
-    if (v < 1n << 49n) {
-      this._reserve(7);
-      this._buf[this._curr] = Number(v & 0x1n);
-      this._buf[this._curr] |= 0xfc;
-      this._buf[this._curr + 1] = Number(v >> 1n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 9n) & 0xff;
-      this._buf[this._curr + 3] = Number(v >> 17n) & 0xff;
-      this._buf[this._curr + 4] = Number(v >> 25n) & 0xff;
-      this._buf[this._curr + 5] = Number(v >> 33n) & 0xff;
-      this._buf[this._curr + 6] = Number(v >> 41n) & 0xff;
-      this._curr += 7;
-      return;
-    }
-
-    if (v < 1n << 56n) {
-      this._reserve(8);
-      this._buf[this._curr] = 0xfe;
-      this._buf[this._curr + 1] = Number(v >> 0n) & 0xff;
-      this._buf[this._curr + 2] = Number(v >> 8n) & 0xff;
-      this._buf[this._curr + 3] = Number(v >> 16n) & 0xff;
-      this._buf[this._curr + 4] = Number(v >> 24n) & 0xff;
-      this._buf[this._curr + 5] = Number(v >> 32n) & 0xff;
-      this._buf[this._curr + 6] = Number(v >> 40n) & 0xff;
-      this._buf[this._curr + 7] = Number(v >> 48n) & 0xff;
-      this._curr += 8;
-      return;
-    }
-
     this._reserve(9);
-    this._buf[this._curr] = 0xff;
-    this._buf[this._curr + 1] = Number(v >> 0n) & 0xff;
-    this._buf[this._curr + 2] = Number(v >> 8n) & 0xff;
-    this._buf[this._curr + 5] = Number(v >> 32n) & 0xff;
-    this._buf[this._curr + 3] = Number(v >> 16n) & 0xff;
-    this._buf[this._curr + 4] = Number(v >> 24n) & 0xff;
-    this._buf[this._curr + 6] = Number(v >> 40n) & 0xff;
-    this._buf[this._curr + 7] = Number(v >> 48n) & 0xff;
-    this._buf[this._curr + 8] = Number(v >> 56n) & 0xff;
-    this._curr += 9;
-    return;
+    // zig-zag conversion to unsigned
+    let x = (v << 1n) ^ (v >> 63n);
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x & 0x7fn);
+    if (x < 0x80) {
+      this._curr++;
+      return;
+    }
+
+    this._buf[this._curr++] |= 0x80;
+    x >>= 7n;
+    this._buf[this._curr] = Number(x);
+    this._curr++;
   }
 
   write_u64(v: bigint) {
@@ -715,7 +681,7 @@ export class AbiWriter extends Writer {
     // checks if value is a float or not
     if (value % 1 === 0) {
       this.write_u8(PrimitiveType.int);
-      this.write_i64(BigInt(value));
+      this.write_vi64(BigInt(value));
     } else {
       this.write_u8(PrimitiveType.float);
       this.write_f64(value);
@@ -760,7 +726,7 @@ export class AbiWriter extends Writer {
    */
   bigint(value: bigint): void {
     this.write_u8(PrimitiveType.int);
-    this.write_i64(value);
+    this.write_vi64(value);
   }
 
   /**
@@ -799,4 +765,22 @@ export class AbiWriter extends Writer {
     }
     this.write_u8(PrimitiveType.null);
   }
+}
+
+function closestUpperPowerOf2(value: number) {
+  if (value < 1) {
+    return 1;
+  }
+
+  // subtract 1 from the number to get the closest power of 2 lower than the number
+  let closestPower = value - 1;
+  // then perform a bitwise OR operation to set all bits to the right of the highest set bit
+  closestPower |= closestPower >>> 1;
+  closestPower |= closestPower >>> 2;
+  closestPower |= closestPower >>> 4;
+  closestPower |= closestPower >>> 8;
+  closestPower |= closestPower >>> 16;
+  closestPower++;
+
+  return closestPower;
 }

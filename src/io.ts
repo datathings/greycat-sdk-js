@@ -154,7 +154,7 @@ export class Reader {
     return this.txt.decode(bytes);
   }
 
-  take(n: number): ArrayBuffer {
+  take(n: number): Uint8Array {
     assert_buffer_has_enough_bytes(this._curr + n <= this._buf.byteLength);
     const v = this._buf.slice(this._curr, this._curr + n);
     this._curr += n;
@@ -521,7 +521,7 @@ export class Writer {
   }
 
   write_vi64(v: bigint) {
-    this._reserve(9);
+    this._reserve(9); // maximum byte length of a varint64
     // zig-zag conversion to unsigned
     let x = (v << 1n) ^ (v >> 63n);
     this._buf[this._curr] = Number(x & 0x7fn);

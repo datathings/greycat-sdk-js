@@ -6,7 +6,7 @@ import { PrimitiveType } from '../../types.js';
 export class ByteArray extends GCObject {
   static readonly _type = 'util::ByteArray' as const;
 
-  constructor(type: AbiType, public data: ArrayBuffer) {
+  constructor(type: AbiType, public data: Uint8Array) {
     super(type);
   }
 
@@ -14,7 +14,7 @@ export class ByteArray extends GCObject {
     w.write_u8(PrimitiveType.object);
     w.write_u32(this.type.offset);
     w.write_vu32(this.data.byteLength);
-    w.write_all(new Uint8Array(this.data));
+    w.write_all(this.data);
   }
 
   static load(r: AbiReader, type: AbiType): ByteArray {

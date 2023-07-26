@@ -12,7 +12,7 @@ export class ByteArray extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     w.write_vu32(this.data.byteLength);
     w.write_all(this.data);
   }

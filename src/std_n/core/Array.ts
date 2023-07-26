@@ -12,7 +12,7 @@ export class Array extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(w.abi.core_array_offset);
+    w.write_vu32(w.abi.core_array_offset);
     w.write_vu32(this.arr.length);
     for (let i = 0; i < this.arr.length; i++) {
       w.serialize(this.arr[i]);

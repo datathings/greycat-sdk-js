@@ -8,14 +8,14 @@ export class TimeWindow extends GCObject {
 
   constructor(
     type: AbiType,
-    public timeWidth: bigint,
+    public timeWidth: bigint | number,
     public sum_type: number,
     public sum: number,
     public sumsq: number,
     public size: number,
     public capacity: number,
-    public head: bigint,
-    public tail: bigint,
+    public head: bigint | number,
+    public tail: bigint | number,
     public values: TimedValue[],
   ) {
     super(type);
@@ -23,16 +23,16 @@ export class TimeWindow extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
 
-    w.write_i64(this.timeWidth);
+    w.write_i64(BigInt(this.timeWidth));
     w.write_u8(this.sum_type);
     w.write_f64(this.sum);
     w.write_f64(this.sumsq);
     w.write_vu32(this.size);
     w.write_vu32(this.capacity);
-    w.write_vi64(this.head);
-    w.write_vi64(this.tail);
+    w.write_vi64(BigInt(this.head));
+    w.write_vi64(BigInt(this.tail));
     for (let i = 0; i < this.values.length; i++) {
       w.serialize(this.values[i].time);
       w.serialize(this.values[i].value);

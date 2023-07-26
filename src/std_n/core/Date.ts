@@ -38,7 +38,7 @@ export class Date extends GCObject {
 
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     w.write_vi64(BigInt(this.localizedEpochS));
     w.write_vi64(BigInt(this.epochUs));
     w.write_vu32(this.timeZone.offset);

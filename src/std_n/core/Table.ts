@@ -52,7 +52,7 @@ export class Table extends GCObject {
 
   override save(w: AbiWriter) {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     w.write_u32(this.cols);
     w.write_u32(this.rows);
     if (this.meta) {

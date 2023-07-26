@@ -25,7 +25,6 @@ fn write_std(out: AbiWriter) {
 
 fn write_core(out: AbiWriter) {
   out.write(true);
-  out.write('*');
   // 1 byte
   out.write(0);
   out.write(1);
@@ -185,14 +184,14 @@ fn write_io(out: AbiWriter) {
   out.write(BinaryFormat{});
   out.write(JsonFormat{});
   out.write(TextFormat{});
-  out.write(CSVColumnString{});
-  out.write(CSVColumnInteger{});
-  out.write(CSVColumnFloat{});
-  out.write(CSVColumnBoolean{});
-  out.write(CSVColumnTime{});
-  out.write(CSVColumnDate{});
-  out.write(CSVColumnIgnored{});
-  out.write(CSVFormat{
+  out.write(CsvColumnString{});
+  out.write(CsvColumnInteger{});
+  out.write(CsvColumnFloat{});
+  out.write(CsvColumnBoolean{});
+  out.write(CsvColumnTime{});
+  out.write(CsvColumnDate{});
+  out.write(CsvColumnIgnored{});
+  out.write(CsvFormat{
     header_lines: 12,
     infer: true,
     separator: ',',

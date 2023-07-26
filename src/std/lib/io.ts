@@ -1,129 +1,26 @@
 // AUTO-GENERATED FILE PLEASE DO NOT MODIFY MANUALLY
 /* eslint-disable */
+// @ts-nocheck
 
 import * as $sdk from '@greycat/sdk';
 import * as $std from '../index.js';
 import * as std_n from '../../std_n/index.js';
 
 // module: io.gcl
-export class File extends std_n.io.File {}
-
-export class TextFormat extends $sdk.GCObject {
-  static readonly _type = 'io::TextFormat';
+export class FileFormat extends $sdk.GCObject {
+  static readonly _type = 'io::FileFormat';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
   }
 
- static create($g: $sdk.GreyCat): TextFormat {
-    return new TextFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58]);
+ static create($g: $sdk.GreyCat): FileFormat {
+    return new FileFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[57]);
   }
 }
 
-export class AbiReader extends std_n.io.AbiReader {}
-
-export class BinaryFormat extends $sdk.GCObject {
-  static readonly _type = 'io::BinaryFormat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): BinaryFormat {
-    return new BinaryFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[60]);
-  }
-}
-
-export class FileDescriptor extends $sdk.GCObject {
-  static readonly _type = 'io::FileDescriptor';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_uri(): string {
-    return super.get(super.type.generated_offsets[0]) as string;
-  }
-  public set_uri(v: string) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_size(): bigint | number | null {
-    return super.get(super.type.generated_offsets[1]) as bigint | number | null;
-  }
-  public set_size(v: bigint | number | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
-  public get_last_modification(): $sdk.std.core.time | null {
-    return super.get(super.type.generated_offsets[2]) as $sdk.std.core.time | null;
-  }
-  public set_last_modification(v: $sdk.std.core.time | null) {
-    super.set(super.type.generated_offsets[2], v);
-  }
- static create($g: $sdk.GreyCat, uri: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): FileDescriptor {
-    return new FileDescriptor($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[61], uri, size, last_modification);
-  }
-}
-
-export class JsonWriter extends std_n.io.JsonWriter {}
-
-export class CSVFormat extends $sdk.GCObject {
-  static readonly _type = 'io::CSVFormat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_header_lines(): bigint | number {
-    return super.get(super.type.generated_offsets[0]) as bigint | number;
-  }
-  public set_header_lines(v: bigint | number) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_infer(): boolean {
-    return super.get(super.type.generated_offsets[1]) as boolean;
-  }
-  public set_infer(v: boolean) {
-    super.set(super.type.generated_offsets[1], v);
-  }
-  public get_separator(): string {
-    return super.get(super.type.generated_offsets[2]) as string;
-  }
-  public set_separator(v: string) {
-    super.set(super.type.generated_offsets[2], v);
-  }
-  public get_string_delimiter(): string {
-    return super.get(super.type.generated_offsets[3]) as string;
-  }
-  public set_string_delimiter(v: string) {
-    super.set(super.type.generated_offsets[3], v);
-  }
-  public get_decimal_separator(): string {
-    return super.get(super.type.generated_offsets[4]) as string;
-  }
-  public set_decimal_separator(v: string) {
-    super.set(super.type.generated_offsets[4], v);
-  }
-  public get_thousands_separator(): string {
-    return super.get(super.type.generated_offsets[5]) as string;
-  }
-  public set_thousands_separator(v: string) {
-    super.set(super.type.generated_offsets[5], v);
-  }
-  public get_columns(): Array<$std.io.CSVColumn> | null {
-    return super.get(super.type.generated_offsets[6]) as Array<$std.io.CSVColumn> | null;
-  }
-  public set_columns(v: Array<$std.io.CSVColumn> | null) {
-    super.set(super.type.generated_offsets[6], v);
-  }
- static create($g: $sdk.GreyCat, header_lines: bigint | number, infer: boolean, separator: string, string_delimiter: string, decimal_separator: string, thousands_separator: string, columns: Array<$std.io.CSVColumn> | null): CSVFormat {
-    return new CSVFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
-  }
-}
-
-export class AbiWriter extends std_n.io.AbiWriter {}
-
-export class CSVColumnString extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnString';
+export class CsvColumnString extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnString';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
@@ -171,247 +68,19 @@ export class CSVColumnString extends $sdk.GCObject {
   public set_encoder(v: $std.io.TextEncoder | null) {
     super.set(super.type.generated_offsets[6], v);
   }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: $std.io.TextEncoder | null): CSVColumnString {
-    return new CSVColumnString($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[65], name, mandatory, trim, try_number, try_json, values, encoder);
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: $std.io.TextEncoder | null): CsvColumnString {
+    return new CsvColumnString($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58], name, mandatory, trim, try_number, try_json, values, encoder);
   }
 }
 
-export class CSVColumnBoolean extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnBoolean';
+export class AbiReader extends std_n.io.AbiReader {}
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
+export class JsonWriter extends std_n.io.JsonWriter {}
 
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CSVColumnBoolean {
-    return new CSVColumnBoolean($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[66], name, mandatory);
-  }
-}
+export class JsonReader extends std_n.io.JsonReader {}
 
-export class TextWriter extends std_n.io.TextWriter {}
-
-export class CSVColumn extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumn';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CSVColumn {
-    return new CSVColumn($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[68], name, mandatory);
-  }
-}
-
-export class FileWriter extends std_n.io.FileWriter {}
-
-export class CSVColumnInteger extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnInteger';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CSVColumnInteger {
-    return new CSVColumnInteger($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[70], name, mandatory);
-  }
-}
-
-export class Directory extends std_n.io.Directory {}
-
-export class CSVColumnIgnored extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnIgnored';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CSVColumnIgnored {
-    return new CSVColumnIgnored($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72], name, mandatory);
-  }
-}
-
-export class FileEntry extends $sdk.GCObject {
-  static readonly _type = 'io::FileEntry';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): FileEntry {
-    return new FileEntry($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[73]);
-  }
-}
-
-export class TextEncoder extends $sdk.GCEnum {
-  static readonly _type = 'io::TextEncoder';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static plain($g: $sdk.GreyCat): $std.io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74];
-    return t.enum_values![t.generated_offsets[0]] as $std.io.TextEncoder;
-  }
-  public static base64($g: $sdk.GreyCat): $std.io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74];
-    return t.enum_values![t.generated_offsets[1]] as $std.io.TextEncoder;
-  }
-  public static base64url($g: $sdk.GreyCat): $std.io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74];
-    return t.enum_values![t.generated_offsets[2]] as $std.io.TextEncoder;
-  }
-  public static hexadecimal($g: $sdk.GreyCat): $std.io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74];
-    return t.enum_values![t.generated_offsets[3]] as $std.io.TextEncoder;
-  }
- static create($g: $sdk.GreyCat): TextEncoder {
-    return new TextEncoder($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74]);
-  }
-}
-
-export class JsonFormat extends $sdk.GCObject {
-  static readonly _type = 'io::JsonFormat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): JsonFormat {
-    return new JsonFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[75]);
-  }
-}
-
-export class TextReader extends std_n.io.TextReader {}
-
-export class FileFormat extends $sdk.GCObject {
-  static readonly _type = 'io::FileFormat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): FileFormat {
-    return new FileFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[77]);
-  }
-}
-
-export class CSVColumnFloat extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnFloat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CSVColumnFloat {
-    return new CSVColumnFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[78], name, mandatory);
-  }
-}
-
-export class CSVColumnTime extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnTime';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string | null {
-    return super.get(super.type.generated_offsets[0]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.type.generated_offsets[0], v);
-  }
-  public get_mandatory(): boolean | null {
-    return super.get(super.type.generated_offsets[1]) as boolean | null;
-  }
-  public set_mandatory(v: boolean | null) {
-    super.set(super.type.generated_offsets[1], v);
-  }
-  public get_unit(): $std.core.DurationUnit | null {
-    return super.get(super.type.generated_offsets[2]) as $std.core.DurationUnit | null;
-  }
-  public set_unit(v: $std.core.DurationUnit | null) {
-    super.set(super.type.generated_offsets[2], v);
-  }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: $std.core.DurationUnit | null): CSVColumnTime {
-    return new CSVColumnTime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79], name, mandatory, unit);
-  }
-}
-
-export class JSON extends $sdk.GCObject {
-  static readonly _type = 'io::JSON';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): JSON {
-    return new JSON($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80]);
-  }
-}
-
-export class CSVColumnDate extends $sdk.GCObject {
-  static readonly _type = 'io::CSVColumnDate';
+export class CsvColumnDate extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnDate';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
@@ -447,8 +116,342 @@ export class CSVColumnDate extends $sdk.GCObject {
   public set_as_time(v: boolean | null) {
     super.set(super.type.generated_offsets[4], v);
   }
- static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: $std.core.TimeZone | null, as_time: boolean | null): CSVColumnDate {
-    return new CSVColumnDate($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[81], name, mandatory, format, tz, as_time);
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: $std.core.TimeZone | null, as_time: boolean | null): CsvColumnDate {
+    return new CsvColumnDate($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[62], name, mandatory, format, tz, as_time);
+  }
+}
+
+export class CsvColumnIgnored extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnIgnored';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnIgnored {
+    return new CsvColumnIgnored($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63], name, mandatory);
+  }
+}
+
+export class AbiWriter extends std_n.io.AbiWriter {}
+
+export class TextFormat extends $sdk.GCObject {
+  static readonly _type = 'io::TextFormat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+ static create($g: $sdk.GreyCat): TextFormat {
+    return new TextFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[65]);
+  }
+}
+
+export class JSON extends $sdk.GCObject {
+  static readonly _type = 'io::JSON';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+ static create($g: $sdk.GreyCat): JSON {
+    return new JSON($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[66]);
+  }
+}
+
+export class CsvWriter extends std_n.io.CsvWriter {}
+
+export class TextWriter extends std_n.io.TextWriter {}
+
+export class BinaryFormat extends $sdk.GCObject {
+  static readonly _type = 'io::BinaryFormat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+ static create($g: $sdk.GreyCat): BinaryFormat {
+    return new BinaryFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[69]);
+  }
+}
+
+export class FileEntry extends $sdk.GCObject {
+  static readonly _type = 'io::FileEntry';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+ static create($g: $sdk.GreyCat): FileEntry {
+    return new FileEntry($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[70]);
+  }
+}
+
+export class CsvColumn extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumn';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumn {
+    return new CsvColumn($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[71], name, mandatory);
+  }
+}
+
+export class JsonFormat extends $sdk.GCObject {
+  static readonly _type = 'io::JsonFormat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+ static create($g: $sdk.GreyCat): JsonFormat {
+    return new JsonFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72]);
+  }
+}
+
+export class CsvColumnTime extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnTime';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+  public get_unit(): $std.core.DurationUnit | null {
+    return super.get(super.type.generated_offsets[2]) as $std.core.DurationUnit | null;
+  }
+  public set_unit(v: $std.core.DurationUnit | null) {
+    super.set(super.type.generated_offsets[2], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: $std.core.DurationUnit | null): CsvColumnTime {
+    return new CsvColumnTime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[73], name, mandatory, unit);
+  }
+}
+
+export class CsvColumnBoolean extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnBoolean';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnBoolean {
+    return new CsvColumnBoolean($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[74], name, mandatory);
+  }
+}
+
+export class FileDescriptor extends $sdk.GCObject {
+  static readonly _type = 'io::FileDescriptor';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_uri(): string {
+    return super.get(super.type.generated_offsets[0]) as string;
+  }
+  public set_uri(v: string) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_size(): bigint | number | null {
+    return super.get(super.type.generated_offsets[1]) as bigint | number | null;
+  }
+  public set_size(v: bigint | number | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+  public get_last_modification(): $sdk.std.core.time | null {
+    return super.get(super.type.generated_offsets[2]) as $sdk.std.core.time | null;
+  }
+  public set_last_modification(v: $sdk.std.core.time | null) {
+    super.set(super.type.generated_offsets[2], v);
+  }
+ static create($g: $sdk.GreyCat, uri: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): FileDescriptor {
+    return new FileDescriptor($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[75], uri, size, last_modification);
+  }
+}
+
+export class Directory extends std_n.io.Directory {}
+
+export class File extends std_n.io.File {}
+
+export class TextReader extends std_n.io.TextReader {}
+
+export class CsvFormat extends $sdk.GCObject {
+  static readonly _type = 'io::CsvFormat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_header_lines(): bigint | number | null {
+    return super.get(super.type.generated_offsets[0]) as bigint | number | null;
+  }
+  public set_header_lines(v: bigint | number | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_infer(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_infer(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+  public get_separator(): string | null {
+    return super.get(super.type.generated_offsets[2]) as string | null;
+  }
+  public set_separator(v: string | null) {
+    super.set(super.type.generated_offsets[2], v);
+  }
+  public get_string_delimiter(): string | null {
+    return super.get(super.type.generated_offsets[3]) as string | null;
+  }
+  public set_string_delimiter(v: string | null) {
+    super.set(super.type.generated_offsets[3], v);
+  }
+  public get_decimal_separator(): string | null {
+    return super.get(super.type.generated_offsets[4]) as string | null;
+  }
+  public set_decimal_separator(v: string | null) {
+    super.set(super.type.generated_offsets[4], v);
+  }
+  public get_thousands_separator(): string | null {
+    return super.get(super.type.generated_offsets[5]) as string | null;
+  }
+  public set_thousands_separator(v: string | null) {
+    super.set(super.type.generated_offsets[5], v);
+  }
+  public get_columns(): Array<$std.io.CsvColumn> | null {
+    return super.get(super.type.generated_offsets[6]) as Array<$std.io.CsvColumn> | null;
+  }
+  public set_columns(v: Array<$std.io.CsvColumn> | null) {
+    super.set(super.type.generated_offsets[6], v);
+  }
+ static create($g: $sdk.GreyCat, header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<$std.io.CsvColumn> | null): CsvFormat {
+    return new CsvFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
+  }
+}
+
+export class CsvColumnInteger extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnInteger';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnInteger {
+    return new CsvColumnInteger($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80], name, mandatory);
+  }
+}
+
+export class CsvColumnFloat extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnFloat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get_name(): string | null {
+    return super.get(super.type.generated_offsets[0]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.type.generated_offsets[0], v);
+  }
+  public get_mandatory(): boolean | null {
+    return super.get(super.type.generated_offsets[1]) as boolean | null;
+  }
+  public set_mandatory(v: boolean | null) {
+    super.set(super.type.generated_offsets[1], v);
+  }
+ static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnFloat {
+    return new CsvColumnFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[81], name, mandatory);
+  }
+}
+
+export class TextEncoder extends $sdk.GCEnum {
+  static readonly _type = 'io::TextEncoder';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes[0], attributes[1], attributes[2]);
+  }
+
+  public static plain($g: $sdk.GreyCat): $std.io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82];
+    return t.enum_values![t.generated_offsets[0]] as $std.io.TextEncoder;
+  }
+  public static base64($g: $sdk.GreyCat): $std.io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82];
+    return t.enum_values![t.generated_offsets[1]] as $std.io.TextEncoder;
+  }
+  public static base64url($g: $sdk.GreyCat): $std.io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82];
+    return t.enum_values![t.generated_offsets[2]] as $std.io.TextEncoder;
+  }
+  public static hexadecimal($g: $sdk.GreyCat): $std.io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82];
+    return t.enum_values![t.generated_offsets[3]] as $std.io.TextEncoder;
+  }
+ static create($g: $sdk.GreyCat): TextEncoder {
+    return new TextEncoder($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82]);
   }
 }
 

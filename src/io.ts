@@ -448,7 +448,7 @@ export class Writer {
       return;
     }
     let newLen = this._buf.length * 2;
-    if (newLen < n) {
+    if (newLen <= n) {
       newLen = closestUpperPowerOf2(n + this._buf.length);
     }
     const newBuf = new Uint8Array(newLen);
@@ -703,6 +703,17 @@ export class AbiWriter extends Writer {
     this.write_u8(PrimitiveType.undefined);
   }
 
+  char(c: string): void {
+    if (c.length > 1) {
+      throw new Error(`a 'char' is one ASCII character, got '${c}'`);
+    }
+    const code = c.charCodeAt(0);
+    if (!isASCIICharCode(code)) {
+      throw new Error(`invalid char code '${code}'`);
+    }
+    this.write_i8(code);
+  }
+
   /**
    * Serializes a `string` either as a `stringlit` or an `object` (string)
    * based on whether or not the value is already present in the ABI symbols
@@ -783,4 +794,8 @@ function closestUpperPowerOf2(value: number) {
   closestPower++;
 
   return closestPower;
+}
+
+function isASCIICharCode(code: number): boolean {
+  return code >= 0 && code <= 127;
 }

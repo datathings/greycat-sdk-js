@@ -51,7 +51,7 @@ export class Tensor extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     w.write_i8(this.shape.length);
     w.write_u8(this.tensorType);
     for (let i = 0; i < this.shape.length; i++) {

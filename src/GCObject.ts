@@ -56,7 +56,7 @@ export class GCObject {
 
   save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     if (this.$values) {
       for (let i = 0; i < this.$values.length; i++) {
         w.serialize(this.$values[i]);

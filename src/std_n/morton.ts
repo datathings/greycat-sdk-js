@@ -433,7 +433,7 @@ export function deinterleave64_10di(
 }
 
 export function interleave64_2df(x0: number, x1: number): bigint {
-  return interleave64_2d(x0 - INT32_MIN, x1 - INT32_MIN);
+  return interleave64_2d(f32tou32(x0) + 2147483648, f32tou32(x1) + 2147483648);
 }
 
 export function deinterleave64_2df(x: bigint): [number, number] {
@@ -443,13 +443,18 @@ export function deinterleave64_2df(x: bigint): [number, number] {
   return res;
 }
 
+function f32tou32(x: number) {
+  f32view[0] = x;
+  return u32view[0];
+}
+
 function u32tof32(x: number) {
   u32view[0] = x;
   return f32view[0];
 }
 
 export function interleave64_3df(x0: number, x1: number, x2: number): bigint {
-  return interleave64_3d(x0 - INT21_MIN, x1 - INT21_MIN, x2 - INT21_MIN);
+  return interleave64_3d(f32tou32(x0) + 4293918720, f32tou32(x1) + 4293918720, f32tou32(x2) + 4293918720);
 }
 
 export function deinterleave64_3df(x: bigint): [number, number, number] {
@@ -469,7 +474,12 @@ export function deinterleave64_3df(x: bigint): [number, number, number] {
 }
 
 export function interleave64_4df(x0: number, x1: number, x2: number, x3: number): bigint {
-  return interleave64_4d(x0 - INT16_MIN, x1 - INT16_MIN, x2 - INT16_MIN, x3 - INT16_MIN);
+  return interleave64_4d(
+    f32tou32(x0) + 32768,
+    f32tou32(x1) + 32768,
+    f32tou32(x2) + 32768,
+    f32tou32(x3) + 32768,
+  );
 }
 
 export function deinterleave64_4df(x: bigint): [number, number, number, number] {

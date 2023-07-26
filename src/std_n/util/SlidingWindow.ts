@@ -8,14 +8,14 @@ export class SlidingWindow extends GCObject {
 
   constructor(
     type: AbiType,
-    public width: bigint,
+    public width: bigint | number,
     public sum_type: number,
     public sum: number,
     public sumsq: number,
     public size: number,
     public capacity: number,
-    public head: bigint,
-    public tail: bigint,
+    public head: bigint | number,
+    public tail: bigint | number,
     public values: Value[],
   ) {
     super(type);
@@ -23,16 +23,16 @@ export class SlidingWindow extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
 
-    w.write_vi64(this.width);
+    w.write_vi64(BigInt(this.width));
     w.write_u8(this.sum_type);
     w.write_f64(this.sum);
     w.write_f64(this.sumsq);
     w.write_vu32(this.size);
     w.write_vu32(this.capacity);
-    w.write_vi64(this.head);
-    w.write_vi64(this.tail);
+    w.write_vi64(BigInt(this.head));
+    w.write_vi64(BigInt(this.tail));
 
     for (let i = 0; i < this.values.length; i++) {
       w.serialize(this.values[i]);

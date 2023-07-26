@@ -5,5 +5,6 @@ export * from './JsonReader.js';
 export * from './JsonWriter.js';
 export * from './TextReader.js';
 export * from './TextWriter.js';
+export * from './CsvWriter.js';
 export * from './File.js';
 export * from './Directory.js';

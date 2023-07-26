@@ -10,10 +10,10 @@ export class Gaussian extends GCObject {
     type: AbiType,
     public sum: number,
     public sumSq: number,
-    public size: bigint,
-    public nbAccepted: bigint,
-    public nbRejected: bigint,
-    public nbNull: bigint,
+    public size: bigint | number,
+    public nbAccepted: bigint | number,
+    public nbRejected: bigint | number,
+    public nbNull: bigint | number,
     public min: number,
     public max: number,
     public minBound: number,
@@ -24,13 +24,13 @@ export class Gaussian extends GCObject {
 
   override save(w: AbiWriter): void {
     w.write_u8(PrimitiveType.object);
-    w.write_u32(this.type.offset);
+    w.write_vu32(this.type.offset);
     w.write_f64(this.sum);
     w.write_f64(this.sumSq);
-    w.write_vi64(this.size);
-    w.write_vi64(this.nbAccepted);
-    w.write_vi64(this.nbRejected);
-    w.write_vi64(this.nbNull);
+    w.write_vi64(BigInt(this.size));
+    w.write_vi64(BigInt(this.nbAccepted));
+    w.write_vi64(BigInt(this.nbRejected));
+    w.write_vi64(BigInt(this.nbNull));
     w.write_f64(this.min);
     w.write_f64(this.max);
     w.write_f64(this.minBound);

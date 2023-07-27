@@ -1,19 +1,11 @@
-// @ts-check
 import assert from 'node:assert';
+import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, stdlib, std } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, stdlib } from './dist/esm/index.js';
 
-main();
-
-async function main() {
-  const buffer = (await readFile('gcdata/store/abi')).buffer;
-  const abi = new Abi(buffer, [stdlib]);
-
-  const data = (await readFile('out.gcb')).buffer;
-  const reader = new AbiReader(abi, data);
-
-  reader.headers(); // read headers
+describe('project', () => {
+  let buffer, abi, data, reader;
 
   const expected_values = [
     // std::core
@@ -317,26 +309,39 @@ async function main() {
     { _type: 'util::Crypto' },
   ];
 
+  before(async () => {
+    buffer = (await readFile('gcdata/store/abi')).buffer;
+    abi = new Abi(buffer, [stdlib]);
+
+    data = (await readFile('out.gcb')).buffer;
+    reader = new AbiReader(abi, data);
+
+    reader.headers(); // read headers
+  });
+
   // test ser/de
   for (const expected of expected_values) {
-    // deserialize value from actual 'out.gcb' bytes
-    let actual = reader.deserialize();
-    // create a temporary serializer
-    const writer = new AbiWriter(abi, 4);
-    // serialize the value again
-    writer.serialize(actual);
-    // create a temporary deserializer
-    const reader2 = new AbiReader(abi, writer.buffer.buffer);
-    // deserialize the value again from what we serialize
-    const roundtrip_value = reader2.deserialize();
-    // ensure the actual deserialized value and our roundtrip are equals
-    assert.deepStrictEqual(actual, roundtrip_value);
-    // serialize to JSON
-    actual = fromJson(toJson(actual));
-    // validate that we were actually expecting this value
-    assert.deepStrictEqual(actual, expected);
+    const testName = typeof expected === 'object' ? expected._type ? expected._type : expected.constructor.name : expected;
+    it(`${testName}`, () => {
+      // deserialize value from actual 'out.gcb' bytes
+      let actual = reader.deserialize();
+      // create a temporary serializer
+      const writer = new AbiWriter(abi, 4);
+      // serialize the value again
+      writer.serialize(actual);
+      // create a temporary deserializer
+      const reader2 = new AbiReader(abi, writer.buffer.buffer);
+      // deserialize the value again from what we serialize
+      const roundtrip_value = reader2.deserialize();
+      // ensure the actual deserialized value and our roundtrip are equals
+      assert.deepStrictEqual(actual, roundtrip_value);
+      // serialize to JSON
+      actual = fromJson(toJson(actual));
+      // validate that we were actually expecting this value
+      assert.deepStrictEqual(actual, expected);
+    });
   }
-}
+});
 
 function fromJson(value) {
   return JSON.parse(value, (_, value) => {

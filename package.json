@@ -20,25 +20,23 @@
     "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js --minify --sourcemap",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
-    "test": "pnpm run build:esm && mocha --enable-source-maps",
+    "test": "pnpm run build:esm && node --test",
     "dist": "pnpm run pack"
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@types/mocha": "10.0.1",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "esbuild": "0.17.11",
     "eslint": "8.35.0",
     "eslint-plugin-require-extensions": "0.1.2",
-    "mocha": "10.2.0",
     "prettier": "2.8.4",
     "typescript": "5.1.6"
   },
   "engines": {
-    "node": ">=16.13.0"
+    "node": ">=18"
   },
   "publishConfig": {
     "@greycat:registry": "https://hub.datathings.com/api/v4/projects/289/packages/npm/"

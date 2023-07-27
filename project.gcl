@@ -4,11 +4,6 @@ use math;
 use runtime;
 use util;
 
-fn fail() {
-  var out = AbiWriter::new("fail.gcb");
-  out.write("${"YAY!"}");
-}
-
 fn main() {
   var out = AbiWriter::new("out.gcb");
   write_std(out);

@@ -87,9 +87,9 @@ async function main() {
       msg: '',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 14, column: 17 },
-        { module: 'project', fn: 'write_std', line: 18, column: 18 },
-        { module: 'project', fn: 'write_core', line: 93, column: 28 },
+        { module: 'project', fn: 'main', line: 9, column: 17 },
+        { module: 'project', fn: 'write_std', line: 13, column: 18 },
+        { module: 'project', fn: 'write_core', line: 88, column: 28 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

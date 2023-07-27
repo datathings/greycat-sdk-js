@@ -1,16 +1,15 @@
-const buffer = new ArrayBuffer(4);
+const buffer = new ArrayBuffer(8);
 
-// const u8view = new Uint8Array(buffer);
+const u16view = new Uint16Array(buffer);
 const u32view = new Uint32Array(buffer);
 const f32view = new Float32Array(buffer);
-// const u64view = new BigUint64Array(buffer);
+const u64view = new BigInt64Array(buffer);
 
 // deinterleave masks
 const BI_MASK32 = 0xfffffffffn;
 const BI_MASK21 = 0x0001fffffn;
 const BI_MASK12 = 0x0fffn;
 
-// unsigned => signed
 const INT32_MIN = -2147483648;
 const INT21_MIN = -1048576;
 const INT16_MIN = -32768;
@@ -39,24 +38,25 @@ export function interleave64_2d(x0: number, x1: number): bigint {
 
 // prettier-ignore
 export function deinterleave64_2d(x: bigint): [number, number] {
-  let x0 = x;
-  x0 = (x0 | (x0 >>  0n)) & 0x5555555555555555n;
-  x0 = (x0 | (x0 >>  1n)) & 0x3333333333333333n;
-  x0 = (x0 | (x0 >>  2n)) & 0x0f0f0f0f0f0f0f0fn;
-  x0 = (x0 | (x0 >>  4n)) & 0x00ff00ff00ff00ffn;
-  x0 = (x0 | (x0 >>  8n)) & 0x0000ffff0000ffffn;
-  x0 = (x0 | (x0 >> 16n)) & BI_MASK32;
+  u64view[0] = x;
+  u64view[0] = (u64view[0] | (u64view[0] >>  0n)) & 0x5555555555555555n;
+  u64view[0] = (u64view[0] | (u64view[0] >>  1n)) & 0x3333333333333333n;
+  u64view[0] = (u64view[0] | (u64view[0] >>  2n)) & 0x0f0f0f0f0f0f0f0fn;
+  u64view[0] = (u64view[0] | (u64view[0] >>  4n)) & 0x00ff00ff00ff00ffn;
+  u64view[0] = (u64view[0] | (u64view[0] >>  8n)) & 0x0000ffff0000ffffn;
+  u64view[0] = (u64view[0] | (u64view[0] >> 16n)) & BI_MASK32;
+  const x0 = u32view[0];
 
-  let x1 = x >> 1n;
-  x1 = (x1 | (x1 >>  0n)) & 0x5555555555555555n;
-  x1 = (x1 | (x1 >>  1n)) & 0x3333333333333333n;
-  x1 = (x1 | (x1 >>  2n)) & 0x0f0f0f0f0f0f0f0fn;
-  x1 = (x1 | (x1 >>  4n)) & 0x00ff00ff00ff00ffn;
-  x1 = (x1 | (x1 >>  8n)) & 0x0000ffff0000ffffn;
-  x1 = (x1 | (x1 >> 16n)) & BI_MASK32;
+  u64view[0] = x >> 1n;
+  u64view[0] = (u64view[0] | (u64view[0] >>  0n)) & 0x5555555555555555n;
+  u64view[0] = (u64view[0] | (u64view[0] >>  1n)) & 0x3333333333333333n;
+  u64view[0] = (u64view[0] | (u64view[0] >>  2n)) & 0x0f0f0f0f0f0f0f0fn;
+  u64view[0] = (u64view[0] | (u64view[0] >>  4n)) & 0x00ff00ff00ff00ffn;
+  u64view[0] = (u64view[0] | (u64view[0] >>  8n)) & 0x0000ffff0000ffffn;
+  u64view[0] = (u64view[0] | (u64view[0] >> 16n)) & BI_MASK32;
+  const x1 = u32view[0];
 
-  // cast to u32
-  return [Number(x0), Number(x1)];
+  return [x0, x1];
 }
 
 // prettier-ignore
@@ -87,33 +87,35 @@ export function interleave64_3d(x0: number, x1: number, x2: number): bigint {
 
 // prettier-ignore
 export function deinterleave64_3d(x: bigint): [number, number, number] {
-  let x0 = x & 0x1249249249249249n;
+  const unsigned_x = BigInt.asUintN(64, x);
+  let x0 = unsigned_x & 0x1249249249249249n;
   x0 = (x0 ^ (x0 >>  2n)) & 0x10c30c30c30c30c3n;
   x0 = (x0 ^ (x0 >>  4n)) & 0x100f00f00f00f00fn;
   x0 = (x0 ^ (x0 >>  8n)) & 0x001f0000ff0000ffn;
   x0 = (x0 ^ (x0 >> 16n)) & 0xffff00000000ffffn;
   x0 = (x0 ^ (x0 >> 32n)) & BI_MASK21;
 
-  let x1 = (x >> 1n) & 0x1249249249249249n;
+  let x1 = (unsigned_x >> 1n) & 0x1249249249249249n;
   x1 = (x1 ^ (x1 >>  2n)) & 0x10c30c30c30c30c3n;
   x1 = (x1 ^ (x1 >>  4n)) & 0x100f00f00f00f00fn;
   x1 = (x1 ^ (x1 >>  8n)) & 0x001f0000ff0000ffn;
   x1 = (x1 ^ (x1 >> 16n)) & 0xffff00000000ffffn;
   x1 = (x1 ^ (x1 >> 32n)) & BI_MASK21;
 
-  let x2 = (x >> 2n) & 0x1249249249249249n;
+  let x2 = (unsigned_x >> 2n) & 0x1249249249249249n;
   x2 = (x2 ^ (x2 >>  2n)) & 0x10c30c30c30c30c3n;
   x2 = (x2 ^ (x2 >>  4n)) & 0x100f00f00f00f00fn;
   x2 = (x2 ^ (x2 >>  8n)) & 0x001f0000ff0000ffn;
   x2 = (x2 ^ (x2 >> 16n)) & 0xffff00000000ffffn;
   x2 = (x2 ^ (x2 >> 32n)) & BI_MASK21;
 
-  // cast to u32
-  return [
-    Number(x0),
-    Number(x1),
-    Number(x2),
-  ];
+  u64view[0] = x0;
+  const x0o = u32view[0];
+  u64view[0] = x1;
+  const x1o = u32view[0];
+  u64view[0] = x2;
+  const x2o = u32view[0];
+  return [x0o, x1o, x2o];
 }
 
 export function interleave64_4d(x0: number, x1: number, x2: number, x3: number): bigint {
@@ -318,7 +320,14 @@ export function deinterleave64_10d(x: bigint): [number, number, number, number, 
 }
 
 export function interleave64_2di(x0: number, x1: number): bigint {
-  return interleave64_2d(x0 + INT32_MIN, x1 + INT32_MIN);
+  u32view[0] = x0;
+  u32view[0] += INT32_MIN;
+  x0 = u32view[0];
+
+  u32view[0] = x1;
+  u32view[0] += INT32_MIN;
+  x1 = u32view[0];
+  return interleave64_2d(x0, x1);
 }
 
 export function deinterleave64_2di(x: bigint): [number, number] {
@@ -329,7 +338,18 @@ export function deinterleave64_2di(x: bigint): [number, number] {
 }
 
 export function interleave64_3di(x0: number, x1: number, x2: number): bigint {
-  return interleave64_3d(x0 + INT21_MIN, x1 + INT21_MIN, x2 + INT21_MIN);
+  u32view[0] = x0;
+  u32view[0] += INT21_MIN;
+  x0 = u32view[0];
+
+  u32view[0] = x1;
+  u32view[0] += INT21_MIN;
+  x1 = u32view[0];
+
+  u32view[0] = x2;
+  u32view[0] += INT21_MIN;
+  x2 = u32view[0];
+  return interleave64_3d(x0, x1, x2);
 }
 
 export function deinterleave64_3di(x: bigint): [number, number, number] {
@@ -341,7 +361,22 @@ export function deinterleave64_3di(x: bigint): [number, number, number] {
 }
 
 export function interleave64_4di(x0: number, x1: number, x2: number, x3: number): bigint {
-  return interleave64_4d(x0 + INT16_MIN, x1 + INT16_MIN, x2 + INT16_MIN, x3 + INT16_MIN);
+  u16view[0] = x0;
+  u16view[0] += INT16_MIN;
+  x0 = u16view[0];
+
+  u16view[0] = x1;
+  u16view[0] += INT16_MIN;
+  x1 = u16view[0];
+
+  u16view[0] = x2;
+  u16view[0] += INT16_MIN;
+  x2 = u16view[0];
+
+  u16view[0] = x3;
+  u16view[0] += INT16_MIN;
+  x3 = u16view[0];
+  return interleave64_4d(x0, x1, x2, x3);
 }
 
 export function deinterleave64_4di(x: bigint): [number, number, number, number] {
@@ -369,12 +404,12 @@ export function deinterleave64_5di(x: bigint): [number, number, number, number, 
 
 export function interleave64_6di(x0: number, x1: number, x2: number, x3: number, x4: number, x5: number): bigint {
   return interleave64_6d(
-    x0 + INT10_MIN,
-    x1 + INT10_MIN,
-    x2 + INT10_MIN,
-    x3 + INT10_MIN,
-    x4 + INT10_MIN,
-    x5 + INT10_MIN,
+    (x0 + 65024) & 0x3ff,
+    (x1 + 65024) & 0x3ff,
+    (x2 + 65024) & 0x3ff,
+    (x3 + 65024) & 0x3ff,
+    (x4 + 65024) & 0x3ff,
+    (x5 + 65024) & 0x3ff,
   );
 }
 
@@ -402,16 +437,16 @@ export function interleave64_10di(
   x9: number,
 ): bigint {
   return interleave64_10d(
-    x0 + INT6_MIN,
-    x1 + INT6_MIN,
-    x2 + INT6_MIN,
-    x3 + INT6_MIN,
-    x4 + INT6_MIN,
-    x5 + INT6_MIN,
-    x6 + INT6_MIN,
-    x7 + INT6_MIN,
-    x8 + INT6_MIN,
-    x9 + INT6_MIN,
+    (x0 + INT6_MIN) & 0x3f,
+    (x1 + INT6_MIN) & 0x3f,
+    (x2 + INT6_MIN) & 0x3f,
+    (x3 + INT6_MIN) & 0x3f,
+    (x4 + INT6_MIN) & 0x3f,
+    (x5 + INT6_MIN) & 0x3f,
+    (x6 + INT6_MIN) & 0x3f,
+    (x7 + INT6_MIN) & 0x3f,
+    (x8 + INT6_MIN) & 0x3f,
+    (x9 + INT6_MIN) & 0x3f,
   );
 }
 
@@ -433,28 +468,44 @@ export function deinterleave64_10di(
 }
 
 export function interleave64_2df(x0: number, x1: number): bigint {
-  return interleave64_2d(f32tou32(x0) + 2147483648, f32tou32(x1) + 2147483648);
+  f32view[0] = x0;
+  u32view[0] += INT32_MIN;
+  x0 = u32view[0];
+
+  f32view[0] = x1;
+  u32view[0] += INT32_MIN;
+  x1 = u32view[0];
+  return interleave64_2d(x0, x1);
 }
 
 export function deinterleave64_2df(x: bigint): [number, number] {
   const res = deinterleave64_2d(x);
-  res[0] = u32tof32(res[0] + INT32_MIN);
-  res[1] = u32tof32(res[1] + INT32_MIN);
+  res[0] = toF32(res[0] + INT32_MIN);
+  res[1] = toF32(res[1] + INT32_MIN);
   return res;
 }
 
-function f32tou32(x: number) {
-  f32view[0] = x;
-  return u32view[0];
-}
-
-function u32tof32(x: number) {
+function toF32(x: number) {
   u32view[0] = x;
   return f32view[0];
 }
 
 export function interleave64_3df(x0: number, x1: number, x2: number): bigint {
-  return interleave64_3d(f32tou32(x0) + 4293918720, f32tou32(x1) + 4293918720, f32tou32(x2) + 4293918720);
+  f32view[0] = x0;
+  u32view[0] /= 2**11;
+  u32view[0] += 4293918720;
+  x0 = u32view[0];
+
+  f32view[0] = x1;
+  u32view[0] /= 2**11;
+  u32view[0] += 4293918720;
+  x1 = u32view[0];
+
+  f32view[0] = x2;
+  u32view[0] /= 2**11;
+  u32view[0] += 4293918720;
+  x2 = u32view[0];
+  return interleave64_3d(x0, x1, x2);
 }
 
 export function deinterleave64_3df(x: bigint): [number, number, number] {
@@ -474,30 +525,49 @@ export function deinterleave64_3df(x: bigint): [number, number, number] {
 }
 
 export function interleave64_4df(x0: number, x1: number, x2: number, x3: number): bigint {
-  return interleave64_4d(
-    f32tou32(x0) + 32768,
-    f32tou32(x1) + 32768,
-    f32tou32(x2) + 32768,
-    f32tou32(x3) + 32768,
-  );
+  f32view[0] = x0;
+  u32view[0] >>= 16;
+  u16view[0] += 32768;
+  x0 = u16view[0];
+
+  f32view[0] = x1;
+  u32view[0] >>= 16;
+  u16view[0] += 32768;
+  x1 = u16view[0];
+
+  f32view[0] = x2;
+  u32view[0] >>= 16;
+  u16view[0] += 32768;
+  x2 = u16view[0];
+
+  f32view[0] = x3;
+  u32view[0] >>= 16;
+  u16view[0] += 32768;
+  x3 = u16view[0];
+  return interleave64_4d(x0, x1, x2, x3);
 }
 
 export function deinterleave64_4df(x: bigint): [number, number, number, number] {
   const res = deinterleave64_4d(x);
-  u32view[0] = res[0] + INT16_MIN;
+  u16view[0] = res[0];
+  u16view[0] += INT16_MIN;
   u32view[0] <<= 16;
   res[0] = f32view[0];
 
-  u32view[0] = res[1] + INT16_MIN;
+  u16view[0] = res[1];
+  u16view[0] += INT16_MIN;
   u32view[0] <<= 16;
   res[1] = f32view[0];
 
-  u32view[0] = res[2] + INT16_MIN;
+  u16view[0] = res[2];
+  u16view[0] += INT16_MIN;
   u32view[0] <<= 16;
   res[2] = f32view[0];
 
-  u32view[0] = res[3] + INT16_MIN;
+  u16view[0] = res[3];
+  u16view[0] += INT16_MIN;
   u32view[0] <<= 16;
   res[3] = f32view[0];
   return res;
+
 }

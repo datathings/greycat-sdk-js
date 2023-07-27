@@ -13,7 +13,7 @@ export class GeoPoly extends GCObject {
   override saveContent(w: AbiWriter): void {
     w.write_vu32(this.points.length);
     for (let i = 0; i < this.points.length; i++) {
-      this.points[i].save(w);
+      this.points[i].saveContent(w);
     }
   }
 

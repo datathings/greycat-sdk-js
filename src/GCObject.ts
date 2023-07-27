@@ -138,8 +138,6 @@ export class GCObject {
             // noop
             break;
         }
-        // TODO serialize translate type.c gc_object__save l.1083
-        w.serialize(this.$values[i]);
       }
     }
   }

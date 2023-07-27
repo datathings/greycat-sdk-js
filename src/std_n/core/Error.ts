@@ -40,9 +40,9 @@ export class Error extends GCObject {
     w.write_vu32(this.code);
     w.write_vu32(this.frames.length);
     const msg_bytes = w.txt.encode(this.msg);
-    w.write_u32(msg_bytes.length);
+    w.write_vu32(msg_bytes.length);
     for (let i = 0; i < this.frames.length; i++) {
-      this.frames[i].save(w);
+      this.frames[i].saveContent(w);
     }
     w.write_all(msg_bytes);
     w.serialize(this.value);
@@ -84,7 +84,7 @@ export class ErrorFrame {
     return new ErrorFrame(mod_symbol, type_symbol, fn_symbol, line, column);
   }
 
-  save(w: AbiWriter) {
+  saveContent(w: AbiWriter) {
     w.write_vu32(this.module);
     w.write_vu32(this.type);
     w.write_vu32(this.fn);

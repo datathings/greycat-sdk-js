@@ -63,10 +63,18 @@ export class GCObject {
       const nullable_bitset = new Uint8Array(this.$type.nullable_nb_bytes);
       let nullable_offset = 0;
       let att;
-      for (let offset = 0; offset < this.$type.nullable_nb_bytes; offset++) {
+      for (let offset = 0; offset < this.$type.attrs.length; offset++) {
         att = this.$type.attrs[offset];
         if (att.nullable) {
-          nullable_bitset[nullable_offset >> 3] |= (this.$values?.[offset] === null ? 0 : 1) << (nullable_offset & 7);
+          let nullish = true;
+          if (this.$values) {
+            nullish = this.$values[offset] === null || this.$values[offset] === undefined;
+          }
+          if (nullish) {
+            gc_object__set_null(nullable_bitset, nullable_offset);
+          } else {
+            gc_object__set_not_null(nullable_bitset, nullable_offset);
+          }
           nullable_offset++;
         }
       }
@@ -78,7 +86,7 @@ export class GCObject {
       for (let i = 0; i < this.$values.length; i++) {
         const att = this.$type.attrs[i];
         const value = this.$values[i];
-        if (att.nullable && value === null) {
+        if (att.nullable && (value === null || value === undefined)) {
           // skip nullable field that is actually 'null'
           continue;
         }
@@ -164,3 +172,46 @@ export class GCObject {
 // typescript trickery to prevent subclasses from overriding a method
 declare const _: unique symbol;
 type NoOverride = { [_]: typeof _ };
+
+// The following:
+//  - gc_object_bitset_block_size
+//  - gc_object__set_not_null
+//  - gc_object__set_null
+//  - gc_object__is_not_null
+// are translated from the C defined macros at in greycat/core machine.h
+const gc_object_bitset_block_size = 8; // Number of bits in each element of the bitset (8 bits for Uint8Array)
+
+export function gc_object__set_not_null(bitset: Uint8Array, offset: number): void {
+  // Find the index of the Uint8Array element containing the bit we want to set to 1
+  const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
+
+  // Find the position of the bit within the Uint8Array element
+  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
+
+  // Set the bit at the specified position to 1 using bitwise OR with 1 at that position
+  bitset[bitsetIndex] |= 1 << bitPosition;
+}
+
+export function gc_object__set_null(bitset: Uint8Array, offset: number): void {
+  // Find the index of the Uint8Array element containing the bit we want to set to 0
+  const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
+
+  // Find the position of the bit within the Uint8Array element
+  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
+
+  // Clear the bit at the specified position to 0 using bitwise AND with the complement of 1 at that position
+  bitset[bitsetIndex] &= ~(1 << bitPosition);
+}
+
+export function gc_object__is_not_null(bitset: Uint8Array, offset: number): boolean {
+  // Find the index of the Uint8Array element containing the bit we want to check
+  const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
+
+  // Find the position of the bit within the Uint8Array element
+  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
+
+  // Check if the bit is set (equal to 1)
+  const isBitSet: boolean = (bitset[bitsetIndex] >> bitPosition) & 1 ? true : false;
+
+  return isBitSet;
+}

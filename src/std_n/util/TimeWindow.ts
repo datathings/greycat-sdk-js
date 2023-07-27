@@ -22,7 +22,7 @@ export class TimeWindow extends GCObject {
   }
 
   override saveContent(w: AbiWriter): void {
-    w.write_i64(BigInt(this.timeWidth));
+    w.write_vi64(BigInt(this.timeWidth));
     w.write_u8(this.sum_type);
     w.write_f64(this.sum);
     w.write_f64(this.sumsq);
@@ -31,8 +31,8 @@ export class TimeWindow extends GCObject {
     w.write_vi64(BigInt(this.head));
     w.write_vi64(BigInt(this.tail));
     for (let i = 0; i < this.values.length; i++) {
-      w.serialize(this.values[i].time);
       w.serialize(this.values[i].value);
+      w.write_i64(this.values[i].time);
     }
   }
 
@@ -47,8 +47,8 @@ export class TimeWindow extends GCObject {
     const tail = r.read_vi64();
     const values = new Array(capacity);
     for (let i = 0; i < capacity; i++) {
-      const value = r.deserialize();
       const time = r.read_i64();
+      const value = r.deserialize();
       values[i] = new TimedValue(time, value);
     }
 

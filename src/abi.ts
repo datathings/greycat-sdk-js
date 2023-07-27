@@ -1,4 +1,4 @@
-import { GCObject } from './GCObject.js';
+import { GCObject, gc_object__is_not_null } from './GCObject.js';
 import { GCEnum } from './index.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
@@ -352,14 +352,14 @@ export class AbiType {
   static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
     const attrs = new Array(programType.attrs.length);
-    const previous_nullable = new Uint8Array(r.take(type.nullable_nb_bytes));
+    const previous_nullable = r.take(type.nullable_nb_bytes);
     let nullable_offset = -1;
     for (let attOffset = 0; attOffset < type.attrs.length; attOffset++) {
       const att = type.attrs[attOffset];
       let value: Value;
       if (att.nullable) {
-        ++nullable_offset;
-        if (0 == ((previous_nullable[nullable_offset >> 3] >> (nullable_offset & 7)) & 1)) {
+        nullable_offset++;
+        if (!gc_object__is_not_null(previous_nullable, nullable_offset)) {
           continue;
         }
       }

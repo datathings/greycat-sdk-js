@@ -312,7 +312,7 @@ describe('project', () => {
 
     console.log(abi);
 
-    const data = (await readFile('out.gcb')).buffer;
+    const data = (await readFile('project.test.gcb')).buffer;
     reader = new AbiReader(abi, data);
 
     reader.headers(); // read headers

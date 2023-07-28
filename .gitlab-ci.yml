@@ -1,0 +1,37 @@
+stages:
+  - test
+
+# This folder is cached between builds
+# https://docs.gitlab.com/ee/ci/yaml/index.html#cache
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - corepack prepare pnpm@7.9.5 --activate
+
+test:18:
+  stage: test
+  image: node:18.17.0-slim
+  script:
+    - pnpm install
+    - pnpm test
+
+test:19:
+  stage: test
+  image: node:19.9.0-slim
+  script:
+    - pnpm install
+    - pnpm test
+
+test:20:
+  stage: test
+  image: node:20.5.0-slim
+  script:
+    - pnpm install
+    - pnpm test
+
+deploy:
+  stage: deploy
+  script: echo "Define your deployment script!"
+  environment: production

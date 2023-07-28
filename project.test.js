@@ -198,19 +198,19 @@ describe('project', () => {
     { _type: 'io::JSON' },
 
     // std::math
-    2.7182818284590455, // MathConstants::e
-    1.4426950408889634, // MathConstants::log_2e
+    2.7182818284590455,  // MathConstants::e
+    1.4426950408889634,  // MathConstants::log_2e
     0.43429448190325187, // MathConstants::log_10e
-    0.6931471805599453, // MathConstants::ln2
-    2.302585092994046, // MathConstants::ln10
-    3.141592653589793, // MathConstants::pi
-    1.5707963267948966, // MathConstants::pi_2
-    0.7853981633974484, // MathConstants::pi_4
+    0.6931471805599453,  // MathConstants::ln2
+    2.302585092994046,   // MathConstants::ln10
+    3.141592653589793,   // MathConstants::pi
+    1.5707963267948966,  // MathConstants::pi_2
+    0.7853981633974484,  // MathConstants::pi_4
     0.31830988618379064, // MathConstants::m1_pi
-    0.6366197723675813, // MathConstants::m2_pi
-    1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.414213562373095, // MathConstants::sqrt2
-    0.7071067811865476, // MathConstants::sqrt1_2
+    0.6366197723675813,  // MathConstants::m2_pi
+    1.1283791670955126,  // MathConstants::m2_sqrt_pi
+    1.414213562373095,   // MathConstants::sqrt2
+    0.7071067811865476,  // MathConstants::sqrt1_2
 
     // std::runtime
     {

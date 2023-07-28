@@ -20,8 +20,7 @@
     "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js --minify --sourcemap",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
-    "test": "pnpm run build:esm && node --test",
-    "dist": "pnpm run pack"
+    "test": "pnpm run build:esm && node --test"
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "MIT",

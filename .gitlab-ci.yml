@@ -40,6 +40,7 @@ build:
     - mkdir -p dist/sdk/js
     - cp -R dist/esm dist/sdk/js
     - cp -R dist/bundle dist/sdk/js
+    - rm -rf dist/{esm,bundle}
   artifacts:
     when: on_success
     expire_in: "30 days"

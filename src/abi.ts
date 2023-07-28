@@ -81,43 +81,45 @@ export class Abi {
     this.symbols[0] = ''; // symbol zero is a special symbol for "not found"
 
     for (let i = 1; i < this.symbols.length; i++) {
-      const len = cursor.read_u32();
+      const len = cursor.read_vu32();
       const symbol = cursor.read_string(len);
       this.symbols[i] = symbol;
       this.off_by_symbol.set(symbol, i);
     }
 
-    /* const types_size = */ cursor.read_u64();
+    /* const types_size = */ cursor.read_u64(); // unused
     const nb_types = cursor.read_u32();
-    /* const nb_attrs = */ cursor.read_u32();
+    /* const nb_attrs = */ cursor.read_u32(); // unused
 
     this.types = new Array(nb_types);
 
     for (let i = 0; i < this.types.length; i++) {
-      const module = cursor.read_u32();
-      const name = cursor.read_u32();
-      const lib_name = cursor.read_u32();
-      const attributes_len = cursor.read_u32();
-      /* const attributes_offset =  */ cursor.read_u32(); // unused
-      /* const mapped_prog_type_offset =  */ cursor.read_u32(); // unused
-      const mapped_abi_type_offset = cursor.read_u32();
-      const masked_abi_type_offset = cursor.read_u32();
-      const nullable_nb_bytes = cursor.read_u32();
-      const is_native = cursor.read_u8() > 0;
-      const is_abstract = cursor.read_u8() > 0;
-      const is_enum = cursor.read_u8() > 0;
-      const is_masked = cursor.read_u8() > 0;
+      const module = cursor.read_vu32();
+      const name = cursor.read_vu32();
+      const lib_name = cursor.read_vu32();
+      const attributes_len = cursor.read_vu32();
+      /* const attributes_offset =  */ cursor.read_vu32(); // unused
+      /* const mapped_prog_type_offset =  */ cursor.read_vu32(); // unused
+      const mapped_abi_type_offset = cursor.read_vu32();
+      const masked_abi_type_offset = cursor.read_vu32();
+      const nullable_nb_bytes = cursor.read_vu32();
+      const flags = cursor.read_u8();
+      const is_native = (flags & 1) !== 0;
+      const is_abstract = (flags & (1 << 1)) !== 0;
+      const is_enum = (flags & (1 << 2)) !== 0;
+      const is_masked = (flags & (1 << 3)) !== 0;
 
       const attrs: AbiAttribute[] = new Array(attributes_len);
       for (let i = 0; i < attributes_len; i++) {
-        const name = cursor.read_u32();
-        const abi_type = cursor.read_u32();
-        const prog_type_offset = cursor.read_u32();
-        const mapped_any_offset = cursor.read_u32();
-        const mapped_att_offset = cursor.read_u32();
+        const name = cursor.read_vu32();
+        const abi_type = cursor.read_vu32();
+        const prog_type_offset = cursor.read_vu32();
+        const mapped_any_offset = cursor.read_vu32();
+        const mapped_att_offset = cursor.read_vu32();
         const sbi_type = cursor.read_u8();
-        const nullable = cursor.read_u8() > 0;
-        const mapped = cursor.read_u8() > 0;
+        const flags = cursor.read_u8();
+        const nullable = (flags & 1) !== 0;
+        const mapped = (flags & (1 << 1)) !== 0;
 
         attrs[i] = new AbiAttribute(
           this.symbols[name],
@@ -191,21 +193,22 @@ export class Abi {
     const functions_len = cursor.read_u32();
     this.functions = new Array(functions_len);
     for (let i = 0; i < functions_len; i++) {
-      const module = cursor.read_u32();
-      const type = cursor.read_u32();
-      const name = cursor.read_u32();
-      const lib = cursor.read_u32();
-      const arity = cursor.read_u32(); // FIXME u8 is enough here
+      const module = cursor.read_vu32();
+      const type = cursor.read_vu32();
+      const name = cursor.read_vu32();
+      const lib = cursor.read_vu32();
+      const arity = cursor.read_vu32(); // FIXME u8 is enough here
       const params = new Array(arity);
       for (let p = 0; p < arity; p++) {
         const nullable = cursor.read_u8() === 1;
-        const param_type = cursor.read_u32();
-        const param_symbol = cursor.read_u32();
+        const param_type = cursor.read_vu32();
+        const param_symbol = cursor.read_vu32();
         params[i] = new AbiParam(this.symbols[param_symbol], this.types[param_type], nullable);
       }
-      const return_type = cursor.read_u32();
-      const return_nullable = cursor.read_u8() === 1;
-      const is_task = cursor.read_u8() === 1;
+      const return_type = cursor.read_vu32();
+      const flags = cursor.read_u8();
+      const return_nullable = (flags & 1) !== 0;
+      const is_task = (flags & (1 << 1)) !== 0;
 
       const fqn =
         type === 0

@@ -5,11 +5,11 @@ use runtime;
 use util;
 
 fn main() {
-  var out = AbiWriter::new("out.gcb");
+  var out = GcbWriter::new("out.gcb");
   write_std(out);
 }
 
-fn write_std(out: AbiWriter) {
+fn write_std(out: GcbWriter) {
   write_core(out);
   write_debug(out);
   write_io(out);
@@ -18,7 +18,7 @@ fn write_std(out: AbiWriter) {
   write_util(out);
 }
 
-fn write_core(out: AbiWriter) {
+fn write_core(out: GcbWriter) {
   out.write(true);
   // 1 byte
   out.write(0);
@@ -90,7 +90,7 @@ fn write_core(out: AbiWriter) {
   out.write(SamplingMode::adaptative);
   out.write(DurationUnit::days);
   out.write(TensorType::c128);
-  out.write(Table<node>::new(0, false));
+  out.write(Table<node>::new(0));
   out.write(Tensor::new());
   out.write(GeoCircle::new(42_geo, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
@@ -112,7 +112,7 @@ fn write_core(out: AbiWriter) {
   out.write(tf4d::new(13.37, 12.42, -13.37, -12.42));
 }
 
-fn write_debug(out: AbiWriter) {
+fn write_debug(out: GcbWriter) {
   out.write(TypeAttr {
     name: "",
     is_static: false,
@@ -169,16 +169,13 @@ fn write_debug(out: AbiWriter) {
   });
 }
 
-fn write_io(out: AbiWriter) {
+fn write_io(out: GcbWriter) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
   out.write(FileDescriptor{
     uri: "",
   });
   out.write(TextEncoder::plain);
-  out.write(BinaryFormat{});
-  out.write(JsonFormat{});
-  out.write(TextFormat{});
   out.write(CsvColumnString{});
   out.write(CsvColumnInteger{});
   out.write(CsvColumnFloat{});
@@ -201,7 +198,7 @@ fn write_io(out: AbiWriter) {
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
 }
 
-fn write_math(out: AbiWriter) {
+fn write_math(out: GcbWriter) {
   out.write(MathConstants::e);
   out.write(MathConstants::log_2e);
   out.write(MathConstants::log_10e);
@@ -217,7 +214,7 @@ fn write_math(out: AbiWriter) {
   out.write(MathConstants::sqrt1_2);
 }
 
-fn write_runtime(out: AbiWriter) {
+fn write_runtime(out: GcbWriter) {
   out.write(Task{
     id: 13,
     user: 37,
@@ -308,7 +305,7 @@ fn write_runtime(out: AbiWriter) {
     });
 }
 
-fn write_util(out: AbiWriter) {
+fn write_util(out: GcbWriter) {
   out.write(Random{
       seed: 42,
       v: 13.37,

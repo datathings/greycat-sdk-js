@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { Abi, AbiReader, AbiWriter, stdlib } from './dist/esm/index.js';
 
 describe('project', () => {
-  let buffer, abi, data, reader;
+  let abi, reader;
 
   const expected_values = [
     // std::core
@@ -70,9 +70,9 @@ describe('project', () => {
         lng: -179.99999962281436,
       },
     },
-    { _type: 'core::nodeList', ref: '0000000000000001' },
+    { _type: 'core::nodeList', ref: '0000000000001000' },
     { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
-    { _type: 'core::node', ref: '0000000000000002' },
+    { _type: 'core::node', ref: '0000000000002000' },
     {
       _type: 'core::Error',
       code: 0,
@@ -88,7 +88,7 @@ describe('project', () => {
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
     { _type: 'core::TensorType', field: 'c128' },
-    { _type: 'core::Table', cols: 0, rows: 0, data: [], meta: null },
+    { _type: 'core::Table', cols: [], meta: [] },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',
@@ -100,10 +100,10 @@ describe('project', () => {
       radius: 13.37,
     },
     { _type: 'core::Date', iso: '<todo>', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
-    { _type: 'core::nodeTime', ref: '0000000000000003' },
+    { _type: 'core::nodeTime', ref: '0000000000003000' },
     [],
     { _type: 'core::Tuple', x: null, y: null },
-    { _type: 'core::nodeIndex', ref: '0000000000000004' },
+    { _type: 'core::nodeIndex', ref: '0000000000004000' },
     {
       _type: 'core::GeoPoly',
       points: [
@@ -125,7 +125,7 @@ describe('project', () => {
       ],
     },
     { _type: 'core::DatePart', field: 'days' },
-    { _type: 'core::nodeGeo', ref: '0000000000000005' },
+    { _type: 'core::nodeGeo', ref: '0000000000005000' },
     { _type: 'core::ti2d', x0: 13, x1: 37 },
     { _type: 'core::ti3d', x0: 13, x1: 37, x2: 42 },
     { _type: 'core::ti4d', x0: 13, x1: 37, x2: 42, x3: 12 },
@@ -178,9 +178,6 @@ describe('project', () => {
     // std::io
     { _type: 'io::FileDescriptor', uri: '' },
     { _type: 'io::TextEncoder', field: 'plain' },
-    { _type: 'io::BinaryFormat' },
-    { _type: 'io::JsonFormat' },
-    { _type: 'io::TextFormat' },
     { _type: 'io::CsvColumnString' },
     { _type: 'io::CsvColumnInteger' },
     { _type: 'io::CsvColumnFloat' },
@@ -310,10 +307,12 @@ describe('project', () => {
   ];
 
   before(async () => {
-    buffer = (await readFile('gcdata/store/abi')).buffer;
+    const buffer = (await readFile('gcdata/store/abi')).buffer;
     abi = new Abi(buffer, [stdlib]);
 
-    data = (await readFile('out.gcb')).buffer;
+    console.log(abi);
+
+    const data = (await readFile('out.gcb')).buffer;
     reader = new AbiReader(abi, data);
 
     reader.headers(); // read headers
@@ -321,7 +320,8 @@ describe('project', () => {
 
   // test ser/de
   for (const expected of expected_values) {
-    const testName = typeof expected === 'object' ? expected._type ? expected._type : expected.constructor.name : expected;
+    const testName =
+      typeof expected === 'object' ? (expected._type ? expected._type : expected.constructor.name) : expected;
     it(`${testName}`, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();

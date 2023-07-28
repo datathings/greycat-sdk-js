@@ -11,7 +11,7 @@ export class nodeTime extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType): nodeTime {
-    const value = r.read_u64();
+    const value = r.read_vu64_bigint();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as nodeTime;
   }
@@ -26,7 +26,7 @@ export class nodeTime extends GCObject {
   }
 
   override saveContent(w: AbiWriter) {
-    w.write_u64(this.value);
+    w.write_vu64(this.value);
   }
 
   /**

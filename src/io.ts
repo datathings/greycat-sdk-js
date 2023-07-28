@@ -6,7 +6,7 @@ const deserialize_error: IPrimitiveLoader = () => {
 
 function assert_buffer_has_enough_bytes(expr: boolean) {
   if (!expr) {
-    throw new Error('ReadBuffer overflow, not enough bytes');
+    throw new Error(`buffer overflow, not enough bytes`);
   }
 }
 
@@ -63,9 +63,77 @@ export class Reader {
   }
 
   read_vi64(): bigint | number {
-    const v = this._read_varint_64();
+    let v = this._read_varint_u64();
+    // unsigned -> signed
+    v = (v >> 1n) ^ -(v & 1n);
     // lets try to keep it simple if the value is within JavaScript's number range
     return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
+  }
+
+  read_vu64(): bigint | number {
+    const v = this._read_varint_u64();
+    // lets try to keep it simple if the value is within JavaScript's number range
+    return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
+  }
+
+  read_vu64_bigint(): bigint {
+    return this._read_varint_u64();
+  }
+
+  private _read_varint_u64(): bigint {
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
+    let header = this._buf[this._curr];
+    let unpacked = BigInt(header) & 0x7fn;
+    if (!(header & 0x80)) {
+      this._curr += 1;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 1];
+    unpacked |= (BigInt(header) & 0x7fn) << 7n;
+    if (!(header & 0x80)) {
+      this._curr += 2;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 2];
+    unpacked |= (BigInt(header) & 0x7fn) << 14n;
+    if (!(header & 0x80)) {
+      this._curr += 3;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 3];
+    unpacked |= (BigInt(header) & 0x7fn) << 21n;
+    if (!(header & 0x80)) {
+      this._curr += 4;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 4];
+    unpacked |= (BigInt(header) & 0x7fn) << 28n;
+    if (!(header & 0x80)) {
+      this._curr += 5;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 5];
+    unpacked |= (BigInt(header) & 0x7fn) << 35n;
+    if (!(header & 0x80)) {
+      this._curr += 6;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 6];
+    unpacked |= (BigInt(header) & 0x7fn) << 42n;
+    if (!(header & 0x80)) {
+      this._curr += 7;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 7];
+    unpacked |= (BigInt(header) & 0x7fn) << 49n;
+    if (!(header & 0x80)) {
+      this._curr += 8;
+      return unpacked;
+    }
+    header = this._buf[this._curr + 8];
+    unpacked |= BigInt(header) << 56n;
+    this._curr += 9;
+    return unpacked;
   }
 
   read_u8(): number {
@@ -159,62 +227,6 @@ export class Reader {
     const v = this._buf.slice(this._curr, this._curr + n);
     this._curr += n;
     return v;
-  }
-
-  private _read_varint_64(): bigint {
-    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
-    let header = this._buf[this._curr];
-    let unpacked = BigInt(header) & 0x7fn;
-    if (!(header & 0x80)) {
-      this._curr += 1;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 1];
-    unpacked |= (BigInt(header) & 0x7fn) << 7n;
-    if (!(header & 0x80)) {
-      this._curr += 2;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 2];
-    unpacked |= (BigInt(header) & 0x7fn) << 14n;
-    if (!(header & 0x80)) {
-      this._curr += 3;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 3];
-    unpacked |= (BigInt(header) & 0x7fn) << 21n;
-    if (!(header & 0x80)) {
-      this._curr += 4;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 4];
-    unpacked |= (BigInt(header) & 0x7fn) << 28n;
-    if (!(header & 0x80)) {
-      this._curr += 5;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 5];
-    unpacked |= (BigInt(header) & 0x7fn) << 35n;
-    if (!(header & 0x80)) {
-      this._curr += 6;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 6];
-    unpacked |= (BigInt(header) & 0x7fn) << 42n;
-    if (!(header & 0x80)) {
-      this._curr += 7;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 7];
-    unpacked |= (BigInt(header) & 0x7fn) << 49n;
-    if (!(header & 0x80)) {
-      this._curr += 8;
-      return (unpacked >> 1n) ^ -(unpacked & 1n);
-    }
-    header = this._buf[this._curr + 8];
-    unpacked |= BigInt(header) << 56n;
-    this._curr += 9;
-    return (unpacked >> 1n) ^ -(unpacked & 1n);
   }
 }
 
@@ -521,9 +533,12 @@ export class Writer {
   }
 
   write_vi64(v: bigint) {
-    this._reserve(9); // maximum byte length of a varint64
     // zig-zag conversion to unsigned
-    let x = (v << 1n) ^ (v >> 63n);
+    this.write_vu64((v << 1n) ^ (v >> 63n));
+  }
+
+  write_vu64(x: bigint) {
+    this._reserve(9); // maximum byte length of a varint64
     this._buf[this._curr] = Number(x & 0x7fn);
     if (x < 0x80) {
       this._curr++;

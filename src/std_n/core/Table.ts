@@ -6,72 +6,105 @@ import { GCObject } from '../../GCObject.js';
 export class Table extends GCObject {
   static readonly _type = 'core::Table' as const;
 
-  constructor(
-    type: AbiType,
-    public cols: number,
-    public rows: number,
-    public meta: TableColumnMeta[] | null,
-    public data: Value[],
-  ) {
+  constructor(type: AbiType, public cols: Array<Value[]>, public rows: number, public meta: InternalMeta[]) {
     super(type);
   }
 
   static load(r: AbiReader, type: AbiType): Table {
-    const cols = r.read_u32();
-    const rows = r.read_u32();
-    const use_meta = r.read_bool();
-
-    let meta: TableColumnMeta[] | null = null;
-    if (use_meta) {
-      meta = new Array(cols);
-      for (let i = 0; i < meta.length; i++) {
-        const col_type = r.read_u32() as PrimitiveType;
-        const type = r.read_u32();
-        const size = r.read_u32();
-        const sum = r.read_f64();
-        const sumsq = r.read_f64();
-        const min = r.read_i64();
-        const max = r.read_i64();
-        const index = r.read_bool();
-        /** core.TimeZone field offset */
-        const tz = r.read_u32();
-        // convert native to std.core.TableColumnMeta
-        meta[i] = new TableColumnMeta(col_type, type, size, sum, sumsq, min, max, index, tz);
-      }
+    const cols_len = r.read_vu32();
+    const rows = r.read_vu32();
+    const meta: InternalMeta[] = new Array(cols_len);
+    for (let i = 0; i < meta.length; i++) {
+      meta[i] = InternalMeta.load(r);
     }
 
-    const capacity = rows * cols;
-    const data = new Array(capacity);
-    for (let i = 0; i < capacity; i++) {
-      data[i] = r.deserialize();
+    const cols = new Array(cols_len);
+    for (let col = 0; col < cols.length; col++) {
+      const values: Value[] = new Array(rows);
+      const sbi_type = meta[col].col_type;
+      switch (sbi_type) {
+        case PrimitiveType.null:
+          break;
+        case PrimitiveType.int:
+          for (let row = 0; row < rows; row++) {
+            values[row] = r.read_vi64();
+          }
+          break;
+        case PrimitiveType.time:
+        case PrimitiveType.duration: {
+          const type = r.abi.types[sbi_type];
+          for (let row = 0; row < rows; row++) {
+            values[row] = type.loader(r, type);
+          }
+          break;
+        }
+        case PrimitiveType.enum: {
+          const enum_type = r.abi.types[meta[col].type];
+          if (enum_type.enum_values === null) {
+            throw new Error(`no values registered for ${enum_type.name}, core.Table cannot deserialize properly`);
+          }
+          for (let row = 0; row < rows; row++) {
+            const enum_field = r.read_vu32();
+            values[row] = enum_type.enum_values[enum_field];
+          }
+          break;
+        }
+        case PrimitiveType.float: {
+          const compsz = r.read_u32();
+          r.take(compsz);
+          // TODO decompress
+          throw new Error('core.Table float decompression is not handled yet');
+        }
+        default:
+          // gc_undefined, gc_object
+          for (let row = 0; row < rows; row++) {
+            values[row] = r.deserialize();
+          }
+          break;
+      }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, cols, rows, meta, data) as Table;
+    return new type.factory!(type, cols, rows, meta) as Table;
   }
 
   override saveContent(w: AbiWriter) {
-    w.write_u32(this.cols);
-    w.write_u32(this.rows);
-    if (this.meta) {
-      w.write_bool(true);
-      for (let i = 0; i < this.meta.length; i++) {
-        const m = this.meta[i];
-        w.write_u32(m.col_type);
-        w.write_u32(m.type);
-        w.write_u32(m.size);
-        w.write_f64(m.sum);
-        w.write_f64(m.sumsq);
-        w.write_i64(m.min);
-        w.write_i64(m.max);
-        w.write_bool(m.index);
-        w.write_u32(m.tz);
-      }
-    } else {
-      w.write_bool(false);
+    w.write_vu32(this.cols.length);
+    w.write_vu32(this.rows);
+
+    for (let i = 0; i < this.meta.length; i++) {
+      this.meta[i].saveContent(w);
     }
-    for (let i = 0; i < this.data.length; i++) {
-      w.serialize(this.data[i]);
+
+    for (let col = 0; col < this.cols.length; col++) {
+      const sbi_type = this.meta[col].col_type;
+      switch (sbi_type) {
+        case PrimitiveType.null:
+          break;
+        case PrimitiveType.int:
+          for (let row = 0; row < this.rows; row++) {
+            w.write_vi64(BigInt(this.cols[col][row] as number | bigint));
+          }
+          break;
+        case PrimitiveType.time:
+        case PrimitiveType.duration:
+        case PrimitiveType.enum:
+          for (let row = 0; row < this.rows; row++) {
+            (this.cols[col][row] as GCObject).saveContent(w);
+          }
+          break;
+        case PrimitiveType.float: {
+          w.write_u32(0);
+          // TODO compress
+          throw new Error('core.Table float compression is not handled yet');
+        }
+        default:
+          // gc_undefined, gc_object
+          for (let row = 0; row < this.rows; row++) {
+            w.serialize(this.cols[col][row]);
+          }
+          break;
+      }
     }
   }
 
@@ -84,121 +117,25 @@ export class Table extends GCObject {
     return {
       _type: Table._type,
       cols: this.cols,
-      rows: this.rows,
-      data: this.data,
       meta: this.meta,
     };
   }
 }
 
-class TableColumnMeta {
-  constructor(
-    public col_type: PrimitiveType,
-    public type: number,
-    public size: number,
-    public sum: number,
-    public sumsq: number,
-    public min: bigint,
-    public max: bigint,
-    public index: boolean,
-    public tz: number,
-  ) {}
+class InternalMeta {
+  constructor(public col_type: PrimitiveType, public type: number, public index: boolean) {}
+
+  static load(r: AbiReader): InternalMeta {
+    const col_type = r.read_vu32() as PrimitiveType;
+    const type = r.read_vu32();
+    const index = r.read_bool();
+
+    return new InternalMeta(col_type, type, index);
+  }
+
+  saveContent(w: AbiWriter) {
+    w.write_vu32(this.col_type);
+    w.write_vu32(this.type);
+    w.write_bool(this.index);
+  }
 }
-
-// function fromNativeTableColumnMeta(
-//   abi: Abi,
-//   col_type: Type,
-//   type: number,
-//   size: number,
-//   sum: number,
-//   sumsq: number,
-//   min: bigint,
-//   max: bigint,
-//   index: boolean,
-//   tz: std.core.TimeZone,
-// ): std.core.TableColumnMeta {
-//   let fqn: string | null = null;
-//   if (col_type === Type.object || col_type === Type.enum) {
-//     if (type != 0) {
-//       fqn = abi.typeFqn(col_type);
-//     }
-//   } else if (col_type !== Type.undef && col_type !== Type.null) {
-//     fqn = abi.typeFqn(col_type);
-//   }
-
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   const res: { avg: any; std: any; min: any; max: any } = {
-//     avg: null,
-//     std: null,
-//     min: null,
-//     max: null,
-//   };
-//   switch (col_type) {
-//     case Type.int:
-//     case Type.float: {
-//       const { favg, fstd } = floatCompute(size, sum, sumsq, min, max);
-//       res.avg = favg;
-//       res.std = fstd;
-//       break;
-//     }
-//     case Type.time: {
-//       const { favg, fstd } = floatCompute(size, sum, sumsq, min, max);
-//       res.avg = time.fromNative(BigInt(Math.round(favg)));
-//       res.std = time.fromNative(BigInt(Math.round(fstd)));
-//       break;
-//     }
-//     case Type.duration: {
-//       const { favg, fstd } = floatCompute(size, sum, sumsq, min, max);
-//       res.avg = duration.fromNative(BigInt(Math.round(favg)));
-//       res.std = duration.fromNative(BigInt(Math.round(fstd)));
-//       break;
-//     }
-//     case Type.object:
-//       if (abi.idToFqn.get(type) === 'core.Date') {
-//         const { favg, fstd } = floatCompute(size, sum, sumsq, min, max);
-//         res.min = Date.fromTime(min, tz);
-//         res.max = Date.fromTime(max, tz);
-//         res.avg = Date.fromTime(BigInt(Math.round(favg)), tz);
-//         res.std = duration.fromNative(BigInt(Math.round(fstd)));
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-//   return new std.core.TableColumnMeta(fqn, size, index, res.min, res.max, res.avg, res.std);
-// }
-
-// function floatCompute(
-//   size: number,
-//   sum: number,
-//   sumsq: number,
-//   min: bigint,
-//   max: bigint,
-// ): { favg: number; fstd: number } {
-//   let favg = 0.0;
-//   let fstd = 0.0;
-//   if (size > 0) {
-//     favg = sum / size;
-//     if (size > 1 && max != min) {
-//       const sf = (sum * sum) / size;
-//       if (sumsq > sf) {
-//         fstd = Math.sqrt(sumsq - sf / (size - 1));
-//       }
-//     }
-//   }
-//   favg += 0.5;
-//   fstd += 0.5;
-//   return { favg, fstd };
-// }
-
-// function toNativeTableColumnMeta(meta: std.core.TableColumnMeta) {
-//   s.w.write_u32(this.col_type);
-//   s.w.write_u32(this.type);
-//   s.w.write_u32(this.size);
-//   s.w.write_f64(this.sum);
-//   s.w.write_f64(this.sumsq);
-//   s.w.write_u64(this.min);
-//   s.w.write_u64(this.max);
-//   s.w.write_u8(this.index ? 1 : 0);
-//   s.w.write_u32(this.tz);
-// }

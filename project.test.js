@@ -307,7 +307,7 @@ describe('project', () => {
   ];
 
   before(async () => {
-    const buffer = (await readFile('gcdata/store/abi')).buffer;
+    const buffer = (await readFile('project.test.abi')).buffer;
     abi = new Abi(buffer, [stdlib]);
 
     console.log(abi);

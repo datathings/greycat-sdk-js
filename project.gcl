@@ -5,7 +5,7 @@ use runtime;
 use util;
 
 fn main() {
-  var out = GcbWriter::new("out.gcb");
+  var out = GcbWriter::new("project.test.gcb");
   write_std(out);
 }
 

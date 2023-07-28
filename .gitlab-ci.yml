@@ -33,6 +33,7 @@ test:20:
     - pnpm test
 
 build:
+  stage: build
   image: node:20.5.0-slim
   script:
     - pnpm install

@@ -1,5 +1,6 @@
 stages:
   - test
+  - build
 
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
@@ -31,7 +32,16 @@ test:20:
     - pnpm install
     - pnpm test
 
-# deploy:
-#   stage: deploy
-#   script: echo "Define your deployment script!"
-#   environment: production
+build:
+  image: node:20.5.0-slim
+  script:
+    - pnpm install
+    - pnpm build
+    - mkdir -p dist/sdk/js
+    - cp -R dist/esm dist/sdk/js
+    - cp -R dist/bundle dist/sdk/js
+  artifacts:
+    when: on_success
+    expire_in: "30 days"
+    paths:
+      - dist

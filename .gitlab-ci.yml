@@ -41,7 +41,7 @@ build:
     - pnpm pack
     - mkdir -p dist/sdk/js
     - cp dist/bundle/greycat.sdk.min.js dist/sdk/js/
-    - mv greycat-sdk* dist/sdk/js/
+    - mv greycat-sdk* dist/sdk/js/greycat-sdk.tgz
     - rm -rf dist/esm dist/bundle
   artifacts:
     when: on_success

@@ -39,9 +39,10 @@ build:
     - pnpm install
     - pnpm build
     - pnpm pack
-    - rm -rf dist
     - mkdir -p dist/sdk/js
+    - cp dist/bundle/greycat.sdk.min.js dist/sdk/js/
     - mv greycat-sdk* dist/sdk/js/
+    - rm -rf dist/esm dist/bundle
   artifacts:
     when: on_success
     expire_in: "30 days"

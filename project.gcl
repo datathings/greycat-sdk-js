@@ -114,85 +114,85 @@ fn write_core(out: GcbWriter) {
 
 fn write_debug(out: GcbWriter) {
   out.write(TypeAttr {
-    name: "",
-    is_static: false,
-  });
-  out.write(TypeDesc{
-    module: "",
-    name: "",
-    methods: [],
-    attrs: [],
-    is_abstract: true,
-    is_enum: false,
-  });
-  out.write(TypeRef{
-    name: "",
-    module: "",
-    nullable: true,
-  });
-  out.write(FnParam{
-    name: "",
-    type: TypeRef{
+      name: "",
+      is_static: false,
+    });
+  out.write(TypeDesc {
+      module: "",
+      name: "",
+      methods: [],
+      attrs: [],
+      is_abstract: true,
+      is_enum: false,
+    });
+  out.write(TypeRef {
+      name: "",
+      module: "",
+      nullable: true,
+    });
+  out.write(FnParam {
+      name: "",
+      type: TypeRef {
         name: "",
         module: "",
         nullable: true,
       },
-  });
+    });
   out.write(FnMode::read_only);
-  out.write(FnDesc{
-    module: "",
-    name: "",
-    params: [],
-    is_static: true,
-    is_task: false,
-    is_exclusive: true,
-    is_reserved: false,
-    is_exposed: true,
-    mode: FnMode::read_only,
-    permissions: [],
-  });
-  out.write(ModVarDesc{
-    module: "",
-    name: "",
-    type: TypeRef{
+  out.write(FnDesc {
+      module: "",
+      name: "",
+      params: [],
+      is_static: true,
+      is_task: false,
+      is_exclusive: true,
+      is_reserved: false,
+      is_exposed: true,
+      mode: FnMode::read_only,
+      permissions: [],
+    });
+  out.write(ModVarDesc {
+      module: "",
+      name: "",
+      type: TypeRef {
         name: "",
         module: "",
         nullable: true,
       },
-  });
-  out.write(ModDesc{
-    name: "",
-    lib: "",
-    functions: [],
-    types: [],
-    vars: [],
-  });
+    });
+  out.write(ModDesc {
+      name: "",
+      lib: "",
+      functions: [],
+      types: [],
+      vars: [],
+    });
 }
 
 fn write_io(out: GcbWriter) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
-  out.write(FileDescriptor{
-    uri: "",
-  });
+  out.write(FileDescriptor {
+      uri: "",
+    });
   out.write(TextEncoder::plain);
-  out.write(CsvColumnString{});
-  out.write(CsvColumnInteger{});
-  out.write(CsvColumnFloat{});
-  out.write(CsvColumnBoolean{});
-  out.write(CsvColumnTime{});
-  out.write(CsvColumnDate{});
-  out.write(CsvColumnIgnored{});
-  out.write(CsvFormat{
-    header_lines: 12,
-    infer: true,
-    separator: ',',
-    string_delimiter: '"',
-    decimal_separator: '.',
-    thousands_separator: '_',
-    columns: [],
-  });
-  out.write(JSON{});
+  out.write(CsvColumnString {});
+  out.write(CsvColumnInteger {});
+  out.write(CsvColumnFloat {});
+  out.write(CsvColumnBoolean {});
+  out.write(CsvColumnTime {});
+  out.write(CsvColumnDate {});
+  out.write(CsvColumnIgnored {});
+  out.write(CsvFormat {
+      header_lines: 12,
+      infer: true,
+      separator: ',',
+      string_delimiter: '"',
+      decimal_separator: '.',
+      thousands_separator: '_',
+      columns: [],
+    });
+  out.write(JSON {});
   // out.write(File::open("project.gcl")); // unsupported
   // out.write(Directory::open(".")); // unsupported
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
@@ -215,65 +215,65 @@ fn write_math(out: GcbWriter) {
 }
 
 fn write_runtime(out: GcbWriter) {
-  out.write(Task{
-    id: 13,
-    user: 37,
-    mod: "",
-    type: "",
-    fun: "",
-    progress: 13.37,
-    remaining: duration::new(42, DurationUnit::microseconds),
-    creation: 42_time,
-    status: TaskStatus::empty,
-    sub_waiting: 0,
-    sub_tasks_all: 1,
-  });
+  out.write(Task {
+      id: 13,
+      user: 37,
+      mod: "",
+      type: "",
+      fun: "",
+      progress: 13.37,
+      remaining: duration::new(42, DurationUnit::microseconds),
+      creation: 42_time,
+      status: TaskStatus::empty,
+      sub_waiting: 0,
+      sub_tasks_all: 1,
+    });
   out.write(TaskStatus::cancelled);
   out.write(Runtime {});
-  out.write(RuntimeInfo{
-    version: "",
-    arch: "",
-    timezone: TimeZone::Europe_Luxembourg,
-    license: License {
+  out.write(RuntimeInfo {
+      version: "",
+      arch: "",
+      timezone: TimeZone::Europe_Luxembourg,
+      license: License {
         start: 13_time,
         end: 37_time,
         max_workers: 12,
         max_memory: 42,
         max_store: 0,
       },
-    io_threads: 13,
-    bg_threads: 37,
-    fg_threads: 42,
-    mem_total: 12,
-    mem_worker: 0,
-    nb_ctx: 1,
-  });
+      io_threads: 13,
+      bg_threads: 37,
+      fg_threads: 42,
+      mem_total: 12,
+      mem_worker: 0,
+      nb_ctx: 1,
+    });
   out.write(SecurityFields {});
-  out.write(UserGroup{
-    id: 12,
-    name: "",
-    activated: false,
-  });
-  out.write(OpenIDConnect{
-    url: "",
-    clientId: "",
-  });
-  out.write(UserRole{
-    name: "",
-    permissions: [],
-  });
-  out.write(PeriodicTask{
-    name: "",
-    user_id: 12,
-    start: 13_time,
-    every: duration::new(37, DurationUnit::microseconds),
-  });
-  out.write(User{
-    id: 12,
-    name: "",
-    activated: false,
-    external: true,
-  });
+  out.write(UserGroup {
+      id: 12,
+      name: "",
+      activated: false,
+    });
+  out.write(OpenIDConnect {
+      url: "",
+      clientId: "",
+    });
+  out.write(UserRole {
+      name: "",
+      permissions: [],
+    });
+  out.write(PeriodicTask {
+      name: "",
+      user_id: 12,
+      start: 13_time,
+      every: duration::new(37, DurationUnit::microseconds),
+    });
+  out.write(User {
+      id: 12,
+      name: "",
+      activated: false,
+      external: true,
+    });
   out.write(UserGroupPolicy {
       group_id: 12,
       type: UserGroupPolicyType::execute,
@@ -306,14 +306,14 @@ fn write_runtime(out: GcbWriter) {
 }
 
 fn write_util(out: GcbWriter) {
-  out.write(Random{
+  out.write(Random {
       seed: 42,
       v: 13.37,
     });
   out.write(Buffer::new());
-  out.write(Assert{});
+  out.write(Assert {});
   out.write(ProgressTracker::new());
-  out.write(NdEncoding{});
+  out.write(NdEncoding {});
   out.write(Iban::new(""));
   out.write(Gaussian::new());
   // out.write(Quantizer::new()); // unsupported
@@ -345,6 +345,6 @@ fn write_util(out: GcbWriter) {
       size: 42,
     });
     */
-    // out.write(ByteArray{}); // segfault
-    out.write(Crypto{});
+  // out.write(ByteArray{}); // segfault
+  out.write(Crypto {});
 }

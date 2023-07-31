@@ -481,6 +481,12 @@ export class Writer {
     this._curr += 1;
   }
 
+  write_u16(v: number) {
+    this._reserve(2);
+    this._view.setUint16(this._curr, v, true);
+    this._curr += 2;
+  }
+
   write_u32(v: number) {
     this._reserve(4);
     this._view.setUint32(this._curr, v, true);
@@ -668,8 +674,7 @@ export class Writer {
    */
   write_string(v: string) {
     const bytes = this.txt.encode(v);
-    this._reserve(bytes.length + 4); // +4 for the u32 length
-    this.write_u32(bytes.byteLength << 1);
+    this.write_vu32(bytes.byteLength << 1);
     this.write_all(bytes);
   }
 }
@@ -680,6 +685,15 @@ export class Writer {
 export class AbiWriter extends Writer {
   constructor(readonly abi: Abi, capacity = 2048) {
     super(capacity);
+  }
+
+  /**
+   * Writes ABI headers into the buffer
+   */
+  headers(): void {
+    this.write_u16(Abi.protocol_version);
+    this.write_u16(this.abi.magic);
+    this.write_u32(this.abi.version);
   }
 
   serialize(value: Value): void {

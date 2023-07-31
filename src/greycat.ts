@@ -51,18 +51,16 @@ export class GreyCat {
    */
   async call<T = unknown>(method: string, params?: Value[], signal?: AbortSignal): Promise<T> {
     const url = `${this.api}/${method}`;
-    let body: Uint8Array | undefined;
+    const writer = new AbiWriter(this.abi, this.capacity);
+    writer.headers();
     if (params && params.length > 0) {
-      const writer = new AbiWriter(this.abi, this.capacity);
       for (let i = 0; i < params.length; i++) {
         writer.serialize(params[i]);
       }
-      body = writer.buffer;
-      writer.clear();
     }
     const res = await fetch(url, {
       method: 'POST',
-      body,
+      body: writer.buffer,
       headers: { accept: 'application/octet-stream', 'content-type': 'application/octet-stream' },
       signal,
     });

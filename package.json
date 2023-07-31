@@ -18,7 +18,7 @@
     "clean": "rm -rf dist",
     "build": "pnpm run build:esm && pnpm run build:bundle",
     "build:esm": "tsc -b tsconfig.json",
-    "build:bundle": "esbuild --bundle src/index.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js --minify --sourcemap",
+    "build:bundle": "esbuild --bundle src/bundle.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/store/abi project.test.abi",

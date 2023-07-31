@@ -36,13 +36,7 @@ build:
   stage: build
   image: node:20.5.0-slim
   script:
-    - pnpm install
-    - pnpm build
-    - pnpm pack
-    - mkdir -p dist/sdk/js
-    - cp dist/bundle/greycat.sdk.min.js dist/sdk/js/
-    - mv greycat-sdk* dist/sdk/js/greycat-sdk.tgz
-    - rm -rf dist/esm dist/bundle
+    - ./build.sh
   artifacts:
     when: on_success
     expire_in: "30 days"

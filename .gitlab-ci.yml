@@ -1,6 +1,8 @@
+image: oci.datathings.com/greycat/build/js:1.0.7-main
+
 stages:
-  - test
   - build
+  - publish
 
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
@@ -8,37 +10,23 @@ cache:
   paths:
     - node_modules/
 
-before_script:
-  - npm i -g pnpm@7.9.5
-
-test:18:
-  stage: test
-  image: node:18.17.0-slim
-  script:
-    - pnpm install
-    - pnpm test
-
-test:19:
-  stage: test
-  image: node:19.9.0-slim
-  script:
-    - pnpm install
-    - pnpm test
-
-test:20:
-  stage: test
-  image: node:20.5.0-slim
-  script:
-    - pnpm install
-    - pnpm test
-
 build:
   stage: build
-  image: node:20.5.0-slim
   script:
     - ./build.sh
   artifacts:
     when: on_success
-    expire_in: "30 days"
+    expire_in: '30 days'
     paths:
       - dist
+
+publish:
+  stage: publish
+  when: manual
+  script:
+    - ./publish.sh
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+

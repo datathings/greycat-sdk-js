@@ -4,6 +4,7 @@ set -ex
 rm -rf dist
 
 pnpm install
+pnpm test
 pnpm build
 
 mkdir -p dist/sdk/js

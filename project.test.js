@@ -310,8 +310,6 @@ describe('project', () => {
     const buffer = (await readFile('project.test.abi')).buffer;
     abi = new Abi(buffer, [stdlib]);
 
-    console.log(abi);
-
     const data = (await readFile('project.test.gcb')).buffer;
     reader = new AbiReader(abi, data);
 

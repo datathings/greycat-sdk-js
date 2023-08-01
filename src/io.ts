@@ -27,7 +27,7 @@ export class Reader {
   }
 
   get is_empty(): boolean {
-    return this._curr === this._buf.byteLength;
+    return this._curr >= this._buf.byteLength;
   }
 
   read_vu32(): number {
@@ -82,56 +82,57 @@ export class Reader {
 
   private _read_varint_u64(): bigint {
     assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
-    let header = this._buf[this._curr];
-    let unpacked = BigInt(header) & 0x7fn;
-    if (!(header & 0x80)) {
+    let header = BigInt(this._buf[this._curr]);
+
+    let unpacked = header & 0x7fn;
+    if (!(header & 0x80n)) {
       this._curr += 1;
       return unpacked;
     }
-    header = this._buf[this._curr + 1];
-    unpacked |= (BigInt(header) & 0x7fn) << 7n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 1]);
+    unpacked |= (header & 0x7fn) << 7n;
+    if (!(header & 0x80n)) {
       this._curr += 2;
       return unpacked;
     }
-    header = this._buf[this._curr + 2];
-    unpacked |= (BigInt(header) & 0x7fn) << 14n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 2]);
+    unpacked |= (header & 0x7fn) << 14n;
+    if (!(header & 0x80n)) {
       this._curr += 3;
       return unpacked;
     }
-    header = this._buf[this._curr + 3];
-    unpacked |= (BigInt(header) & 0x7fn) << 21n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 3]);
+    unpacked |= (header & 0x7fn) << 21n;
+    if (!(header & 0x80n)) {
       this._curr += 4;
       return unpacked;
     }
-    header = this._buf[this._curr + 4];
-    unpacked |= (BigInt(header) & 0x7fn) << 28n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 4]);
+    unpacked |= (header & 0x7fn) << 28n;
+    if (!(header & 0x80n)) {
       this._curr += 5;
       return unpacked;
     }
-    header = this._buf[this._curr + 5];
-    unpacked |= (BigInt(header) & 0x7fn) << 35n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 5]);
+    unpacked |= (header & 0x7fn) << 35n;
+    if (!(header & 0x80n)) {
       this._curr += 6;
       return unpacked;
     }
-    header = this._buf[this._curr + 6];
-    unpacked |= (BigInt(header) & 0x7fn) << 42n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 6]);
+    unpacked |= (header & 0x7fn) << 42n;
+    if (!(header & 0x80n)) {
       this._curr += 7;
       return unpacked;
     }
-    header = this._buf[this._curr + 7];
-    unpacked |= (BigInt(header) & 0x7fn) << 49n;
-    if (!(header & 0x80)) {
+    header = BigInt(this._buf[this._curr + 7]);
+    unpacked |= (header & 0x7fn) << 49n;
+    if (!(header & 0x80n)) {
       this._curr += 8;
       return unpacked;
     }
-    header = this._buf[this._curr + 8];
-    unpacked |= BigInt(header) << 56n;
+    header = BigInt(this._buf[this._curr + 8]);
+    unpacked |= header << 56n;
     this._curr += 9;
     return unpacked;
   }

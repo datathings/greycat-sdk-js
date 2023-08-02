@@ -41,6 +41,14 @@ export class Date extends GCObject {
     w.write_vu32(this.timeZone.offset);
   }
 
+  /**
+   * Returns a JavaScript Date
+   */
+  toDate(): globalThis.Date {
+    const timestamp = typeof this.epochUs === 'bigint' ? Number(this.epochUs / 1_000n) : Math.round(this.epochUs / 1000);
+    return new globalThis.Date(timestamp);
+  }
+
   override toJSON() {
     return {
       _type: this.$type.name,

@@ -7,11 +7,98 @@ import * as $std from '../index.js';
 import * as std_n from '../../std_n/index.js';
 
 // module: runtime.gcl
+export class UserCredential extends $sdk.GCObject {
+  static readonly _type = 'runtime::UserCredential';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_offset(): bigint | number {
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
+  }
+  public set_offset(v: bigint | number) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_pass(): string | null {
+    return super.get(super.$type.generated_offsets[1]) as string | null;
+  }
+  public set_pass(v: string | null) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  static create($g: $sdk.GreyCat, offset: bigint | number, pass: string | null): UserCredential {
+    return new UserCredential($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[39], offset, pass);
+  }
+}
+
+export class SecurityPolicy extends $sdk.GCObject {
+  static readonly _type = 'runtime::SecurityPolicy';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_entities(): Array<$std.runtime.SecurityEntity> {
+    return super.get(super.$type.generated_offsets[0]) as Array<$std.runtime.SecurityEntity>;
+  }
+  public set_entities(v: Array<$std.runtime.SecurityEntity>) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_credentials(): Map<string, $std.runtime.UserCredential> {
+    return super.get(super.$type.generated_offsets[1]) as Map<string, $std.runtime.UserCredential>;
+  }
+  public set_credentials(v: Map<string, $std.runtime.UserCredential>) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_roles(): Map<string, $std.runtime.UserRole> {
+    return super.get(super.$type.generated_offsets[2]) as Map<string, $std.runtime.UserRole>;
+  }
+  public set_roles(v: Map<string, $std.runtime.UserRole>) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  public get_fields(): $std.runtime.SecurityFields | null {
+    return super.get(super.$type.generated_offsets[3]) as $std.runtime.SecurityFields | null;
+  }
+  public set_fields(v: $std.runtime.SecurityFields | null) {
+    super.set(super.$type.generated_offsets[3], v);
+  }
+  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
+    return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
+  }
+  static create($g: $sdk.GreyCat, entities: Array<$std.runtime.SecurityEntity>, credentials: Map<string, $std.runtime.UserCredential>, roles: Map<string, $std.runtime.UserRole>, fields: $std.runtime.SecurityFields | null): SecurityPolicy {
+    return new SecurityPolicy($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[40], entities, credentials, roles, fields);
+  }
+}
+
+export class UserGroupPolicyType extends $sdk.GCEnum {
+  static readonly _type = 'runtime::UserGroupPolicyType';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes[0], attributes[1], attributes[2]);
+  }
+
+  public static read($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
+    return t.enum_values![t.generated_offsets[0]] as $std.runtime.UserGroupPolicyType;
+  }
+  public static write($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
+    return t.enum_values![t.generated_offsets[1]] as $std.runtime.UserGroupPolicyType;
+  }
+  public static execute($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
+    return t.enum_values![t.generated_offsets[2]] as $std.runtime.UserGroupPolicyType;
+  }
+  static create($g: $sdk.GreyCat): UserGroupPolicyType {
+    return new UserGroupPolicyType($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41]);
+  }
+}
+
 export class Task extends $sdk.GCObject {
   static readonly _type = 'runtime::Task';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get_id(): bigint | number {
@@ -110,308 +197,8 @@ export class Task extends $sdk.GCObject {
   async info($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, $signal?: AbortSignal): Promise<$std.runtime.Task | null> {
     return $g.call('runtime::Task::info', [user_id, task_id], $signal);
   }
- static create($g: $sdk.GreyCat, id: bigint | number, user: bigint | number, parent: bigint | number | null, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: $std.runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null): Task {
-    return new Task($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[39], id, user, parent, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
-  }
-}
-
-export class SecurityEntity extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityEntity';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_id(): bigint | number {
-    return super.get(super.$type.generated_offsets[0]) as bigint | number;
-  }
-  public set_id(v: bigint | number) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_name(): string {
-    return super.get(super.$type.generated_offsets[1]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_activated(): boolean {
-    return super.get(super.$type.generated_offsets[2]) as boolean;
-  }
-  public set_activated(v: boolean) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.SecurityEntity>> {
-    return $g.call('runtime::SecurityEntity::all', undefined, $signal);
-  }
-  async set_($g: $sdk.GreyCat, entity: $std.runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
-    return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
-  }
- static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): SecurityEntity {
-    return new SecurityEntity($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[40], id, name, activated);
-  }
-}
-
-export class TaskStatus extends $sdk.GCEnum {
-  static readonly _type = 'runtime::TaskStatus';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static empty($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[0]] as $std.runtime.TaskStatus;
-  }
-  public static waiting($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[1]] as $std.runtime.TaskStatus;
-  }
-  public static running($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[2]] as $std.runtime.TaskStatus;
-  }
-  public static cancelled($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[3]] as $std.runtime.TaskStatus;
-  }
-  public static error($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[4]] as $std.runtime.TaskStatus;
-  }
-  public static ended($g: $sdk.GreyCat): $std.runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41];
-    return t.enum_values![t.generated_offsets[5]] as $std.runtime.TaskStatus;
-  }
- static create($g: $sdk.GreyCat): TaskStatus {
-    return new TaskStatus($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[41]);
-  }
-}
-
-export class System extends $sdk.GCObject {
-  static readonly _type = 'runtime::System';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
- static create($g: $sdk.GreyCat): System {
-    return new System($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[42]);
-  }
-}
-
-export class SecurityFields extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityFields';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_email(): string | null {
-    return super.get(super.$type.generated_offsets[0]) as string | null;
-  }
-  public set_email(v: string | null) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_name(): string | null {
-    return super.get(super.$type.generated_offsets[1]) as string | null;
-  }
-  public set_name(v: string | null) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_first_name(): string | null {
-    return super.get(super.$type.generated_offsets[2]) as string | null;
-  }
-  public set_first_name(v: string | null) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  public get_last_name(): string | null {
-    return super.get(super.$type.generated_offsets[3]) as string | null;
-  }
-  public set_last_name(v: string | null) {
-    super.set(super.$type.generated_offsets[3], v);
-  }
-  public get_roles(): Map<string, string> | null {
-    return super.get(super.$type.generated_offsets[4]) as Map<string, string> | null;
-  }
-  public set_roles(v: Map<string, string> | null) {
-    super.set(super.$type.generated_offsets[4], v);
-  }
-  public get_groups(): Map<string, string> | null {
-    return super.get(super.$type.generated_offsets[5]) as Map<string, string> | null;
-  }
-  public set_groups(v: Map<string, string> | null) {
-    super.set(super.$type.generated_offsets[5], v);
-  }
-  async set_($g: $sdk.GreyCat, f: $std.runtime.SecurityFields, $signal?: AbortSignal): Promise<unknown> {
-    return $g.call('runtime::SecurityFields::set_', [f], $signal);
-  }
-  async get_($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.SecurityFields | null> {
-    return $g.call('runtime::SecurityFields::get_', undefined, $signal);
-  }
- static create($g: $sdk.GreyCat, email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null): SecurityFields {
-    return new SecurityFields($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[43], email, name, first_name, last_name, roles, groups);
-  }
-}
-
-export class UserGroup extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserGroup';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_id(): bigint | number {
-    return super.get(super.$type.generated_offsets[0]) as bigint | number;
-  }
-  public set_id(v: bigint | number) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_name(): string {
-    return super.get(super.$type.generated_offsets[1]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_activated(): boolean {
-    return super.get(super.$type.generated_offsets[2]) as boolean;
-  }
-  public set_activated(v: boolean) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.SecurityEntity>> {
-    return $g.call('runtime::SecurityEntity::all', undefined, $signal);
-  }
-  async set_($g: $sdk.GreyCat, entity: $std.runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
-    return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
-  }
- static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): UserGroup {
-    return new UserGroup($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[44], id, name, activated);
-  }
-}
-
-export class OpenIDConnect extends $sdk.GCObject {
-  static readonly _type = 'runtime::OpenIDConnect';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_url(): string {
-    return super.get(super.$type.generated_offsets[0]) as string;
-  }
-  public set_url(v: string) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_clientId(): string {
-    return super.get(super.$type.generated_offsets[1]) as string;
-  }
-  public set_clientId(v: string) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  async config($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.OpenIDConnect | null> {
-    return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
-  }
- static create($g: $sdk.GreyCat, url: string, clientId: string): OpenIDConnect {
-    return new OpenIDConnect($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[45], url, clientId);
-  }
-}
-
-export class UserRole extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserRole';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string {
-    return super.get(super.$type.generated_offsets[0]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_permissions(): Array<string> {
-    return super.get(super.$type.generated_offsets[1]) as Array<string>;
-  }
-  public set_permissions(v: Array<string>) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.UserRole>> {
-    return $g.call('runtime::UserRole::all', undefined, $signal);
-  }
-  async remove($g: $sdk.GreyCat, name: string, $signal?: AbortSignal): Promise<unknown> {
-    return $g.call('runtime::UserRole::remove', [name], $signal);
-  }
-  async set_($g: $sdk.GreyCat, value: $std.runtime.UserRole, $signal?: AbortSignal): Promise<unknown> {
-    return $g.call('runtime::UserRole::set_', [value], $signal);
-  }
- static create($g: $sdk.GreyCat, name: string, permissions: Array<string>): UserRole {
-    return new UserRole($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[46], name, permissions);
-  }
-}
-
-export class PeriodicTask extends $sdk.GCObject {
-  static readonly _type = 'runtime::PeriodicTask';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_name(): string {
-    return super.get(super.$type.generated_offsets[0]) as string;
-  }
-  public set_name(v: string) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_user_id(): bigint | number {
-    return super.get(super.$type.generated_offsets[1]) as bigint | number;
-  }
-  public set_user_id(v: bigint | number) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_args(): string | null {
-    return super.get(super.$type.generated_offsets[2]) as string | null;
-  }
-  public set_args(v: string | null) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  public get_start(): $sdk.std.core.time {
-    return super.get(super.$type.generated_offsets[3]) as $sdk.std.core.time;
-  }
-  public set_start(v: $sdk.std.core.time) {
-    super.set(super.$type.generated_offsets[3], v);
-  }
-  public get_every(): $sdk.std.core.duration {
-    return super.get(super.$type.generated_offsets[4]) as $sdk.std.core.duration;
-  }
-  public set_every(v: $sdk.std.core.duration) {
-    super.set(super.$type.generated_offsets[4], v);
-  }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.PeriodicTask>> {
-    return $g.call('runtime::PeriodicTask::all', undefined, $signal);
-  }
-  async set_($g: $sdk.GreyCat, tasks: Array<$std.runtime.PeriodicTask>, $signal?: AbortSignal): Promise<unknown> {
-    return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
-  }
- static create($g: $sdk.GreyCat, name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration): PeriodicTask {
-    return new PeriodicTask($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[47], name, user_id, args, start, every);
-  }
-}
-
-export class Runtime extends $sdk.GCObject {
-  static readonly _type = 'runtime::Runtime';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  async info($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.RuntimeInfo> {
-    return $g.call('runtime::Runtime::info', undefined, $signal);
-  }
-  async abi($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
-    return $g.call('runtime::Runtime::abi', undefined, $signal);
-  }
- static create($g: $sdk.GreyCat): Runtime {
-    return new Runtime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[48]);
+  static create($g: $sdk.GreyCat, id: bigint | number, user: bigint | number, parent: bigint | number | null, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: $std.runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null): Task {
+    return new Task($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[42], id, user, parent, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
   }
 }
 
@@ -419,7 +206,7 @@ export class User extends $sdk.GCObject {
   static readonly _type = 'runtime::User';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get_id(): bigint | number {
@@ -515,8 +302,398 @@ export class User extends $sdk.GCObject {
   async getToken($g: $sdk.GreyCat, id: bigint | number, $signal?: AbortSignal): Promise<string> {
     return $g.call('runtime::User::getToken', [id], $signal);
   }
- static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<$std.runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean): User {
-    return new User($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[49], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+  static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<$std.runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean): User {
+    return new User($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[43], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+  }
+}
+
+export class System extends $sdk.GCObject {
+  static readonly _type = 'runtime::System';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  static create($g: $sdk.GreyCat): System {
+    return new System($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[44]);
+  }
+}
+
+export class UserGroupPolicy extends $sdk.GCObject {
+  static readonly _type = 'runtime::UserGroupPolicy';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_group_id(): bigint | number {
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
+  }
+  public set_group_id(v: bigint | number) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_type(): $std.runtime.UserGroupPolicyType {
+    return super.get(super.$type.generated_offsets[1]) as $std.runtime.UserGroupPolicyType;
+  }
+  public set_type(v: $std.runtime.UserGroupPolicyType) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  static create($g: $sdk.GreyCat, group_id: bigint | number, type: $std.runtime.UserGroupPolicyType): UserGroupPolicy {
+    return new UserGroupPolicy($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[45], group_id, type);
+  }
+}
+
+export class SecurityFields extends $sdk.GCObject {
+  static readonly _type = 'runtime::SecurityFields';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_email(): string | null {
+    return super.get(super.$type.generated_offsets[0]) as string | null;
+  }
+  public set_email(v: string | null) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_name(): string | null {
+    return super.get(super.$type.generated_offsets[1]) as string | null;
+  }
+  public set_name(v: string | null) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_first_name(): string | null {
+    return super.get(super.$type.generated_offsets[2]) as string | null;
+  }
+  public set_first_name(v: string | null) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  public get_last_name(): string | null {
+    return super.get(super.$type.generated_offsets[3]) as string | null;
+  }
+  public set_last_name(v: string | null) {
+    super.set(super.$type.generated_offsets[3], v);
+  }
+  public get_roles(): Map<string, string> | null {
+    return super.get(super.$type.generated_offsets[4]) as Map<string, string> | null;
+  }
+  public set_roles(v: Map<string, string> | null) {
+    super.set(super.$type.generated_offsets[4], v);
+  }
+  public get_groups(): Map<string, string> | null {
+    return super.get(super.$type.generated_offsets[5]) as Map<string, string> | null;
+  }
+  public set_groups(v: Map<string, string> | null) {
+    super.set(super.$type.generated_offsets[5], v);
+  }
+  async set_($g: $sdk.GreyCat, f: $std.runtime.SecurityFields, $signal?: AbortSignal): Promise<unknown> {
+    return $g.call('runtime::SecurityFields::set_', [f], $signal);
+  }
+  async get_($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.SecurityFields | null> {
+    return $g.call('runtime::SecurityFields::get_', undefined, $signal);
+  }
+  static create($g: $sdk.GreyCat, email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null): SecurityFields {
+    return new SecurityFields($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[46], email, name, first_name, last_name, roles, groups);
+  }
+}
+
+export class OpenIDConnect extends $sdk.GCObject {
+  static readonly _type = 'runtime::OpenIDConnect';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_url(): string {
+    return super.get(super.$type.generated_offsets[0]) as string;
+  }
+  public set_url(v: string) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_clientId(): string {
+    return super.get(super.$type.generated_offsets[1]) as string;
+  }
+  public set_clientId(v: string) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  async config($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.OpenIDConnect | null> {
+    return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
+  }
+  static create($g: $sdk.GreyCat, url: string, clientId: string): OpenIDConnect {
+    return new OpenIDConnect($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[47], url, clientId);
+  }
+}
+
+export class PeriodicTask extends $sdk.GCObject {
+  static readonly _type = 'runtime::PeriodicTask';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_name(): string {
+    return super.get(super.$type.generated_offsets[0]) as string;
+  }
+  public set_name(v: string) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_user_id(): bigint | number {
+    return super.get(super.$type.generated_offsets[1]) as bigint | number;
+  }
+  public set_user_id(v: bigint | number) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_args(): string | null {
+    return super.get(super.$type.generated_offsets[2]) as string | null;
+  }
+  public set_args(v: string | null) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  public get_start(): $sdk.std.core.time {
+    return super.get(super.$type.generated_offsets[3]) as $sdk.std.core.time;
+  }
+  public set_start(v: $sdk.std.core.time) {
+    super.set(super.$type.generated_offsets[3], v);
+  }
+  public get_every(): $sdk.std.core.duration {
+    return super.get(super.$type.generated_offsets[4]) as $sdk.std.core.duration;
+  }
+  public set_every(v: $sdk.std.core.duration) {
+    super.set(super.$type.generated_offsets[4], v);
+  }
+  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.PeriodicTask>> {
+    return $g.call('runtime::PeriodicTask::all', undefined, $signal);
+  }
+  async set_($g: $sdk.GreyCat, tasks: Array<$std.runtime.PeriodicTask>, $signal?: AbortSignal): Promise<unknown> {
+    return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
+  }
+  static create($g: $sdk.GreyCat, name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration): PeriodicTask {
+    return new PeriodicTask($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[48], name, user_id, args, start, every);
+  }
+}
+
+export class UserGroup extends $sdk.GCObject {
+  static readonly _type = 'runtime::UserGroup';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_id(): bigint | number {
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
+  }
+  public set_id(v: bigint | number) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_name(): string {
+    return super.get(super.$type.generated_offsets[1]) as string;
+  }
+  public set_name(v: string) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_activated(): boolean {
+    return super.get(super.$type.generated_offsets[2]) as boolean;
+  }
+  public set_activated(v: boolean) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.SecurityEntity>> {
+    return $g.call('runtime::SecurityEntity::all', undefined, $signal);
+  }
+  async set_($g: $sdk.GreyCat, entity: $std.runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
+    return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
+  }
+  static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): UserGroup {
+    return new UserGroup($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[49], id, name, activated);
+  }
+}
+
+export class StoreStat extends $sdk.GCObject {
+  static readonly _type = 'runtime::StoreStat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_capacity_bytes(): bigint | number {
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
+  }
+  public set_capacity_bytes(v: bigint | number) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_allocated_bytes(): bigint | number {
+    return super.get(super.$type.generated_offsets[1]) as bigint | number;
+  }
+  public set_allocated_bytes(v: bigint | number) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_allocated_ratio(): number {
+    return super.get(super.$type.generated_offsets[2]) as number;
+  }
+  public set_allocated_ratio(v: number) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  public get_remained_bytes(): bigint | number {
+    return super.get(super.$type.generated_offsets[3]) as bigint | number;
+  }
+  public set_remained_bytes(v: bigint | number) {
+    super.set(super.$type.generated_offsets[3], v);
+  }
+  public get_remained_ratio(): number {
+    return super.get(super.$type.generated_offsets[4]) as number;
+  }
+  public set_remained_ratio(v: number) {
+    super.set(super.$type.generated_offsets[4], v);
+  }
+  public get_used_bytes(): bigint | number {
+    return super.get(super.$type.generated_offsets[5]) as bigint | number;
+  }
+  public set_used_bytes(v: bigint | number) {
+    super.set(super.$type.generated_offsets[5], v);
+  }
+  public get_used_ratio(): number {
+    return super.get(super.$type.generated_offsets[6]) as number;
+  }
+  public set_used_ratio(v: number) {
+    super.set(super.$type.generated_offsets[6], v);
+  }
+  public get_available_bytes(): bigint | number {
+    return super.get(super.$type.generated_offsets[7]) as bigint | number;
+  }
+  public set_available_bytes(v: bigint | number) {
+    super.set(super.$type.generated_offsets[7], v);
+  }
+  public get_available_ratio(): number {
+    return super.get(super.$type.generated_offsets[8]) as number;
+  }
+  public set_available_ratio(v: number) {
+    super.set(super.$type.generated_offsets[8], v);
+  }
+  static create($g: $sdk.GreyCat, capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number): StoreStat {
+    return new StoreStat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[50], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
+  }
+}
+
+export class Runtime extends $sdk.GCObject {
+  static readonly _type = 'runtime::Runtime';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  async info($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<$std.runtime.RuntimeInfo> {
+    return $g.call('runtime::Runtime::info', undefined, $signal);
+  }
+  async abi($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
+    return $g.call('runtime::Runtime::abi', undefined, $signal);
+  }
+  static create($g: $sdk.GreyCat): Runtime {
+    return new Runtime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[51]);
+  }
+}
+
+export class TaskStatus extends $sdk.GCEnum {
+  static readonly _type = 'runtime::TaskStatus';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes[0], attributes[1], attributes[2]);
+  }
+
+  public static empty($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[0]] as $std.runtime.TaskStatus;
+  }
+  public static waiting($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[1]] as $std.runtime.TaskStatus;
+  }
+  public static running($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[2]] as $std.runtime.TaskStatus;
+  }
+  public static cancelled($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[3]] as $std.runtime.TaskStatus;
+  }
+  public static error($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[4]] as $std.runtime.TaskStatus;
+  }
+  public static ended($g: $sdk.GreyCat): $std.runtime.TaskStatus {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52];
+    return t.enum_values![t.generated_offsets[5]] as $std.runtime.TaskStatus;
+  }
+  static create($g: $sdk.GreyCat): TaskStatus {
+    return new TaskStatus($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52]);
+  }
+}
+
+export class SecurityEntity extends $sdk.GCObject {
+  static readonly _type = 'runtime::SecurityEntity';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_id(): bigint | number {
+    return super.get(super.$type.generated_offsets[0]) as bigint | number;
+  }
+  public set_id(v: bigint | number) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_name(): string {
+    return super.get(super.$type.generated_offsets[1]) as string;
+  }
+  public set_name(v: string) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  public get_activated(): boolean {
+    return super.get(super.$type.generated_offsets[2]) as boolean;
+  }
+  public set_activated(v: boolean) {
+    super.set(super.$type.generated_offsets[2], v);
+  }
+  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.SecurityEntity>> {
+    return $g.call('runtime::SecurityEntity::all', undefined, $signal);
+  }
+  async set_($g: $sdk.GreyCat, entity: $std.runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
+    return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
+  }
+  static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): SecurityEntity {
+    return new SecurityEntity($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[53], id, name, activated);
+  }
+}
+
+export class UserRole extends $sdk.GCObject {
+  static readonly _type = 'runtime::UserRole';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes);
+  }
+
+  public get_name(): string {
+    return super.get(super.$type.generated_offsets[0]) as string;
+  }
+  public set_name(v: string) {
+    super.set(super.$type.generated_offsets[0], v);
+  }
+  public get_permissions(): Array<string> {
+    return super.get(super.$type.generated_offsets[1]) as Array<string>;
+  }
+  public set_permissions(v: Array<string>) {
+    super.set(super.$type.generated_offsets[1], v);
+  }
+  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<$std.runtime.UserRole>> {
+    return $g.call('runtime::UserRole::all', undefined, $signal);
+  }
+  async remove($g: $sdk.GreyCat, name: string, $signal?: AbortSignal): Promise<unknown> {
+    return $g.call('runtime::UserRole::remove', [name], $signal);
+  }
+  async set_($g: $sdk.GreyCat, value: $std.runtime.UserRole, $signal?: AbortSignal): Promise<unknown> {
+    return $g.call('runtime::UserRole::set_', [value], $signal);
+  }
+  static create($g: $sdk.GreyCat, name: string, permissions: Array<string>): UserRole {
+    return new UserRole($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[54], name, permissions);
   }
 }
 
@@ -524,7 +701,7 @@ export class RuntimeInfo extends $sdk.GCObject {
   static readonly _type = 'runtime::RuntimeInfo';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get_version(): string {
@@ -593,32 +770,8 @@ export class RuntimeInfo extends $sdk.GCObject {
   public set_store_stats(v: $std.runtime.StoreStat | null) {
     super.set(super.$type.generated_offsets[10], v);
   }
- static create($g: $sdk.GreyCat, version: string, arch: string, timezone: $std.core.TimeZone, license: $std.runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: $std.runtime.StoreStat | null): RuntimeInfo {
-    return new RuntimeInfo($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[50], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
-  }
-}
-
-export class UserGroupPolicy extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserGroupPolicy';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_group_id(): bigint | number {
-    return super.get(super.$type.generated_offsets[0]) as bigint | number;
-  }
-  public set_group_id(v: bigint | number) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_type(): $std.runtime.UserGroupPolicyType {
-    return super.get(super.$type.generated_offsets[1]) as $std.runtime.UserGroupPolicyType;
-  }
-  public set_type(v: $std.runtime.UserGroupPolicyType) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, group_id: bigint | number, type: $std.runtime.UserGroupPolicyType): UserGroupPolicy {
-    return new UserGroupPolicy($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[51], group_id, type);
+  static create($g: $sdk.GreyCat, version: string, arch: string, timezone: $std.core.TimeZone, license: $std.runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: $std.runtime.StoreStat | null): RuntimeInfo {
+    return new RuntimeInfo($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[55], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
   }
 }
 
@@ -626,7 +779,7 @@ export class License extends $sdk.GCObject {
   static readonly _type = 'runtime::License';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get_name(): string | null {
@@ -695,161 +848,8 @@ export class License extends $sdk.GCObject {
   public set_extra_4(v: bigint | number | null) {
     super.set(super.$type.generated_offsets[10], v);
   }
- static create($g: $sdk.GreyCat, name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, max_store: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null): License {
-    return new License($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[52], name, start, end, company, max_workers, max_memory, max_store, extra_1, extra_2, extra_3, extra_4);
-  }
-}
-
-export class UserGroupPolicyType extends $sdk.GCEnum {
-  static readonly _type = 'runtime::UserGroupPolicyType';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static read($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[53];
-    return t.enum_values![t.generated_offsets[0]] as $std.runtime.UserGroupPolicyType;
-  }
-  public static write($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[53];
-    return t.enum_values![t.generated_offsets[1]] as $std.runtime.UserGroupPolicyType;
-  }
-  public static execute($g: $sdk.GreyCat): $std.runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[53];
-    return t.enum_values![t.generated_offsets[2]] as $std.runtime.UserGroupPolicyType;
-  }
- static create($g: $sdk.GreyCat): UserGroupPolicyType {
-    return new UserGroupPolicyType($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[53]);
-  }
-}
-
-export class UserCredential extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserCredential';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_offset(): bigint | number {
-    return super.get(super.$type.generated_offsets[0]) as bigint | number;
-  }
-  public set_offset(v: bigint | number) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_pass(): string | null {
-    return super.get(super.$type.generated_offsets[1]) as string | null;
-  }
-  public set_pass(v: string | null) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
- static create($g: $sdk.GreyCat, offset: bigint | number, pass: string | null): UserCredential {
-    return new UserCredential($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[54], offset, pass);
-  }
-}
-
-export class StoreStat extends $sdk.GCObject {
-  static readonly _type = 'runtime::StoreStat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_capacity_bytes(): bigint | number {
-    return super.get(super.$type.generated_offsets[0]) as bigint | number;
-  }
-  public set_capacity_bytes(v: bigint | number) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_allocated_bytes(): bigint | number {
-    return super.get(super.$type.generated_offsets[1]) as bigint | number;
-  }
-  public set_allocated_bytes(v: bigint | number) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_allocated_ratio(): number {
-    return super.get(super.$type.generated_offsets[2]) as number;
-  }
-  public set_allocated_ratio(v: number) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  public get_remained_bytes(): bigint | number {
-    return super.get(super.$type.generated_offsets[3]) as bigint | number;
-  }
-  public set_remained_bytes(v: bigint | number) {
-    super.set(super.$type.generated_offsets[3], v);
-  }
-  public get_remained_ratio(): number {
-    return super.get(super.$type.generated_offsets[4]) as number;
-  }
-  public set_remained_ratio(v: number) {
-    super.set(super.$type.generated_offsets[4], v);
-  }
-  public get_used_bytes(): bigint | number {
-    return super.get(super.$type.generated_offsets[5]) as bigint | number;
-  }
-  public set_used_bytes(v: bigint | number) {
-    super.set(super.$type.generated_offsets[5], v);
-  }
-  public get_used_ratio(): number {
-    return super.get(super.$type.generated_offsets[6]) as number;
-  }
-  public set_used_ratio(v: number) {
-    super.set(super.$type.generated_offsets[6], v);
-  }
-  public get_available_bytes(): bigint | number {
-    return super.get(super.$type.generated_offsets[7]) as bigint | number;
-  }
-  public set_available_bytes(v: bigint | number) {
-    super.set(super.$type.generated_offsets[7], v);
-  }
-  public get_available_ratio(): number {
-    return super.get(super.$type.generated_offsets[8]) as number;
-  }
-  public set_available_ratio(v: number) {
-    super.set(super.$type.generated_offsets[8], v);
-  }
- static create($g: $sdk.GreyCat, capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number): StoreStat {
-    return new StoreStat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[55], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
-  }
-}
-
-export class SecurityPolicy extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityPolicy';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get_entities(): Array<$std.runtime.SecurityEntity> {
-    return super.get(super.$type.generated_offsets[0]) as Array<$std.runtime.SecurityEntity>;
-  }
-  public set_entities(v: Array<$std.runtime.SecurityEntity>) {
-    super.set(super.$type.generated_offsets[0], v);
-  }
-  public get_credentials(): Map<string, $std.runtime.UserCredential> {
-    return super.get(super.$type.generated_offsets[1]) as Map<string, $std.runtime.UserCredential>;
-  }
-  public set_credentials(v: Map<string, $std.runtime.UserCredential>) {
-    super.set(super.$type.generated_offsets[1], v);
-  }
-  public get_roles(): Map<string, $std.runtime.UserRole> {
-    return super.get(super.$type.generated_offsets[2]) as Map<string, $std.runtime.UserRole>;
-  }
-  public set_roles(v: Map<string, $std.runtime.UserRole>) {
-    super.set(super.$type.generated_offsets[2], v);
-  }
-  public get_fields(): $std.runtime.SecurityFields | null {
-    return super.get(super.$type.generated_offsets[3]) as $std.runtime.SecurityFields | null;
-  }
-  public set_fields(v: $std.runtime.SecurityFields | null) {
-    super.set(super.$type.generated_offsets[3], v);
-  }
-  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
-    return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
-  }
- static create($g: $sdk.GreyCat, entities: Array<$std.runtime.SecurityEntity>, credentials: Map<string, $std.runtime.UserCredential>, roles: Map<string, $std.runtime.UserRole>, fields: $std.runtime.SecurityFields | null): SecurityPolicy {
-    return new SecurityPolicy($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[56], entities, credentials, roles, fields);
+  static create($g: $sdk.GreyCat, name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, max_store: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null): License {
+    return new License($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[56], name, start, end, company, max_workers, max_memory, max_store, extra_1, extra_2, extra_3, extra_4);
   }
 }
 

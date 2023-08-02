@@ -6,10 +6,10 @@ export class nodeIndexBucket extends GCObject {
   static readonly _type = 'core::nodeIndexBucket' as const;
 
   override saveContent(w: AbiWriter): void {
-    if (this.$values) {
-      w.write_u32(this.$values.length);
-      for (let i = 0; i < this.$values.length; i++) {
-        w.serialize(this.$values[i]);
+    if (this.attributes) {
+      w.write_u32(this.attributes.length);
+      for (let i = 0; i < this.attributes.length; i++) {
+        w.serialize(this.attributes[i]);
       }
     } else {
       w.write_u32(0);

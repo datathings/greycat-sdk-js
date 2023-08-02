@@ -11,6 +11,20 @@ export class geo extends GCObject {
     super(type);
   }
 
+  /**
+   * Morton encode's a `lat`, `lng` tuple into a `bigint` which is a valid GreyCat `geo` value
+   */
+  static encode(lat: number, lng: number): bigint {
+    return geoEncode(lat, lng);
+  }
+
+  /**
+   * Morton decode's a valid GreyCat `geo` value (`bigint`) into a `lat`, `lng` tuple
+   */
+  static decode(value: bigint): readonly [number, number] {
+    return geoDecode(value);
+  }
+
   static load(r: AbiReader, ty: AbiType): geo {
     const value = r.read_u64();
     const [lat, lng] = geoDecode(value);
@@ -21,6 +35,20 @@ export class geo extends GCObject {
   static fromJSON(o: unknown): geo {
     Object.setPrototypeOf(o, geo.prototype);
     return o as geo;
+  }
+
+  get lat(): number {
+    const [lat] = geoDecode(this.value);
+    return lat;
+  }
+
+  get lng(): number {
+    const [, lng] = geoDecode(this.value);
+    return lng;
+  }
+
+  get latlng(): readonly [number, number] {
+    return geoDecode(this.value);
   }
 
   override saveHeader(w: AbiWriter): void {

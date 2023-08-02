@@ -43,6 +43,10 @@ export class duration extends GCObject {
     return this.value % 1_000_000;
   }
 
+  equals(other: duration): boolean {
+    return BigInt(this.value) === BigInt(other.value);
+  }
+
   override toJSON() {
     return {
       _type: this.$type.name,

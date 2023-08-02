@@ -75,8 +75,7 @@ export class GreyCat {
     }
     const err = value as std.core.Error;
     throw new Error(
-      `calling '${method}' failed with code ${err.code} and message "${
-        err.msg.length > 0 ? err.msg : err.value?.toString()
+      `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,
     );
   }
@@ -103,6 +102,22 @@ export class GreyCat {
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
     return new AbiReader(this.abi, data).deserializeWithHeaders();
+  }
+
+  create(name: string, attributes: Value[]) {
+    return this.abi.create(name, attributes);
+  }
+
+  createGeo(lat: number, lng: number) {
+    return this.abi.createGeo(lat, lng);
+  }
+
+  createTime(value: bigint | number) {
+    return this.abi.createTime(typeof value === 'bigint' ? value : BigInt(value));
+  }
+
+  createDuration(value: bigint | number) {
+    return this.abi.createDuration(typeof value === 'bigint' ? value : BigInt(value));
   }
 }
 

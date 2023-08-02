@@ -8,3 +8,4 @@ export * from './io.js';
 export * as std_n from './std_n/index.js';
 export * from './std/index.js';
 export * as std from './std/index.js';
+export * as utils from './utils/index.js';

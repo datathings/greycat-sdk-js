@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 VERSION_MAJOR_MINOR=`cat VERSION`
 VERSION_SIMPLE=`git2version -s`

@@ -2,6 +2,7 @@ import { GCObject, gc_object__is_not_null } from './GCObject.js';
 import { GCEnum } from './index.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
+// import type { core } from './index.js';
 
 export class Abi {
   static readonly protocol_version = 1;
@@ -48,6 +49,7 @@ export class Abi {
   readonly core_tuf4d_offset: number = 0;
   readonly core_function_offset: number = 0;
   readonly core_timezone_offset: number = 0;
+  readonly core_date_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.off_by_symbol = new Map();
@@ -157,31 +159,31 @@ export class Abi {
       this.types[i] = type;
 
       if (this.symbols[module] === 'core') {
-        // prettier-ignore
         switch (this.symbols[name]) {
-          case 'String':    this.core_string_offset     = i; break;
-          case 'Array':     this.core_array_offset      = i; break;
-          case 'Map':       this.core_map_offset        = i; break;
-          case 'geo':       this.core_geo_offset        = i; break;
-          case 'duration':  this.core_duration_offset   = i; break;
-          case 'time':      this.core_time_offset       = i; break;
-          case 'node':      this.core_node_offset       = i; break;
-          case 'nodeTime':  this.core_node_time_offset  = i; break;
-          case 'nodeList':  this.core_node_list_offset  = i; break;
-          case 'nodeGeo':   this.core_node_geo_offset   = i; break;
+          case 'String': this.core_string_offset = i; break;
+          case 'Array': this.core_array_offset = i; break;
+          case 'Map': this.core_map_offset = i; break;
+          case 'geo': this.core_geo_offset = i; break;
+          case 'duration': this.core_duration_offset = i; break;
+          case 'time': this.core_time_offset = i; break;
+          case 'node': this.core_node_offset = i; break;
+          case 'nodeTime': this.core_node_time_offset = i; break;
+          case 'nodeList': this.core_node_list_offset = i; break;
+          case 'nodeGeo': this.core_node_geo_offset = i; break;
           case 'nodeIndex': this.core_node_index_offset = i; break;
-          case 'cubic':     this.core_cubic_offset      = i; break;
-          case 'ti2d':      this.core_tu2d_offset       = i; break;
-          case 'ti3d':      this.core_tu3d_offset       = i; break;
-          case 'ti4d':      this.core_tu4d_offset       = i; break;
-          case 'ti5d':      this.core_tu5d_offset       = i; break;
-          case 'ti6d':      this.core_tu6d_offset       = i; break;
-          case 'ti10d':     this.core_tu10d_offset      = i; break;
-          case 'tf2d':      this.core_tuf2d_offset      = i; break;
-          case 'tf3d':      this.core_tuf3d_offset      = i; break;
-          case 'tf4d':      this.core_tuf4d_offset      = i; break;
-          case 'function':  this.core_function_offset   = i; break;
-          case 'TimeZone':  this.core_timezone_offset   = i; break;
+          case 'cubic': this.core_cubic_offset = i; break;
+          case 'ti2d': this.core_tu2d_offset = i; break;
+          case 'ti3d': this.core_tu3d_offset = i; break;
+          case 'ti4d': this.core_tu4d_offset = i; break;
+          case 'ti5d': this.core_tu5d_offset = i; break;
+          case 'ti6d': this.core_tu6d_offset = i; break;
+          case 'ti10d': this.core_tu10d_offset = i; break;
+          case 'tf2d': this.core_tuf2d_offset = i; break;
+          case 'tf3d': this.core_tuf3d_offset = i; break;
+          case 'tf4d': this.core_tuf4d_offset = i; break;
+          case 'function': this.core_function_offset = i; break;
+          case 'TimeZone': this.core_timezone_offset = i; break;
+          case 'Date': this.core_date_offset = i; break;
           default:
             // noop
             break;
@@ -233,13 +235,13 @@ export class Abi {
     }
   }
 
-  create(name: string, attributes: Value[]) {
+  create<T = GCObject>(name: string, attributes: Value[]): T | undefined {
     const t = this.type_by_fqn.get(name);
-    if (t == undefined) {
-      return null;
+    if (t === undefined) {
+      return;
     }
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, ...attributes);
+    return new t.factory!(t, ...attributes) as T;
   }
 
   createGeo(lat: number, lng: number) {
@@ -516,7 +518,7 @@ export class AbiAttribute {
     readonly sbi_type: PrimitiveType,
     readonly nullable: boolean,
     readonly mapped: boolean,
-  ) {}
+  ) { }
 }
 
 export class AbiFunction {
@@ -530,9 +532,9 @@ export class AbiFunction {
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
     readonly is_task: boolean,
-  ) {}
+  ) { }
 }
 
 export class AbiParam {
-  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) {}
+  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) { }
 }

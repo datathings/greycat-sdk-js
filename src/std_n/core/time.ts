@@ -2,7 +2,6 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
-import { duration } from '../../std/lib/core.js';
 
 export class time extends GCObject {
   static readonly _type = 'core::time' as const;
@@ -67,17 +66,17 @@ export class time extends GCObject {
     return 1;
   }
 
-  sub(other: time): duration {
-    return new duration(this.$type.abi.types[this.$type.abi.core_duration_offset], BigInt(this.value) - BigInt(other.value));
-  }
+  // sub(other: time): duration {
+  //   return new duration(this.$type.abi.types[this.$type.abi.core_duration_offset], BigInt(this.value) - BigInt(other.value));
+  // }
 
-  addDuration(other: duration): time {
-    return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) + BigInt(other.value));
-  }
+  // addDuration(other: duration): time {
+  //   return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) + BigInt(other.value));
+  // }
 
-  subDuration(other: duration): time {
-    return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) - BigInt(other.value));
-  }
+  // subDuration(other: duration): time {
+  //   return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) - BigInt(other.value));
+  // }
 
   override toJSON() {
     return {

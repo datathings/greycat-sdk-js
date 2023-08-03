@@ -129,7 +129,7 @@ export function stringify(props: StringifyProps): string {
     return text;
   }
   if (value instanceof core.time) {
-    const ms = typeof value.value === 'bigint' ? Number(value.value / 1_000n) : value.value / 1_000;
+    const ms = typeof value.value === 'bigint' ? Number(value.value / 1_000n) : Math.round(value.value / 1_000);
     const date = new Date(ms);
     if (isNaN(+date)) {
       // this Date is not "representable" as per the ECMA specs: https://tc39.es/ecma402/#sec-datetime-format-functions
@@ -143,9 +143,9 @@ export function stringify(props: StringifyProps): string {
   } else if (value instanceof core.Date) {
     return dateFmt.format(value.toDate());
   } else if (value instanceof core.Tuple) {
-    props.value = value.get_x();
+    props.value = value.x;
     const x = stringify(props);
-    props.value = value.get_y();
+    props.value = value.y;
     const y = stringify(props);
     return `(${x}, ${y})`;
   } else if (isNode(value)) {

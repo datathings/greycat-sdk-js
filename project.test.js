@@ -79,9 +79,9 @@ describe('project', () => {
       msg: '',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 9, column: 17 },
-        { module: 'project', fn: 'write_std', line: 13, column: 18 },
-        { module: 'project', fn: 'write_core', line: 88, column: 28 },
+        { module: 'project', fn: 'main', line: 8, column: 17 },
+        { module: 'project', fn: 'write_std', line: 12, column: 18 },
+        { module: 'project', fn: 'write_core', line: 86, column: 28 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -136,47 +136,7 @@ describe('project', () => {
     { _type: 'core::tf3d', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
     { _type: 'core::tf4d', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
 
-    // std::debug
-    { _type: 'debug::TypeAttr', name: '', is_static: false },
-    { _type: 'debug::TypeDesc', module: '', name: '', methods: [], attrs: [], is_abstract: true, is_enum: false },
-    { _type: 'debug::TypeRef', name: '', module: '', nullable: true },
-    { _type: 'debug::FnParam', name: '', type: { _type: 'debug::TypeRef', name: '', module: '', nullable: true } },
-    { _type: 'debug::FnMode', field: 'read_only' },
-    {
-      _type: 'debug::FnDesc',
-      module: '',
-      name: '',
-      params: [],
-      is_static: true,
-      is_task: false,
-      is_exclusive: true,
-      is_reserved: false,
-      is_exposed: true,
-      mode: { _type: 'debug::FnMode', field: 'read_only' },
-      permissions: [],
-    },
-    {
-      _type: 'debug::ModVarDesc',
-      module: '',
-      name: '',
-      type: {
-        _type: 'debug::TypeRef',
-        name: '',
-        module: '',
-        nullable: true,
-      },
-    },
-    {
-      _type: 'debug::ModDesc',
-      name: '',
-      lib: '',
-      functions: [],
-      types: [],
-      vars: [],
-    },
-
     // std::io
-    { _type: 'io::FileDescriptor', uri: '' },
     { _type: 'io::TextEncoder', field: 'plain' },
     { _type: 'io::CsvColumnString' },
     { _type: 'io::CsvColumnInteger' },
@@ -195,7 +155,6 @@ describe('project', () => {
       thousands_separator: '_',
       columns: [],
     },
-    { _type: 'io::JSON' },
 
     // std::math
     2.7182818284590455,  // MathConstants::e

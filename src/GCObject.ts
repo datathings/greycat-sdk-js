@@ -4,17 +4,17 @@ import { AbiType, AbiWriter, PrimitiveType, Value, std_n } from './index.js';
  * A dynamic GreyCat type instance, used when no matching class found in the factory
  */
 export class GCObject {
-  constructor(readonly $type: AbiType, readonly attributes: Value[] | null = null) {}
+  constructor(readonly $type: AbiType, readonly $attrs?: Value[]) { }
 
   getByName(name: string): Value | undefined {
     const offset = this.$type.attrs_by_name.get(name);
     if (!offset) {
-      return undefined;
+      return;
     }
     // we actually want this to throw if the attributes array is not initialized
     // so lets quiet down TypeScript here, and non-null-assert the array access
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.attributes![offset];
+    return this.$attrs![offset];
   }
 
   setByName(name: string, value: Value): void {
@@ -25,31 +25,7 @@ export class GCObject {
     // we actually want this to throw if the attributes array is not initialized
     // so lets quiet down TypeScript here, and non-null-assert the array access
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.attributes![offset] = value;
-  }
-
-  get(offset: number): Value | undefined {
-    // we actually want this to throw if the attributes array is not initialized
-    // so lets quiet down TypeScript here, and non-null-assert the array access
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.attributes![offset];
-  }
-
-  set(offsetOrName: number | string, value: Value): void {
-    if (!this.attributes) {
-      return;
-    }
-
-    if (typeof offsetOrName === 'string') {
-      const off = this.$type.attrs_by_name.get(offsetOrName);
-      if (off === undefined) {
-        return;
-      }
-      this.attributes[off] = value;
-      return;
-    }
-
-    this.attributes[offsetOrName] = value;
+    this.$attrs![offset] = value;
   }
 
   saveHeader(w: AbiWriter): void {
@@ -67,8 +43,8 @@ export class GCObject {
         att = this.$type.attrs[offset];
         if (att.nullable) {
           let nullish = true;
-          if (this.attributes) {
-            nullish = this.attributes[offset] === null || this.attributes[offset] === undefined;
+          if (this.$attrs) {
+            nullish = this.$attrs[offset] === null || this.$attrs[offset] === undefined;
           }
           if (nullish) {
             gc_object__set_null(nullable_bitset, nullable_offset);
@@ -82,10 +58,10 @@ export class GCObject {
     }
 
     // write object values
-    if (this.attributes) {
-      for (let i = 0; i < this.attributes.length; i++) {
+    if (this.$attrs) {
+      for (let i = 0; i < this.$attrs.length; i++) {
         const att = this.$type.attrs[i];
-        const value = this.attributes[i];
+        const value = this.$attrs[i];
         if (att.nullable && (value === null || value === undefined)) {
           // skip nullable field that is actually 'null'
           continue;
@@ -157,13 +133,13 @@ export class GCObject {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   toJSON(): any {
-    if (!this.attributes) {
+    if (!this.$attrs) {
       return { _type: this.$type.name };
     }
 
     const json: Record<string, Value> = { _type: this.$type.name };
-    for (let i = 0; i < this.attributes.length; i++) {
-      json[this.$type.attrs[i].name] = this.attributes[i];
+    for (let i = 0; i < this.$attrs.length; i++) {
+      json[this.$type.attrs[i].name] = this.$attrs[i];
     }
     return json;
   }

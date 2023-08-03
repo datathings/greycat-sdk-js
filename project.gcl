@@ -1,4 +1,3 @@
-use debug;
 use io;
 use math;
 use runtime;
@@ -11,7 +10,6 @@ fn main() {
 
 fn write_std(out: GcbWriter) {
   write_core(out);
-  write_debug(out);
   write_io(out);
   write_math(out);
   write_runtime(out);
@@ -98,7 +96,7 @@ fn write_core(out: GcbWriter) {
   out.write(Array<nodeTime>::new(0));
   out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));
   out.write(nodeIndex<Tuple>::new());
-  out.write(GeoPoly::new([13_geo, 37_geo, 13_geo]));
+  out.write(GeoPoly { points: [13_geo, 37_geo, 13_geo] });
   out.write(DatePart::days);
   out.write(nodeGeo<DatePart>::new());
   out.write(ti2d::new(13, 37));
@@ -112,69 +110,9 @@ fn write_core(out: GcbWriter) {
   out.write(tf4d::new(13.37, 12.42, -13.37, -12.42));
 }
 
-fn write_debug(out: GcbWriter) {
-  out.write(TypeAttr {
-      name: "",
-      is_static: false,
-    });
-  out.write(TypeDesc {
-      module: "",
-      name: "",
-      methods: [],
-      attrs: [],
-      is_abstract: true,
-      is_enum: false,
-    });
-  out.write(TypeRef {
-      name: "",
-      module: "",
-      nullable: true,
-    });
-  out.write(FnParam {
-      name: "",
-      type: TypeRef {
-        name: "",
-        module: "",
-        nullable: true,
-      },
-    });
-  out.write(FnMode::read_only);
-  out.write(FnDesc {
-      module: "",
-      name: "",
-      params: [],
-      is_static: true,
-      is_task: false,
-      is_exclusive: true,
-      is_reserved: false,
-      is_exposed: true,
-      mode: FnMode::read_only,
-      permissions: [],
-    });
-  out.write(ModVarDesc {
-      module: "",
-      name: "",
-      type: TypeRef {
-        name: "",
-        module: "",
-        nullable: true,
-      },
-    });
-  out.write(ModDesc {
-      name: "",
-      lib: "",
-      functions: [],
-      types: [],
-      vars: [],
-    });
-}
-
 fn write_io(out: GcbWriter) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
-  out.write(FileDescriptor {
-      uri: "",
-    });
   out.write(TextEncoder::plain);
   out.write(CsvColumnString {});
   out.write(CsvColumnInteger {});
@@ -192,7 +130,6 @@ fn write_io(out: GcbWriter) {
       thousands_separator: '_',
       columns: [],
     });
-  out.write(JSON {});
   // out.write(File::open("project.gcl")); // unsupported
   // out.write(Directory::open(".")); // unsupported
   // out.write(FileWriter::new("project.gcl", true)); // unsupported

@@ -11,7 +11,6 @@ export * from './Date.js';
 export * from './Array.js';
 export * from './Map.js';
 export * from './Table.js';
-export * from './GeoPoly.js';
 export * from './Tensor.js';
 export * from './nodeIndexBucket.js';
 export * from './String.js';

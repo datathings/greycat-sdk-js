@@ -6,16 +6,16 @@ import { GCObject } from '../../GCObject.js';
 export class Table extends GCObject {
   static readonly _type = 'core::Table' as const;
 
-  constructor(type: AbiType, public cols: Array<Value[]>, public rows: number, public meta: InternalMeta[]) {
+  constructor(type: AbiType, public cols: Array<Value[]>, public rows: number, public meta: NativeTableColumnMeta[]) {
     super(type);
   }
 
   static load(r: AbiReader, type: AbiType): Table {
     const cols_len = r.read_vu32();
     const rows = r.read_vu32();
-    const meta: InternalMeta[] = new Array(cols_len);
+    const meta: NativeTableColumnMeta[] = new Array(cols_len);
     for (let i = 0; i < meta.length; i++) {
-      meta[i] = InternalMeta.load(r);
+      meta[i] = NativeTableColumnMeta.load(r);
     }
 
     const cols = new Array(cols_len);
@@ -122,15 +122,15 @@ export class Table extends GCObject {
   }
 }
 
-class InternalMeta {
-  constructor(public col_type: PrimitiveType, public type: number, public index: boolean) {}
+export class NativeTableColumnMeta {
+  constructor(public col_type: PrimitiveType, public type: number, public index: boolean) { }
 
-  static load(r: AbiReader): InternalMeta {
+  static load(r: AbiReader): NativeTableColumnMeta {
     const col_type = r.read_vu32() as PrimitiveType;
     const type = r.read_vu32();
     const index = r.read_bool();
 
-    return new InternalMeta(col_type, type, index);
+    return new NativeTableColumnMeta(col_type, type, index);
   }
 
   saveContent(w: AbiWriter) {

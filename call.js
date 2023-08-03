@@ -1,3 +1,4 @@
+import { writeFileSync } from 'fs';
 import { GreyCat } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
@@ -13,6 +14,7 @@ const greycat = await GreyCat.init({
 console.timeEnd('abi');
 
 console.time('value');
+
 try {
   const value = await greycat.call(args[0]);
   displayValue(value);

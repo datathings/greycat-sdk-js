@@ -1,4 +1,4 @@
-import { AbiType } from '../../abi.js';
+import { Abi, AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
@@ -6,7 +6,7 @@ import { GCObject } from '../../GCObject.js';
 export class Table extends GCObject {
   static readonly _type = 'core::Table' as const;
 
-  constructor(type: AbiType, public cols: Array<Value[]>, public rows: number, public meta: NativeTableColumnMeta[]) {
+  constructor(type: AbiType, public cols: Array<Value[]>, public meta: NativeTableColumnMeta[]) {
     super(type);
   }
 
@@ -21,6 +21,7 @@ export class Table extends GCObject {
     const cols = new Array(cols_len);
     for (let col = 0; col < cols.length; col++) {
       const values: Value[] = new Array(rows);
+      cols[col] = values;
       const sbi_type = meta[col].col_type;
       switch (sbi_type) {
         case PrimitiveType.null:
@@ -65,12 +66,14 @@ export class Table extends GCObject {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, cols, rows, meta) as Table;
+    return new type.factory!(type, cols, meta) as Table;
   }
 
   override saveContent(w: AbiWriter) {
+    const nbRows = this.cols[0]?.length ?? 0;
+
     w.write_vu32(this.cols.length);
-    w.write_vu32(this.rows);
+    w.write_vu32(nbRows);
 
     for (let i = 0; i < this.meta.length; i++) {
       this.meta[i].saveContent(w);
@@ -82,14 +85,14 @@ export class Table extends GCObject {
         case PrimitiveType.null:
           break;
         case PrimitiveType.int:
-          for (let row = 0; row < this.rows; row++) {
+          for (let row = 0; row < nbRows; row++) {
             w.write_vi64(BigInt(this.cols[col][row] as number | bigint));
           }
           break;
         case PrimitiveType.time:
         case PrimitiveType.duration:
         case PrimitiveType.enum:
-          for (let row = 0; row < this.rows; row++) {
+          for (let row = 0; row < nbRows; row++) {
             (this.cols[col][row] as GCObject).saveContent(w);
           }
           break;
@@ -100,7 +103,7 @@ export class Table extends GCObject {
         }
         default:
           // gc_undefined, gc_object
-          for (let row = 0; row < this.rows; row++) {
+          for (let row = 0; row < nbRows; row++) {
             w.serialize(this.cols[col][row]);
           }
           break;
@@ -123,19 +126,33 @@ export class Table extends GCObject {
 }
 
 export class NativeTableColumnMeta {
-  constructor(public col_type: PrimitiveType, public type: number, public index: boolean) { }
+  constructor(readonly abi: Abi, public col_type: PrimitiveType, public type: number, public index: boolean) { }
 
   static load(r: AbiReader): NativeTableColumnMeta {
-    const col_type = r.read_vu32() as PrimitiveType;
-    const type = r.read_vu32();
+    const col_type = r.read_u8() as PrimitiveType;
     const index = r.read_bool();
+    let type = 0;
+    if (col_type == PrimitiveType.object || col_type == PrimitiveType.enum) {
+      type = r.read_vu32();
+    }
 
-    return new NativeTableColumnMeta(col_type, type, index);
+    return new NativeTableColumnMeta(r.abi, col_type, type, index);
   }
 
   saveContent(w: AbiWriter) {
-    w.write_vu32(this.col_type);
-    w.write_vu32(this.type);
+    w.write_u8(this.col_type);
     w.write_bool(this.index);
+    if (this.col_type == PrimitiveType.object || this.col_type == PrimitiveType.enum) {
+      w.write_vu32(this.type);
+    }
+  }
+
+  toJSON() {
+    return {
+      _type: 'core::TableColumnMeta',
+      col_type: this.col_type,
+      type: this.type,
+      index: this.index,
+    }
   }
 }

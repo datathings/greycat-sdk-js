@@ -199,7 +199,6 @@ describe('project', () => {
         end: { _type: 'core::time', epoch: 0, us: 37 },
         max_workers: 12,
         max_memory: 42,
-        max_store: 0,
       },
       io_threads: 13,
       bg_threads: 37,
@@ -232,7 +231,6 @@ describe('project', () => {
       end: { _type: 'core::time', epoch: 0, us: 37 },
       max_workers: 12,
       max_memory: 42,
-      max_store: 0,
     },
     {
       _type: 'runtime::StoreStat',
@@ -261,7 +259,6 @@ describe('project', () => {
     { _type: 'util::TimeWindow' },
     { _type: 'util::SlidingWindow' },
     { _type: 'util::Queue' },
-    { _type: 'util::HistogramBucket', field: 'from' },
     { _type: 'util::Crypto' },
   ];
 

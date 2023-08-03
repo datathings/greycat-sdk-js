@@ -176,7 +176,6 @@ fn write_runtime(out: GcbWriter) {
         end: 37_time,
         max_workers: 12,
         max_memory: 42,
-        max_store: 0,
       },
       io_threads: 13,
       bg_threads: 37,
@@ -217,12 +216,11 @@ fn write_runtime(out: GcbWriter) {
     });
   out.write(UserGroupPolicyType::read);
   out.write(License {
-      start: 13_time,
-      end: 37_time,
-      max_workers: 12,
-      max_memory: 42,
-      max_store: 0,
-    });
+    start: 13_time,
+    end: 37_time,
+    max_workers: 12,
+    max_memory: 42,
+  });
   out.write(StoreStat {
       capacity_bytes: 13,
       allocated_bytes: 37,
@@ -258,7 +256,6 @@ fn write_util(out: GcbWriter) {
   out.write(TimeWindow::new());
   out.write(SlidingWindow::new());
   out.write(Queue<SlidingWindow>::new());
-  out.write(HistogramBucket::from);
   /* wrong null for T fields
   out.write(BoxPlotF64{
       min: 0.0,
@@ -284,4 +281,16 @@ fn write_util(out: GcbWriter) {
     */
   // out.write(ByteArray{}); // segfault
   out.write(Crypto {});
+}
+
+@expose
+fn table() {
+  var table = Table::new(3);
+  for (var colIdx = 0; colIdx < table.cols(); colIdx++) {
+    for (var rowIdx = 0; rowIdx < 10; rowIdx++) {
+      table.set(rowIdx, colIdx, "${colIdx}, ${rowIdx}");
+    }
+  }
+
+  return table;
 }

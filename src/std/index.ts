@@ -3563,227 +3563,38 @@ export class License extends $sdk.GCObject {
   public set max_memory(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  public get max_store(): bigint | number {
+  public get extra_1(): bigint | number | null {
     return this.$attrs[this.$type.generated_offsets[6]];
   }
-  public set max_store(v: bigint | number) {
+  public set extra_1(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
-  public get extra_1(): bigint | number | null {
+  public get extra_2(): bigint | number | null {
     return this.$attrs[this.$type.generated_offsets[7]];
   }
-  public set extra_1(v: bigint | number | null) {
+  public set extra_2(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[7]] = v;
   }
-  public get extra_2(): bigint | number | null {
+  public get extra_3(): bigint | number | null {
     return this.$attrs[this.$type.generated_offsets[8]];
   }
-  public set extra_2(v: bigint | number | null) {
+  public set extra_3(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[8]] = v;
   }
-  public get extra_3(): bigint | number | null {
+  public get extra_4(): bigint | number | null {
     return this.$attrs[this.$type.generated_offsets[9]];
   }
-  public set extra_3(v: bigint | number | null) {
+  public set extra_4(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[9]] = v;
   }
-  public get extra_4(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set extra_4(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, max_store: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null): License {
-    return new License($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[55], name, start, end, company, max_workers, max_memory, max_store, extra_1, extra_2, extra_3, extra_4);
+  static create($g: $sdk.GreyCat, name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null): License {
+    return new License($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[55], name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4);
   }
 }
 
 }
 
 export namespace io {
-export class CsvColumnDate extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnDate';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get format(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set format(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get tz(): core.TimeZone | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set tz(v: core.TimeZone | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get as_time(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set as_time(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null): CsvColumnDate {
-    return new CsvColumnDate($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[56], name, mandatory, format, tz, as_time);
-  }
-}
-
-export class File extends $sdk.GCObject {
-  static readonly _type = 'io::File';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get path(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set path(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get size(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set size(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get last_modification(): $sdk.std.core.time | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set last_modification(v: $sdk.std.core.time | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create($g: $sdk.GreyCat, path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): File {
-    return new File($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[57], path, size, last_modification);
-  }
-}
-
-export class SmtpAuth extends $sdk.GCEnum {
-  static readonly _type = 'io::SmtpAuth';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static none($g: $sdk.GreyCat): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58];
-    return t.enum_values![t.generated_offsets[0]] as io.SmtpAuth;
-  }
-  public static plain($g: $sdk.GreyCat): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58];
-    return t.enum_values![t.generated_offsets[1]] as io.SmtpAuth;
-  }
-  public static login($g: $sdk.GreyCat): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58];
-    return t.enum_values![t.generated_offsets[2]] as io.SmtpAuth;
-  }
-}
-
-export class Http extends $sdk.GCObject {
-  static readonly _type = 'io::Http';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  static create($g: $sdk.GreyCat): Http {
-    return new Http($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[59]);
-  }
-}
-
-export class CsvColumnBoolean extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnBoolean';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnBoolean {
-    return new CsvColumnBoolean($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[60], name, mandatory);
-  }
-}
-
-export class CsvFormat extends $sdk.GCObject {
-  static readonly _type = 'io::CsvFormat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get header_lines(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set header_lines(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get infer(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set infer(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get string_delimiter(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set string_delimiter(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get decimal_separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set decimal_separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get thousands_separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set thousands_separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get columns(): Array<io.CsvColumn> | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set columns(v: Array<io.CsvColumn> | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create($g: $sdk.GreyCat, header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<io.CsvColumn> | null): CsvFormat {
-    return new CsvFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[61], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
-  }
-}
-
 export class Email extends $sdk.GCObject {
   static readonly _type = 'io::Email';
 
@@ -3834,7 +3645,133 @@ export class Email extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, from: string, subject: string, body: string, body_is_html: boolean, to: Array<string>, cc: Array<string> | null, bcc: Array<string> | null): Email {
-    return new Email($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[62], from, subject, body, body_is_html, to, cc, bcc);
+    return new Email($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[56], from, subject, body, body_is_html, to, cc, bcc);
+  }
+}
+
+export class Smtp extends $sdk.GCObject {
+  static readonly _type = 'io::Smtp';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get host(): string {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set host(v: string) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get port(): bigint | number {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set port(v: bigint | number) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get mode(): io.SmtpMode | null {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set mode(v: io.SmtpMode | null) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  public get authenticate(): io.SmtpAuth | null {
+    return this.$attrs[this.$type.generated_offsets[3]];
+  }
+  public set authenticate(v: io.SmtpAuth | null) {
+    this.$attrs[this.$type.generated_offsets[3]] = v;
+  }
+  public get user(): string | null {
+    return this.$attrs[this.$type.generated_offsets[4]];
+  }
+  public set user(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[4]] = v;
+  }
+  public get pass(): string | null {
+    return this.$attrs[this.$type.generated_offsets[5]];
+  }
+  public set pass(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[5]] = v;
+  }
+  static create($g: $sdk.GreyCat, host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null): Smtp {
+    return new Smtp($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[57], host, port, mode, authenticate, user, pass);
+  }
+}
+
+export class CsvColumnTime extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnTime';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get unit(): core.DurationUnit | null {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set unit(v: core.DurationUnit | null) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null): CsvColumnTime {
+    return new CsvColumnTime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[58], name, mandatory, unit);
+  }
+}
+
+export class CsvColumn extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumn';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumn {
+    return new CsvColumn($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[59], name, mandatory);
+  }
+}
+
+export class HttpHeader extends $sdk.GCObject {
+  static readonly _type = 'io::HttpHeader';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get value(): string {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set value(v: string) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string, value: string): HttpHeader {
+    return new HttpHeader($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[60], name, value);
   }
 }
 
@@ -3846,15 +3783,15 @@ export class SmtpMode extends $sdk.GCEnum {
   }
 
   public static plain($g: $sdk.GreyCat): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[61];
     return t.enum_values![t.generated_offsets[0]] as io.SmtpMode;
   }
   public static ssl_tls($g: $sdk.GreyCat): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[61];
     return t.enum_values![t.generated_offsets[1]] as io.SmtpMode;
   }
   public static starttls($g: $sdk.GreyCat): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63];
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[61];
     return t.enum_values![t.generated_offsets[2]] as io.SmtpMode;
   }
 }
@@ -3909,230 +3846,7 @@ export class CsvColumnString extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: io.TextEncoder | null): CsvColumnString {
-    return new CsvColumnString($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[64], name, mandatory, trim, try_number, try_json, values, encoder);
-  }
-}
-
-export class HttpHeader extends $sdk.GCObject {
-  static readonly _type = 'io::HttpHeader';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get value(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set value(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string, value: string): HttpHeader {
-    return new HttpHeader($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[65], name, value);
-  }
-}
-
-export class CsvColumnFloat extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnFloat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnFloat {
-    return new CsvColumnFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[66], name, mandatory);
-  }
-}
-
-export class CsvColumnTime extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnTime';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get unit(): core.DurationUnit | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set unit(v: core.DurationUnit | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null): CsvColumnTime {
-    return new CsvColumnTime($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[67], name, mandatory, unit);
-  }
-}
-
-export class CsvColumn extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumn';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumn {
-    return new CsvColumn($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[68], name, mandatory);
-  }
-}
-
-export class Smtp extends $sdk.GCObject {
-  static readonly _type = 'io::Smtp';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get host(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set host(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get port(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set port(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get mode(): io.SmtpMode | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set mode(v: io.SmtpMode | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get authenticate(): io.SmtpAuth | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set authenticate(v: io.SmtpAuth | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get user(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set user(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get pass(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set pass(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  static create($g: $sdk.GreyCat, host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null): Smtp {
-    return new Smtp($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[69], host, port, mode, authenticate, user, pass);
-  }
-}
-
-export class CsvColumnIgnored extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnIgnored';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnIgnored {
-    return new CsvColumnIgnored($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[70], name, mandatory);
-  }
-}
-
-export class CsvColumnInteger extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnInteger';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnInteger {
-    return new CsvColumnInteger($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[71], name, mandatory);
-  }
-}
-
-export class TextEncoder extends $sdk.GCEnum {
-  static readonly _type = 'io::TextEncoder';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static plain($g: $sdk.GreyCat): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72];
-    return t.enum_values![t.generated_offsets[0]] as io.TextEncoder;
-  }
-  public static base64($g: $sdk.GreyCat): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72];
-    return t.enum_values![t.generated_offsets[1]] as io.TextEncoder;
-  }
-  public static base64url($g: $sdk.GreyCat): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72];
-    return t.enum_values![t.generated_offsets[2]] as io.TextEncoder;
-  }
-  public static hexadecimal($g: $sdk.GreyCat): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72];
-    return t.enum_values![t.generated_offsets[3]] as io.TextEncoder;
+    return new CsvColumnString($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[62], name, mandatory, trim, try_number, try_json, values, encoder);
   }
 }
 
@@ -4180,7 +3894,287 @@ export class Url extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
   static create($g: $sdk.GreyCat, protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: Map<string, string> | null, hash: string | null): Url {
-    return new Url($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[73], protocol, host, port, path, params, hash);
+    return new Url($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[63], protocol, host, port, path, params, hash);
+  }
+}
+
+export class TextEncoder extends $sdk.GCEnum {
+  static readonly _type = 'io::TextEncoder';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes[0], attributes[1], attributes[2]);
+  }
+
+  public static plain($g: $sdk.GreyCat): io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[64];
+    return t.enum_values![t.generated_offsets[0]] as io.TextEncoder;
+  }
+  public static base64($g: $sdk.GreyCat): io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[64];
+    return t.enum_values![t.generated_offsets[1]] as io.TextEncoder;
+  }
+  public static base64url($g: $sdk.GreyCat): io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[64];
+    return t.enum_values![t.generated_offsets[2]] as io.TextEncoder;
+  }
+  public static hexadecimal($g: $sdk.GreyCat): io.TextEncoder {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[64];
+    return t.enum_values![t.generated_offsets[3]] as io.TextEncoder;
+  }
+}
+
+export class CsvColumnInteger extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnInteger';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnInteger {
+    return new CsvColumnInteger($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[65], name, mandatory);
+  }
+}
+
+export class File extends $sdk.GCObject {
+  static readonly _type = 'io::File';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get path(): string {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set path(v: string) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get size(): bigint | number | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set size(v: bigint | number | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get last_modification(): $sdk.std.core.time | null {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set last_modification(v: $sdk.std.core.time | null) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  static create($g: $sdk.GreyCat, path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): File {
+    return new File($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[66], path, size, last_modification);
+  }
+}
+
+export class Http extends $sdk.GCObject {
+  static readonly _type = 'io::Http';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  static create($g: $sdk.GreyCat): Http {
+    return new Http($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[67]);
+  }
+}
+
+export class CsvColumnBoolean extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnBoolean';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnBoolean {
+    return new CsvColumnBoolean($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[68], name, mandatory);
+  }
+}
+
+export class SmtpAuth extends $sdk.GCEnum {
+  static readonly _type = 'io::SmtpAuth';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, attributes[0], attributes[1], attributes[2]);
+  }
+
+  public static none($g: $sdk.GreyCat): io.SmtpAuth {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[69];
+    return t.enum_values![t.generated_offsets[0]] as io.SmtpAuth;
+  }
+  public static plain($g: $sdk.GreyCat): io.SmtpAuth {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[69];
+    return t.enum_values![t.generated_offsets[1]] as io.SmtpAuth;
+  }
+  public static login($g: $sdk.GreyCat): io.SmtpAuth {
+    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[69];
+    return t.enum_values![t.generated_offsets[2]] as io.SmtpAuth;
+  }
+}
+
+export class CsvColumnDate extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnDate';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get format(): string | null {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set format(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  public get tz(): core.TimeZone | null {
+    return this.$attrs[this.$type.generated_offsets[3]];
+  }
+  public set tz(v: core.TimeZone | null) {
+    this.$attrs[this.$type.generated_offsets[3]] = v;
+  }
+  public get as_time(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[4]];
+  }
+  public set as_time(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[4]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null): CsvColumnDate {
+    return new CsvColumnDate($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[70], name, mandatory, format, tz, as_time);
+  }
+}
+
+export class CsvColumnFloat extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnFloat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnFloat {
+    return new CsvColumnFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[71], name, mandatory);
+  }
+}
+
+export class CsvColumnIgnored extends $sdk.GCObject {
+  static readonly _type = 'io::CsvColumnIgnored';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get name(): string | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set name(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get mandatory(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set mandatory(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnIgnored {
+    return new CsvColumnIgnored($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[72], name, mandatory);
+  }
+}
+
+export class CsvFormat extends $sdk.GCObject {
+  static readonly _type = 'io::CsvFormat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get header_lines(): bigint | number | null {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set header_lines(v: bigint | number | null) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get infer(): boolean | null {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set infer(v: boolean | null) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get separator(): string | null {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set separator(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  public get string_delimiter(): string | null {
+    return this.$attrs[this.$type.generated_offsets[3]];
+  }
+  public set string_delimiter(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[3]] = v;
+  }
+  public get decimal_separator(): string | null {
+    return this.$attrs[this.$type.generated_offsets[4]];
+  }
+  public set decimal_separator(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[4]] = v;
+  }
+  public get thousands_separator(): string | null {
+    return this.$attrs[this.$type.generated_offsets[5]];
+  }
+  public set thousands_separator(v: string | null) {
+    this.$attrs[this.$type.generated_offsets[5]] = v;
+  }
+  public get columns(): Array<io.CsvColumn> | null {
+    return this.$attrs[this.$type.generated_offsets[6]];
+  }
+  public set columns(v: Array<io.CsvColumn> | null) {
+    this.$attrs[this.$type.generated_offsets[6]] = v;
+  }
+  static create($g: $sdk.GreyCat, header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<io.CsvColumn> | null): CsvFormat {
+    return new CsvFormat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[73], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
   }
 }
 
@@ -4254,290 +4248,41 @@ export class MathConstants extends $sdk.GCObject {
 }
 
 export namespace util {
-export class Queue extends std_n.util.Queue {}
+export class Assert extends $sdk.GCObject {
+  static readonly _type = 'util::Assert';
 
-export class TimeWindow extends std_n.util.TimeWindow {}
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  static create($g: $sdk.GreyCat): Assert {
+    return new Assert($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[75]);
+  }
+}
+
+export class HistogramInt extends std_n.util.HistogramInt {}
+
+export class NdEncoding extends $sdk.GCObject {
+  static readonly _type = 'util::NdEncoding';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  static create($g: $sdk.GreyCat): NdEncoding {
+    return new NdEncoding($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[77]);
+  }
+}
+
+export class SlidingWindow extends std_n.util.SlidingWindow {}
+
+export class GaussianProfile extends std_n.util.GaussianProfile {}
 
 export class Quantizer extends std_n.util.Quantizer {}
 
+export class ProgressTracker extends std_n.util.ProgressTracker {}
+
 export class Iban extends std_n.util.Iban {}
-
-export class HistogramBucket extends $sdk.GCEnum {
-  static readonly _type = 'util::HistogramBucket';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
-  public static from($g: $sdk.GreyCat): util.HistogramBucket {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79];
-    return t.enum_values![t.generated_offsets[0]] as util.HistogramBucket;
-  }
-  public static to($g: $sdk.GreyCat): util.HistogramBucket {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79];
-    return t.enum_values![t.generated_offsets[1]] as util.HistogramBucket;
-  }
-  public static count($g: $sdk.GreyCat): util.HistogramBucket {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79];
-    return t.enum_values![t.generated_offsets[2]] as util.HistogramBucket;
-  }
-  public static percentage($g: $sdk.GreyCat): util.HistogramBucket {
-    const t = $g.abi.libs_by_name.get($std.stdlib.name)!.mapped[79];
-    return t.enum_values![t.generated_offsets[3]] as util.HistogramBucket;
-  }
-}
-
-export class BoxPlotI64 extends $sdk.GCObject {
-  static readonly _type = 'util::BoxPlotI64';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get min(): any {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set min(v: any) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get max(): any {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set max(v: any) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get whiskerLow(): any {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set whiskerLow(v: any) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get whiskerHigh(): any {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set whiskerHigh(v: any) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get percentile1(): any {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set percentile1(v: any) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get percentile5(): any {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set percentile5(v: any) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get percentile25(): any {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set percentile25(v: any) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get percentile50(): any {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set percentile50(v: any) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get percentile75(): any {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set percentile75(v: any) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get percentile95(): any {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set percentile95(v: any) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get percentile99(): any {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set percentile99(v: any) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  public get countOutliersLow(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[11]];
-  }
-  public set countOutliersLow(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[11]] = v;
-  }
-  public get countOutliersHigh(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[12]];
-  }
-  public set countOutliersHigh(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[12]] = v;
-  }
-  public get percentageOutliersLow(): number {
-    return this.$attrs[this.$type.generated_offsets[13]];
-  }
-  public set percentageOutliersLow(v: number) {
-    this.$attrs[this.$type.generated_offsets[13]] = v;
-  }
-  public get percentageOutliersHigh(): number {
-    return this.$attrs[this.$type.generated_offsets[14]];
-  }
-  public set percentageOutliersHigh(v: number) {
-    this.$attrs[this.$type.generated_offsets[14]] = v;
-  }
-  public get sum(): number {
-    return this.$attrs[this.$type.generated_offsets[15]];
-  }
-  public set sum(v: number) {
-    this.$attrs[this.$type.generated_offsets[15]] = v;
-  }
-  public get avg(): number {
-    return this.$attrs[this.$type.generated_offsets[16]];
-  }
-  public set avg(v: number) {
-    this.$attrs[this.$type.generated_offsets[16]] = v;
-  }
-  public get std(): number {
-    return this.$attrs[this.$type.generated_offsets[17]];
-  }
-  public set std(v: number) {
-    this.$attrs[this.$type.generated_offsets[17]] = v;
-  }
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[18]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[18]] = v;
-  }
-  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotI64 {
-    return new BoxPlotI64($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[80], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-  }
-}
-
-export class BoxPlotF64 extends $sdk.GCObject {
-  static readonly _type = 'util::BoxPlotF64';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get min(): any {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set min(v: any) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get max(): any {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set max(v: any) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get whiskerLow(): any {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set whiskerLow(v: any) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get whiskerHigh(): any {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set whiskerHigh(v: any) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get percentile1(): any {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set percentile1(v: any) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get percentile5(): any {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set percentile5(v: any) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get percentile25(): any {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set percentile25(v: any) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get percentile50(): any {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set percentile50(v: any) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get percentile75(): any {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set percentile75(v: any) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get percentile95(): any {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set percentile95(v: any) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get percentile99(): any {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set percentile99(v: any) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  public get countOutliersLow(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[11]];
-  }
-  public set countOutliersLow(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[11]] = v;
-  }
-  public get countOutliersHigh(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[12]];
-  }
-  public set countOutliersHigh(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[12]] = v;
-  }
-  public get percentageOutliersLow(): number {
-    return this.$attrs[this.$type.generated_offsets[13]];
-  }
-  public set percentageOutliersLow(v: number) {
-    this.$attrs[this.$type.generated_offsets[13]] = v;
-  }
-  public get percentageOutliersHigh(): number {
-    return this.$attrs[this.$type.generated_offsets[14]];
-  }
-  public set percentageOutliersHigh(v: number) {
-    this.$attrs[this.$type.generated_offsets[14]] = v;
-  }
-  public get sum(): number {
-    return this.$attrs[this.$type.generated_offsets[15]];
-  }
-  public set sum(v: number) {
-    this.$attrs[this.$type.generated_offsets[15]] = v;
-  }
-  public get avg(): number {
-    return this.$attrs[this.$type.generated_offsets[16]];
-  }
-  public set avg(v: number) {
-    this.$attrs[this.$type.generated_offsets[16]] = v;
-  }
-  public get std(): number {
-    return this.$attrs[this.$type.generated_offsets[17]];
-  }
-  public set std(v: number) {
-    this.$attrs[this.$type.generated_offsets[17]] = v;
-  }
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[18]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[18]] = v;
-  }
-  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotF64 {
-    return new BoxPlotF64($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-  }
-}
 
 export class Random extends $sdk.GCObject {
   static readonly _type = 'util::Random';
@@ -4559,93 +4304,87 @@ export class Random extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, seed: bigint | number, v: number): Random {
-    return new Random($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[82], seed, v);
+    return new Random($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[83], seed, v);
   }
 }
 
-export class Histogram<T = any> extends $sdk.GCObject {
-  static readonly _type = 'util::Histogram';
+export class HistogramFloat extends std_n.util.HistogramFloat {}
+
+export class Queue extends std_n.util.Queue {}
+
+export class TimeWindow extends std_n.util.TimeWindow {}
+
+export class BoxPlotInt extends $sdk.GCObject {
+  static readonly _type = 'util::BoxPlotInt';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
     super(type, ...attributes);
   }
 
-  static create($g: $sdk.GreyCat): Histogram {
-    return new Histogram($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[83]);
-  }
-}
-
-export class BoxPlot<T = any> extends $sdk.GCObject {
-  static readonly _type = 'util::BoxPlot';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  public get min(): any {
+  public get min(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[0]];
   }
-  public set min(v: any) {
+  public set min(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  public get max(): any {
+  public get max(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[1]];
   }
-  public set max(v: any) {
+  public set max(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public get whiskerLow(): any {
+  public get whiskerLow(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[2]];
   }
-  public set whiskerLow(v: any) {
+  public set whiskerLow(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public get whiskerHigh(): any {
+  public get whiskerHigh(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[3]];
   }
-  public set whiskerHigh(v: any) {
+  public set whiskerHigh(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public get percentile1(): any {
+  public get percentile1(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[4]];
   }
-  public set percentile1(v: any) {
+  public set percentile1(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  public get percentile5(): any {
+  public get percentile5(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[5]];
   }
-  public set percentile5(v: any) {
+  public set percentile5(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  public get percentile25(): any {
+  public get percentile25(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[6]];
   }
-  public set percentile25(v: any) {
+  public set percentile25(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
-  public get percentile50(): any {
+  public get percentile50(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[7]];
   }
-  public set percentile50(v: any) {
+  public set percentile50(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[7]] = v;
   }
-  public get percentile75(): any {
+  public get percentile75(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[8]];
   }
-  public set percentile75(v: any) {
+  public set percentile75(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[8]] = v;
   }
-  public get percentile95(): any {
+  public get percentile95(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[9]];
   }
-  public set percentile95(v: any) {
+  public set percentile95(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[9]] = v;
   }
-  public get percentile99(): any {
+  public get percentile99(): bigint | number {
     return this.$attrs[this.$type.generated_offsets[10]];
   }
-  public set percentile99(v: any) {
+  public set percentile99(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[10]] = v;
   }
   public get countOutliersLow(): bigint | number {
@@ -4696,48 +4435,14 @@ export class BoxPlot<T = any> extends $sdk.GCObject {
   public set size(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[18]] = v;
   }
-  static create($g: $sdk.GreyCat, min: any, max: any, whiskerLow: any, whiskerHigh: any, percentile1: any, percentile5: any, percentile25: any, percentile50: any, percentile75: any, percentile95: any, percentile99: any, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlot {
-    return new BoxPlot($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[84], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+  static create($g: $sdk.GreyCat, min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotInt {
+    return new BoxPlotInt($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[87], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
   }
 }
-
-export class Buffer extends std_n.util.Buffer {}
-
-export class Assert extends $sdk.GCObject {
-  static readonly _type = 'util::Assert';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  static create($g: $sdk.GreyCat): Assert {
-    return new Assert($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[86]);
-  }
-}
-
-export class ProgressTracker extends std_n.util.ProgressTracker {}
-
-export class NdEncoding extends $sdk.GCObject {
-  static readonly _type = 'util::NdEncoding';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
-  }
-
-  static create($g: $sdk.GreyCat): NdEncoding {
-    return new NdEncoding($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[88]);
-  }
-}
-
-export class SlidingWindow extends std_n.util.SlidingWindow {}
-
-export class HistogramF64 extends std_n.util.HistogramF64 {}
-
-export class HistogramI64 extends std_n.util.HistogramI64 {}
-
-export class GaussianProfile extends std_n.util.GaussianProfile {}
 
 export class Gaussian extends std_n.util.Gaussian {}
+
+export class Buffer extends std_n.util.Buffer {}
 
 export class Crypto extends $sdk.GCObject {
   static readonly _type = 'util::Crypto';
@@ -4747,7 +4452,133 @@ export class Crypto extends $sdk.GCObject {
   }
 
   static create($g: $sdk.GreyCat): Crypto {
-    return new Crypto($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[94]);
+    return new Crypto($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[90]);
+  }
+}
+
+export class BoxPlotFloat extends $sdk.GCObject {
+  static readonly _type = 'util::BoxPlotFloat';
+
+  constructor(type: $sdk.AbiType, ...attributes: any[]) {
+    super(type, ...attributes);
+  }
+
+  public get min(): number {
+    return this.$attrs[this.$type.generated_offsets[0]];
+  }
+  public set min(v: number) {
+    this.$attrs[this.$type.generated_offsets[0]] = v;
+  }
+  public get max(): number {
+    return this.$attrs[this.$type.generated_offsets[1]];
+  }
+  public set max(v: number) {
+    this.$attrs[this.$type.generated_offsets[1]] = v;
+  }
+  public get whiskerLow(): number {
+    return this.$attrs[this.$type.generated_offsets[2]];
+  }
+  public set whiskerLow(v: number) {
+    this.$attrs[this.$type.generated_offsets[2]] = v;
+  }
+  public get whiskerHigh(): number {
+    return this.$attrs[this.$type.generated_offsets[3]];
+  }
+  public set whiskerHigh(v: number) {
+    this.$attrs[this.$type.generated_offsets[3]] = v;
+  }
+  public get percentile1(): number {
+    return this.$attrs[this.$type.generated_offsets[4]];
+  }
+  public set percentile1(v: number) {
+    this.$attrs[this.$type.generated_offsets[4]] = v;
+  }
+  public get percentile5(): number {
+    return this.$attrs[this.$type.generated_offsets[5]];
+  }
+  public set percentile5(v: number) {
+    this.$attrs[this.$type.generated_offsets[5]] = v;
+  }
+  public get percentile25(): number {
+    return this.$attrs[this.$type.generated_offsets[6]];
+  }
+  public set percentile25(v: number) {
+    this.$attrs[this.$type.generated_offsets[6]] = v;
+  }
+  public get percentile50(): number {
+    return this.$attrs[this.$type.generated_offsets[7]];
+  }
+  public set percentile50(v: number) {
+    this.$attrs[this.$type.generated_offsets[7]] = v;
+  }
+  public get percentile75(): number {
+    return this.$attrs[this.$type.generated_offsets[8]];
+  }
+  public set percentile75(v: number) {
+    this.$attrs[this.$type.generated_offsets[8]] = v;
+  }
+  public get percentile95(): number {
+    return this.$attrs[this.$type.generated_offsets[9]];
+  }
+  public set percentile95(v: number) {
+    this.$attrs[this.$type.generated_offsets[9]] = v;
+  }
+  public get percentile99(): number {
+    return this.$attrs[this.$type.generated_offsets[10]];
+  }
+  public set percentile99(v: number) {
+    this.$attrs[this.$type.generated_offsets[10]] = v;
+  }
+  public get countOutliersLow(): bigint | number {
+    return this.$attrs[this.$type.generated_offsets[11]];
+  }
+  public set countOutliersLow(v: bigint | number) {
+    this.$attrs[this.$type.generated_offsets[11]] = v;
+  }
+  public get countOutliersHigh(): bigint | number {
+    return this.$attrs[this.$type.generated_offsets[12]];
+  }
+  public set countOutliersHigh(v: bigint | number) {
+    this.$attrs[this.$type.generated_offsets[12]] = v;
+  }
+  public get percentageOutliersLow(): number {
+    return this.$attrs[this.$type.generated_offsets[13]];
+  }
+  public set percentageOutliersLow(v: number) {
+    this.$attrs[this.$type.generated_offsets[13]] = v;
+  }
+  public get percentageOutliersHigh(): number {
+    return this.$attrs[this.$type.generated_offsets[14]];
+  }
+  public set percentageOutliersHigh(v: number) {
+    this.$attrs[this.$type.generated_offsets[14]] = v;
+  }
+  public get sum(): number {
+    return this.$attrs[this.$type.generated_offsets[15]];
+  }
+  public set sum(v: number) {
+    this.$attrs[this.$type.generated_offsets[15]] = v;
+  }
+  public get avg(): number {
+    return this.$attrs[this.$type.generated_offsets[16]];
+  }
+  public set avg(v: number) {
+    this.$attrs[this.$type.generated_offsets[16]] = v;
+  }
+  public get std(): number {
+    return this.$attrs[this.$type.generated_offsets[17]];
+  }
+  public set std(v: number) {
+    this.$attrs[this.$type.generated_offsets[17]] = v;
+  }
+  public get size(): bigint | number {
+    return this.$attrs[this.$type.generated_offsets[18]];
+  }
+  public set size(v: bigint | number) {
+    this.$attrs[this.$type.generated_offsets[18]] = v;
+  }
+  static create($g: $sdk.GreyCat, min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotFloat {
+    return new BoxPlotFloat($g.abi.libs_by_name.get($std.stdlib.name)!.mapped[91], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
   }
 }
 
@@ -4838,59 +4669,56 @@ export const stdlib: $sdk.Library = {
     factories.set(runtime.UserRole._type, runtime.UserRole);
     factories.set(runtime.OpenIDConnect._type, runtime.OpenIDConnect);
     factories.set(runtime.License._type, runtime.License);
-    factories.set(io.CsvColumnDate._type, io.CsvColumnDate);
-    factories.set(io.File._type, io.File);
-    factories.set(io.SmtpAuth._type, io.SmtpAuth);
-    factories.set(io.Http._type, io.Http);
-    factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
-    factories.set(io.CsvFormat._type, io.CsvFormat);
     factories.set(io.Email._type, io.Email);
-    factories.set(io.SmtpMode._type, io.SmtpMode);
-    factories.set(io.CsvColumnString._type, io.CsvColumnString);
-    factories.set(io.HttpHeader._type, io.HttpHeader);
-    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
+    factories.set(io.Smtp._type, io.Smtp);
     factories.set(io.CsvColumnTime._type, io.CsvColumnTime);
     factories.set(io.CsvColumn._type, io.CsvColumn);
-    factories.set(io.Smtp._type, io.Smtp);
-    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
-    factories.set(io.CsvColumnInteger._type, io.CsvColumnInteger);
-    factories.set(io.TextEncoder._type, io.TextEncoder);
+    factories.set(io.HttpHeader._type, io.HttpHeader);
+    factories.set(io.SmtpMode._type, io.SmtpMode);
+    factories.set(io.CsvColumnString._type, io.CsvColumnString);
     factories.set(io.Url._type, io.Url);
+    factories.set(io.TextEncoder._type, io.TextEncoder);
+    factories.set(io.CsvColumnInteger._type, io.CsvColumnInteger);
+    factories.set(io.File._type, io.File);
+    factories.set(io.Http._type, io.Http);
+    factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
+    factories.set(io.SmtpAuth._type, io.SmtpAuth);
+    factories.set(io.CsvColumnDate._type, io.CsvColumnDate);
+    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
+    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
+    factories.set(io.CsvFormat._type, io.CsvFormat);
     factories.set(math.MathConstants._type, math.MathConstants);
+    factories.set(util.Assert._type, util.Assert);
+    factories.set(util.HistogramInt._type, util.HistogramInt);
+    loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
+    factories.set(util.NdEncoding._type, util.NdEncoding);
+    factories.set(util.SlidingWindow._type, util.SlidingWindow);
+    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
+    factories.set(util.GaussianProfile._type, util.GaussianProfile);
+    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.Quantizer._type, util.Quantizer);
+    loaders.set(util.Quantizer._type, std_n.util.Quantizer.load);
+    factories.set(util.ProgressTracker._type, util.ProgressTracker);
+    loaders.set(util.ProgressTracker._type, std_n.util.ProgressTracker.load);
+    factories.set(util.Iban._type, util.Iban);
+    loaders.set(util.Iban._type, std_n.util.Iban.load);
+    factories.set(util.Random._type, util.Random);
+    factories.set(util.HistogramFloat._type, util.HistogramFloat);
+    loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
     factories.set(util.Queue._type, util.Queue);
     loaders.set(util.Queue._type, std_n.util.Queue.load);
     factories.set(util.TimeWindow._type, util.TimeWindow);
     loaders.set(util.TimeWindow._type, std_n.util.TimeWindow.load);
-    factories.set(util.Quantizer._type, util.Quantizer);
-    loaders.set(util.Quantizer._type, std_n.util.Quantizer.load);
-    factories.set(util.Iban._type, util.Iban);
-    loaders.set(util.Iban._type, std_n.util.Iban.load);
-    factories.set(util.HistogramBucket._type, util.HistogramBucket);
-    factories.set(util.BoxPlotI64._type, util.BoxPlotI64);
-    factories.set(util.BoxPlotF64._type, util.BoxPlotF64);
-    factories.set(util.Random._type, util.Random);
-    factories.set(util.Histogram._type, util.Histogram);
-    factories.set(util.BoxPlot._type, util.BoxPlot);
-    factories.set(util.Buffer._type, util.Buffer);
-    loaders.set(util.Buffer._type, std_n.util.Buffer.load);
-    factories.set(util.Assert._type, util.Assert);
-    factories.set(util.ProgressTracker._type, util.ProgressTracker);
-    loaders.set(util.ProgressTracker._type, std_n.util.ProgressTracker.load);
-    factories.set(util.NdEncoding._type, util.NdEncoding);
-    factories.set(util.SlidingWindow._type, util.SlidingWindow);
-    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
-    factories.set(util.HistogramF64._type, util.HistogramF64);
-    loaders.set(util.HistogramF64._type, std_n.util.HistogramF64.load);
-    factories.set(util.HistogramI64._type, util.HistogramI64);
-    loaders.set(util.HistogramI64._type, std_n.util.HistogramI64.load);
-    factories.set(util.GaussianProfile._type, util.GaussianProfile);
-    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
     factories.set(util.Gaussian._type, util.Gaussian);
     loaders.set(util.Gaussian._type, std_n.util.Gaussian.load);
+    factories.set(util.Buffer._type, util.Buffer);
+    loaders.set(util.Buffer._type, std_n.util.Buffer.load);
     factories.set(util.Crypto._type, util.Crypto);
+    factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
   },
   init(abi) {
-    this.mapped.length = 95;
+    this.mapped.length = 92;
     this.mapped[0] = abi.type_by_fqn.get(core.String._type)!;
     this.mapped[1] = abi.type_by_fqn.get(core.SamplingMode._type)!;
     this.mapped[1].resolveGeneratedOffsetWithValues('fixed', 0,'fixed_reg', 1,'adaptative', 2,'dense', 3);
@@ -4976,68 +4804,65 @@ export const stdlib: $sdk.Library = {
     this.mapped[54] = abi.type_by_fqn.get(runtime.OpenIDConnect._type)!;
     this.mapped[54].resolveGeneratedOffsets('url','clientId');
     this.mapped[55] = abi.type_by_fqn.get(runtime.License._type)!;
-    this.mapped[55].resolveGeneratedOffsets('name','start','end','company','max_workers','max_memory','max_store','extra_1','extra_2','extra_3','extra_4');
-    this.mapped[56] = abi.type_by_fqn.get(io.CsvColumnDate._type)!;
-    this.mapped[56].resolveGeneratedOffsets('name','mandatory','format','tz','as_time');
-    this.mapped[57] = abi.type_by_fqn.get(io.File._type)!;
-    this.mapped[57].resolveGeneratedOffsets('path','size','last_modification');
-    this.mapped[58] = abi.type_by_fqn.get(io.SmtpAuth._type)!;
-    this.mapped[58].resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
-    this.mapped[59] = abi.type_by_fqn.get(io.Http._type)!;
-    this.mapped[60] = abi.type_by_fqn.get(io.CsvColumnBoolean._type)!;
-    this.mapped[60].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[61] = abi.type_by_fqn.get(io.CsvFormat._type)!;
-    this.mapped[61].resolveGeneratedOffsets('header_lines','infer','separator','string_delimiter','decimal_separator','thousands_separator','columns');
-    this.mapped[62] = abi.type_by_fqn.get(io.Email._type)!;
-    this.mapped[62].resolveGeneratedOffsets('from','subject','body','body_is_html','to','cc','bcc');
-    this.mapped[63] = abi.type_by_fqn.get(io.SmtpMode._type)!;
-    this.mapped[63].resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
-    this.mapped[64] = abi.type_by_fqn.get(io.CsvColumnString._type)!;
-    this.mapped[64].resolveGeneratedOffsets('name','mandatory','trim','try_number','try_json','values','encoder');
-    this.mapped[65] = abi.type_by_fqn.get(io.HttpHeader._type)!;
-    this.mapped[65].resolveGeneratedOffsets('name','value');
-    this.mapped[66] = abi.type_by_fqn.get(io.CsvColumnFloat._type)!;
-    this.mapped[66].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[67] = abi.type_by_fqn.get(io.CsvColumnTime._type)!;
-    this.mapped[67].resolveGeneratedOffsets('name','mandatory','unit');
-    this.mapped[68] = abi.type_by_fqn.get(io.CsvColumn._type)!;
+    this.mapped[55].resolveGeneratedOffsets('name','start','end','company','max_workers','max_memory','extra_1','extra_2','extra_3','extra_4');
+    this.mapped[56] = abi.type_by_fqn.get(io.Email._type)!;
+    this.mapped[56].resolveGeneratedOffsets('from','subject','body','body_is_html','to','cc','bcc');
+    this.mapped[57] = abi.type_by_fqn.get(io.Smtp._type)!;
+    this.mapped[57].resolveGeneratedOffsets('host','port','mode','authenticate','user','pass');
+    this.mapped[58] = abi.type_by_fqn.get(io.CsvColumnTime._type)!;
+    this.mapped[58].resolveGeneratedOffsets('name','mandatory','unit');
+    this.mapped[59] = abi.type_by_fqn.get(io.CsvColumn._type)!;
+    this.mapped[59].resolveGeneratedOffsets('name','mandatory');
+    this.mapped[60] = abi.type_by_fqn.get(io.HttpHeader._type)!;
+    this.mapped[60].resolveGeneratedOffsets('name','value');
+    this.mapped[61] = abi.type_by_fqn.get(io.SmtpMode._type)!;
+    this.mapped[61].resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
+    this.mapped[62] = abi.type_by_fqn.get(io.CsvColumnString._type)!;
+    this.mapped[62].resolveGeneratedOffsets('name','mandatory','trim','try_number','try_json','values','encoder');
+    this.mapped[63] = abi.type_by_fqn.get(io.Url._type)!;
+    this.mapped[63].resolveGeneratedOffsets('protocol','host','port','path','params','hash');
+    this.mapped[64] = abi.type_by_fqn.get(io.TextEncoder._type)!;
+    this.mapped[64].resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
+    this.mapped[65] = abi.type_by_fqn.get(io.CsvColumnInteger._type)!;
+    this.mapped[65].resolveGeneratedOffsets('name','mandatory');
+    this.mapped[66] = abi.type_by_fqn.get(io.File._type)!;
+    this.mapped[66].resolveGeneratedOffsets('path','size','last_modification');
+    this.mapped[67] = abi.type_by_fqn.get(io.Http._type)!;
+    this.mapped[68] = abi.type_by_fqn.get(io.CsvColumnBoolean._type)!;
     this.mapped[68].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[69] = abi.type_by_fqn.get(io.Smtp._type)!;
-    this.mapped[69].resolveGeneratedOffsets('host','port','mode','authenticate','user','pass');
-    this.mapped[70] = abi.type_by_fqn.get(io.CsvColumnIgnored._type)!;
-    this.mapped[70].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[71] = abi.type_by_fqn.get(io.CsvColumnInteger._type)!;
+    this.mapped[69] = abi.type_by_fqn.get(io.SmtpAuth._type)!;
+    this.mapped[69].resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
+    this.mapped[70] = abi.type_by_fqn.get(io.CsvColumnDate._type)!;
+    this.mapped[70].resolveGeneratedOffsets('name','mandatory','format','tz','as_time');
+    this.mapped[71] = abi.type_by_fqn.get(io.CsvColumnFloat._type)!;
     this.mapped[71].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[72] = abi.type_by_fqn.get(io.TextEncoder._type)!;
-    this.mapped[72].resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
-    this.mapped[73] = abi.type_by_fqn.get(io.Url._type)!;
-    this.mapped[73].resolveGeneratedOffsets('protocol','host','port','path','params','hash');
+    this.mapped[72] = abi.type_by_fqn.get(io.CsvColumnIgnored._type)!;
+    this.mapped[72].resolveGeneratedOffsets('name','mandatory');
+    this.mapped[73] = abi.type_by_fqn.get(io.CsvFormat._type)!;
+    this.mapped[73].resolveGeneratedOffsets('header_lines','infer','separator','string_delimiter','decimal_separator','thousands_separator','columns');
     this.mapped[74] = abi.type_by_fqn.get(math.MathConstants._type)!;
     this.mapped[74].static_values = [2.7182818285,1.4426950409,0.4342944819,0.6931471806,2.302585093,3.1415926536,1.5707963268,0.7853981634,0.3183098862,0.6366197724,1.1283791671,1.4142135624,0.7071067812];
-    this.mapped[75] = abi.type_by_fqn.get(util.Queue._type)!;
-    this.mapped[76] = abi.type_by_fqn.get(util.TimeWindow._type)!;
-    this.mapped[77] = abi.type_by_fqn.get(util.Quantizer._type)!;
-    this.mapped[78] = abi.type_by_fqn.get(util.Iban._type)!;
-    this.mapped[79] = abi.type_by_fqn.get(util.HistogramBucket._type)!;
-    this.mapped[79].resolveGeneratedOffsetWithValues('from', 0,'to', 1,'count', 2,'percentage', 3);
-    this.mapped[80] = abi.type_by_fqn.get(util.BoxPlotI64._type)!;
-    this.mapped[80].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
-    this.mapped[81] = abi.type_by_fqn.get(util.BoxPlotF64._type)!;
-    this.mapped[81].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
-    this.mapped[82] = abi.type_by_fqn.get(util.Random._type)!;
-    this.mapped[82].resolveGeneratedOffsets('seed','v');
-    this.mapped[83] = abi.type_by_fqn.get(util.Histogram._type)!;
-    this.mapped[84] = abi.type_by_fqn.get(util.BoxPlot._type)!;
-    this.mapped[84].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
-    this.mapped[85] = abi.type_by_fqn.get(util.Buffer._type)!;
-    this.mapped[86] = abi.type_by_fqn.get(util.Assert._type)!;
-    this.mapped[87] = abi.type_by_fqn.get(util.ProgressTracker._type)!;
-    this.mapped[88] = abi.type_by_fqn.get(util.NdEncoding._type)!;
-    this.mapped[89] = abi.type_by_fqn.get(util.SlidingWindow._type)!;
-    this.mapped[90] = abi.type_by_fqn.get(util.HistogramF64._type)!;
-    this.mapped[91] = abi.type_by_fqn.get(util.HistogramI64._type)!;
-    this.mapped[92] = abi.type_by_fqn.get(util.GaussianProfile._type)!;
-    this.mapped[93] = abi.type_by_fqn.get(util.Gaussian._type)!;
-    this.mapped[94] = abi.type_by_fqn.get(util.Crypto._type)!;
+    this.mapped[75] = abi.type_by_fqn.get(util.Assert._type)!;
+    this.mapped[76] = abi.type_by_fqn.get(util.HistogramInt._type)!;
+    this.mapped[76].static_values = [0,1,2,3];
+    this.mapped[77] = abi.type_by_fqn.get(util.NdEncoding._type)!;
+    this.mapped[78] = abi.type_by_fqn.get(util.SlidingWindow._type)!;
+    this.mapped[79] = abi.type_by_fqn.get(util.GaussianProfile._type)!;
+    this.mapped[80] = abi.type_by_fqn.get(util.Quantizer._type)!;
+    this.mapped[81] = abi.type_by_fqn.get(util.ProgressTracker._type)!;
+    this.mapped[82] = abi.type_by_fqn.get(util.Iban._type)!;
+    this.mapped[83] = abi.type_by_fqn.get(util.Random._type)!;
+    this.mapped[83].resolveGeneratedOffsets('seed','v');
+    this.mapped[84] = abi.type_by_fqn.get(util.HistogramFloat._type)!;
+    this.mapped[84].static_values = [0,1,2,3];
+    this.mapped[85] = abi.type_by_fqn.get(util.Queue._type)!;
+    this.mapped[86] = abi.type_by_fqn.get(util.TimeWindow._type)!;
+    this.mapped[87] = abi.type_by_fqn.get(util.BoxPlotInt._type)!;
+    this.mapped[87].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
+    this.mapped[88] = abi.type_by_fqn.get(util.Gaussian._type)!;
+    this.mapped[89] = abi.type_by_fqn.get(util.Buffer._type)!;
+    this.mapped[90] = abi.type_by_fqn.get(util.Crypto._type)!;
+    this.mapped[91] = abi.type_by_fqn.get(util.BoxPlotFloat._type)!;
+    this.mapped[91].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
   },
 };

@@ -2,8 +2,8 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { GCObject } from '../../GCObject.js';
 
-export class HistogramI64 extends GCObject {
-  static readonly _type = 'util::HistogramI64' as const;
+export class HistogramInt extends GCObject {
+  static readonly _type = 'util::HistogramInt' as const;
 
   constructor(
     type: AbiType,
@@ -56,7 +56,7 @@ export class HistogramI64 extends GCObject {
     w.write_i64(this.total_count);
   }
 
-  static load(r: AbiReader, type: AbiType): HistogramI64 {
+  static load(r: AbiReader, type: AbiType): HistogramInt {
     const real_min = r.read_i64();
     const real_max = r.read_i64();
     const min = r.read_i64();
@@ -103,6 +103,6 @@ export class HistogramI64 extends GCObject {
       normalizing_index_offset,
       counts_len,
       total_count,
-    ) as HistogramI64;
+    ) as HistogramInt;
   }
 }

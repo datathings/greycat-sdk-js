@@ -88,7 +88,7 @@ describe('project', () => {
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
     { _type: 'core::TensorType', field: 'c128' },
-    { _type: 'core::Table', cols: [], meta: [] },
+    { _type: 'core::Table', cols: [[0,0.5,1,1.5]], meta: [{_type: 'core::NativeTableColumnMeta', col_type: 4, index: false, type: 0 }] },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',
@@ -157,19 +157,19 @@ describe('project', () => {
     },
 
     // std::math
-    2.7182818284590455,  // MathConstants::e
-    1.4426950408889634,  // MathConstants::log_2e
+    2.7182818284590455, // MathConstants::e
+    1.4426950408889634, // MathConstants::log_2e
     0.43429448190325187, // MathConstants::log_10e
-    0.6931471805599453,  // MathConstants::ln2
-    2.302585092994046,   // MathConstants::ln10
-    3.141592653589793,   // MathConstants::pi
-    1.5707963267948966,  // MathConstants::pi_2
-    0.7853981633974484,  // MathConstants::pi_4
+    0.6931471805599453, // MathConstants::ln2
+    2.302585092994046, // MathConstants::ln10
+    3.141592653589793, // MathConstants::pi
+    1.5707963267948966, // MathConstants::pi_2
+    0.7853981633974484, // MathConstants::pi_4
     0.31830988618379064, // MathConstants::m1_pi
-    0.6366197723675813,  // MathConstants::m2_pi
-    1.1283791670955126,  // MathConstants::m2_sqrt_pi
-    1.414213562373095,   // MathConstants::sqrt2
-    0.7071067811865476,  // MathConstants::sqrt1_2
+    0.6366197723675813, // MathConstants::m2_pi
+    1.1283791670955126, // MathConstants::m2_sqrt_pi
+    1.414213562373095, // MathConstants::sqrt2
+    0.7071067811865476, // MathConstants::sqrt1_2
 
     // std::runtime
     {
@@ -251,7 +251,7 @@ describe('project', () => {
     { _type: 'util::Random', seed: 42, v: 13.37 },
     { _type: 'util::Buffer' },
     { _type: 'util::Assert' },
-    { _type: 'util::ProgressTracker' },
+    { _type: 'util::ProgressTracker', start: { _type: 'core::time', epoch: 0, us: 0 } },
     { _type: 'util::NdEncoding' },
     { _type: 'util::Iban' },
     { _type: 'util::Gaussian' },

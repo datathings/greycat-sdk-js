@@ -88,7 +88,7 @@ fn write_core(out: GcbWriter) {
   out.write(SamplingMode::adaptative);
   out.write(DurationUnit::days);
   out.write(TensorType::c128);
-  out.write(Table<node>::new(0));
+  out.write(table());
   out.write(Tensor::new());
   out.write(GeoCircle::new(42_geo, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
@@ -247,7 +247,7 @@ fn write_util(out: GcbWriter) {
     });
   out.write(Buffer::new());
   out.write(Assert {});
-  out.write(ProgressTracker::new());
+  out.write(ProgressTracker { start: 0_time });
   out.write(NdEncoding {});
   out.write(Iban::new(""));
   out.write(Gaussian::new());
@@ -285,10 +285,11 @@ fn write_util(out: GcbWriter) {
 
 @expose
 fn table() {
-  var table = Table::new(3);
+  var nbRows = 4;
+  var table = Table::new(1);
   for (var colIdx = 0; colIdx < table.cols(); colIdx++) {
-    for (var rowIdx = 0; rowIdx < 10; rowIdx++) {
-      table.set(rowIdx, colIdx, "${colIdx}, ${rowIdx}");
+    for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
+      table.set(rowIdx, colIdx, 0.5 * rowIdx);
     }
   }
 

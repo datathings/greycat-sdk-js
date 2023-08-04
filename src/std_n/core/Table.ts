@@ -22,8 +22,7 @@ export class Table extends GCObject {
     for (let col = 0; col < cols.length; col++) {
       const values: Value[] = new Array(rows);
       cols[col] = values;
-      const sbi_type = meta[col].col_type;
-      switch (sbi_type) {
+      switch (meta[col].col_type) {
         case PrimitiveType.null:
           break;
         case PrimitiveType.int:
@@ -31,33 +30,50 @@ export class Table extends GCObject {
             values[row] = r.read_vi64();
           }
           break;
-        case PrimitiveType.time:
+        case PrimitiveType.time: {
+          const type = r.abi.types[r.abi.core_time_offset];
+          for (let row = 0; row < rows; row++) {
+            values[row] = type.loader(r, type);
+          }
+          break;
+        }
         case PrimitiveType.duration: {
-          const type = r.abi.types[sbi_type];
+          const type = r.abi.types[r.abi.core_duration_offset];
           for (let row = 0; row < rows; row++) {
             values[row] = type.loader(r, type);
           }
           break;
         }
         case PrimitiveType.enum: {
-          const enum_type = r.abi.types[meta[col].type];
-          if (enum_type.enum_values === null) {
-            throw new Error(`no values registered for ${enum_type.name}, core.Table cannot deserialize properly`);
+          const type = r.abi.types[meta[col].type];
+          if (type.enum_values === null) {
+            throw new Error(`no values registered for ${type.name}, core.Table cannot deserialize properly`);
           }
           for (let row = 0; row < rows; row++) {
             const enum_field = r.read_vu32();
-            values[row] = enum_type.enum_values[enum_field];
+            values[row] = type.enum_values[enum_field];
           }
           break;
         }
         case PrimitiveType.float: {
-          const compsz = r.read_u32();
-          r.take(compsz);
-          // TODO decompress
-          throw new Error('core.Table float decompression is not handled yet');
+          // const compsz = r.read_u32();
+          // r.take(compsz);
+          // // TODO decompress
+          // throw new Error('core.Table float decompression is not handled yet');
+          for (let row = 0; row < rows; row++) {
+            values[row] = r.read_f64();
+          }
+          break;
+        }
+        case PrimitiveType.object: {
+          const type = r.abi.types[meta[col].type];
+          for (let row = 0; row < rows; row++) {
+            values[row] = type.loader(r, type);
+          }
+          break;
         }
         default:
-          // gc_undefined, gc_object
+          // gc_undefined
           for (let row = 0; row < rows; row++) {
             values[row] = r.deserialize();
           }
@@ -97,9 +113,13 @@ export class Table extends GCObject {
           }
           break;
         case PrimitiveType.float: {
-          w.write_u32(0);
-          // TODO compress
-          throw new Error('core.Table float compression is not handled yet');
+          // w.write_u32(0);
+          // // TODO compress
+          // throw new Error('core.Table float compression is not handled yet');
+          for (let row = 0; row < nbRows; row++) {
+            w.write_f64(this.cols[col][row] as number);
+          }
+          break;
         }
         default:
           // gc_undefined, gc_object
@@ -149,8 +169,8 @@ export class NativeTableColumnMeta {
 
   toJSON() {
     return {
-      _type: 'core::TableColumnMeta',
       col_type: this.col_type,
+      _type: 'core::NativeTableColumnMeta',
       type: this.type,
       index: this.index,
     }

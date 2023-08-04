@@ -248,9 +248,8 @@ fn write_util(out: GcbWriter) {
   out.write(Buffer::new());
   out.write(Assert {});
   out.write(ProgressTracker { start: 0_time });
-  out.write(NdEncoding {});
   out.write(Iban::new(""));
-  out.write(Gaussian::new());
+  out.write(Gaussian {});
   // out.write(Quantizer::new()); // unsupported
   out.write(GaussianProfile::new(0));
   out.write(TimeWindow::new());

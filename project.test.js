@@ -88,7 +88,7 @@ describe('project', () => {
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
     { _type: 'core::TensorType', field: 'c128' },
-    { _type: 'core::Table', cols: [[0,0.5,1,1.5]], meta: [{_type: 'core::NativeTableColumnMeta', col_type: 4, index: false, type: 0 }] },
+    { _type: 'core::Table', cols: [[0,0.5,1,1.5]], meta: [{_type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }] },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',

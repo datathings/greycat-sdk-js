@@ -1,6 +1,6 @@
 import { Abi, AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, Value } from '../../types.js';
+import { PrimitiveType, PrimitiveTypeName, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Table extends GCObject {
@@ -167,11 +167,20 @@ export class NativeTableColumnMeta {
     }
   }
 
+  get typeName(): string | undefined {
+    if (this.type === 0) {
+      // primitive type
+      return `core::${PrimitiveTypeName[this.col_type]}`;
+    } else {
+      // object type
+      return this.abi.types[this.type].name;
+    }
+  }
+
   toJSON() {
     return {
-      col_type: this.col_type,
       _type: 'core::NativeTableColumnMeta',
-      type: this.type,
+      typeName: this.typeName,
       index: this.index,
     }
   }

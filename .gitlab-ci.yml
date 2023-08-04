@@ -4,6 +4,9 @@ stages:
   - build
   - publish
 
+before_script:
+  - export VERSION=`git2version -s`
+
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
 cache:

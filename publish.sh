@@ -2,9 +2,9 @@
 set -e
 
 VERSION_MAJOR_MINOR=`cat VERSION`
-VERSION_SIMPLE=`git2version -s`
+VERSION=${VERSION:-"0.0.0"}
 
-echo "${VERSION_MAJOR_MINOR} / ${VERSION_SIMPLE}"
+echo "${VERSION_MAJOR_MINOR} / ${VERSION}"
 
 sha256_hash=$(echo -n "$GET_GC_CI_PASS" | openssl dgst -sha256 | cut -d ' ' -f2)
 base64url_token=$(echo -n "ci:$sha256_hash" | base64 -w 0 )
@@ -15,6 +15,6 @@ cd dist
 file="dist.zip"
 zip -r $file sdk
 
-curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION_SIMPLE}.zip"
+curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.zip"
 curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/latest.zip"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/package.tgz "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION_SIMPLE}-package.tgz"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/package.tgz "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}-package.tgz"

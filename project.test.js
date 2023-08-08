@@ -173,9 +173,9 @@ describe('project', () => {
 
     // std::runtime
     {
-      _type: 'runtime::Task',
-      id: 13,
-      user: 37,
+      _type: 'runtime::TaskInfo',
+      task_id: 13,
+      user_id: 37,
       mod: '',
       type: '',
       fun: '',

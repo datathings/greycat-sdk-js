@@ -152,9 +152,9 @@ fn write_math(out: GcbWriter) {
 }
 
 fn write_runtime(out: GcbWriter) {
-  out.write(Task {
-      id: 13,
-      user: 37,
+  out.write(TaskInfo {
+      task_id: 13,
+      user_id: 37,
       mod: "",
       type: "",
       fun: "",

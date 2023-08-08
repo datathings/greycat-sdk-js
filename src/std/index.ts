@@ -2775,13 +2775,13 @@ export class UserRole extends $sdk.GCObject {
   public set permissions(v: Array<string>) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.UserRole>> {
+ static  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.UserRole>> {
     return $g.call('runtime::UserRole::all', undefined, $signal);
   }
-  async remove($g: $sdk.GreyCat, name: string, $signal?: AbortSignal): Promise<unknown> {
+ static  async remove($g: $sdk.GreyCat, name: string, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::UserRole::remove', [name], $signal);
   }
-  async set_($g: $sdk.GreyCat, value: runtime.UserRole, $signal?: AbortSignal): Promise<unknown> {
+ static  async set_($g: $sdk.GreyCat, value: runtime.UserRole, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::UserRole::set_', [value], $signal);
   }
   static create($g: $sdk.GreyCat, name: string, permissions: Array<string>): UserRole {
@@ -2829,13 +2829,13 @@ export class Runtime extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  async info($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
+ static  async info($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
     return $g.call('runtime::Runtime::info', undefined, $signal);
   }
-  async abi($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
+ static  async abi($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::Runtime::abi', undefined, $signal);
   }
-  async readModVar($g: $sdk.GreyCat, module: string, name: string, $signal?: AbortSignal): Promise<any | null> {
+ async readModVar($g: $sdk.GreyCat, module: string, name: string, $signal?: AbortSignal): Promise<any | null> {
     return $g.call('runtime::Runtime::readModVar', [module, name], $signal);
   }
   static create($g: $sdk.GreyCat): Runtime {
@@ -2910,37 +2910,37 @@ export class User extends $sdk.GCObject {
   public set external(v: boolean) {
     this.$attrs[this.$type.generated_offsets[9]] = v;
   }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+ static  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
     return $g.call('runtime::SecurityEntity::all', undefined, $signal);
   }
-  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
+ static  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
     return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
   }
-  async login($g: $sdk.GreyCat, credentials: string, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
+ static  async login($g: $sdk.GreyCat, credentials: string, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
     return $g.call('runtime::User::login', [credentials, use_cookie], $signal);
   }
-  async tokenLogin($g: $sdk.GreyCat, token: string, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
+ static  async tokenLogin($g: $sdk.GreyCat, token: string, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
     return $g.call('runtime::User::tokenLogin', [token, use_cookie], $signal);
   }
-  async renew($g: $sdk.GreyCat, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
+ static  async renew($g: $sdk.GreyCat, use_cookie: boolean, $signal?: AbortSignal): Promise<string> {
     return $g.call('runtime::User::renew', [use_cookie], $signal);
   }
-  async logout($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
+ static  async logout($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::User::logout', undefined, $signal);
   }
-  async current($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<bigint | number> {
+ static  async current($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<bigint | number> {
     return $g.call('runtime::User::current', undefined, $signal);
   }
-  async me($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.User> {
+ static  async me($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.User> {
     return $g.call('runtime::User::me', undefined, $signal);
   }
-  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
+ static  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
     return $g.call('runtime::User::permissions', undefined, $signal);
   }
-  async setPassword($g: $sdk.GreyCat, name: string, pass: string, $signal?: AbortSignal): Promise<boolean> {
+ static  async setPassword($g: $sdk.GreyCat, name: string, pass: string, $signal?: AbortSignal): Promise<boolean> {
     return $g.call('runtime::User::setPassword', [name, pass], $signal);
   }
-  async getToken($g: $sdk.GreyCat, id: bigint | number, $signal?: AbortSignal): Promise<string> {
+ static  async getToken($g: $sdk.GreyCat, id: bigint | number, $signal?: AbortSignal): Promise<string> {
     return $g.call('runtime::User::getToken', [id], $signal);
   }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean): User {
@@ -2991,10 +2991,10 @@ export class SecurityFields extends $sdk.GCObject {
   public set groups(v: Map<string, string> | null) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  async set_($g: $sdk.GreyCat, f: runtime.SecurityFields, $signal?: AbortSignal): Promise<unknown> {
+ static  async set_($g: $sdk.GreyCat, f: runtime.SecurityFields, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::SecurityFields::set_', [f], $signal);
   }
-  async get_($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
+ static  async get_($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
     return $g.call('runtime::SecurityFields::get_', undefined, $signal);
   }
   static create($g: $sdk.GreyCat, email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null): SecurityFields {
@@ -3153,10 +3153,10 @@ export class PeriodicTask extends $sdk.GCObject {
   public set every(v: $sdk.std.core.duration) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.PeriodicTask>> {
+ static  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.PeriodicTask>> {
     return $g.call('runtime::PeriodicTask::all', undefined, $signal);
   }
-  async set_($g: $sdk.GreyCat, tasks: Array<runtime.PeriodicTask>, $signal?: AbortSignal): Promise<unknown> {
+ static  async set_($g: $sdk.GreyCat, tasks: Array<runtime.PeriodicTask>, $signal?: AbortSignal): Promise<unknown> {
     return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
   }
   static create($g: $sdk.GreyCat, name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration): PeriodicTask {
@@ -3285,7 +3285,7 @@ export class SecurityPolicy extends $sdk.GCObject {
   public set fields(v: runtime.SecurityFields | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
+ static  async permissions($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<string>> {
     return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
   }
   static create($g: $sdk.GreyCat, entities: Array<runtime.SecurityEntity>, credentials: Map<string, runtime.UserCredential>, roles: Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null): SecurityPolicy {
@@ -3414,16 +3414,16 @@ export class Task extends $sdk.GCObject {
   public set status(v: runtime.TaskStatus) {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
-  async running($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.TaskInfo>> {
+ static  async running($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.TaskInfo>> {
     return $g.call('runtime::Task::running', undefined, $signal);
   }
-  async history($g: $sdk.GreyCat, offset: bigint | number, max: bigint | number, $signal?: AbortSignal): Promise<Array<runtime.Task>> {
+ static  async history($g: $sdk.GreyCat, offset: bigint | number, max: bigint | number, $signal?: AbortSignal): Promise<Array<runtime.Task>> {
     return $g.call('runtime::Task::history', [offset, max], $signal);
   }
-  async cancel($g: $sdk.GreyCat, task_id: bigint | number, $signal?: AbortSignal): Promise<boolean> {
+ static  async cancel($g: $sdk.GreyCat, task_id: bigint | number, $signal?: AbortSignal): Promise<boolean> {
     return $g.call('runtime::Task::cancel', [task_id], $signal);
   }
-  async info($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
+ static  async info($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
     return $g.call('runtime::Task::info', [user_id, task_id], $signal);
   }
   static create($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus): Task {
@@ -3546,10 +3546,10 @@ export class UserGroup extends $sdk.GCObject {
   public set activated(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+ static  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
     return $g.call('runtime::SecurityEntity::all', undefined, $signal);
   }
-  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
+ static  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
     return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
   }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): UserGroup {
@@ -3576,7 +3576,7 @@ export class OpenIDConnect extends $sdk.GCObject {
   public set clientId(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  async config($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
+ static  async config($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
     return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
   }
   static create($g: $sdk.GreyCat, url: string, clientId: string): OpenIDConnect {
@@ -3609,10 +3609,10 @@ export class SecurityEntity extends $sdk.GCObject {
   public set activated(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+ static  async all($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
     return $g.call('runtime::SecurityEntity::all', undefined, $signal);
   }
-  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
+ static  async set_($g: $sdk.GreyCat, entity: runtime.SecurityEntity, $signal?: AbortSignal): Promise<bigint | number | null> {
     return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
   }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): SecurityEntity {

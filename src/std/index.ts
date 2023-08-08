@@ -12,7 +12,7 @@ export class NodeTimeInfo extends $sdk.GCObject {
   static readonly _type = 'core::NodeTimeInfo';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get size(): bigint | number {
@@ -2410,7 +2410,7 @@ export class GeoBox extends $sdk.GCObject {
   static readonly _type = 'core::GeoBox';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get sw(): $sdk.std.core.geo {
@@ -2434,7 +2434,7 @@ export class GeoPoly extends $sdk.GCObject {
   static readonly _type = 'core::GeoPoly';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get points(): Array<$sdk.std.core.geo> {
@@ -2454,7 +2454,7 @@ export class TableColumnMeta extends $sdk.GCObject {
   static readonly _type = 'core::TableColumnMeta';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get type(): string | null {
@@ -2508,7 +2508,7 @@ export class GeoCircle extends $sdk.GCObject {
   static readonly _type = 'core::GeoCircle';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get center(): $sdk.std.core.geo {
@@ -2627,7 +2627,7 @@ export class Tuple extends $sdk.GCObject {
   static readonly _type = 'core::Tuple';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get x(): any {
@@ -2706,7 +2706,7 @@ export class function_ extends $sdk.GCObject {
   static readonly _type = 'core::function';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   static create($g: $sdk.GreyCat): function_ {
@@ -2760,7 +2760,7 @@ export class UserRole extends $sdk.GCObject {
   static readonly _type = 'runtime::UserRole';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string {
@@ -2826,7 +2826,7 @@ export class Runtime extends $sdk.GCObject {
   static readonly _type = 'runtime::Runtime';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   async info($g: $sdk.GreyCat, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
@@ -2847,7 +2847,7 @@ export class User extends $sdk.GCObject {
   static readonly _type = 'runtime::User';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get id(): bigint | number {
@@ -2952,7 +2952,7 @@ export class SecurityFields extends $sdk.GCObject {
   static readonly _type = 'runtime::SecurityFields';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get email(): string | null {
@@ -3006,7 +3006,7 @@ export class UserGroupPolicy extends $sdk.GCObject {
   static readonly _type = 'runtime::UserGroupPolicy';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get group_id(): bigint | number {
@@ -3030,7 +3030,7 @@ export class TaskInfo extends $sdk.GCObject {
   static readonly _type = 'runtime::TaskInfo';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get user_id(): bigint | number {
@@ -3120,7 +3120,7 @@ export class PeriodicTask extends $sdk.GCObject {
   static readonly _type = 'runtime::PeriodicTask';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string {
@@ -3168,7 +3168,7 @@ export class RuntimeInfo extends $sdk.GCObject {
   static readonly _type = 'runtime::RuntimeInfo';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get version(): string {
@@ -3246,7 +3246,7 @@ export class System extends $sdk.GCObject {
   static readonly _type = 'runtime::System';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   static create($g: $sdk.GreyCat): System {
@@ -3258,7 +3258,7 @@ export class SecurityPolicy extends $sdk.GCObject {
   static readonly _type = 'runtime::SecurityPolicy';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get entities(): Array<runtime.SecurityEntity> {
@@ -3297,7 +3297,7 @@ export class License extends $sdk.GCObject {
   static readonly _type = 'runtime::License';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3369,7 +3369,7 @@ export class Task extends $sdk.GCObject {
   static readonly _type = 'runtime::Task';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get user_id(): bigint | number {
@@ -3435,7 +3435,7 @@ export class UserCredential extends $sdk.GCObject {
   static readonly _type = 'runtime::UserCredential';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get offset(): bigint | number {
@@ -3459,7 +3459,7 @@ export class StoreStat extends $sdk.GCObject {
   static readonly _type = 'runtime::StoreStat';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get capacity_bytes(): bigint | number {
@@ -3525,7 +3525,7 @@ export class UserGroup extends $sdk.GCObject {
   static readonly _type = 'runtime::UserGroup';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get id(): bigint | number {
@@ -3561,7 +3561,7 @@ export class OpenIDConnect extends $sdk.GCObject {
   static readonly _type = 'runtime::OpenIDConnect';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get url(): string {
@@ -3588,7 +3588,7 @@ export class SecurityEntity extends $sdk.GCObject {
   static readonly _type = 'runtime::SecurityEntity';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get id(): bigint | number {
@@ -3652,7 +3652,7 @@ export class CsvColumnFloat extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnFloat';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3676,7 +3676,7 @@ export class Http extends $sdk.GCObject {
   static readonly _type = 'io::Http';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   static create($g: $sdk.GreyCat): Http {
@@ -3688,7 +3688,7 @@ export class CsvColumnIgnored extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnIgnored';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3712,7 +3712,7 @@ export class File extends $sdk.GCObject {
   static readonly _type = 'io::File';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get path(): string {
@@ -3742,7 +3742,7 @@ export class HttpHeader extends $sdk.GCObject {
   static readonly _type = 'io::HttpHeader';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string {
@@ -3766,7 +3766,7 @@ export class CsvColumn extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumn';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3790,7 +3790,7 @@ export class Email extends $sdk.GCObject {
   static readonly _type = 'io::Email';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get from(): string {
@@ -3844,7 +3844,7 @@ export class CsvColumnTime extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnTime';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3874,7 +3874,7 @@ export class CsvFormat extends $sdk.GCObject {
   static readonly _type = 'io::CsvFormat';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get header_lines(): bigint | number | null {
@@ -3928,7 +3928,7 @@ export class CsvColumnString extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnString';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -3982,7 +3982,7 @@ export class Url extends $sdk.GCObject {
   static readonly _type = 'io::Url';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get protocol(): string | null {
@@ -4051,7 +4051,7 @@ export class CsvColumnInteger extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnInteger';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -4075,7 +4075,7 @@ export class CsvColumnDate extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnDate';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -4117,7 +4117,7 @@ export class Smtp extends $sdk.GCObject {
   static readonly _type = 'io::Smtp';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get host(): string {
@@ -4186,7 +4186,7 @@ export class CsvColumnBoolean extends $sdk.GCObject {
   static readonly _type = 'io::CsvColumnBoolean';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get name(): string | null {
@@ -4213,7 +4213,7 @@ export class MathConstants extends $sdk.GCObject {
   static readonly _type = 'math::MathConstants';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public static e($g: $sdk.GreyCat): number {
@@ -4280,7 +4280,7 @@ export class Assert extends $sdk.GCObject {
   static readonly _type = 'util::Assert';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   static create($g: $sdk.GreyCat): Assert {
@@ -4292,7 +4292,7 @@ export class ProgressTracker extends $sdk.GCObject {
   static readonly _type = 'util::ProgressTracker';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get start(): $sdk.std.core.time {
@@ -4346,7 +4346,7 @@ export class Crypto extends $sdk.GCObject {
   static readonly _type = 'util::Crypto';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   static create($g: $sdk.GreyCat): Crypto {
@@ -4358,7 +4358,7 @@ export class BoxPlotInt extends $sdk.GCObject {
   static readonly _type = 'util::BoxPlotInt';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get min(): bigint | number {
@@ -4488,7 +4488,7 @@ export class Gaussian extends $sdk.GCObject {
   static readonly _type = 'util::Gaussian';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get sum(): number | null {
@@ -4538,7 +4538,7 @@ export class Random extends $sdk.GCObject {
   static readonly _type = 'util::Random';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get seed(): bigint | number {
@@ -4564,7 +4564,7 @@ export class BoxPlotFloat extends $sdk.GCObject {
   static readonly _type = 'util::BoxPlotFloat';
 
   constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, ...attributes);
+    super(type, attributes);
   }
 
   public get min(): number {

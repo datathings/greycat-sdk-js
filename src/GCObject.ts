@@ -4,7 +4,15 @@ import { AbiType, AbiWriter, PrimitiveType, Value, std_n } from './index.js';
  * A dynamic GreyCat type instance, used when no matching class found in the factory
  */
 export class GCObject {
-  constructor(readonly $type: AbiType, readonly $attrs?: Value[]) { }
+  constructor(readonly $type: AbiType, readonly $attrs?: Value[]) {
+    Object.defineProperty(this, '$type', { value: $type, enumerable: false });
+    Object.defineProperty(this, '$attrs', { value: $attrs, enumerable: false });
+    if ($attrs) {
+      for (let i = 0; i < $attrs.length; i++) {
+        Object.defineProperty(this, $type.attrs[i].name, { value: $attrs[i], enumerable: true });
+      }
+    }
+  }
 
   getByName(name: string): Value | undefined {
     const offset = this.$type.attrs_by_name.get(name);

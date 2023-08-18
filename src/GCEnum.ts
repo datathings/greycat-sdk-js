@@ -12,7 +12,8 @@ export class GCEnum extends GCObject {
     /** the field value of the current instance */
     public value: Value,
   ) {
-    super(type, [offset, key, value]);
+    super(type);
+    Object.defineProperty(this, 'offset', { value: offset, enumerable: false });
   }
 
   override saveHeader(w: AbiWriter): void {

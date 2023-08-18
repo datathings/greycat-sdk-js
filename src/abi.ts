@@ -402,7 +402,7 @@ export class AbiType {
       }
     }
     if (programType.factory == null) {
-      return new GCObject(programType, ...attrs);
+      return new GCObject(programType, attrs);
     }
     return new programType.factory(programType, ...attrs);
   };

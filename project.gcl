@@ -83,7 +83,7 @@ fn write_core(out: GcbWriter) {
   out.write(nodeList<int>::new());
   out.write(TimeZone::Europe_Luxembourg);
   out.write(node<float>::new(13.37));
-  out.write(Error::new(""));
+  out.write(Error::new("an error"));
   out.write(ErrorCode::none);
   out.write(SamplingMode::adaptative);
   out.write(DurationUnit::days);

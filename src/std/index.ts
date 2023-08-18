@@ -56,16 +56,12 @@ export class TableColumnMeta extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, type: string | null, size: bigint | number, index: boolean, min: any | null, max: any | null, avg: any | null, std: any | null): TableColumnMeta {
-    return new TableColumnMeta($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[0], type, size, index, min, max, avg, std);
+    return new TableColumnMeta($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[0], [type, size, index, min, max, avg, std]);
   }
 }
 
 export class SamplingMode extends $sdk.GCEnum {
   static readonly _type = 'core::SamplingMode';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static fixed($g: $sdk.GreyCat): core.SamplingMode {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[1];
@@ -91,10 +87,6 @@ export class Table extends std_n.core.Table {}
 
 export class DatePart extends $sdk.GCEnum {
   static readonly _type = 'core::DatePart';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static years($g: $sdk.GreyCat): core.DatePart {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[4];
@@ -146,7 +138,7 @@ export class GeoCircle extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, center: $sdk.std.core.geo, radius: number): GeoCircle {
-    return new GeoCircle($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[5], center, radius);
+    return new GeoCircle($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[5], [center, radius]);
   }
 }
 
@@ -182,16 +174,12 @@ export class NodeTimeInfo extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
   static create($g: $sdk.GreyCat, size: bigint | number, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null): NodeTimeInfo {
-    return new NodeTimeInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[9], size, from, to);
+    return new NodeTimeInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[9], [size, from, to]);
   }
 }
 
 export class ErrorCode extends $sdk.GCEnum {
   static readonly _type = 'core::ErrorCode';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static none($g: $sdk.GreyCat): core.ErrorCode {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[10];
@@ -304,10 +292,6 @@ export class tf3d extends std_n.core.tf3d {}
 export class TensorType extends $sdk.GCEnum {
   static readonly _type = 'core::TensorType';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
-
   public static i32($g: $sdk.GreyCat): core.TensorType {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[17];
     return t.enum_values![t.generated_offsets[0]] as core.TensorType;
@@ -348,16 +332,12 @@ export class GeoPoly extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
   static create($g: $sdk.GreyCat, points: Array<$sdk.std.core.geo>): GeoPoly {
-    return new GeoPoly($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[18], points);
+    return new GeoPoly($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[18], [points]);
   }
 }
 
 export class DurationUnit extends $sdk.GCEnum {
   static readonly _type = 'core::DurationUnit';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static microseconds($g: $sdk.GreyCat): core.DurationUnit {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[19];
@@ -415,10 +395,6 @@ export class ti10d extends std_n.core.ti10d {}
 
 export class TimeZone extends $sdk.GCEnum {
   static readonly _type = 'core::TimeZone';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static Africa_Accra($g: $sdk.GreyCat): core.TimeZone {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[28];
@@ -2694,7 +2670,7 @@ export class Tuple extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, x: any, y: any): Tuple {
-    return new Tuple($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[31], x, y);
+    return new Tuple($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[31], [x, y]);
   }
 }
 
@@ -2722,7 +2698,7 @@ export class GeoBox extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, sw: $sdk.std.core.geo, ne: $sdk.std.core.geo): GeoBox {
-    return new GeoBox($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[34], sw, ne);
+    return new GeoBox($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[34], [sw, ne]);
   }
 }
 
@@ -2737,10 +2713,6 @@ export class ti5d extends std_n.core.ti5d {}
 export namespace runtime {
 export class UserGroupPolicyType extends $sdk.GCEnum {
   static readonly _type = 'runtime::UserGroupPolicyType';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static read($g: $sdk.GreyCat): runtime.UserGroupPolicyType {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[38];
@@ -2785,16 +2757,12 @@ export class UserRole extends $sdk.GCObject {
       return $g.call('runtime::UserRole::set_', [value], $signal);
     }
   static create($g: $sdk.GreyCat, name: string, permissions: Array<string>): UserRole {
-    return new UserRole($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[39], name, permissions);
+    return new UserRole($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[39], [name, permissions]);
   }
 }
 
 export class TaskStatus extends $sdk.GCEnum {
   static readonly _type = 'runtime::TaskStatus';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static empty($g: $sdk.GreyCat): runtime.TaskStatus {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[40];
@@ -2944,7 +2912,7 @@ export class User extends $sdk.GCObject {
       return $g.call('runtime::User::getToken', [id], $signal);
     }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean): User {
-    return new User($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[42], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+    return new User($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[42], [id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external]);
   }
 }
 
@@ -2998,7 +2966,7 @@ export class SecurityFields extends $sdk.GCObject {
       return $g.call('runtime::SecurityFields::get_', undefined, $signal);
     }
   static create($g: $sdk.GreyCat, email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null): SecurityFields {
-    return new SecurityFields($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[43], email, name, first_name, last_name, roles, groups);
+    return new SecurityFields($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[43], [email, name, first_name, last_name, roles, groups]);
   }
 }
 
@@ -3022,7 +2990,7 @@ export class UserGroupPolicy extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, group_id: bigint | number, type: runtime.UserGroupPolicyType): UserGroupPolicy {
-    return new UserGroupPolicy($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[44], group_id, type);
+    return new UserGroupPolicy($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[44], [group_id, type]);
   }
 }
 
@@ -3112,7 +3080,7 @@ export class TaskInfo extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[12]] = v;
   }
   static create($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null): TaskInfo {
-    return new TaskInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[45], user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
+    return new TaskInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[45], [user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all]);
   }
 }
 
@@ -3160,7 +3128,7 @@ export class PeriodicTask extends $sdk.GCObject {
       return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
     }
   static create($g: $sdk.GreyCat, name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration): PeriodicTask {
-    return new PeriodicTask($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[46], name, user_id, args, start, every);
+    return new PeriodicTask($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[46], [name, user_id, args, start, every]);
   }
 }
 
@@ -3238,7 +3206,7 @@ export class RuntimeInfo extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[10]] = v;
   }
   static create($g: $sdk.GreyCat, version: string, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null): RuntimeInfo {
-    return new RuntimeInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[47], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
+    return new RuntimeInfo($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[47], [version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats]);
   }
 }
 
@@ -3289,7 +3257,7 @@ export class SecurityPolicy extends $sdk.GCObject {
       return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
     }
   static create($g: $sdk.GreyCat, entities: Array<runtime.SecurityEntity>, credentials: Map<string, runtime.UserCredential>, roles: Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null): SecurityPolicy {
-    return new SecurityPolicy($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[49], entities, credentials, roles, fields);
+    return new SecurityPolicy($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[49], [entities, credentials, roles, fields]);
   }
 }
 
@@ -3361,7 +3329,7 @@ export class License extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[9]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null): License {
-    return new License($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[50], name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4);
+    return new License($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[50], [name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4]);
   }
 }
 
@@ -3427,7 +3395,7 @@ export class Task extends $sdk.GCObject {
       return $g.call('runtime::Task::info', [user_id, task_id], $signal);
     }
   static create($g: $sdk.GreyCat, user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus): Task {
-    return new Task($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[51], user_id, task_id, mod, type, fun, creation, status);
+    return new Task($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[51], [user_id, task_id, mod, type, fun, creation, status]);
   }
 }
 
@@ -3451,7 +3419,7 @@ export class UserCredential extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, offset: bigint | number, pass: string | null): UserCredential {
-    return new UserCredential($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[52], offset, pass);
+    return new UserCredential($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[52], [offset, pass]);
   }
 }
 
@@ -3517,7 +3485,7 @@ export class StoreStat extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[8]] = v;
   }
   static create($g: $sdk.GreyCat, capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number): StoreStat {
-    return new StoreStat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[53], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
+    return new StoreStat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[53], [capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio]);
   }
 }
 
@@ -3553,7 +3521,7 @@ export class UserGroup extends $sdk.GCObject {
       return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
     }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): UserGroup {
-    return new UserGroup($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[54], id, name, activated);
+    return new UserGroup($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[54], [id, name, activated]);
   }
 }
 
@@ -3580,7 +3548,7 @@ export class OpenIDConnect extends $sdk.GCObject {
       return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
     }
   static create($g: $sdk.GreyCat, url: string, clientId: string): OpenIDConnect {
-    return new OpenIDConnect($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[55], url, clientId);
+    return new OpenIDConnect($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[55], [url, clientId]);
   }
 }
 
@@ -3616,7 +3584,7 @@ export class SecurityEntity extends $sdk.GCObject {
       return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
     }
   static create($g: $sdk.GreyCat, id: bigint | number, name: string, activated: boolean): SecurityEntity {
-    return new SecurityEntity($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[56], id, name, activated);
+    return new SecurityEntity($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[56], [id, name, activated]);
   }
 }
 
@@ -3673,7 +3641,7 @@ export class Email extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, from: string, subject: string, body: string, body_is_html: boolean, to: Array<string>, cc: Array<string> | null, bcc: Array<string> | null): Email {
-    return new Email($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[57], from, subject, body, body_is_html, to, cc, bcc);
+    return new Email($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[57], [from, subject, body, body_is_html, to, cc, bcc]);
   }
 }
 
@@ -3727,7 +3695,7 @@ export class CsvColumnString extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: io.TextEncoder | null): CsvColumnString {
-    return new CsvColumnString($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[58], name, mandatory, trim, try_number, try_json, values, encoder);
+    return new CsvColumnString($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[58], [name, mandatory, trim, try_number, try_json, values, encoder]);
   }
 }
 
@@ -3757,7 +3725,7 @@ export class CsvColumnTime extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null): CsvColumnTime {
-    return new CsvColumnTime($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[59], name, mandatory, unit);
+    return new CsvColumnTime($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[59], [name, mandatory, unit]);
   }
 }
 
@@ -3799,7 +3767,7 @@ export class CsvColumnDate extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null): CsvColumnDate {
-    return new CsvColumnDate($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[60], name, mandatory, format, tz, as_time);
+    return new CsvColumnDate($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[60], [name, mandatory, format, tz, as_time]);
   }
 }
 
@@ -3823,7 +3791,7 @@ export class CsvColumnFloat extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnFloat {
-    return new CsvColumnFloat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[61], name, mandatory);
+    return new CsvColumnFloat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[61], [name, mandatory]);
   }
 }
 
@@ -3877,7 +3845,7 @@ export class CsvFormat extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<io.CsvColumn> | null): CsvFormat {
-    return new CsvFormat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[62], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
+    return new CsvFormat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[62], [header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns]);
   }
 }
 
@@ -3901,7 +3869,7 @@ export class HttpHeader extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string, value: string): HttpHeader {
-    return new HttpHeader($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[63], name, value);
+    return new HttpHeader($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[63], [name, value]);
   }
 }
 
@@ -3931,16 +3899,12 @@ export class File extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
   static create($g: $sdk.GreyCat, path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null): File {
-    return new File($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[64], path, size, last_modification);
+    return new File($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[64], [path, size, last_modification]);
   }
 }
 
 export class TextEncoder extends $sdk.GCEnum {
   static readonly _type = 'io::TextEncoder';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static plain($g: $sdk.GreyCat): io.TextEncoder {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[65];
@@ -3980,16 +3944,12 @@ export class CsvColumn extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumn {
-    return new CsvColumn($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[66], name, mandatory);
+    return new CsvColumn($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[66], [name, mandatory]);
   }
 }
 
 export class SmtpMode extends $sdk.GCEnum {
   static readonly _type = 'io::SmtpMode';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static plain($g: $sdk.GreyCat): io.SmtpMode {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[67];
@@ -4049,7 +4009,7 @@ export class Smtp extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
   static create($g: $sdk.GreyCat, host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null): Smtp {
-    return new Smtp($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[68], host, port, mode, authenticate, user, pass);
+    return new Smtp($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[68], [host, port, mode, authenticate, user, pass]);
   }
 }
 
@@ -4073,7 +4033,7 @@ export class CsvColumnBoolean extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnBoolean {
-    return new CsvColumnBoolean($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[69], name, mandatory);
+    return new CsvColumnBoolean($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[69], [name, mandatory]);
   }
 }
 
@@ -4097,16 +4057,12 @@ export class CsvColumnInteger extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnInteger {
-    return new CsvColumnInteger($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[70], name, mandatory);
+    return new CsvColumnInteger($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[70], [name, mandatory]);
   }
 }
 
 export class SmtpAuth extends $sdk.GCEnum {
   static readonly _type = 'io::SmtpAuth';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes[0], attributes[1], attributes[2]);
-  }
 
   public static none($g: $sdk.GreyCat): io.SmtpAuth {
     const t = $g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[71];
@@ -4142,7 +4098,7 @@ export class CsvColumnIgnored extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, name: string | null, mandatory: boolean | null): CsvColumnIgnored {
-    return new CsvColumnIgnored($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[72], name, mandatory);
+    return new CsvColumnIgnored($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[72], [name, mandatory]);
   }
 }
 
@@ -4190,7 +4146,7 @@ export class Url extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
   static create($g: $sdk.GreyCat, protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: Map<string, string> | null, hash: string | null): Url {
-    return new Url($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[73], protocol, host, port, path, params, hash);
+    return new Url($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[73], [protocol, host, port, path, params, hash]);
   }
 }
 
@@ -4328,7 +4284,7 @@ export class ProgressTracker extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
   static create($g: $sdk.GreyCat, start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null): ProgressTracker {
-    return new ProgressTracker($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[77], start, total, counter, duration, progress, speed, remaining);
+    return new ProgressTracker($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[77], [start, total, counter, duration, progress, speed, remaining]);
   }
 }
 
@@ -4454,7 +4410,7 @@ export class BoxPlotFloat extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[18]] = v;
   }
   static create($g: $sdk.GreyCat, min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotFloat {
-    return new BoxPlotFloat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[78], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    return new BoxPlotFloat($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[78], [min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size]);
   }
 }
 
@@ -4504,7 +4460,7 @@ export class Gaussian extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
   static create($g: $sdk.GreyCat, sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null): Gaussian {
-    return new Gaussian($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[83], sum, sum_sq, count, min, max);
+    return new Gaussian($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[83], [sum, sum_sq, count, min, max]);
   }
 }
 
@@ -4636,7 +4592,7 @@ export class BoxPlotInt extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[18]] = v;
   }
   static create($g: $sdk.GreyCat, min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number): BoxPlotInt {
-    return new BoxPlotInt($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[87], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    return new BoxPlotInt($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[87], [min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size]);
   }
 }
 
@@ -4660,7 +4616,7 @@ export class Random extends $sdk.GCObject {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
   static create($g: $sdk.GreyCat, seed: bigint | number, v: number): Random {
-    return new Random($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[88], seed, v);
+    return new Random($g.abi.libs_by_name.get($sdk.std.stdlib.name)!.mapped[88], [seed, v]);
   }
 }
 

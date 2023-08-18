@@ -76,12 +76,12 @@ describe('project', () => {
     {
       _type: 'core::Error',
       code: 0,
-      msg: '',
+      msg: 'an error',
       value: null,
       stack: [
         { module: 'project', fn: 'main', line: 8, column: 17 },
         { module: 'project', fn: 'write_std', line: 12, column: 18 },
-        { module: 'project', fn: 'write_core', line: 86, column: 28 },
+        { module: 'project', fn: 'write_core', line: 86, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

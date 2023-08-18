@@ -153,17 +153,13 @@ fn write_math(out: GcbWriter) {
 
 fn write_runtime(out: GcbWriter) {
   out.write(Task {
-      id: 13,
-      user: 37,
+      user_id: 13,
+      task_id: 37,
       mod: "",
       type: "",
       fun: "",
-      progress: 13.37,
-      remaining: duration::new(42, DurationUnit::microseconds),
       creation: 42_time,
       status: TaskStatus::empty,
-      sub_waiting: 0,
-      sub_tasks_all: 1,
     });
   out.write(TaskStatus::cancelled);
   out.write(Runtime {});

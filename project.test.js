@@ -102,7 +102,7 @@ describe('project', () => {
     { _type: 'core::Date', iso: '<todo>', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '0000000000003000' },
     [],
-    { _type: 'core::Tuple', x: null, y: null },
+    { _type: 'core::Tuple', x: [], y: {} },
     { _type: 'core::nodeIndex', ref: '0000000000004000' },
     {
       _type: 'core::GeoPoly',
@@ -168,23 +168,19 @@ describe('project', () => {
     0.31830988618379064, // MathConstants::m1_pi
     0.6366197723675813, // MathConstants::m2_pi
     1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.4142135623730951, // MathConstants::sqrt2
-    0.7071067811865477, // MathConstants::sqrt1_2
+    1.414213562373095, // MathConstants::sqrt2
+    0.7071067811865476, // MathConstants::sqrt1_2
 
     // std::runtime
     {
       _type: 'runtime::Task',
-      id: 13,
-      user: 37,
+      user_id: 13,
+      task_id: 37,
       mod: '',
       type: '',
       fun: '',
-      progress: 13.37,
-      remaining: { _type: 'core::duration', s: 0, us: 42 },
       creation: { _type: 'core::time', epoch: 0, us: 42 },
       status: { _type: 'runtime::TaskStatus', field: 'empty' },
-      sub_waiting: 0,
-      sub_tasks_all: 1,
     },
     { _type: 'runtime::TaskStatus', field: 'cancelled' },
     { _type: 'runtime::Runtime' },

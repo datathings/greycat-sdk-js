@@ -13,7 +13,9 @@ export class tf4d extends GCObject {
   }
 
   static create(g: GreyCat, x0: number, x1: number, x2: number, x3: number): tf4d {
-    return new tf4d(g.abi.types[g.abi.core_tf4d_offset], x0, x1, x2, x3);
+    const ty = g.abi.types[g.abi.core_tf4d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1, x2, x3) as tf4d;
   }
 
   static load(r: AbiReader, ty: AbiType): tf4d {

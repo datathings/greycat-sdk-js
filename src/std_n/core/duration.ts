@@ -12,7 +12,9 @@ export class duration extends GCObject {
   }
 
   static create(g: GreyCat, value: bigint | number): duration {
-    return new duration(g.abi.types[g.abi.core_duration_offset], value);
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value) as duration;
   }
 
   static load(r: AbiReader, ty: AbiType): duration {

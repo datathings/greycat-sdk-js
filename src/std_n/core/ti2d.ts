@@ -14,7 +14,9 @@ export class ti2d extends GCObject {
 
 
   static create(g: GreyCat, x0: number, x1: number): ti2d {
-    return new ti2d(g.abi.types[g.abi.core_ti2d_offset], x0, x1);
+    const ty = g.abi.types[g.abi.core_ti2d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1) as ti2d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti2d {

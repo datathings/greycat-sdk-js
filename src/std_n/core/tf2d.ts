@@ -13,7 +13,9 @@ export class tf2d extends GCObject {
   }
 
   static create(g: GreyCat, x0: number, x1: number): tf2d {
-    return new tf2d(g.abi.types[g.abi.core_tf2d_offset], x0, x1);
+    const ty = g.abi.types[g.abi.core_tf2d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1) as tf2d;
   }
 
   static load(r: AbiReader, ty: AbiType): tf2d {

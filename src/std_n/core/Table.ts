@@ -12,7 +12,9 @@ export class Table extends GCObject {
   }
 
   static create(g: GreyCat, cols: Array<Value[]>, meta: NativeTableColumnMeta[]): Table {
-    return new Table(g.abi.types[g.abi.core_table_offset], cols, meta);
+    const ty = g.abi.types[g.abi.core_table_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, cols, meta) as Table;
   }
 
   static load(r: AbiReader, type: AbiType): Table {

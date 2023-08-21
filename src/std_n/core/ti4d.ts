@@ -13,7 +13,9 @@ export class ti4d extends GCObject {
   }
 
   static create(g: GreyCat, x0: number, x1: number, x2: number, x3: number): ti4d {
-    return new ti4d(g.abi.types[g.abi.core_ti4d_offset], x0, x1, x2, x3);
+    const ty = g.abi.types[g.abi.core_ti4d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1, x2, x3) as ti4d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti4d {

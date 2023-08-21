@@ -21,7 +21,9 @@ export class ti6d extends GCObject {
   }
 
   static create(g: GreyCat, x0: number, x1: number, x2: number, x3: number, x4: number, x5: number): ti6d {
-    return new ti6d(g.abi.types[g.abi.core_ti6d_offset], x0, x1, x2, x3, x4, x5);
+    const ty = g.abi.types[g.abi.core_ti6d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1, x2, x3, x4, x5) as ti6d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti6d {

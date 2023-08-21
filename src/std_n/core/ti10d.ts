@@ -35,7 +35,9 @@ export class ti10d extends GCObject {
     x8: number,
     x9: number,
   ): ti10d {
-    return new ti10d(g.abi.types[g.abi.core_ti10d_offset], x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+    const ty = g.abi.types[g.abi.core_ti10d_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti10d {

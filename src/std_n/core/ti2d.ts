@@ -3,12 +3,18 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { deinterleave64_2di, interleave64_2di } from '../morton.js';
+import { GreyCat } from '../../greycat.js';
 
 export class ti2d extends GCObject {
   static readonly _type = 'core::ti2d' as const;
 
   constructor(type: AbiType, public x0: number, public x1: number) {
     super(type);
+  }
+
+
+  static create(g: GreyCat, x0: number, x1: number): ti2d {
+    return new ti2d(g.abi.types[g.abi.core_ti2d_offset], x0, x1);
   }
 
   static load(r: AbiReader, ty: AbiType): ti2d {

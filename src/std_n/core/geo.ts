@@ -3,12 +3,17 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { deinterleave64_2d, interleave64_2d } from '../morton.js';
+import { GreyCat } from '../../greycat.js';
 
 export class geo extends GCObject {
   static readonly _type = 'core::geo' as const;
 
   constructor(type: AbiType, public value: bigint) {
     super(type);
+  }
+
+  static create(g: GreyCat, value: bigint): geo {
+    return new geo(g.abi.types[g.abi.core_geo_offset], value);
   }
 
   /**

@@ -2,12 +2,17 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import { GreyCat } from '../../greycat.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
 
   constructor(type: AbiType, public value: bigint | number) {
     super(type);
+  }
+
+  static create(g: GreyCat, value: bigint | number): duration {
+    return new duration(g.abi.types[g.abi.core_duration_offset], value);
   }
 
   static load(r: AbiReader, ty: AbiType): duration {

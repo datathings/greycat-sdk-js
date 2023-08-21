@@ -38,18 +38,19 @@ export class Abi {
   readonly core_array_offset: number = 0;
   readonly core_map_offset: number = 0;
   readonly core_cubic_offset: number = 0;
-  readonly core_tu2d_offset: number = 0;
-  readonly core_tu3d_offset: number = 0;
-  readonly core_tu4d_offset: number = 0;
-  readonly core_tu5d_offset: number = 0;
-  readonly core_tu6d_offset: number = 0;
-  readonly core_tu10d_offset: number = 0;
-  readonly core_tuf2d_offset: number = 0;
-  readonly core_tuf3d_offset: number = 0;
-  readonly core_tuf4d_offset: number = 0;
+  readonly core_ti2d_offset: number = 0;
+  readonly core_ti3d_offset: number = 0;
+  readonly core_ti4d_offset: number = 0;
+  readonly core_ti5d_offset: number = 0;
+  readonly core_ti6d_offset: number = 0;
+  readonly core_ti10d_offset: number = 0;
+  readonly core_tf2d_offset: number = 0;
+  readonly core_tf3d_offset: number = 0;
+  readonly core_tf4d_offset: number = 0;
   readonly core_function_offset: number = 0;
   readonly core_timezone_offset: number = 0;
   readonly core_date_offset: number = 0;
+  readonly core_table_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.off_by_symbol = new Map();
@@ -172,18 +173,19 @@ export class Abi {
           case 'nodeGeo': this.core_node_geo_offset = i; break;
           case 'nodeIndex': this.core_node_index_offset = i; break;
           case 'cubic': this.core_cubic_offset = i; break;
-          case 'ti2d': this.core_tu2d_offset = i; break;
-          case 'ti3d': this.core_tu3d_offset = i; break;
-          case 'ti4d': this.core_tu4d_offset = i; break;
-          case 'ti5d': this.core_tu5d_offset = i; break;
-          case 'ti6d': this.core_tu6d_offset = i; break;
-          case 'ti10d': this.core_tu10d_offset = i; break;
-          case 'tf2d': this.core_tuf2d_offset = i; break;
-          case 'tf3d': this.core_tuf3d_offset = i; break;
-          case 'tf4d': this.core_tuf4d_offset = i; break;
+          case 'ti2d': this.core_ti2d_offset = i; break;
+          case 'ti3d': this.core_ti3d_offset = i; break;
+          case 'ti4d': this.core_ti4d_offset = i; break;
+          case 'ti5d': this.core_ti5d_offset = i; break;
+          case 'ti6d': this.core_ti6d_offset = i; break;
+          case 'ti10d': this.core_ti10d_offset = i; break;
+          case 'tf2d': this.core_tf2d_offset = i; break;
+          case 'tf3d': this.core_tf3d_offset = i; break;
+          case 'tf4d': this.core_tf4d_offset = i; break;
           case 'function': this.core_function_offset = i; break;
           case 'TimeZone': this.core_timezone_offset = i; break;
           case 'Date': this.core_date_offset = i; break;
+          case 'Table': this.core_table_offset = i; break;
           default:
             // noop
             break;
@@ -263,19 +265,19 @@ export class Abi {
   }
 
   createTu2d(x0: bigint | number, x1: bigint | number) {
-    const t = this.types[this.core_tu2d_offset];
+    const t = this.types[this.core_ti2d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1);
   }
 
   createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
-    const t = this.types[this.core_tu3d_offset];
+    const t = this.types[this.core_ti3d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2);
   }
 
   createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
-    const t = this.types[this.core_tu4d_offset];
+    const t = this.types[this.core_ti4d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2, x3);
   }
@@ -288,7 +290,7 @@ export class Abi {
     x3: bigint | number,
     x4: bigint | number,
   ) {
-    const t = this.types[this.core_tu5d_offset];
+    const t = this.types[this.core_ti5d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2, x3, x4);
   }
@@ -301,7 +303,7 @@ export class Abi {
     x4: bigint | number,
     x5: bigint | number,
   ) {
-    const t = this.types[this.core_tu6d_offset];
+    const t = this.types[this.core_ti6d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2, x3, x4, x5);
   }
@@ -318,25 +320,25 @@ export class Abi {
     x8: bigint | number,
     x9: bigint | number,
   ) {
-    const t = this.types[this.core_tu10d_offset];
+    const t = this.types[this.core_ti10d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
   }
 
   createTuf2d(x0: number, x1: number) {
-    const t = this.types[this.core_tuf2d_offset];
+    const t = this.types[this.core_tf2d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1);
   }
 
   createTuf3d(x0: number, x1: number, x2: number) {
-    const t = this.types[this.core_tuf3d_offset];
+    const t = this.types[this.core_tf3d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2);
   }
 
   createTuf4d(x0: number, x1: number, x2: number, x3: number) {
-    const t = this.types[this.core_tuf4d_offset];
+    const t = this.types[this.core_tf4d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new t.factory!(t, x0, x1, x2, x3);
   }

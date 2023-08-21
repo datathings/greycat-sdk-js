@@ -281,39 +281,39 @@ export class AbiReader extends Reader {
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu2d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu2d_offset];
+      const ty = r.abi.types[r.abi.core_ti2d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu3d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu3d_offset];
+      const ty = r.abi.types[r.abi.core_ti3d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu4d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu4d_offset];
+      const ty = r.abi.types[r.abi.core_ti4d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu5d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu5d_offset];
+      const ty = r.abi.types[r.abi.core_ti5d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu6d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu6d_offset];
+      const ty = r.abi.types[r.abi.core_ti6d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tu10d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tu10d_offset];
+      const ty = r.abi.types[r.abi.core_ti10d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tuf2d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tuf2d_offset];
+      const ty = r.abi.types[r.abi.core_tf2d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tuf3d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tuf3d_offset];
+      const ty = r.abi.types[r.abi.core_tf3d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.tuf4d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tuf4d_offset];
+      const ty = r.abi.types[r.abi.core_tf4d_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.enum]: this.read_enum.bind(this),

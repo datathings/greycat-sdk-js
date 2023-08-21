@@ -2,12 +2,17 @@ import { Abi, AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, PrimitiveTypeName, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import { GreyCat } from '../../greycat.js';
 
 export class Table extends GCObject {
   static readonly _type = 'core::Table' as const;
 
   constructor(type: AbiType, public cols: Array<Value[]>, public meta: NativeTableColumnMeta[]) {
     super(type);
+  }
+
+  static create(g: GreyCat, cols: Array<Value[]>, meta: NativeTableColumnMeta[]): Table {
+    return new Table(g.abi.types[g.abi.core_table_offset], cols, meta);
   }
 
   static load(r: AbiReader, type: AbiType): Table {

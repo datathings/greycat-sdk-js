@@ -2,12 +2,19 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import { GreyCat } from '../../greycat.js';
 
 export class time extends GCObject {
   static readonly _type = 'core::time' as const;
 
   constructor(type: AbiType, public value: bigint | number) {
     super(type);
+  }
+
+  static create(g: GreyCat, value: bigint | number): time {
+    const ty = g.abi.types[g.abi.core_time_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value) as time;
   }
 
   static load(r: AbiReader, ty: AbiType): time {

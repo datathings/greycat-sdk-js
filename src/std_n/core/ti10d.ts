@@ -3,6 +3,7 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { deinterleave64_10di, interleave64_10di } from '../morton.js';
+import { GreyCat } from '../../greycat.js';
 
 export class ti10d extends GCObject {
   static readonly _type = 'core::ti10d' as const;
@@ -21,6 +22,20 @@ export class ti10d extends GCObject {
     public x9: number,
   ) {
     super(type);
+  }
+
+  static create(g: GreyCat, x0: number,
+    x1: number,
+    x2: number,
+    x3: number,
+    x4: number,
+    x5: number,
+    x6: number,
+    x7: number,
+    x8: number,
+    x9: number,
+  ): ti10d {
+    return new ti10d(g.abi.types[g.abi.core_ti10d_offset], x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
   }
 
   static load(r: AbiReader, ty: AbiType): ti10d {

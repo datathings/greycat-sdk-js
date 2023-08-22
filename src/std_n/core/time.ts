@@ -3,6 +3,7 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GreyCat } from '../../greycat.js';
+import type { core } from '../../std/index.js';
 
 export class time extends GCObject {
   static readonly _type = 'core::time' as const;
@@ -36,11 +37,24 @@ export class time extends GCObject {
     w.write_vi64(BigInt(this.value));
   }
 
+  /**
+   * Epoch in seconds
+   */
   get epoch(): number {
     if (typeof this.value === 'bigint') {
       return Math.round(Number(this.value / 1_000_000n));
     }
     return Math.round(this.value / 1_000_000);
+  }
+
+  /**
+  * Epoch in milliseconds
+  */
+  get epochMs(): number {
+    if (typeof this.value === 'bigint') {
+      return Math.round(Number(this.value / 1_000n));
+    }
+    return Math.round(this.value / 1_000);
   }
 
   get us(): number {
@@ -73,17 +87,12 @@ export class time extends GCObject {
     return 1;
   }
 
-  // sub(other: time): duration {
-  //   return new duration(this.$type.abi.types[this.$type.abi.core_duration_offset], BigInt(this.value) - BigInt(other.value));
-  // }
-
-  // addDuration(other: duration): time {
-  //   return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) + BigInt(other.value));
-  // }
-
-  // subDuration(other: duration): time {
-  //   return new time(this.$type.abi.types[this.$type.abi.core_time_offset], BigInt(this.value) - BigInt(other.value));
-  // }
+  format(tz: core.TimeZone, options: Intl.DateTimeFormatOptions = {}): string {
+    // this is for Node.js compat (no `navigator` in Node.js)
+    const locales = globalThis.navigator ? globalThis.navigator.language : undefined;
+    options.timeZone = tz.key.replace('_', '/');
+    return new Intl.DateTimeFormat(locales, options).format(this.epochMs);
+  }
 
   override toJSON() {
     return {

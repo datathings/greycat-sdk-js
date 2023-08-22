@@ -31,7 +31,7 @@
     "slugify": "1.6.6"
   },
   "devDependencies": {
-    "@types/node": "16.11.7",
+    "@types/node": "18.17.7",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "esbuild": "0.17.11",
     "eslint": "8.35.0",

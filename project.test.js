@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, stdlib, core } from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -88,7 +88,11 @@ describe('project', () => {
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
     { _type: 'core::TensorType', field: 'c128' },
-    { _type: 'core::Table', cols: [[0,0.5,1,1.5]], meta: [{_type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }] },
+    {
+      _type: 'core::Table',
+      cols: [[0, 0.5, 1, 1.5]],
+      meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }],
+    },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',

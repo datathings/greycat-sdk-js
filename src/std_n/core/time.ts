@@ -90,7 +90,7 @@ export class time extends GCObject {
   format(tz: core.TimeZone, options: Intl.DateTimeFormatOptions = {}): string {
     // this is for Node.js compat (no `navigator` in Node.js)
     const locales = globalThis.navigator ? globalThis.navigator.language : undefined;
-    options.timeZone = tz.key.replace('_', '/');
+    options.timeZone = tz.value as string;
     return new Intl.DateTimeFormat(locales, options).format(this.epochMs);
   }
 

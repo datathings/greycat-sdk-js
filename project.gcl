@@ -89,7 +89,7 @@ fn write_core(out: GcbWriter) {
   out.write(DurationUnit::days);
   out.write(TensorType::c128);
   out.write(table());
-  out.write(Tensor::new());
+  out.write(Tensor {});
   out.write(GeoCircle::new(42_geo, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
   out.write(nodeTime<nodeGeo>::new());

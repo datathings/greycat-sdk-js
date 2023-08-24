@@ -5,6 +5,7 @@ export * from './GCFunction.js';
 export * from './abi.js';
 export * from './types.js';
 export * from './io.js';
+export * from './crypto/index.js';
 
 export * as std_n from './std_n/index.js';
 export * as std from './std/index.js';

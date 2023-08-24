@@ -6,4699 +6,4743 @@ import * as $sdk from '@greycat/sdk';
 import * as std_n from '../std_n/index.js';
 
 export namespace core {
-export class tf2d extends std_n.core.tf2d {}
+  export class tf2d extends std_n.core.tf2d {}
 
-export class SamplingMode extends $sdk.GCEnum {
-  static readonly _type = 'core::SamplingMode';
+  export class SamplingMode extends $sdk.GCEnum {
+    static readonly _type = 'core::SamplingMode';
 
-  public static fixed($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
-    return t.enum_values![t.generated_offsets[0]] as core.SamplingMode;
-  }
-  public static fixed_reg($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
-    return t.enum_values![t.generated_offsets[1]] as core.SamplingMode;
-  }
-  public static adaptative($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
-    return t.enum_values![t.generated_offsets[2]] as core.SamplingMode;
-  }
-  public static dense($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
-    return t.enum_values![t.generated_offsets[3]] as core.SamplingMode;
-  }
-}
-
-export class Table extends std_n.core.Table {}
-
-export class ti6d extends std_n.core.ti6d {}
-
-export class nodeTimeSingleton extends $sdk.GCObject {
-  static readonly _type = 'core::nodeTimeSingleton';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static fixed($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
+      return t.enum_values![t.generated_offsets[0]] as core.SamplingMode;
+    }
+    static fixed_reg($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
+      return t.enum_values![t.generated_offsets[1]] as core.SamplingMode;
+    }
+    static adaptative($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
+      return t.enum_values![t.generated_offsets[2]] as core.SamplingMode;
+    }
+    static dense($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
+      return t.enum_values![t.generated_offsets[3]] as core.SamplingMode;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
+      return t.enum_values!;
+    }
   }
 
-  public get t(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set t(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get v(): any {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set v(v: any) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(t: $sdk.std.core.time, v: any, $g: $sdk.GreyCat = globalThis.greycat.default): nodeTimeSingleton {
-    return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[4], t, v);
-  }
-}
+  export class Table<T = any> extends std_n.core.Table {}
 
-export class time extends std_n.core.time {}
+  export class ti6d extends std_n.core.ti6d {}
 
-export class nodeTime extends std_n.core.nodeTime {}
+  export class nodeTimeSingleton extends $sdk.GCObject {
+    static readonly _type = 'core::nodeTimeSingleton';
 
-export class DurationUnit extends $sdk.GCEnum {
-  static readonly _type = 'core::DurationUnit';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[0]] as core.DurationUnit;
-  }
-  public static milliseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[1]] as core.DurationUnit;
-  }
-  public static seconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[2]] as core.DurationUnit;
-  }
-  public static minutes($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[3]] as core.DurationUnit;
-  }
-  public static hours($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[4]] as core.DurationUnit;
-  }
-  public static days($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[5]] as core.DurationUnit;
-  }
-  public static weeks($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[6]] as core.DurationUnit;
-  }
-  public static months($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[7]] as core.DurationUnit;
-  }
-  public static years($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
-    return t.enum_values![t.generated_offsets[8]] as core.DurationUnit;
-  }
-}
-
-export class NodeTimeInfo extends $sdk.GCObject {
-  static readonly _type = 'core::NodeTimeInfo';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get t(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set t(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get v(): any {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set v(v: any) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(t: $sdk.std.core.time, v: any, $g: $sdk.GreyCat = globalThis.greycat.default): nodeTimeSingleton {
+      return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[4], t, v);
+    }
   }
 
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get from(): $sdk.std.core.time | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set from(v: $sdk.std.core.time | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get to(): $sdk.std.core.time | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set to(v: $sdk.std.core.time | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create(size: bigint | number, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): NodeTimeInfo {
-    return new NodeTimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[8], size, from, to);
-  }
-}
+  export class time extends std_n.core.time {}
 
-export class Error extends std_n.core.Error {}
+  export class nodeTime extends std_n.core.nodeTime {}
 
-export class GeoPoly extends $sdk.GCObject {
-  static readonly _type = 'core::GeoPoly';
+  export class DurationUnit extends $sdk.GCEnum {
+    static readonly _type = 'core::DurationUnit';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get points(): Array<$sdk.std.core.geo> {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set points(v: Array<$sdk.std.core.geo>) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  static create(points: Array<$sdk.std.core.geo>, $g: $sdk.GreyCat = globalThis.greycat.default): GeoPoly {
-    return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[10], points);
-  }
-}
-
-export class duration extends std_n.core.duration {}
-
-export class ti2d extends std_n.core.ti2d {}
-
-export class ErrorCode extends $sdk.GCEnum {
-  static readonly _type = 'core::ErrorCode';
-
-  public static none($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[0]] as core.ErrorCode;
-  }
-  public static too_deep_workspace($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[1]] as core.ErrorCode;
-  }
-  public static too_deep_iterator($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[2]] as core.ErrorCode;
-  }
-  public static wrong_operand($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[3]] as core.ErrorCode;
-  }
-  public static wrong_params($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[4]] as core.ErrorCode;
-  }
-  public static wrong_param_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[5]] as core.ErrorCode;
-  }
-  public static wrong_numeric($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[6]] as core.ErrorCode;
-  }
-  public static wrong_state($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[7]] as core.ErrorCode;
-  }
-  public static wrong_null($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[8]] as core.ErrorCode;
-  }
-  public static unresolved_ref($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[9]] as core.ErrorCode;
-  }
-  public static assign_error($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[10]] as core.ErrorCode;
-  }
-  public static interrupted($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[11]] as core.ErrorCode;
-  }
-  public static throw_($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[12]] as core.ErrorCode;
-  }
-  public static wrong_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[13]] as core.ErrorCode;
-  }
-  public static wrong_dimension($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[14]] as core.ErrorCode;
-  }
-  public static unsupported_operation($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[15]] as core.ErrorCode;
-  }
-  public static unsupported_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[16]] as core.ErrorCode;
-  }
-  public static dimensions_mismatch($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[17]] as core.ErrorCode;
-  }
-  public static timeout($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[18]] as core.ErrorCode;
-  }
-  public static forbidden($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[19]] as core.ErrorCode;
-  }
-  public static runtime_error($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
-    return t.enum_values![t.generated_offsets[20]] as core.ErrorCode;
-  }
-}
-
-export class geo extends std_n.core.geo {}
-
-export class node extends std_n.core.node {}
-
-export class TableColumnMeta extends $sdk.GCObject {
-  static readonly _type = 'core::TableColumnMeta';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[0]] as core.DurationUnit;
+    }
+    static milliseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[1]] as core.DurationUnit;
+    }
+    static seconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[2]] as core.DurationUnit;
+    }
+    static minutes($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[3]] as core.DurationUnit;
+    }
+    static hours($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[4]] as core.DurationUnit;
+    }
+    static days($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[5]] as core.DurationUnit;
+    }
+    static weeks($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[6]] as core.DurationUnit;
+    }
+    static months($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[7]] as core.DurationUnit;
+    }
+    static years($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values![t.generated_offsets[8]] as core.DurationUnit;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
+      return t.enum_values!;
+    }
   }
 
-  public get type(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set type(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get index(): boolean {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set index(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get min(): any | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set min(v: any | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get max(): any | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set max(v: any | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get avg(): any | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set avg(v: any | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get std(): any | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set std(v: any | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create(type: string | null, size: bigint | number, index: boolean, min: any | null, max: any | null, avg: any | null, std: any | null, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMeta {
-    return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[16], type, size, index, min, max, avg, std);
-  }
-}
+  export class NodeTimeInfo extends $sdk.GCObject {
+    static readonly _type = 'core::NodeTimeInfo';
 
-export class Date extends std_n.core.Date {}
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-export class Tensor extends std_n.core.Tensor {}
-
-export class ti4d extends std_n.core.ti4d {}
-
-export class GeoCircle extends $sdk.GCObject {
-  static readonly _type = 'core::GeoCircle';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get size(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set size(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get from(): $sdk.std.core.time | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set from(v: $sdk.std.core.time | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get to(): $sdk.std.core.time | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set to(v: $sdk.std.core.time | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    static create(size: bigint | number, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): NodeTimeInfo {
+      return new NodeTimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[8], size, from, to);
+    }
   }
 
-  public get center(): $sdk.std.core.geo {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set center(v: $sdk.std.core.geo) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get radius(): number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set radius(v: number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(center: $sdk.std.core.geo, radius: number, $g: $sdk.GreyCat = globalThis.greycat.default): GeoCircle {
-    return new GeoCircle($g.abi.libs_by_name.get(stdlib.name)!.mapped[20], center, radius);
-  }
-}
+  export class Error extends std_n.core.Error {}
 
-export class nodeGeo extends std_n.core.nodeGeo {}
+  export class GeoPoly extends $sdk.GCObject {
+    static readonly _type = 'core::GeoPoly';
 
-export class ti5d extends std_n.core.ti5d {}
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-export class String extends std_n.core.String {}
-
-export class Map extends std_n.core.Map {}
-
-export class TensorType extends $sdk.GCEnum {
-  static readonly _type = 'core::TensorType';
-
-  public static i32($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[0]] as core.TensorType;
-  }
-  public static i64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[1]] as core.TensorType;
-  }
-  public static f32($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[2]] as core.TensorType;
-  }
-  public static f64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[3]] as core.TensorType;
-  }
-  public static c64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[4]] as core.TensorType;
-  }
-  public static c128($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
-    return t.enum_values![t.generated_offsets[5]] as core.TensorType;
-  }
-}
-
-export class TimeZone extends $sdk.GCEnum {
-  static readonly _type = 'core::TimeZone';
-
-  public static Africa_Accra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[0]] as core.TimeZone;
-  }
-  public static Africa_Bamako($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[1]] as core.TimeZone;
-  }
-  public static Africa_Banjul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[2]] as core.TimeZone;
-  }
-  public static Africa_Conakry($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[3]] as core.TimeZone;
-  }
-  public static Africa_Dakar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[4]] as core.TimeZone;
-  }
-  public static Africa_Freetown($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[5]] as core.TimeZone;
-  }
-  public static Africa_Lome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[6]] as core.TimeZone;
-  }
-  public static Africa_Nouakchott($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[7]] as core.TimeZone;
-  }
-  public static Africa_Ouagadougou($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[8]] as core.TimeZone;
-  }
-  public static Africa_Timbuktu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[9]] as core.TimeZone;
-  }
-  public static Atlantic_Reykjavik($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[10]] as core.TimeZone;
-  }
-  public static Atlantic_St_Helena($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[11]] as core.TimeZone;
-  }
-  public static Iceland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[12]] as core.TimeZone;
-  }
-  public static Egypt($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[13]] as core.TimeZone;
-  }
-  public static Africa_Maseru($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[14]] as core.TimeZone;
-  }
-  public static Africa_Mbabane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[15]] as core.TimeZone;
-  }
-  public static Africa_Bangui($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[16]] as core.TimeZone;
-  }
-  public static Africa_Brazzaville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[17]] as core.TimeZone;
-  }
-  public static Africa_Douala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[18]] as core.TimeZone;
-  }
-  public static Africa_Kinshasa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[19]] as core.TimeZone;
-  }
-  public static Africa_Libreville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[20]] as core.TimeZone;
-  }
-  public static Africa_Luanda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[21]] as core.TimeZone;
-  }
-  public static Africa_Malabo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[22]] as core.TimeZone;
-  }
-  public static Africa_Niamey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[23]] as core.TimeZone;
-  }
-  public static Africa_Porto_Novo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[24]] as core.TimeZone;
-  }
-  public static Africa_Blantyre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[25]] as core.TimeZone;
-  }
-  public static Africa_Bujumbura($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[26]] as core.TimeZone;
-  }
-  public static Africa_Gaborone($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[27]] as core.TimeZone;
-  }
-  public static Africa_Harare($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[28]] as core.TimeZone;
-  }
-  public static Africa_Kigali($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[29]] as core.TimeZone;
-  }
-  public static Africa_Lubumbashi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[30]] as core.TimeZone;
-  }
-  public static Africa_Lusaka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[31]] as core.TimeZone;
-  }
-  public static Africa_Addis_Ababa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[32]] as core.TimeZone;
-  }
-  public static Africa_Asmara($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[33]] as core.TimeZone;
-  }
-  public static Africa_Asmera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[34]] as core.TimeZone;
-  }
-  public static Africa_Dar_es_Salaam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[35]] as core.TimeZone;
-  }
-  public static Africa_Djibouti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[36]] as core.TimeZone;
-  }
-  public static Africa_Kampala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[37]] as core.TimeZone;
-  }
-  public static Africa_Mogadishu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[38]] as core.TimeZone;
-  }
-  public static Indian_Antananarivo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[39]] as core.TimeZone;
-  }
-  public static Indian_Comoro($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[40]] as core.TimeZone;
-  }
-  public static Indian_Mayotte($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[41]] as core.TimeZone;
-  }
-  public static Libya($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[42]] as core.TimeZone;
-  }
-  public static America_Atka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[43]] as core.TimeZone;
-  }
-  public static US_Aleutian($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[44]] as core.TimeZone;
-  }
-  public static US_Alaska($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[45]] as core.TimeZone;
-  }
-  public static America_Buenos_Aires($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[46]] as core.TimeZone;
-  }
-  public static America_Argentina_ComodRivadavia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[47]] as core.TimeZone;
-  }
-  public static America_Catamarca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[48]] as core.TimeZone;
-  }
-  public static America_Cordoba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[49]] as core.TimeZone;
-  }
-  public static America_Rosario($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[50]] as core.TimeZone;
-  }
-  public static America_Jujuy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[51]] as core.TimeZone;
-  }
-  public static America_Mendoza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[52]] as core.TimeZone;
-  }
-  public static US_Central($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[53]] as core.TimeZone;
-  }
-  public static America_Shiprock($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[54]] as core.TimeZone;
-  }
-  public static Navajo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[55]] as core.TimeZone;
-  }
-  public static US_Mountain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[56]] as core.TimeZone;
-  }
-  public static US_Michigan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[57]] as core.TimeZone;
-  }
-  public static America_Yellowknife($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[58]] as core.TimeZone;
-  }
-  public static Canada_Mountain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[59]] as core.TimeZone;
-  }
-  public static Canada_Atlantic($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[60]] as core.TimeZone;
-  }
-  public static Cuba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[61]] as core.TimeZone;
-  }
-  public static America_Fort_Wayne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[62]] as core.TimeZone;
-  }
-  public static America_Indianapolis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[63]] as core.TimeZone;
-  }
-  public static US_East_Indiana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[64]] as core.TimeZone;
-  }
-  public static America_Knox_IN($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[65]] as core.TimeZone;
-  }
-  public static US_Indiana_Starke($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[66]] as core.TimeZone;
-  }
-  public static America_Pangnirtung($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[67]] as core.TimeZone;
-  }
-  public static Jamaica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[68]] as core.TimeZone;
-  }
-  public static America_Louisville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[69]] as core.TimeZone;
-  }
-  public static US_Pacific($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[70]] as core.TimeZone;
-  }
-  public static Brazil_West($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[71]] as core.TimeZone;
-  }
-  public static Mexico_BajaSur($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[72]] as core.TimeZone;
-  }
-  public static Mexico_General($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[73]] as core.TimeZone;
-  }
-  public static US_Eastern($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[74]] as core.TimeZone;
-  }
-  public static Brazil_DeNoronha($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[75]] as core.TimeZone;
-  }
-  public static America_Godthab($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[76]] as core.TimeZone;
-  }
-  public static America_Atikokan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[77]] as core.TimeZone;
-  }
-  public static America_Cayman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[78]] as core.TimeZone;
-  }
-  public static America_Coral_Harbour($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[79]] as core.TimeZone;
-  }
-  public static America_Creston($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[80]] as core.TimeZone;
-  }
-  public static US_Arizona($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[81]] as core.TimeZone;
-  }
-  public static America_Anguilla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[82]] as core.TimeZone;
-  }
-  public static America_Antigua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[83]] as core.TimeZone;
-  }
-  public static America_Aruba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[84]] as core.TimeZone;
-  }
-  public static America_Blanc_Sablon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[85]] as core.TimeZone;
-  }
-  public static America_Curacao($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[86]] as core.TimeZone;
-  }
-  public static America_Dominica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[87]] as core.TimeZone;
-  }
-  public static America_Grenada($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[88]] as core.TimeZone;
-  }
-  public static America_Guadeloupe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[89]] as core.TimeZone;
-  }
-  public static America_Kralendijk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[90]] as core.TimeZone;
-  }
-  public static America_Lower_Princes($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[91]] as core.TimeZone;
-  }
-  public static America_Marigot($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[92]] as core.TimeZone;
-  }
-  public static America_Montserrat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[93]] as core.TimeZone;
-  }
-  public static America_Port_of_Spain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[94]] as core.TimeZone;
-  }
-  public static America_St_Barthelemy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[95]] as core.TimeZone;
-  }
-  public static America_St_Kitts($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[96]] as core.TimeZone;
-  }
-  public static America_St_Lucia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[97]] as core.TimeZone;
-  }
-  public static America_St_Thomas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[98]] as core.TimeZone;
-  }
-  public static America_St_Vincent($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[99]] as core.TimeZone;
-  }
-  public static America_Tortola($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[100]] as core.TimeZone;
-  }
-  public static America_Virgin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[101]] as core.TimeZone;
-  }
-  public static Canada_Saskatchewan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[102]] as core.TimeZone;
-  }
-  public static America_Porto_Acre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[103]] as core.TimeZone;
-  }
-  public static Brazil_Acre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[104]] as core.TimeZone;
-  }
-  public static Chile_Continental($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[105]] as core.TimeZone;
-  }
-  public static Brazil_East($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[106]] as core.TimeZone;
-  }
-  public static Canada_Newfoundland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[107]] as core.TimeZone;
-  }
-  public static America_Ensenada($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[108]] as core.TimeZone;
-  }
-  public static America_Santa_Isabel($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[109]] as core.TimeZone;
-  }
-  public static Mexico_BajaNorte($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[110]] as core.TimeZone;
-  }
-  public static America_Montreal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[111]] as core.TimeZone;
-  }
-  public static America_Nassau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[112]] as core.TimeZone;
-  }
-  public static America_Nipigon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[113]] as core.TimeZone;
-  }
-  public static America_Thunder_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[114]] as core.TimeZone;
-  }
-  public static Canada_Eastern($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[115]] as core.TimeZone;
-  }
-  public static Canada_Pacific($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[116]] as core.TimeZone;
-  }
-  public static Canada_Yukon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[117]] as core.TimeZone;
-  }
-  public static America_Rainy_River($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[118]] as core.TimeZone;
-  }
-  public static Canada_Central($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[119]] as core.TimeZone;
-  }
-  public static Asia_Ashkhabad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[120]] as core.TimeZone;
-  }
-  public static Asia_Phnom_Penh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[121]] as core.TimeZone;
-  }
-  public static Asia_Vientiane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[122]] as core.TimeZone;
-  }
-  public static Indian_Christmas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[123]] as core.TimeZone;
-  }
-  public static Asia_Dacca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[124]] as core.TimeZone;
-  }
-  public static Asia_Muscat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[125]] as core.TimeZone;
-  }
-  public static Indian_Mahe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[126]] as core.TimeZone;
-  }
-  public static Indian_Reunion($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[127]] as core.TimeZone;
-  }
-  public static Asia_Saigon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[128]] as core.TimeZone;
-  }
-  public static Hongkong($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[129]] as core.TimeZone;
-  }
-  public static Asia_Tel_Aviv($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[130]] as core.TimeZone;
-  }
-  public static Israel($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[131]] as core.TimeZone;
-  }
-  public static Asia_Katmandu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[132]] as core.TimeZone;
-  }
-  public static Asia_Calcutta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[133]] as core.TimeZone;
-  }
-  public static Asia_Brunei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[134]] as core.TimeZone;
-  }
-  public static Asia_Macao($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[135]] as core.TimeZone;
-  }
-  public static Asia_Ujung_Pandang($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[136]] as core.TimeZone;
-  }
-  public static Europe_Nicosia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[137]] as core.TimeZone;
-  }
-  public static Asia_Bahrain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[138]] as core.TimeZone;
-  }
-  public static Antarctica_Syowa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[139]] as core.TimeZone;
-  }
-  public static Asia_Aden($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[140]] as core.TimeZone;
-  }
-  public static Asia_Kuwait($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[141]] as core.TimeZone;
-  }
-  public static ROK($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[142]] as core.TimeZone;
-  }
-  public static Asia_Chongqing($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[143]] as core.TimeZone;
-  }
-  public static Asia_Chungking($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[144]] as core.TimeZone;
-  }
-  public static Asia_Harbin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[145]] as core.TimeZone;
-  }
-  public static PRC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[146]] as core.TimeZone;
-  }
-  public static Asia_Kuala_Lumpur($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[147]] as core.TimeZone;
-  }
-  public static Singapore($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[148]] as core.TimeZone;
-  }
-  public static ROC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[149]] as core.TimeZone;
-  }
-  public static Iran($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[150]] as core.TimeZone;
-  }
-  public static Asia_Thimbu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[151]] as core.TimeZone;
-  }
-  public static Japan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[152]] as core.TimeZone;
-  }
-  public static Asia_Ulan_Bator($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[153]] as core.TimeZone;
-  }
-  public static Antarctica_Vostok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[154]] as core.TimeZone;
-  }
-  public static Asia_Kashgar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[155]] as core.TimeZone;
-  }
-  public static Asia_Rangoon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[156]] as core.TimeZone;
-  }
-  public static Indian_Cocos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[157]] as core.TimeZone;
-  }
-  public static Atlantic_Faeroe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[158]] as core.TimeZone;
-  }
-  public static Australia_South($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[159]] as core.TimeZone;
-  }
-  public static Australia_Queensland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[160]] as core.TimeZone;
-  }
-  public static Australia_Yancowinna($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[161]] as core.TimeZone;
-  }
-  public static Australia_North($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[162]] as core.TimeZone;
-  }
-  public static Australia_Currie($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[163]] as core.TimeZone;
-  }
-  public static Australia_Tasmania($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[164]] as core.TimeZone;
-  }
-  public static Australia_LHI($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[165]] as core.TimeZone;
-  }
-  public static Australia_Victoria($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[166]] as core.TimeZone;
-  }
-  public static Australia_West($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[167]] as core.TimeZone;
-  }
-  public static Australia_ACT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[168]] as core.TimeZone;
-  }
-  public static Australia_Canberra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[169]] as core.TimeZone;
-  }
-  public static Australia_NSW($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[170]] as core.TimeZone;
-  }
-  public static GMT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[171]] as core.TimeZone;
-  }
-  public static GMTx0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[172]] as core.TimeZone;
-  }
-  public static GMT_0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[173]] as core.TimeZone;
-  }
-  public static GMT0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[174]] as core.TimeZone;
-  }
-  public static Greenwich($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[175]] as core.TimeZone;
-  }
-  public static UCT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[176]] as core.TimeZone;
-  }
-  public static UTC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[177]] as core.TimeZone;
-  }
-  public static Universal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[178]] as core.TimeZone;
-  }
-  public static Zulu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[179]] as core.TimeZone;
-  }
-  public static Europe_Ljubljana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[180]] as core.TimeZone;
-  }
-  public static Europe_Podgorica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[181]] as core.TimeZone;
-  }
-  public static Europe_Sarajevo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[182]] as core.TimeZone;
-  }
-  public static Europe_Skopje($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[183]] as core.TimeZone;
-  }
-  public static Europe_Zagreb($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[184]] as core.TimeZone;
-  }
-  public static Arctic_Longyearbyen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[185]] as core.TimeZone;
-  }
-  public static Atlantic_Jan_Mayen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[186]] as core.TimeZone;
-  }
-  public static Europe_Copenhagen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[187]] as core.TimeZone;
-  }
-  public static Europe_Oslo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[188]] as core.TimeZone;
-  }
-  public static Europe_Stockholm($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[189]] as core.TimeZone;
-  }
-  public static Europe_Amsterdam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[190]] as core.TimeZone;
-  }
-  public static Europe_Luxembourg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[191]] as core.TimeZone;
-  }
-  public static Europe_Tiraspol($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[192]] as core.TimeZone;
-  }
-  public static Eire($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[193]] as core.TimeZone;
-  }
-  public static Europe_Mariehamn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[194]] as core.TimeZone;
-  }
-  public static Asia_Istanbul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[195]] as core.TimeZone;
-  }
-  public static Turkey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[196]] as core.TimeZone;
-  }
-  public static Europe_Kiev($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[197]] as core.TimeZone;
-  }
-  public static Europe_Uzhgorod($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[198]] as core.TimeZone;
-  }
-  public static Europe_Zaporozhye($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[199]] as core.TimeZone;
-  }
-  public static Portugal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[200]] as core.TimeZone;
-  }
-  public static Europe_Belfast($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[201]] as core.TimeZone;
-  }
-  public static Europe_Guernsey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[202]] as core.TimeZone;
-  }
-  public static Europe_Isle_of_Man($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[203]] as core.TimeZone;
-  }
-  public static Europe_Jersey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[204]] as core.TimeZone;
-  }
-  public static GB($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[205]] as core.TimeZone;
-  }
-  public static GB_Eire($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[206]] as core.TimeZone;
-  }
-  public static W_SU($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[207]] as core.TimeZone;
-  }
-  public static Europe_Monaco($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[208]] as core.TimeZone;
-  }
-  public static Europe_Bratislava($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[209]] as core.TimeZone;
-  }
-  public static Europe_San_Marino($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[210]] as core.TimeZone;
-  }
-  public static Europe_Vatican($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[211]] as core.TimeZone;
-  }
-  public static Poland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[212]] as core.TimeZone;
-  }
-  public static Europe_Busingen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[213]] as core.TimeZone;
-  }
-  public static Europe_Vaduz($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[214]] as core.TimeZone;
-  }
-  public static Indian_Kerguelen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[215]] as core.TimeZone;
-  }
-  public static Antarctica_McMurdo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[216]] as core.TimeZone;
-  }
-  public static Antarctica_South_Pole($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[217]] as core.TimeZone;
-  }
-  public static NZ($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[218]] as core.TimeZone;
-  }
-  public static NZ_CHAT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[219]] as core.TimeZone;
-  }
-  public static Chile_EasterIsland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[220]] as core.TimeZone;
-  }
-  public static Pacific_Pohnpei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[221]] as core.TimeZone;
-  }
-  public static Pacific_Ponape($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[222]] as core.TimeZone;
-  }
-  public static Pacific_Saipan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[223]] as core.TimeZone;
-  }
-  public static Pacific_Johnston($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[224]] as core.TimeZone;
-  }
-  public static US_Hawaii($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[225]] as core.TimeZone;
-  }
-  public static Pacific_Enderbury($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[226]] as core.TimeZone;
-  }
-  public static Kwajalein($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[227]] as core.TimeZone;
-  }
-  public static Pacific_Midway($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[228]] as core.TimeZone;
-  }
-  public static Pacific_Samoa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[229]] as core.TimeZone;
-  }
-  public static US_Samoa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[230]] as core.TimeZone;
-  }
-  public static Antarctica_DumontDUrville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[231]] as core.TimeZone;
-  }
-  public static Pacific_Chuuk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[232]] as core.TimeZone;
-  }
-  public static Pacific_Truk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[233]] as core.TimeZone;
-  }
-  public static Pacific_Yap($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[234]] as core.TimeZone;
-  }
-  public static Pacific_Funafuti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[235]] as core.TimeZone;
-  }
-  public static Pacific_Majuro($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[236]] as core.TimeZone;
-  }
-  public static Pacific_Wake($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[237]] as core.TimeZone;
-  }
-  public static Pacific_Wallis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[238]] as core.TimeZone;
-  }
-  public static Africa_Abidjan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[239]] as core.TimeZone;
-  }
-  public static Africa_Algiers($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[240]] as core.TimeZone;
-  }
-  public static Africa_Bissau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[241]] as core.TimeZone;
-  }
-  public static Africa_Cairo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[242]] as core.TimeZone;
-  }
-  public static Africa_Casablanca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[243]] as core.TimeZone;
-  }
-  public static Africa_Ceuta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[244]] as core.TimeZone;
-  }
-  public static Africa_El_Aaiun($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[245]] as core.TimeZone;
-  }
-  public static Africa_Johannesburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[246]] as core.TimeZone;
-  }
-  public static Africa_Juba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[247]] as core.TimeZone;
-  }
-  public static Africa_Khartoum($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[248]] as core.TimeZone;
-  }
-  public static Africa_Lagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[249]] as core.TimeZone;
-  }
-  public static Africa_Maputo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[250]] as core.TimeZone;
-  }
-  public static Africa_Monrovia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[251]] as core.TimeZone;
-  }
-  public static Africa_Nairobi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[252]] as core.TimeZone;
-  }
-  public static Africa_Ndjamena($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[253]] as core.TimeZone;
-  }
-  public static Africa_Sao_Tome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[254]] as core.TimeZone;
-  }
-  public static Africa_Tripoli($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[255]] as core.TimeZone;
-  }
-  public static Africa_Tunis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[256]] as core.TimeZone;
-  }
-  public static Africa_Windhoek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[257]] as core.TimeZone;
-  }
-  public static America_Adak($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[258]] as core.TimeZone;
-  }
-  public static America_Anchorage($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[259]] as core.TimeZone;
-  }
-  public static America_Araguaina($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[260]] as core.TimeZone;
-  }
-  public static America_Argentina_Buenos_Aires($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[261]] as core.TimeZone;
-  }
-  public static America_Argentina_Catamarca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[262]] as core.TimeZone;
-  }
-  public static America_Argentina_Cordoba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[263]] as core.TimeZone;
-  }
-  public static America_Argentina_Jujuy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[264]] as core.TimeZone;
-  }
-  public static America_Argentina_La_Rioja($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[265]] as core.TimeZone;
-  }
-  public static America_Argentina_Mendoza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[266]] as core.TimeZone;
-  }
-  public static America_Argentina_Rio_Gallegos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[267]] as core.TimeZone;
-  }
-  public static America_Argentina_Salta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[268]] as core.TimeZone;
-  }
-  public static America_Argentina_San_Juan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[269]] as core.TimeZone;
-  }
-  public static America_Argentina_San_Luis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[270]] as core.TimeZone;
-  }
-  public static America_Argentina_Tucuman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[271]] as core.TimeZone;
-  }
-  public static America_Argentina_Ushuaia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[272]] as core.TimeZone;
-  }
-  public static America_Asuncion($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[273]] as core.TimeZone;
-  }
-  public static America_Bahia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[274]] as core.TimeZone;
-  }
-  public static America_Bahia_Banderas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[275]] as core.TimeZone;
-  }
-  public static America_Barbados($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[276]] as core.TimeZone;
-  }
-  public static America_Belem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[277]] as core.TimeZone;
-  }
-  public static America_Belize($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[278]] as core.TimeZone;
-  }
-  public static America_Boa_Vista($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[279]] as core.TimeZone;
-  }
-  public static America_Bogota($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[280]] as core.TimeZone;
-  }
-  public static America_Boise($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[281]] as core.TimeZone;
-  }
-  public static America_Cambridge_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[282]] as core.TimeZone;
-  }
-  public static America_Campo_Grande($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[283]] as core.TimeZone;
-  }
-  public static America_Cancun($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[284]] as core.TimeZone;
-  }
-  public static America_Caracas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[285]] as core.TimeZone;
-  }
-  public static America_Cayenne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[286]] as core.TimeZone;
-  }
-  public static America_Chicago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[287]] as core.TimeZone;
-  }
-  public static America_Chihuahua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[288]] as core.TimeZone;
-  }
-  public static America_Ciudad_Juarez($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[289]] as core.TimeZone;
-  }
-  public static America_Costa_Rica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[290]] as core.TimeZone;
-  }
-  public static America_Cuiaba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[291]] as core.TimeZone;
-  }
-  public static America_Danmarkshavn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[292]] as core.TimeZone;
-  }
-  public static America_Dawson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[293]] as core.TimeZone;
-  }
-  public static America_Dawson_Creek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[294]] as core.TimeZone;
-  }
-  public static America_Denver($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[295]] as core.TimeZone;
-  }
-  public static America_Detroit($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[296]] as core.TimeZone;
-  }
-  public static America_Edmonton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[297]] as core.TimeZone;
-  }
-  public static America_Eirunepe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[298]] as core.TimeZone;
-  }
-  public static America_El_Salvador($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[299]] as core.TimeZone;
-  }
-  public static America_Fort_Nelson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[300]] as core.TimeZone;
-  }
-  public static America_Fortaleza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[301]] as core.TimeZone;
-  }
-  public static America_Glace_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[302]] as core.TimeZone;
-  }
-  public static America_Goose_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[303]] as core.TimeZone;
-  }
-  public static America_Grand_Turk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[304]] as core.TimeZone;
-  }
-  public static America_Guatemala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[305]] as core.TimeZone;
-  }
-  public static America_Guayaquil($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[306]] as core.TimeZone;
-  }
-  public static America_Guyana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[307]] as core.TimeZone;
-  }
-  public static America_Halifax($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[308]] as core.TimeZone;
-  }
-  public static America_Havana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[309]] as core.TimeZone;
-  }
-  public static America_Hermosillo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[310]] as core.TimeZone;
-  }
-  public static America_Indiana_Indianapolis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[311]] as core.TimeZone;
-  }
-  public static America_Indiana_Knox($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[312]] as core.TimeZone;
-  }
-  public static America_Indiana_Marengo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[313]] as core.TimeZone;
-  }
-  public static America_Indiana_Petersburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[314]] as core.TimeZone;
-  }
-  public static America_Indiana_Tell_City($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[315]] as core.TimeZone;
-  }
-  public static America_Indiana_Vevay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[316]] as core.TimeZone;
-  }
-  public static America_Indiana_Vincennes($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[317]] as core.TimeZone;
-  }
-  public static America_Indiana_Winamac($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[318]] as core.TimeZone;
-  }
-  public static America_Inuvik($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[319]] as core.TimeZone;
-  }
-  public static America_Iqaluit($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[320]] as core.TimeZone;
-  }
-  public static America_Jamaica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[321]] as core.TimeZone;
-  }
-  public static America_Juneau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[322]] as core.TimeZone;
-  }
-  public static America_Kentucky_Louisville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[323]] as core.TimeZone;
-  }
-  public static America_Kentucky_Monticello($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[324]] as core.TimeZone;
-  }
-  public static America_La_Paz($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[325]] as core.TimeZone;
-  }
-  public static America_Lima($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[326]] as core.TimeZone;
-  }
-  public static America_Los_Angeles($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[327]] as core.TimeZone;
-  }
-  public static America_Maceio($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[328]] as core.TimeZone;
-  }
-  public static America_Managua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[329]] as core.TimeZone;
-  }
-  public static America_Manaus($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[330]] as core.TimeZone;
-  }
-  public static America_Martinique($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[331]] as core.TimeZone;
-  }
-  public static America_Matamoros($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[332]] as core.TimeZone;
-  }
-  public static America_Mazatlan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[333]] as core.TimeZone;
-  }
-  public static America_Menominee($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[334]] as core.TimeZone;
-  }
-  public static America_Merida($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[335]] as core.TimeZone;
-  }
-  public static America_Metlakatla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[336]] as core.TimeZone;
-  }
-  public static America_Mexico_City($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[337]] as core.TimeZone;
-  }
-  public static America_Miquelon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[338]] as core.TimeZone;
-  }
-  public static America_Moncton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[339]] as core.TimeZone;
-  }
-  public static America_Monterrey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[340]] as core.TimeZone;
-  }
-  public static America_Montevideo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[341]] as core.TimeZone;
-  }
-  public static America_New_York($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[342]] as core.TimeZone;
-  }
-  public static America_Nome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[343]] as core.TimeZone;
-  }
-  public static America_Noronha($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[344]] as core.TimeZone;
-  }
-  public static America_North_Dakota_Beulah($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[345]] as core.TimeZone;
-  }
-  public static America_North_Dakota_Center($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[346]] as core.TimeZone;
-  }
-  public static America_North_Dakota_New_Salem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[347]] as core.TimeZone;
-  }
-  public static America_Nuuk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[348]] as core.TimeZone;
-  }
-  public static America_Ojinaga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[349]] as core.TimeZone;
-  }
-  public static America_Panama($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[350]] as core.TimeZone;
-  }
-  public static America_Paramaribo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[351]] as core.TimeZone;
-  }
-  public static America_Phoenix($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[352]] as core.TimeZone;
-  }
-  public static America_Port_au_Prince($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[353]] as core.TimeZone;
-  }
-  public static America_Porto_Velho($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[354]] as core.TimeZone;
-  }
-  public static America_Puerto_Rico($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[355]] as core.TimeZone;
-  }
-  public static America_Punta_Arenas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[356]] as core.TimeZone;
-  }
-  public static America_Rankin_Inlet($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[357]] as core.TimeZone;
-  }
-  public static America_Recife($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[358]] as core.TimeZone;
-  }
-  public static America_Regina($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[359]] as core.TimeZone;
-  }
-  public static America_Resolute($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[360]] as core.TimeZone;
-  }
-  public static America_Rio_Branco($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[361]] as core.TimeZone;
-  }
-  public static America_Santarem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[362]] as core.TimeZone;
-  }
-  public static America_Santiago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[363]] as core.TimeZone;
-  }
-  public static America_Santo_Domingo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[364]] as core.TimeZone;
-  }
-  public static America_Sao_Paulo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[365]] as core.TimeZone;
-  }
-  public static America_Scoresbysund($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[366]] as core.TimeZone;
-  }
-  public static America_Sitka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[367]] as core.TimeZone;
-  }
-  public static America_St_Johns($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[368]] as core.TimeZone;
-  }
-  public static America_Swift_Current($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[369]] as core.TimeZone;
-  }
-  public static America_Tegucigalpa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[370]] as core.TimeZone;
-  }
-  public static America_Thule($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[371]] as core.TimeZone;
-  }
-  public static America_Tijuana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[372]] as core.TimeZone;
-  }
-  public static America_Toronto($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[373]] as core.TimeZone;
-  }
-  public static America_Vancouver($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[374]] as core.TimeZone;
-  }
-  public static America_Whitehorse($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[375]] as core.TimeZone;
-  }
-  public static America_Winnipeg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[376]] as core.TimeZone;
-  }
-  public static America_Yakutat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[377]] as core.TimeZone;
-  }
-  public static Antarctica_Casey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[378]] as core.TimeZone;
-  }
-  public static Antarctica_Davis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[379]] as core.TimeZone;
-  }
-  public static Antarctica_Macquarie($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[380]] as core.TimeZone;
-  }
-  public static Antarctica_Mawson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[381]] as core.TimeZone;
-  }
-  public static Antarctica_Palmer($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[382]] as core.TimeZone;
-  }
-  public static Antarctica_Rothera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[383]] as core.TimeZone;
-  }
-  public static Antarctica_Troll($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[384]] as core.TimeZone;
-  }
-  public static Asia_Almaty($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[385]] as core.TimeZone;
-  }
-  public static Asia_Amman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[386]] as core.TimeZone;
-  }
-  public static Asia_Anadyr($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[387]] as core.TimeZone;
-  }
-  public static Asia_Aqtau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[388]] as core.TimeZone;
-  }
-  public static Asia_Aqtobe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[389]] as core.TimeZone;
-  }
-  public static Asia_Ashgabat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[390]] as core.TimeZone;
-  }
-  public static Asia_Atyrau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[391]] as core.TimeZone;
-  }
-  public static Asia_Baghdad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[392]] as core.TimeZone;
-  }
-  public static Asia_Baku($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[393]] as core.TimeZone;
-  }
-  public static Asia_Bangkok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[394]] as core.TimeZone;
-  }
-  public static Asia_Barnaul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[395]] as core.TimeZone;
-  }
-  public static Asia_Beirut($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[396]] as core.TimeZone;
-  }
-  public static Asia_Bishkek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[397]] as core.TimeZone;
-  }
-  public static Asia_Chita($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[398]] as core.TimeZone;
-  }
-  public static Asia_Choibalsan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[399]] as core.TimeZone;
-  }
-  public static Asia_Colombo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[400]] as core.TimeZone;
-  }
-  public static Asia_Damascus($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[401]] as core.TimeZone;
-  }
-  public static Asia_Dhaka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[402]] as core.TimeZone;
-  }
-  public static Asia_Dili($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[403]] as core.TimeZone;
-  }
-  public static Asia_Dubai($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[404]] as core.TimeZone;
-  }
-  public static Asia_Dushanbe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[405]] as core.TimeZone;
-  }
-  public static Asia_Famagusta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[406]] as core.TimeZone;
-  }
-  public static Asia_Gaza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[407]] as core.TimeZone;
-  }
-  public static Asia_Hebron($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[408]] as core.TimeZone;
-  }
-  public static Asia_Ho_Chi_Minh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[409]] as core.TimeZone;
-  }
-  public static Asia_Hong_Kong($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[410]] as core.TimeZone;
-  }
-  public static Asia_Hovd($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[411]] as core.TimeZone;
-  }
-  public static Asia_Irkutsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[412]] as core.TimeZone;
-  }
-  public static Asia_Jakarta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[413]] as core.TimeZone;
-  }
-  public static Asia_Jayapura($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[414]] as core.TimeZone;
-  }
-  public static Asia_Jerusalem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[415]] as core.TimeZone;
-  }
-  public static Asia_Kabul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[416]] as core.TimeZone;
-  }
-  public static Asia_Kamchatka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[417]] as core.TimeZone;
-  }
-  public static Asia_Karachi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[418]] as core.TimeZone;
-  }
-  public static Asia_Kathmandu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[419]] as core.TimeZone;
-  }
-  public static Asia_Khandyga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[420]] as core.TimeZone;
-  }
-  public static Asia_Kolkata($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[421]] as core.TimeZone;
-  }
-  public static Asia_Krasnoyarsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[422]] as core.TimeZone;
-  }
-  public static Asia_Kuching($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[423]] as core.TimeZone;
-  }
-  public static Asia_Macau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[424]] as core.TimeZone;
-  }
-  public static Asia_Magadan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[425]] as core.TimeZone;
-  }
-  public static Asia_Makassar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[426]] as core.TimeZone;
-  }
-  public static Asia_Manila($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[427]] as core.TimeZone;
-  }
-  public static Asia_Nicosia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[428]] as core.TimeZone;
-  }
-  public static Asia_Novokuznetsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[429]] as core.TimeZone;
-  }
-  public static Asia_Novosibirsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[430]] as core.TimeZone;
-  }
-  public static Asia_Omsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[431]] as core.TimeZone;
-  }
-  public static Asia_Oral($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[432]] as core.TimeZone;
-  }
-  public static Asia_Pontianak($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[433]] as core.TimeZone;
-  }
-  public static Asia_Pyongyang($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[434]] as core.TimeZone;
-  }
-  public static Asia_Qatar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[435]] as core.TimeZone;
-  }
-  public static Asia_Qostanay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[436]] as core.TimeZone;
-  }
-  public static Asia_Qyzylorda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[437]] as core.TimeZone;
-  }
-  public static Asia_Riyadh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[438]] as core.TimeZone;
-  }
-  public static Asia_Sakhalin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[439]] as core.TimeZone;
-  }
-  public static Asia_Samarkand($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[440]] as core.TimeZone;
-  }
-  public static Asia_Seoul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[441]] as core.TimeZone;
-  }
-  public static Asia_Shanghai($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[442]] as core.TimeZone;
-  }
-  public static Asia_Singapore($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[443]] as core.TimeZone;
-  }
-  public static Asia_Srednekolymsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[444]] as core.TimeZone;
-  }
-  public static Asia_Taipei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[445]] as core.TimeZone;
-  }
-  public static Asia_Tashkent($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[446]] as core.TimeZone;
-  }
-  public static Asia_Tbilisi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[447]] as core.TimeZone;
-  }
-  public static Asia_Tehran($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[448]] as core.TimeZone;
-  }
-  public static Asia_Thimphu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[449]] as core.TimeZone;
-  }
-  public static Asia_Tokyo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[450]] as core.TimeZone;
-  }
-  public static Asia_Tomsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[451]] as core.TimeZone;
-  }
-  public static Asia_Ulaanbaatar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[452]] as core.TimeZone;
-  }
-  public static Asia_Urumqi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[453]] as core.TimeZone;
-  }
-  public static Asia_Ust_Nera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[454]] as core.TimeZone;
-  }
-  public static Asia_Vladivostok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[455]] as core.TimeZone;
-  }
-  public static Asia_Yakutsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[456]] as core.TimeZone;
-  }
-  public static Asia_Yangon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[457]] as core.TimeZone;
-  }
-  public static Asia_Yekaterinburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[458]] as core.TimeZone;
-  }
-  public static Asia_Yerevan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[459]] as core.TimeZone;
-  }
-  public static Atlantic_Azores($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[460]] as core.TimeZone;
-  }
-  public static Atlantic_Bermuda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[461]] as core.TimeZone;
-  }
-  public static Atlantic_Canary($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[462]] as core.TimeZone;
-  }
-  public static Atlantic_Cape_Verde($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[463]] as core.TimeZone;
-  }
-  public static Atlantic_Faroe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[464]] as core.TimeZone;
-  }
-  public static Atlantic_Madeira($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[465]] as core.TimeZone;
-  }
-  public static Atlantic_South_Georgia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[466]] as core.TimeZone;
-  }
-  public static Atlantic_Stanley($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[467]] as core.TimeZone;
-  }
-  public static Australia_Adelaide($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[468]] as core.TimeZone;
-  }
-  public static Australia_Brisbane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[469]] as core.TimeZone;
-  }
-  public static Australia_Broken_Hill($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[470]] as core.TimeZone;
-  }
-  public static Australia_Darwin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[471]] as core.TimeZone;
-  }
-  public static Australia_Eucla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[472]] as core.TimeZone;
-  }
-  public static Australia_Hobart($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[473]] as core.TimeZone;
-  }
-  public static Australia_Lindeman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[474]] as core.TimeZone;
-  }
-  public static Australia_Lord_Howe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[475]] as core.TimeZone;
-  }
-  public static Australia_Melbourne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[476]] as core.TimeZone;
-  }
-  public static Australia_Perth($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[477]] as core.TimeZone;
-  }
-  public static Australia_Sydney($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[478]] as core.TimeZone;
-  }
-  public static CET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[479]] as core.TimeZone;
-  }
-  public static CST6CDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[480]] as core.TimeZone;
-  }
-  public static EET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[481]] as core.TimeZone;
-  }
-  public static EST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[482]] as core.TimeZone;
-  }
-  public static EST5EDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[483]] as core.TimeZone;
-  }
-  public static Europe_Andorra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[484]] as core.TimeZone;
-  }
-  public static Europe_Astrakhan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[485]] as core.TimeZone;
-  }
-  public static Europe_Athens($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[486]] as core.TimeZone;
-  }
-  public static Europe_Belgrade($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[487]] as core.TimeZone;
-  }
-  public static Europe_Berlin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[488]] as core.TimeZone;
-  }
-  public static Europe_Brussels($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[489]] as core.TimeZone;
-  }
-  public static Europe_Bucharest($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[490]] as core.TimeZone;
-  }
-  public static Europe_Budapest($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[491]] as core.TimeZone;
-  }
-  public static Europe_Chisinau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[492]] as core.TimeZone;
-  }
-  public static Europe_Dublin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[493]] as core.TimeZone;
-  }
-  public static Europe_Gibraltar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[494]] as core.TimeZone;
-  }
-  public static Europe_Helsinki($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[495]] as core.TimeZone;
-  }
-  public static Europe_Istanbul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[496]] as core.TimeZone;
-  }
-  public static Europe_Kaliningrad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[497]] as core.TimeZone;
-  }
-  public static Europe_Kirov($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[498]] as core.TimeZone;
-  }
-  public static Europe_Kyiv($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[499]] as core.TimeZone;
-  }
-  public static Europe_Lisbon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[500]] as core.TimeZone;
-  }
-  public static Europe_London($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[501]] as core.TimeZone;
-  }
-  public static Europe_Madrid($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[502]] as core.TimeZone;
-  }
-  public static Europe_Malta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[503]] as core.TimeZone;
-  }
-  public static Europe_Minsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[504]] as core.TimeZone;
-  }
-  public static Europe_Moscow($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[505]] as core.TimeZone;
-  }
-  public static Europe_Paris($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[506]] as core.TimeZone;
-  }
-  public static Europe_Prague($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[507]] as core.TimeZone;
-  }
-  public static Europe_Riga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[508]] as core.TimeZone;
-  }
-  public static Europe_Rome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[509]] as core.TimeZone;
-  }
-  public static Europe_Samara($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[510]] as core.TimeZone;
-  }
-  public static Europe_Saratov($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[511]] as core.TimeZone;
-  }
-  public static Europe_Simferopol($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[512]] as core.TimeZone;
-  }
-  public static Europe_Sofia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[513]] as core.TimeZone;
-  }
-  public static Europe_Tallinn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[514]] as core.TimeZone;
-  }
-  public static Europe_Tirane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[515]] as core.TimeZone;
-  }
-  public static Europe_Ulyanovsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[516]] as core.TimeZone;
-  }
-  public static Europe_Vienna($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[517]] as core.TimeZone;
-  }
-  public static Europe_Vilnius($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[518]] as core.TimeZone;
-  }
-  public static Europe_Volgograd($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[519]] as core.TimeZone;
-  }
-  public static Europe_Warsaw($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[520]] as core.TimeZone;
-  }
-  public static Europe_Zurich($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[521]] as core.TimeZone;
-  }
-  public static Factory($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[522]] as core.TimeZone;
-  }
-  public static HST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[523]] as core.TimeZone;
-  }
-  public static Indian_Chagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[524]] as core.TimeZone;
-  }
-  public static Indian_Maldives($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[525]] as core.TimeZone;
-  }
-  public static Indian_Mauritius($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[526]] as core.TimeZone;
-  }
-  public static MET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[527]] as core.TimeZone;
-  }
-  public static MST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[528]] as core.TimeZone;
-  }
-  public static MST7MDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[529]] as core.TimeZone;
-  }
-  public static PST8PDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[530]] as core.TimeZone;
-  }
-  public static Pacific_Apia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[531]] as core.TimeZone;
-  }
-  public static Pacific_Auckland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[532]] as core.TimeZone;
-  }
-  public static Pacific_Bougainville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[533]] as core.TimeZone;
-  }
-  public static Pacific_Chatham($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[534]] as core.TimeZone;
-  }
-  public static Pacific_Easter($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[535]] as core.TimeZone;
-  }
-  public static Pacific_Efate($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[536]] as core.TimeZone;
-  }
-  public static Pacific_Fakaofo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[537]] as core.TimeZone;
-  }
-  public static Pacific_Fiji($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[538]] as core.TimeZone;
-  }
-  public static Pacific_Galapagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[539]] as core.TimeZone;
-  }
-  public static Pacific_Gambier($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[540]] as core.TimeZone;
-  }
-  public static Pacific_Guadalcanal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[541]] as core.TimeZone;
-  }
-  public static Pacific_Guam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[542]] as core.TimeZone;
-  }
-  public static Pacific_Honolulu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[543]] as core.TimeZone;
-  }
-  public static Pacific_Kanton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[544]] as core.TimeZone;
-  }
-  public static Pacific_Kiritimati($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[545]] as core.TimeZone;
-  }
-  public static Pacific_Kosrae($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[546]] as core.TimeZone;
-  }
-  public static Pacific_Kwajalein($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[547]] as core.TimeZone;
-  }
-  public static Pacific_Marquesas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[548]] as core.TimeZone;
-  }
-  public static Pacific_Nauru($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[549]] as core.TimeZone;
-  }
-  public static Pacific_Niue($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[550]] as core.TimeZone;
-  }
-  public static Pacific_Norfolk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[551]] as core.TimeZone;
-  }
-  public static Pacific_Noumea($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[552]] as core.TimeZone;
-  }
-  public static Pacific_Pago_Pago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[553]] as core.TimeZone;
-  }
-  public static Pacific_Palau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[554]] as core.TimeZone;
-  }
-  public static Pacific_Pitcairn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[555]] as core.TimeZone;
-  }
-  public static Pacific_Port_Moresby($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[556]] as core.TimeZone;
-  }
-  public static Pacific_Rarotonga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[557]] as core.TimeZone;
-  }
-  public static Pacific_Tahiti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[558]] as core.TimeZone;
-  }
-  public static Pacific_Tarawa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[559]] as core.TimeZone;
-  }
-  public static Pacific_Tongatapu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[560]] as core.TimeZone;
-  }
-  public static WET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
-    return t.enum_values![t.generated_offsets[561]] as core.TimeZone;
-  }
-}
-
-export class GeoBox extends $sdk.GCObject {
-  static readonly _type = 'core::GeoBox';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get points(): Array<$sdk.std.core.geo> {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set points(v: Array<$sdk.std.core.geo>) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    static create(points: Array<$sdk.std.core.geo>, $g: $sdk.GreyCat = globalThis.greycat.default): GeoPoly {
+      return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[10], points);
+    }
   }
 
-  public get sw(): $sdk.std.core.geo {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set sw(v: $sdk.std.core.geo) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get ne(): $sdk.std.core.geo {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set ne(v: $sdk.std.core.geo) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(sw: $sdk.std.core.geo, ne: $sdk.std.core.geo, $g: $sdk.GreyCat = globalThis.greycat.default): GeoBox {
-    return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[27], sw, ne);
-  }
-}
+  export class duration extends std_n.core.duration {}
 
-export class Tuple extends $sdk.GCObject {
-  static readonly _type = 'core::Tuple';
+  export class ti2d extends std_n.core.ti2d {}
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+  export class ErrorCode extends $sdk.GCEnum {
+    static readonly _type = 'core::ErrorCode';
+
+    static none($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[0]] as core.ErrorCode;
+    }
+    static too_deep_workspace($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[1]] as core.ErrorCode;
+    }
+    static too_deep_iterator($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[2]] as core.ErrorCode;
+    }
+    static wrong_operand($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[3]] as core.ErrorCode;
+    }
+    static wrong_params($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[4]] as core.ErrorCode;
+    }
+    static wrong_param_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[5]] as core.ErrorCode;
+    }
+    static wrong_numeric($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[6]] as core.ErrorCode;
+    }
+    static wrong_state($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[7]] as core.ErrorCode;
+    }
+    static wrong_null($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[8]] as core.ErrorCode;
+    }
+    static unresolved_ref($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[9]] as core.ErrorCode;
+    }
+    static assign_error($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[10]] as core.ErrorCode;
+    }
+    static interrupted($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[11]] as core.ErrorCode;
+    }
+    static throw_($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[12]] as core.ErrorCode;
+    }
+    static wrong_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[13]] as core.ErrorCode;
+    }
+    static wrong_dimension($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[14]] as core.ErrorCode;
+    }
+    static unsupported_operation($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[15]] as core.ErrorCode;
+    }
+    static unsupported_type($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[16]] as core.ErrorCode;
+    }
+    static dimensions_mismatch($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[17]] as core.ErrorCode;
+    }
+    static timeout($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[18]] as core.ErrorCode;
+    }
+    static forbidden($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[19]] as core.ErrorCode;
+    }
+    static runtime_error($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values![t.generated_offsets[20]] as core.ErrorCode;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
+      return t.enum_values!;
+    }
   }
 
-  public get x(): any {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set x(v: any) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get y(): any {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set y(v: any) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(x: any, y: any, $g: $sdk.GreyCat = globalThis.greycat.default): Tuple {
-    return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[28], x, y);
-  }
-}
+  export class geo extends std_n.core.geo {}
 
-export class DatePart extends $sdk.GCEnum {
-  static readonly _type = 'core::DatePart';
+  export class node extends std_n.core.node {}
 
-  public static years($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[0]] as core.DatePart;
-  }
-  public static months($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[1]] as core.DatePart;
-  }
-  public static days($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[2]] as core.DatePart;
-  }
-  public static hours($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[3]] as core.DatePart;
-  }
-  public static minutes($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[4]] as core.DatePart;
-  }
-  public static seconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[5]] as core.DatePart;
-  }
-  public static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
-    return t.enum_values![t.generated_offsets[6]] as core.DatePart;
-  }
-}
+  export class TableColumnMeta extends $sdk.GCObject {
+    static readonly _type = 'core::TableColumnMeta';
 
-export class nodeIndex extends std_n.core.nodeIndex {}
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-export class nodeList extends std_n.core.nodeList {}
-
-export class any extends $sdk.GCObject {
-  static readonly _type = 'core::any';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get type(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set type(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get size(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set size(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get index(): boolean {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set index(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get min(): any {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set min(v: any) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get max(): any {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set max(v: any) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get avg(): any {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set avg(v: any) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get std(): any {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set std(v: any) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    static create(type: string | null, size: bigint | number, index: boolean, min: any | null, max: any | null, avg: any | null, std: any | null, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMeta {
+      return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[16], type, size, index, min, max, avg, std);
+    }
   }
 
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): any {
-    return new any($g.abi.libs_by_name.get(stdlib.name)!.mapped[32]);
+  export class Date extends std_n.core.Date {}
+
+  export class Tensor extends std_n.core.Tensor {}
+
+  export class ti4d extends std_n.core.ti4d {}
+
+  export class GeoCircle extends $sdk.GCObject {
+    static readonly _type = 'core::GeoCircle';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get center(): $sdk.std.core.geo {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set center(v: $sdk.std.core.geo) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get radius(): number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set radius(v: number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(center: $sdk.std.core.geo, radius: number, $g: $sdk.GreyCat = globalThis.greycat.default): GeoCircle {
+      return new GeoCircle($g.abi.libs_by_name.get(stdlib.name)!.mapped[20], center, radius);
+    }
   }
-}
 
-export class tf3d extends std_n.core.tf3d {}
+  export class nodeGeo extends std_n.core.nodeGeo {}
 
-export class nodeIndexBucket extends std_n.core.nodeIndexBucket {}
+  export class ti5d extends std_n.core.ti5d {}
 
-export class ti10d extends std_n.core.ti10d {}
+  export class String extends std_n.core.String {}
 
-export class Array extends std_n.core.Array {}
+  export class Map<K = any, V = any> extends std_n.core.Map {}
 
-export class tf4d extends std_n.core.tf4d {}
+  export class TensorType extends $sdk.GCEnum {
+    static readonly _type = 'core::TensorType';
 
-export class ti3d extends std_n.core.ti3d {}
+    static i32($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[0]] as core.TensorType;
+    }
+    static i64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[1]] as core.TensorType;
+    }
+    static f32($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[2]] as core.TensorType;
+    }
+    static f64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[3]] as core.TensorType;
+    }
+    static c64($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[4]] as core.TensorType;
+    }
+    static c128($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values![t.generated_offsets[5]] as core.TensorType;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
+      return t.enum_values!;
+    }
+  }
+
+  export class TimeZone extends $sdk.GCEnum {
+    static readonly _type = 'core::TimeZone';
+
+    static Africa_Accra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[0]] as core.TimeZone;
+    }
+    static Africa_Bamako($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[1]] as core.TimeZone;
+    }
+    static Africa_Banjul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[2]] as core.TimeZone;
+    }
+    static Africa_Conakry($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[3]] as core.TimeZone;
+    }
+    static Africa_Dakar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[4]] as core.TimeZone;
+    }
+    static Africa_Freetown($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[5]] as core.TimeZone;
+    }
+    static Africa_Lome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[6]] as core.TimeZone;
+    }
+    static Africa_Nouakchott($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[7]] as core.TimeZone;
+    }
+    static Africa_Ouagadougou($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[8]] as core.TimeZone;
+    }
+    static Africa_Timbuktu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[9]] as core.TimeZone;
+    }
+    static Atlantic_Reykjavik($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[10]] as core.TimeZone;
+    }
+    static Atlantic_St_Helena($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[11]] as core.TimeZone;
+    }
+    static Iceland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[12]] as core.TimeZone;
+    }
+    static Egypt($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[13]] as core.TimeZone;
+    }
+    static Africa_Maseru($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[14]] as core.TimeZone;
+    }
+    static Africa_Mbabane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[15]] as core.TimeZone;
+    }
+    static Africa_Bangui($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[16]] as core.TimeZone;
+    }
+    static Africa_Brazzaville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[17]] as core.TimeZone;
+    }
+    static Africa_Douala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[18]] as core.TimeZone;
+    }
+    static Africa_Kinshasa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[19]] as core.TimeZone;
+    }
+    static Africa_Libreville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[20]] as core.TimeZone;
+    }
+    static Africa_Luanda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[21]] as core.TimeZone;
+    }
+    static Africa_Malabo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[22]] as core.TimeZone;
+    }
+    static Africa_Niamey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[23]] as core.TimeZone;
+    }
+    static Africa_Porto_Novo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[24]] as core.TimeZone;
+    }
+    static Africa_Blantyre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[25]] as core.TimeZone;
+    }
+    static Africa_Bujumbura($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[26]] as core.TimeZone;
+    }
+    static Africa_Gaborone($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[27]] as core.TimeZone;
+    }
+    static Africa_Harare($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[28]] as core.TimeZone;
+    }
+    static Africa_Kigali($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[29]] as core.TimeZone;
+    }
+    static Africa_Lubumbashi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[30]] as core.TimeZone;
+    }
+    static Africa_Lusaka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[31]] as core.TimeZone;
+    }
+    static Africa_Addis_Ababa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[32]] as core.TimeZone;
+    }
+    static Africa_Asmara($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[33]] as core.TimeZone;
+    }
+    static Africa_Asmera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[34]] as core.TimeZone;
+    }
+    static Africa_Dar_es_Salaam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[35]] as core.TimeZone;
+    }
+    static Africa_Djibouti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[36]] as core.TimeZone;
+    }
+    static Africa_Kampala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[37]] as core.TimeZone;
+    }
+    static Africa_Mogadishu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[38]] as core.TimeZone;
+    }
+    static Indian_Antananarivo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[39]] as core.TimeZone;
+    }
+    static Indian_Comoro($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[40]] as core.TimeZone;
+    }
+    static Indian_Mayotte($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[41]] as core.TimeZone;
+    }
+    static Libya($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[42]] as core.TimeZone;
+    }
+    static America_Atka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[43]] as core.TimeZone;
+    }
+    static US_Aleutian($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[44]] as core.TimeZone;
+    }
+    static US_Alaska($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[45]] as core.TimeZone;
+    }
+    static America_Buenos_Aires($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[46]] as core.TimeZone;
+    }
+    static America_Argentina_ComodRivadavia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[47]] as core.TimeZone;
+    }
+    static America_Catamarca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[48]] as core.TimeZone;
+    }
+    static America_Cordoba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[49]] as core.TimeZone;
+    }
+    static America_Rosario($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[50]] as core.TimeZone;
+    }
+    static America_Jujuy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[51]] as core.TimeZone;
+    }
+    static America_Mendoza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[52]] as core.TimeZone;
+    }
+    static US_Central($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[53]] as core.TimeZone;
+    }
+    static America_Shiprock($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[54]] as core.TimeZone;
+    }
+    static Navajo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[55]] as core.TimeZone;
+    }
+    static US_Mountain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[56]] as core.TimeZone;
+    }
+    static US_Michigan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[57]] as core.TimeZone;
+    }
+    static America_Yellowknife($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[58]] as core.TimeZone;
+    }
+    static Canada_Mountain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[59]] as core.TimeZone;
+    }
+    static Canada_Atlantic($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[60]] as core.TimeZone;
+    }
+    static Cuba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[61]] as core.TimeZone;
+    }
+    static America_Fort_Wayne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[62]] as core.TimeZone;
+    }
+    static America_Indianapolis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[63]] as core.TimeZone;
+    }
+    static US_East_Indiana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[64]] as core.TimeZone;
+    }
+    static America_Knox_IN($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[65]] as core.TimeZone;
+    }
+    static US_Indiana_Starke($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[66]] as core.TimeZone;
+    }
+    static America_Pangnirtung($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[67]] as core.TimeZone;
+    }
+    static Jamaica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[68]] as core.TimeZone;
+    }
+    static America_Louisville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[69]] as core.TimeZone;
+    }
+    static US_Pacific($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[70]] as core.TimeZone;
+    }
+    static Brazil_West($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[71]] as core.TimeZone;
+    }
+    static Mexico_BajaSur($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[72]] as core.TimeZone;
+    }
+    static Mexico_General($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[73]] as core.TimeZone;
+    }
+    static US_Eastern($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[74]] as core.TimeZone;
+    }
+    static Brazil_DeNoronha($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[75]] as core.TimeZone;
+    }
+    static America_Godthab($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[76]] as core.TimeZone;
+    }
+    static America_Atikokan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[77]] as core.TimeZone;
+    }
+    static America_Cayman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[78]] as core.TimeZone;
+    }
+    static America_Coral_Harbour($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[79]] as core.TimeZone;
+    }
+    static America_Creston($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[80]] as core.TimeZone;
+    }
+    static US_Arizona($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[81]] as core.TimeZone;
+    }
+    static America_Anguilla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[82]] as core.TimeZone;
+    }
+    static America_Antigua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[83]] as core.TimeZone;
+    }
+    static America_Aruba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[84]] as core.TimeZone;
+    }
+    static America_Blanc_Sablon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[85]] as core.TimeZone;
+    }
+    static America_Curacao($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[86]] as core.TimeZone;
+    }
+    static America_Dominica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[87]] as core.TimeZone;
+    }
+    static America_Grenada($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[88]] as core.TimeZone;
+    }
+    static America_Guadeloupe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[89]] as core.TimeZone;
+    }
+    static America_Kralendijk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[90]] as core.TimeZone;
+    }
+    static America_Lower_Princes($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[91]] as core.TimeZone;
+    }
+    static America_Marigot($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[92]] as core.TimeZone;
+    }
+    static America_Montserrat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[93]] as core.TimeZone;
+    }
+    static America_Port_of_Spain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[94]] as core.TimeZone;
+    }
+    static America_St_Barthelemy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[95]] as core.TimeZone;
+    }
+    static America_St_Kitts($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[96]] as core.TimeZone;
+    }
+    static America_St_Lucia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[97]] as core.TimeZone;
+    }
+    static America_St_Thomas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[98]] as core.TimeZone;
+    }
+    static America_St_Vincent($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[99]] as core.TimeZone;
+    }
+    static America_Tortola($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[100]] as core.TimeZone;
+    }
+    static America_Virgin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[101]] as core.TimeZone;
+    }
+    static Canada_Saskatchewan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[102]] as core.TimeZone;
+    }
+    static America_Porto_Acre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[103]] as core.TimeZone;
+    }
+    static Brazil_Acre($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[104]] as core.TimeZone;
+    }
+    static Chile_Continental($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[105]] as core.TimeZone;
+    }
+    static Brazil_East($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[106]] as core.TimeZone;
+    }
+    static Canada_Newfoundland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[107]] as core.TimeZone;
+    }
+    static America_Ensenada($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[108]] as core.TimeZone;
+    }
+    static America_Santa_Isabel($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[109]] as core.TimeZone;
+    }
+    static Mexico_BajaNorte($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[110]] as core.TimeZone;
+    }
+    static America_Montreal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[111]] as core.TimeZone;
+    }
+    static America_Nassau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[112]] as core.TimeZone;
+    }
+    static America_Nipigon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[113]] as core.TimeZone;
+    }
+    static America_Thunder_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[114]] as core.TimeZone;
+    }
+    static Canada_Eastern($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[115]] as core.TimeZone;
+    }
+    static Canada_Pacific($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[116]] as core.TimeZone;
+    }
+    static Canada_Yukon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[117]] as core.TimeZone;
+    }
+    static America_Rainy_River($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[118]] as core.TimeZone;
+    }
+    static Canada_Central($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[119]] as core.TimeZone;
+    }
+    static Asia_Ashkhabad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[120]] as core.TimeZone;
+    }
+    static Asia_Phnom_Penh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[121]] as core.TimeZone;
+    }
+    static Asia_Vientiane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[122]] as core.TimeZone;
+    }
+    static Indian_Christmas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[123]] as core.TimeZone;
+    }
+    static Asia_Dacca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[124]] as core.TimeZone;
+    }
+    static Asia_Muscat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[125]] as core.TimeZone;
+    }
+    static Indian_Mahe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[126]] as core.TimeZone;
+    }
+    static Indian_Reunion($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[127]] as core.TimeZone;
+    }
+    static Asia_Saigon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[128]] as core.TimeZone;
+    }
+    static Hongkong($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[129]] as core.TimeZone;
+    }
+    static Asia_Tel_Aviv($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[130]] as core.TimeZone;
+    }
+    static Israel($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[131]] as core.TimeZone;
+    }
+    static Asia_Katmandu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[132]] as core.TimeZone;
+    }
+    static Asia_Calcutta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[133]] as core.TimeZone;
+    }
+    static Asia_Brunei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[134]] as core.TimeZone;
+    }
+    static Asia_Macao($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[135]] as core.TimeZone;
+    }
+    static Asia_Ujung_Pandang($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[136]] as core.TimeZone;
+    }
+    static Europe_Nicosia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[137]] as core.TimeZone;
+    }
+    static Asia_Bahrain($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[138]] as core.TimeZone;
+    }
+    static Antarctica_Syowa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[139]] as core.TimeZone;
+    }
+    static Asia_Aden($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[140]] as core.TimeZone;
+    }
+    static Asia_Kuwait($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[141]] as core.TimeZone;
+    }
+    static ROK($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[142]] as core.TimeZone;
+    }
+    static Asia_Chongqing($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[143]] as core.TimeZone;
+    }
+    static Asia_Chungking($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[144]] as core.TimeZone;
+    }
+    static Asia_Harbin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[145]] as core.TimeZone;
+    }
+    static PRC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[146]] as core.TimeZone;
+    }
+    static Asia_Kuala_Lumpur($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[147]] as core.TimeZone;
+    }
+    static Singapore($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[148]] as core.TimeZone;
+    }
+    static ROC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[149]] as core.TimeZone;
+    }
+    static Iran($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[150]] as core.TimeZone;
+    }
+    static Asia_Thimbu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[151]] as core.TimeZone;
+    }
+    static Japan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[152]] as core.TimeZone;
+    }
+    static Asia_Ulan_Bator($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[153]] as core.TimeZone;
+    }
+    static Antarctica_Vostok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[154]] as core.TimeZone;
+    }
+    static Asia_Kashgar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[155]] as core.TimeZone;
+    }
+    static Asia_Rangoon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[156]] as core.TimeZone;
+    }
+    static Indian_Cocos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[157]] as core.TimeZone;
+    }
+    static Atlantic_Faeroe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[158]] as core.TimeZone;
+    }
+    static Australia_South($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[159]] as core.TimeZone;
+    }
+    static Australia_Queensland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[160]] as core.TimeZone;
+    }
+    static Australia_Yancowinna($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[161]] as core.TimeZone;
+    }
+    static Australia_North($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[162]] as core.TimeZone;
+    }
+    static Australia_Currie($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[163]] as core.TimeZone;
+    }
+    static Australia_Tasmania($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[164]] as core.TimeZone;
+    }
+    static Australia_LHI($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[165]] as core.TimeZone;
+    }
+    static Australia_Victoria($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[166]] as core.TimeZone;
+    }
+    static Australia_West($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[167]] as core.TimeZone;
+    }
+    static Australia_ACT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[168]] as core.TimeZone;
+    }
+    static Australia_Canberra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[169]] as core.TimeZone;
+    }
+    static Australia_NSW($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[170]] as core.TimeZone;
+    }
+    static GMT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[171]] as core.TimeZone;
+    }
+    static GMTx0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[172]] as core.TimeZone;
+    }
+    static GMT_0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[173]] as core.TimeZone;
+    }
+    static GMT0($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[174]] as core.TimeZone;
+    }
+    static Greenwich($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[175]] as core.TimeZone;
+    }
+    static UCT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[176]] as core.TimeZone;
+    }
+    static UTC($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[177]] as core.TimeZone;
+    }
+    static Universal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[178]] as core.TimeZone;
+    }
+    static Zulu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[179]] as core.TimeZone;
+    }
+    static Europe_Ljubljana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[180]] as core.TimeZone;
+    }
+    static Europe_Podgorica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[181]] as core.TimeZone;
+    }
+    static Europe_Sarajevo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[182]] as core.TimeZone;
+    }
+    static Europe_Skopje($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[183]] as core.TimeZone;
+    }
+    static Europe_Zagreb($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[184]] as core.TimeZone;
+    }
+    static Arctic_Longyearbyen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[185]] as core.TimeZone;
+    }
+    static Atlantic_Jan_Mayen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[186]] as core.TimeZone;
+    }
+    static Europe_Copenhagen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[187]] as core.TimeZone;
+    }
+    static Europe_Oslo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[188]] as core.TimeZone;
+    }
+    static Europe_Stockholm($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[189]] as core.TimeZone;
+    }
+    static Europe_Amsterdam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[190]] as core.TimeZone;
+    }
+    static Europe_Luxembourg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[191]] as core.TimeZone;
+    }
+    static Europe_Tiraspol($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[192]] as core.TimeZone;
+    }
+    static Eire($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[193]] as core.TimeZone;
+    }
+    static Europe_Mariehamn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[194]] as core.TimeZone;
+    }
+    static Asia_Istanbul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[195]] as core.TimeZone;
+    }
+    static Turkey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[196]] as core.TimeZone;
+    }
+    static Europe_Kiev($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[197]] as core.TimeZone;
+    }
+    static Europe_Uzhgorod($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[198]] as core.TimeZone;
+    }
+    static Europe_Zaporozhye($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[199]] as core.TimeZone;
+    }
+    static Portugal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[200]] as core.TimeZone;
+    }
+    static Europe_Belfast($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[201]] as core.TimeZone;
+    }
+    static Europe_Guernsey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[202]] as core.TimeZone;
+    }
+    static Europe_Isle_of_Man($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[203]] as core.TimeZone;
+    }
+    static Europe_Jersey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[204]] as core.TimeZone;
+    }
+    static GB($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[205]] as core.TimeZone;
+    }
+    static GB_Eire($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[206]] as core.TimeZone;
+    }
+    static W_SU($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[207]] as core.TimeZone;
+    }
+    static Europe_Monaco($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[208]] as core.TimeZone;
+    }
+    static Europe_Bratislava($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[209]] as core.TimeZone;
+    }
+    static Europe_San_Marino($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[210]] as core.TimeZone;
+    }
+    static Europe_Vatican($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[211]] as core.TimeZone;
+    }
+    static Poland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[212]] as core.TimeZone;
+    }
+    static Europe_Busingen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[213]] as core.TimeZone;
+    }
+    static Europe_Vaduz($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[214]] as core.TimeZone;
+    }
+    static Indian_Kerguelen($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[215]] as core.TimeZone;
+    }
+    static Antarctica_McMurdo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[216]] as core.TimeZone;
+    }
+    static Antarctica_South_Pole($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[217]] as core.TimeZone;
+    }
+    static NZ($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[218]] as core.TimeZone;
+    }
+    static NZ_CHAT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[219]] as core.TimeZone;
+    }
+    static Chile_EasterIsland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[220]] as core.TimeZone;
+    }
+    static Pacific_Pohnpei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[221]] as core.TimeZone;
+    }
+    static Pacific_Ponape($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[222]] as core.TimeZone;
+    }
+    static Pacific_Saipan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[223]] as core.TimeZone;
+    }
+    static Pacific_Johnston($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[224]] as core.TimeZone;
+    }
+    static US_Hawaii($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[225]] as core.TimeZone;
+    }
+    static Pacific_Enderbury($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[226]] as core.TimeZone;
+    }
+    static Kwajalein($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[227]] as core.TimeZone;
+    }
+    static Pacific_Midway($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[228]] as core.TimeZone;
+    }
+    static Pacific_Samoa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[229]] as core.TimeZone;
+    }
+    static US_Samoa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[230]] as core.TimeZone;
+    }
+    static Antarctica_DumontDUrville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[231]] as core.TimeZone;
+    }
+    static Pacific_Chuuk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[232]] as core.TimeZone;
+    }
+    static Pacific_Truk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[233]] as core.TimeZone;
+    }
+    static Pacific_Yap($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[234]] as core.TimeZone;
+    }
+    static Pacific_Funafuti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[235]] as core.TimeZone;
+    }
+    static Pacific_Majuro($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[236]] as core.TimeZone;
+    }
+    static Pacific_Wake($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[237]] as core.TimeZone;
+    }
+    static Pacific_Wallis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[238]] as core.TimeZone;
+    }
+    static Africa_Abidjan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[239]] as core.TimeZone;
+    }
+    static Africa_Algiers($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[240]] as core.TimeZone;
+    }
+    static Africa_Bissau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[241]] as core.TimeZone;
+    }
+    static Africa_Cairo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[242]] as core.TimeZone;
+    }
+    static Africa_Casablanca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[243]] as core.TimeZone;
+    }
+    static Africa_Ceuta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[244]] as core.TimeZone;
+    }
+    static Africa_El_Aaiun($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[245]] as core.TimeZone;
+    }
+    static Africa_Johannesburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[246]] as core.TimeZone;
+    }
+    static Africa_Juba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[247]] as core.TimeZone;
+    }
+    static Africa_Khartoum($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[248]] as core.TimeZone;
+    }
+    static Africa_Lagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[249]] as core.TimeZone;
+    }
+    static Africa_Maputo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[250]] as core.TimeZone;
+    }
+    static Africa_Monrovia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[251]] as core.TimeZone;
+    }
+    static Africa_Nairobi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[252]] as core.TimeZone;
+    }
+    static Africa_Ndjamena($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[253]] as core.TimeZone;
+    }
+    static Africa_Sao_Tome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[254]] as core.TimeZone;
+    }
+    static Africa_Tripoli($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[255]] as core.TimeZone;
+    }
+    static Africa_Tunis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[256]] as core.TimeZone;
+    }
+    static Africa_Windhoek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[257]] as core.TimeZone;
+    }
+    static America_Adak($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[258]] as core.TimeZone;
+    }
+    static America_Anchorage($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[259]] as core.TimeZone;
+    }
+    static America_Araguaina($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[260]] as core.TimeZone;
+    }
+    static America_Argentina_Buenos_Aires($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[261]] as core.TimeZone;
+    }
+    static America_Argentina_Catamarca($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[262]] as core.TimeZone;
+    }
+    static America_Argentina_Cordoba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[263]] as core.TimeZone;
+    }
+    static America_Argentina_Jujuy($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[264]] as core.TimeZone;
+    }
+    static America_Argentina_La_Rioja($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[265]] as core.TimeZone;
+    }
+    static America_Argentina_Mendoza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[266]] as core.TimeZone;
+    }
+    static America_Argentina_Rio_Gallegos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[267]] as core.TimeZone;
+    }
+    static America_Argentina_Salta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[268]] as core.TimeZone;
+    }
+    static America_Argentina_San_Juan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[269]] as core.TimeZone;
+    }
+    static America_Argentina_San_Luis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[270]] as core.TimeZone;
+    }
+    static America_Argentina_Tucuman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[271]] as core.TimeZone;
+    }
+    static America_Argentina_Ushuaia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[272]] as core.TimeZone;
+    }
+    static America_Asuncion($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[273]] as core.TimeZone;
+    }
+    static America_Bahia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[274]] as core.TimeZone;
+    }
+    static America_Bahia_Banderas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[275]] as core.TimeZone;
+    }
+    static America_Barbados($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[276]] as core.TimeZone;
+    }
+    static America_Belem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[277]] as core.TimeZone;
+    }
+    static America_Belize($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[278]] as core.TimeZone;
+    }
+    static America_Boa_Vista($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[279]] as core.TimeZone;
+    }
+    static America_Bogota($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[280]] as core.TimeZone;
+    }
+    static America_Boise($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[281]] as core.TimeZone;
+    }
+    static America_Cambridge_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[282]] as core.TimeZone;
+    }
+    static America_Campo_Grande($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[283]] as core.TimeZone;
+    }
+    static America_Cancun($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[284]] as core.TimeZone;
+    }
+    static America_Caracas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[285]] as core.TimeZone;
+    }
+    static America_Cayenne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[286]] as core.TimeZone;
+    }
+    static America_Chicago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[287]] as core.TimeZone;
+    }
+    static America_Chihuahua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[288]] as core.TimeZone;
+    }
+    static America_Ciudad_Juarez($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[289]] as core.TimeZone;
+    }
+    static America_Costa_Rica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[290]] as core.TimeZone;
+    }
+    static America_Cuiaba($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[291]] as core.TimeZone;
+    }
+    static America_Danmarkshavn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[292]] as core.TimeZone;
+    }
+    static America_Dawson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[293]] as core.TimeZone;
+    }
+    static America_Dawson_Creek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[294]] as core.TimeZone;
+    }
+    static America_Denver($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[295]] as core.TimeZone;
+    }
+    static America_Detroit($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[296]] as core.TimeZone;
+    }
+    static America_Edmonton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[297]] as core.TimeZone;
+    }
+    static America_Eirunepe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[298]] as core.TimeZone;
+    }
+    static America_El_Salvador($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[299]] as core.TimeZone;
+    }
+    static America_Fort_Nelson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[300]] as core.TimeZone;
+    }
+    static America_Fortaleza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[301]] as core.TimeZone;
+    }
+    static America_Glace_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[302]] as core.TimeZone;
+    }
+    static America_Goose_Bay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[303]] as core.TimeZone;
+    }
+    static America_Grand_Turk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[304]] as core.TimeZone;
+    }
+    static America_Guatemala($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[305]] as core.TimeZone;
+    }
+    static America_Guayaquil($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[306]] as core.TimeZone;
+    }
+    static America_Guyana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[307]] as core.TimeZone;
+    }
+    static America_Halifax($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[308]] as core.TimeZone;
+    }
+    static America_Havana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[309]] as core.TimeZone;
+    }
+    static America_Hermosillo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[310]] as core.TimeZone;
+    }
+    static America_Indiana_Indianapolis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[311]] as core.TimeZone;
+    }
+    static America_Indiana_Knox($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[312]] as core.TimeZone;
+    }
+    static America_Indiana_Marengo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[313]] as core.TimeZone;
+    }
+    static America_Indiana_Petersburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[314]] as core.TimeZone;
+    }
+    static America_Indiana_Tell_City($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[315]] as core.TimeZone;
+    }
+    static America_Indiana_Vevay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[316]] as core.TimeZone;
+    }
+    static America_Indiana_Vincennes($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[317]] as core.TimeZone;
+    }
+    static America_Indiana_Winamac($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[318]] as core.TimeZone;
+    }
+    static America_Inuvik($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[319]] as core.TimeZone;
+    }
+    static America_Iqaluit($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[320]] as core.TimeZone;
+    }
+    static America_Jamaica($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[321]] as core.TimeZone;
+    }
+    static America_Juneau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[322]] as core.TimeZone;
+    }
+    static America_Kentucky_Louisville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[323]] as core.TimeZone;
+    }
+    static America_Kentucky_Monticello($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[324]] as core.TimeZone;
+    }
+    static America_La_Paz($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[325]] as core.TimeZone;
+    }
+    static America_Lima($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[326]] as core.TimeZone;
+    }
+    static America_Los_Angeles($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[327]] as core.TimeZone;
+    }
+    static America_Maceio($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[328]] as core.TimeZone;
+    }
+    static America_Managua($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[329]] as core.TimeZone;
+    }
+    static America_Manaus($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[330]] as core.TimeZone;
+    }
+    static America_Martinique($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[331]] as core.TimeZone;
+    }
+    static America_Matamoros($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[332]] as core.TimeZone;
+    }
+    static America_Mazatlan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[333]] as core.TimeZone;
+    }
+    static America_Menominee($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[334]] as core.TimeZone;
+    }
+    static America_Merida($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[335]] as core.TimeZone;
+    }
+    static America_Metlakatla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[336]] as core.TimeZone;
+    }
+    static America_Mexico_City($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[337]] as core.TimeZone;
+    }
+    static America_Miquelon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[338]] as core.TimeZone;
+    }
+    static America_Moncton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[339]] as core.TimeZone;
+    }
+    static America_Monterrey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[340]] as core.TimeZone;
+    }
+    static America_Montevideo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[341]] as core.TimeZone;
+    }
+    static America_New_York($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[342]] as core.TimeZone;
+    }
+    static America_Nome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[343]] as core.TimeZone;
+    }
+    static America_Noronha($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[344]] as core.TimeZone;
+    }
+    static America_North_Dakota_Beulah($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[345]] as core.TimeZone;
+    }
+    static America_North_Dakota_Center($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[346]] as core.TimeZone;
+    }
+    static America_North_Dakota_New_Salem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[347]] as core.TimeZone;
+    }
+    static America_Nuuk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[348]] as core.TimeZone;
+    }
+    static America_Ojinaga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[349]] as core.TimeZone;
+    }
+    static America_Panama($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[350]] as core.TimeZone;
+    }
+    static America_Paramaribo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[351]] as core.TimeZone;
+    }
+    static America_Phoenix($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[352]] as core.TimeZone;
+    }
+    static America_Port_au_Prince($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[353]] as core.TimeZone;
+    }
+    static America_Porto_Velho($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[354]] as core.TimeZone;
+    }
+    static America_Puerto_Rico($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[355]] as core.TimeZone;
+    }
+    static America_Punta_Arenas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[356]] as core.TimeZone;
+    }
+    static America_Rankin_Inlet($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[357]] as core.TimeZone;
+    }
+    static America_Recife($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[358]] as core.TimeZone;
+    }
+    static America_Regina($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[359]] as core.TimeZone;
+    }
+    static America_Resolute($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[360]] as core.TimeZone;
+    }
+    static America_Rio_Branco($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[361]] as core.TimeZone;
+    }
+    static America_Santarem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[362]] as core.TimeZone;
+    }
+    static America_Santiago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[363]] as core.TimeZone;
+    }
+    static America_Santo_Domingo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[364]] as core.TimeZone;
+    }
+    static America_Sao_Paulo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[365]] as core.TimeZone;
+    }
+    static America_Scoresbysund($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[366]] as core.TimeZone;
+    }
+    static America_Sitka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[367]] as core.TimeZone;
+    }
+    static America_St_Johns($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[368]] as core.TimeZone;
+    }
+    static America_Swift_Current($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[369]] as core.TimeZone;
+    }
+    static America_Tegucigalpa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[370]] as core.TimeZone;
+    }
+    static America_Thule($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[371]] as core.TimeZone;
+    }
+    static America_Tijuana($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[372]] as core.TimeZone;
+    }
+    static America_Toronto($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[373]] as core.TimeZone;
+    }
+    static America_Vancouver($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[374]] as core.TimeZone;
+    }
+    static America_Whitehorse($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[375]] as core.TimeZone;
+    }
+    static America_Winnipeg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[376]] as core.TimeZone;
+    }
+    static America_Yakutat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[377]] as core.TimeZone;
+    }
+    static Antarctica_Casey($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[378]] as core.TimeZone;
+    }
+    static Antarctica_Davis($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[379]] as core.TimeZone;
+    }
+    static Antarctica_Macquarie($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[380]] as core.TimeZone;
+    }
+    static Antarctica_Mawson($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[381]] as core.TimeZone;
+    }
+    static Antarctica_Palmer($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[382]] as core.TimeZone;
+    }
+    static Antarctica_Rothera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[383]] as core.TimeZone;
+    }
+    static Antarctica_Troll($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[384]] as core.TimeZone;
+    }
+    static Asia_Almaty($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[385]] as core.TimeZone;
+    }
+    static Asia_Amman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[386]] as core.TimeZone;
+    }
+    static Asia_Anadyr($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[387]] as core.TimeZone;
+    }
+    static Asia_Aqtau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[388]] as core.TimeZone;
+    }
+    static Asia_Aqtobe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[389]] as core.TimeZone;
+    }
+    static Asia_Ashgabat($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[390]] as core.TimeZone;
+    }
+    static Asia_Atyrau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[391]] as core.TimeZone;
+    }
+    static Asia_Baghdad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[392]] as core.TimeZone;
+    }
+    static Asia_Baku($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[393]] as core.TimeZone;
+    }
+    static Asia_Bangkok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[394]] as core.TimeZone;
+    }
+    static Asia_Barnaul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[395]] as core.TimeZone;
+    }
+    static Asia_Beirut($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[396]] as core.TimeZone;
+    }
+    static Asia_Bishkek($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[397]] as core.TimeZone;
+    }
+    static Asia_Chita($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[398]] as core.TimeZone;
+    }
+    static Asia_Choibalsan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[399]] as core.TimeZone;
+    }
+    static Asia_Colombo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[400]] as core.TimeZone;
+    }
+    static Asia_Damascus($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[401]] as core.TimeZone;
+    }
+    static Asia_Dhaka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[402]] as core.TimeZone;
+    }
+    static Asia_Dili($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[403]] as core.TimeZone;
+    }
+    static Asia_Dubai($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[404]] as core.TimeZone;
+    }
+    static Asia_Dushanbe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[405]] as core.TimeZone;
+    }
+    static Asia_Famagusta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[406]] as core.TimeZone;
+    }
+    static Asia_Gaza($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[407]] as core.TimeZone;
+    }
+    static Asia_Hebron($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[408]] as core.TimeZone;
+    }
+    static Asia_Ho_Chi_Minh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[409]] as core.TimeZone;
+    }
+    static Asia_Hong_Kong($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[410]] as core.TimeZone;
+    }
+    static Asia_Hovd($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[411]] as core.TimeZone;
+    }
+    static Asia_Irkutsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[412]] as core.TimeZone;
+    }
+    static Asia_Jakarta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[413]] as core.TimeZone;
+    }
+    static Asia_Jayapura($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[414]] as core.TimeZone;
+    }
+    static Asia_Jerusalem($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[415]] as core.TimeZone;
+    }
+    static Asia_Kabul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[416]] as core.TimeZone;
+    }
+    static Asia_Kamchatka($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[417]] as core.TimeZone;
+    }
+    static Asia_Karachi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[418]] as core.TimeZone;
+    }
+    static Asia_Kathmandu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[419]] as core.TimeZone;
+    }
+    static Asia_Khandyga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[420]] as core.TimeZone;
+    }
+    static Asia_Kolkata($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[421]] as core.TimeZone;
+    }
+    static Asia_Krasnoyarsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[422]] as core.TimeZone;
+    }
+    static Asia_Kuching($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[423]] as core.TimeZone;
+    }
+    static Asia_Macau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[424]] as core.TimeZone;
+    }
+    static Asia_Magadan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[425]] as core.TimeZone;
+    }
+    static Asia_Makassar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[426]] as core.TimeZone;
+    }
+    static Asia_Manila($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[427]] as core.TimeZone;
+    }
+    static Asia_Nicosia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[428]] as core.TimeZone;
+    }
+    static Asia_Novokuznetsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[429]] as core.TimeZone;
+    }
+    static Asia_Novosibirsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[430]] as core.TimeZone;
+    }
+    static Asia_Omsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[431]] as core.TimeZone;
+    }
+    static Asia_Oral($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[432]] as core.TimeZone;
+    }
+    static Asia_Pontianak($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[433]] as core.TimeZone;
+    }
+    static Asia_Pyongyang($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[434]] as core.TimeZone;
+    }
+    static Asia_Qatar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[435]] as core.TimeZone;
+    }
+    static Asia_Qostanay($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[436]] as core.TimeZone;
+    }
+    static Asia_Qyzylorda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[437]] as core.TimeZone;
+    }
+    static Asia_Riyadh($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[438]] as core.TimeZone;
+    }
+    static Asia_Sakhalin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[439]] as core.TimeZone;
+    }
+    static Asia_Samarkand($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[440]] as core.TimeZone;
+    }
+    static Asia_Seoul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[441]] as core.TimeZone;
+    }
+    static Asia_Shanghai($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[442]] as core.TimeZone;
+    }
+    static Asia_Singapore($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[443]] as core.TimeZone;
+    }
+    static Asia_Srednekolymsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[444]] as core.TimeZone;
+    }
+    static Asia_Taipei($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[445]] as core.TimeZone;
+    }
+    static Asia_Tashkent($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[446]] as core.TimeZone;
+    }
+    static Asia_Tbilisi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[447]] as core.TimeZone;
+    }
+    static Asia_Tehran($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[448]] as core.TimeZone;
+    }
+    static Asia_Thimphu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[449]] as core.TimeZone;
+    }
+    static Asia_Tokyo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[450]] as core.TimeZone;
+    }
+    static Asia_Tomsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[451]] as core.TimeZone;
+    }
+    static Asia_Ulaanbaatar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[452]] as core.TimeZone;
+    }
+    static Asia_Urumqi($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[453]] as core.TimeZone;
+    }
+    static Asia_Ust_Nera($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[454]] as core.TimeZone;
+    }
+    static Asia_Vladivostok($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[455]] as core.TimeZone;
+    }
+    static Asia_Yakutsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[456]] as core.TimeZone;
+    }
+    static Asia_Yangon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[457]] as core.TimeZone;
+    }
+    static Asia_Yekaterinburg($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[458]] as core.TimeZone;
+    }
+    static Asia_Yerevan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[459]] as core.TimeZone;
+    }
+    static Atlantic_Azores($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[460]] as core.TimeZone;
+    }
+    static Atlantic_Bermuda($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[461]] as core.TimeZone;
+    }
+    static Atlantic_Canary($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[462]] as core.TimeZone;
+    }
+    static Atlantic_Cape_Verde($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[463]] as core.TimeZone;
+    }
+    static Atlantic_Faroe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[464]] as core.TimeZone;
+    }
+    static Atlantic_Madeira($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[465]] as core.TimeZone;
+    }
+    static Atlantic_South_Georgia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[466]] as core.TimeZone;
+    }
+    static Atlantic_Stanley($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[467]] as core.TimeZone;
+    }
+    static Australia_Adelaide($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[468]] as core.TimeZone;
+    }
+    static Australia_Brisbane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[469]] as core.TimeZone;
+    }
+    static Australia_Broken_Hill($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[470]] as core.TimeZone;
+    }
+    static Australia_Darwin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[471]] as core.TimeZone;
+    }
+    static Australia_Eucla($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[472]] as core.TimeZone;
+    }
+    static Australia_Hobart($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[473]] as core.TimeZone;
+    }
+    static Australia_Lindeman($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[474]] as core.TimeZone;
+    }
+    static Australia_Lord_Howe($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[475]] as core.TimeZone;
+    }
+    static Australia_Melbourne($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[476]] as core.TimeZone;
+    }
+    static Australia_Perth($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[477]] as core.TimeZone;
+    }
+    static Australia_Sydney($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[478]] as core.TimeZone;
+    }
+    static CET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[479]] as core.TimeZone;
+    }
+    static CST6CDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[480]] as core.TimeZone;
+    }
+    static EET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[481]] as core.TimeZone;
+    }
+    static EST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[482]] as core.TimeZone;
+    }
+    static EST5EDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[483]] as core.TimeZone;
+    }
+    static Europe_Andorra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[484]] as core.TimeZone;
+    }
+    static Europe_Astrakhan($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[485]] as core.TimeZone;
+    }
+    static Europe_Athens($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[486]] as core.TimeZone;
+    }
+    static Europe_Belgrade($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[487]] as core.TimeZone;
+    }
+    static Europe_Berlin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[488]] as core.TimeZone;
+    }
+    static Europe_Brussels($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[489]] as core.TimeZone;
+    }
+    static Europe_Bucharest($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[490]] as core.TimeZone;
+    }
+    static Europe_Budapest($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[491]] as core.TimeZone;
+    }
+    static Europe_Chisinau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[492]] as core.TimeZone;
+    }
+    static Europe_Dublin($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[493]] as core.TimeZone;
+    }
+    static Europe_Gibraltar($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[494]] as core.TimeZone;
+    }
+    static Europe_Helsinki($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[495]] as core.TimeZone;
+    }
+    static Europe_Istanbul($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[496]] as core.TimeZone;
+    }
+    static Europe_Kaliningrad($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[497]] as core.TimeZone;
+    }
+    static Europe_Kirov($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[498]] as core.TimeZone;
+    }
+    static Europe_Kyiv($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[499]] as core.TimeZone;
+    }
+    static Europe_Lisbon($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[500]] as core.TimeZone;
+    }
+    static Europe_London($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[501]] as core.TimeZone;
+    }
+    static Europe_Madrid($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[502]] as core.TimeZone;
+    }
+    static Europe_Malta($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[503]] as core.TimeZone;
+    }
+    static Europe_Minsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[504]] as core.TimeZone;
+    }
+    static Europe_Moscow($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[505]] as core.TimeZone;
+    }
+    static Europe_Paris($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[506]] as core.TimeZone;
+    }
+    static Europe_Prague($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[507]] as core.TimeZone;
+    }
+    static Europe_Riga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[508]] as core.TimeZone;
+    }
+    static Europe_Rome($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[509]] as core.TimeZone;
+    }
+    static Europe_Samara($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[510]] as core.TimeZone;
+    }
+    static Europe_Saratov($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[511]] as core.TimeZone;
+    }
+    static Europe_Simferopol($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[512]] as core.TimeZone;
+    }
+    static Europe_Sofia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[513]] as core.TimeZone;
+    }
+    static Europe_Tallinn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[514]] as core.TimeZone;
+    }
+    static Europe_Tirane($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[515]] as core.TimeZone;
+    }
+    static Europe_Ulyanovsk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[516]] as core.TimeZone;
+    }
+    static Europe_Vienna($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[517]] as core.TimeZone;
+    }
+    static Europe_Vilnius($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[518]] as core.TimeZone;
+    }
+    static Europe_Volgograd($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[519]] as core.TimeZone;
+    }
+    static Europe_Warsaw($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[520]] as core.TimeZone;
+    }
+    static Europe_Zurich($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[521]] as core.TimeZone;
+    }
+    static Factory($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[522]] as core.TimeZone;
+    }
+    static HST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[523]] as core.TimeZone;
+    }
+    static Indian_Chagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[524]] as core.TimeZone;
+    }
+    static Indian_Maldives($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[525]] as core.TimeZone;
+    }
+    static Indian_Mauritius($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[526]] as core.TimeZone;
+    }
+    static MET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[527]] as core.TimeZone;
+    }
+    static MST($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[528]] as core.TimeZone;
+    }
+    static MST7MDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[529]] as core.TimeZone;
+    }
+    static PST8PDT($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[530]] as core.TimeZone;
+    }
+    static Pacific_Apia($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[531]] as core.TimeZone;
+    }
+    static Pacific_Auckland($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[532]] as core.TimeZone;
+    }
+    static Pacific_Bougainville($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[533]] as core.TimeZone;
+    }
+    static Pacific_Chatham($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[534]] as core.TimeZone;
+    }
+    static Pacific_Easter($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[535]] as core.TimeZone;
+    }
+    static Pacific_Efate($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[536]] as core.TimeZone;
+    }
+    static Pacific_Fakaofo($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[537]] as core.TimeZone;
+    }
+    static Pacific_Fiji($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[538]] as core.TimeZone;
+    }
+    static Pacific_Galapagos($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[539]] as core.TimeZone;
+    }
+    static Pacific_Gambier($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[540]] as core.TimeZone;
+    }
+    static Pacific_Guadalcanal($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[541]] as core.TimeZone;
+    }
+    static Pacific_Guam($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[542]] as core.TimeZone;
+    }
+    static Pacific_Honolulu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[543]] as core.TimeZone;
+    }
+    static Pacific_Kanton($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[544]] as core.TimeZone;
+    }
+    static Pacific_Kiritimati($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[545]] as core.TimeZone;
+    }
+    static Pacific_Kosrae($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[546]] as core.TimeZone;
+    }
+    static Pacific_Kwajalein($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[547]] as core.TimeZone;
+    }
+    static Pacific_Marquesas($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[548]] as core.TimeZone;
+    }
+    static Pacific_Nauru($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[549]] as core.TimeZone;
+    }
+    static Pacific_Niue($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[550]] as core.TimeZone;
+    }
+    static Pacific_Norfolk($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[551]] as core.TimeZone;
+    }
+    static Pacific_Noumea($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[552]] as core.TimeZone;
+    }
+    static Pacific_Pago_Pago($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[553]] as core.TimeZone;
+    }
+    static Pacific_Palau($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[554]] as core.TimeZone;
+    }
+    static Pacific_Pitcairn($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[555]] as core.TimeZone;
+    }
+    static Pacific_Port_Moresby($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[556]] as core.TimeZone;
+    }
+    static Pacific_Rarotonga($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[557]] as core.TimeZone;
+    }
+    static Pacific_Tahiti($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[558]] as core.TimeZone;
+    }
+    static Pacific_Tarawa($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[559]] as core.TimeZone;
+    }
+    static Pacific_Tongatapu($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[560]] as core.TimeZone;
+    }
+    static WET($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values![t.generated_offsets[561]] as core.TimeZone;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
+      return t.enum_values!;
+    }
+  }
+
+  export class GeoBox extends $sdk.GCObject {
+    static readonly _type = 'core::GeoBox';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get sw(): $sdk.std.core.geo {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set sw(v: $sdk.std.core.geo) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get ne(): $sdk.std.core.geo {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set ne(v: $sdk.std.core.geo) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(sw: $sdk.std.core.geo, ne: $sdk.std.core.geo, $g: $sdk.GreyCat = globalThis.greycat.default): GeoBox {
+      return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[27], sw, ne);
+    }
+  }
+
+  export class Tuple<T = any, U = any> extends $sdk.GCObject {
+    static readonly _type = 'core::Tuple';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get x(): T {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set x(v: T) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get y(): U {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set y(v: U) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(x: any, y: any, $g: $sdk.GreyCat = globalThis.greycat.default): Tuple {
+      return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[28], x, y);
+    }
+  }
+
+  export class DatePart extends $sdk.GCEnum {
+    static readonly _type = 'core::DatePart';
+
+    static years($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[0]] as core.DatePart;
+    }
+    static months($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[1]] as core.DatePart;
+    }
+    static days($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[2]] as core.DatePart;
+    }
+    static hours($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[3]] as core.DatePart;
+    }
+    static minutes($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[4]] as core.DatePart;
+    }
+    static seconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[5]] as core.DatePart;
+    }
+    static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values![t.generated_offsets[6]] as core.DatePart;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
+      return t.enum_values!;
+    }
+  }
+
+  export class nodeIndex extends std_n.core.nodeIndex {}
+
+  export class nodeList extends std_n.core.nodeList {}
+
+  export class any extends $sdk.GCObject {
+    static readonly _type = 'core::any';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): any {
+      return new any($g.abi.libs_by_name.get(stdlib.name)!.mapped[32]);
+    }
+  }
+
+  export class tf3d extends std_n.core.tf3d {}
+
+  export class nodeIndexBucket extends std_n.core.nodeIndexBucket {}
+
+  export class ti10d extends std_n.core.ti10d {}
+
+  export class Array<T = any> extends std_n.core.Array {}
+
+  export class tf4d extends std_n.core.tf4d {}
+
+  export class ti3d extends std_n.core.ti3d {}
 
 }
 
 export namespace runtime {
-export class UserGroup extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserGroup';
+  export class UserGroup extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserGroup';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public get id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get activated(): boolean {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set activated(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
- static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+    get id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get activated(): boolean {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set activated(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
- static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
     }
-  static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
-    return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[39], id, name, activated);
-  }
-}
-
-export class SecurityEntity extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityEntity';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
+      return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[39], id, name, activated);
+    }
   }
 
-  public get id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get activated(): boolean {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set activated(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
- static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+  export class SecurityEntity extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityEntity';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get activated(): boolean {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set activated(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
- static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
     }
-  static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityEntity {
-    return new SecurityEntity($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], id, name, activated);
-  }
-}
-
-export class PeriodicTask extends $sdk.GCObject {
-  static readonly _type = 'runtime::PeriodicTask';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityEntity {
+      return new SecurityEntity($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], id, name, activated);
+    }
   }
 
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get user_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set user_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get args(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set args(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get start(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set start(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get every(): $sdk.std.core.duration {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set every(v: $sdk.std.core.duration) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
- static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.PeriodicTask>> {
+  export class PeriodicTask extends $sdk.GCObject {
+    static readonly _type = 'runtime::PeriodicTask';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get user_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set user_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get args(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set args(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get start(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set start(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get every(): $sdk.std.core.duration {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set every(v: $sdk.std.core.duration) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.PeriodicTask>> {
       return $g.call('runtime::PeriodicTask::all', undefined, $signal);
     }
- static set_(tasks: Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+     static set_(tasks: Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
     }
-  static create(name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
-    return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], name, user_id, args, start, every);
-  }
-}
-
-export class License extends $sdk.GCObject {
-  static readonly _type = 'runtime::License';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
+      return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], name, user_id, args, start, every);
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get start(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set start(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get end(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set end(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get company(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set company(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get max_workers(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set max_workers(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get max_memory(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set max_memory(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get extra_1(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set extra_1(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get extra_2(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set extra_2(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get extra_3(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set extra_3(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get extra_4(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set extra_4(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
-    return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[42], name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4);
-  }
-}
+  export class License extends $sdk.GCObject {
+    static readonly _type = 'runtime::License';
 
-export class StoreStat extends $sdk.GCObject {
-  static readonly _type = 'runtime::StoreStat';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get capacity_bytes(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set capacity_bytes(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get allocated_bytes(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set allocated_bytes(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get allocated_ratio(): number {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set allocated_ratio(v: number) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get remained_bytes(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set remained_bytes(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get remained_ratio(): number {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set remained_ratio(v: number) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get used_bytes(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set used_bytes(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get used_ratio(): number {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set used_ratio(v: number) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get available_bytes(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set available_bytes(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get available_ratio(): number {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set available_ratio(v: number) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  static create(capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
-    return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
-  }
-}
-
-export class SecurityFields extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityFields';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get start(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set start(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get end(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set end(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get company(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set company(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get max_workers(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set max_workers(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get max_memory(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set max_memory(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get extra_1(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set extra_1(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get extra_2(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set extra_2(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get extra_3(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set extra_3(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get extra_4(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set extra_4(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+    static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
+      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[42], name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4);
+    }
   }
 
-  public get email(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
+  export class StoreStat extends $sdk.GCObject {
+    static readonly _type = 'runtime::StoreStat';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get capacity_bytes(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set capacity_bytes(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get allocated_bytes(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set allocated_bytes(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get allocated_ratio(): number {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set allocated_ratio(v: number) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get remained_bytes(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set remained_bytes(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get remained_ratio(): number {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set remained_ratio(v: number) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get used_bytes(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set used_bytes(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get used_ratio(): number {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set used_ratio(v: number) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get available_bytes(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set available_bytes(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get available_ratio(): number {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set available_ratio(v: number) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    static create(capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
+      return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
+    }
   }
-  public set email(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get first_name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set first_name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get last_name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set last_name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get roles(): Map<string, string> | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set roles(v: Map<string, string> | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get groups(): Map<string, string> | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set groups(v: Map<string, string> | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
- static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+
+  export class SecurityFields extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityFields';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get email(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set email(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get first_name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set first_name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get last_name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set last_name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get roles(): Map<string, string> | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set roles(v: Map<string, string> | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get groups(): Map<string, string> | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set groups(v: Map<string, string> | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+     static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::SecurityFields::set_', [f], $signal);
     }
- static get_($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
+     static get_($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
       return $g.call('runtime::SecurityFields::get_', undefined, $signal);
     }
-  static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
-    return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], email, name, first_name, last_name, roles, groups);
-  }
-}
-
-export class Task extends $sdk.GCObject {
-  static readonly _type = 'runtime::Task';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
+      return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], email, name, first_name, last_name, roles, groups);
+    }
   }
 
-  public get user_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set user_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get task_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set task_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get mod(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set mod(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get type(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set type(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get fun(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set fun(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get creation(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set creation(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get status(): runtime.TaskStatus {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set status(v: runtime.TaskStatus) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
- static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.TaskInfo>> {
+  export class Task extends $sdk.GCObject {
+    static readonly _type = 'runtime::Task';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get user_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set user_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get task_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set task_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get mod(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set mod(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get type(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set type(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get fun(): string | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set fun(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get creation(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set creation(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get status(): runtime.TaskStatus {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set status(v: runtime.TaskStatus) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+     static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.TaskInfo>> {
       return $g.call('runtime::Task::running', undefined, $signal);
     }
- static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.Task>> {
+     static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.Task>> {
       return $g.call('runtime::Task::history', [offset, max], $signal);
     }
- static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
+     static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
       return $g.call('runtime::Task::cancel', [task_id], $signal);
     }
- static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
+     static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
       return $g.call('runtime::Task::info', [user_id, task_id], $signal);
     }
-  static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
-    return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], user_id, task_id, mod, type, fun, creation, status);
-  }
-}
-
-export class OpenIDConnect extends $sdk.GCObject {
-  static readonly _type = 'runtime::OpenIDConnect';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
+      return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], user_id, task_id, mod, type, fun, creation, status);
+    }
   }
 
-  public get url(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set url(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get clientId(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set clientId(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
- static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
+  export class OpenIDConnect extends $sdk.GCObject {
+    static readonly _type = 'runtime::OpenIDConnect';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get url(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set url(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get clientId(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set clientId(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+     static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
       return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
     }
-  static create(url: string, clientId: string, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
-    return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[46], url, clientId);
-  }
-}
-
-export class UserGroupPolicy extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserGroupPolicy';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(url: string, clientId: string, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
+      return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[46], url, clientId);
+    }
   }
 
-  public get group_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set group_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get type(): runtime.UserGroupPolicyType {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set type(v: runtime.UserGroupPolicyType) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(group_id: bigint | number, type: runtime.UserGroupPolicyType, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
-    return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], group_id, type);
-  }
-}
+  export class UserGroupPolicy extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserGroupPolicy';
 
-export class RuntimeInfo extends $sdk.GCObject {
-  static readonly _type = 'runtime::RuntimeInfo';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get version(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set version(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get arch(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set arch(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get timezone(): core.TimeZone {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set timezone(v: core.TimeZone) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get license(): runtime.License {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set license(v: runtime.License) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get io_threads(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set io_threads(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get bg_threads(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set bg_threads(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get fg_threads(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set fg_threads(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get mem_total(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set mem_total(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get mem_worker(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set mem_worker(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get nb_ctx(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set nb_ctx(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get store_stats(): runtime.StoreStat | null {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set store_stats(v: runtime.StoreStat | null) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  static create(version: string, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null, $g: $sdk.GreyCat = globalThis.greycat.default): RuntimeInfo {
-    return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
-  }
-}
-
-export class User extends $sdk.GCObject {
-  static readonly _type = 'runtime::User';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get group_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set group_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get type(): runtime.UserGroupPolicyType {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set type(v: runtime.UserGroupPolicyType) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(group_id: bigint | number, type: runtime.UserGroupPolicyType, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
+      return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], group_id, type);
+    }
   }
 
-  public get id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
+  export class RuntimeInfo extends $sdk.GCObject {
+    static readonly _type = 'runtime::RuntimeInfo';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get version(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set version(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get arch(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set arch(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get timezone(): core.TimeZone {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set timezone(v: core.TimeZone) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get license(): runtime.License {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set license(v: runtime.License) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get io_threads(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set io_threads(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get bg_threads(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set bg_threads(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get fg_threads(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set fg_threads(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get mem_total(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set mem_total(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get mem_worker(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set mem_worker(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get nb_ctx(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set nb_ctx(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+    get store_stats(): runtime.StoreStat | null {
+      return this.$attrs[this.$type.generated_offsets[10]];
+    }
+    set store_stats(v: runtime.StoreStat | null) {
+      this.$attrs[this.$type.generated_offsets[10]] = v;
+    }
+    static create(version: string, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null, $g: $sdk.GreyCat = globalThis.greycat.default): RuntimeInfo {
+      return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
+    }
   }
-  public set id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get activated(): boolean {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set activated(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get full_name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set full_name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get email(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set email(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get role(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set role(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get permissions_flags(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set permissions_flags(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get groups(): Array<runtime.UserGroupPolicy> | null {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set groups(v: Array<runtime.UserGroupPolicy> | null) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get groups_flags(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set groups_flags(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get external(): boolean {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set external(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
- static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
+
+  export class User extends $sdk.GCObject {
+    static readonly _type = 'runtime::User';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get activated(): boolean {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set activated(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get full_name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set full_name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get email(): string | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set email(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get role(): string | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set role(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get permissions_flags(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set permissions_flags(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get groups(): Array<runtime.UserGroupPolicy> | null {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set groups(v: Array<runtime.UserGroupPolicy> | null) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get groups_flags(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set groups_flags(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get external(): boolean {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set external(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
- static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
     }
- static login(credentials: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+     static login(credentials: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::login', [credentials, use_cookie], $signal);
     }
- static tokenLogin(token: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+     static tokenLogin(token: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::tokenLogin', [token, use_cookie], $signal);
     }
- static renew(use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+     static renew(use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::renew', [use_cookie], $signal);
     }
- static logout($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+     static logout($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::User::logout', undefined, $signal);
     }
- static current($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number> {
+     static current($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number> {
       return $g.call('runtime::User::current', undefined, $signal);
     }
- static me($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.User> {
+     static me($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.User> {
       return $g.call('runtime::User::me', undefined, $signal);
     }
- static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<string>> {
+     static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<string>> {
       return $g.call('runtime::User::permissions', undefined, $signal);
     }
- static setPassword(name: string, pass: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
+     static setPassword(name: string, pass: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
       return $g.call('runtime::User::setPassword', [name, pass], $signal);
     }
- static getToken(id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+     static getToken(id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::getToken', [id], $signal);
     }
-  static create(id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): User {
-    return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[49], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
-  }
-}
-
-export class System extends $sdk.GCObject {
-  static readonly _type = 'runtime::System';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): User {
+      return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[49], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+    }
   }
 
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): System {
-    return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[50]);
-  }
-}
+  export class System extends $sdk.GCObject {
+    static readonly _type = 'runtime::System';
 
-export class UserCredential extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserCredential';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get offset(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set offset(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get pass(): string | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set pass(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(offset: bigint | number, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
-    return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], offset, pass);
-  }
-}
-
-export class TaskStatus extends $sdk.GCEnum {
-  static readonly _type = 'runtime::TaskStatus';
-
-  public static empty($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[0]] as runtime.TaskStatus;
-  }
-  public static waiting($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[1]] as runtime.TaskStatus;
-  }
-  public static running($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[2]] as runtime.TaskStatus;
-  }
-  public static cancelled($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[3]] as runtime.TaskStatus;
-  }
-  public static error($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[4]] as runtime.TaskStatus;
-  }
-  public static ended($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
-    return t.enum_values![t.generated_offsets[5]] as runtime.TaskStatus;
-  }
-}
-
-export class UserRole extends $sdk.GCObject {
-  static readonly _type = 'runtime::UserRole';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): System {
+      return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[50]);
+    }
   }
 
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
+  export class UserCredential extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserCredential';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get offset(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set offset(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get pass(): string | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set pass(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(offset: bigint | number, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
+      return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], offset, pass);
+    }
   }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
+
+  export class TaskStatus extends $sdk.GCEnum {
+    static readonly _type = 'runtime::TaskStatus';
+
+    static empty($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[0]] as runtime.TaskStatus;
+    }
+    static waiting($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[1]] as runtime.TaskStatus;
+    }
+    static running($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[2]] as runtime.TaskStatus;
+    }
+    static cancelled($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[3]] as runtime.TaskStatus;
+    }
+    static error($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[4]] as runtime.TaskStatus;
+    }
+    static ended($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values![t.generated_offsets[5]] as runtime.TaskStatus;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values!;
+    }
   }
-  public get permissions(): Array<string> {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set permissions(v: Array<string>) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
- static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.UserRole>> {
+
+  export class UserRole extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserRole';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get permissions(): Array<string> {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set permissions(v: Array<string>) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<runtime.UserRole>> {
       return $g.call('runtime::UserRole::all', undefined, $signal);
     }
- static remove(name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+     static remove(name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::UserRole::remove', [name], $signal);
     }
- static set_(value: runtime.UserRole, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+     static set_(value: runtime.UserRole, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::UserRole::set_', [value], $signal);
     }
-  static create(name: string, permissions: Array<string>, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
-    return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, permissions);
-  }
-}
-
-export class SecurityPolicy extends $sdk.GCObject {
-  static readonly _type = 'runtime::SecurityPolicy';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(name: string, permissions: Array<string>, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
+      return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, permissions);
+    }
   }
 
-  public get entities(): Array<runtime.SecurityEntity> {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set entities(v: Array<runtime.SecurityEntity>) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get credentials(): Map<string, runtime.UserCredential> {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set credentials(v: Map<string, runtime.UserCredential>) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get roles(): Map<string, runtime.UserRole> {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set roles(v: Map<string, runtime.UserRole>) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get fields(): runtime.SecurityFields | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set fields(v: runtime.SecurityFields | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
- static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<string>> {
+  export class SecurityPolicy extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityPolicy';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get entities(): Array<runtime.SecurityEntity> {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set entities(v: Array<runtime.SecurityEntity>) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get credentials(): Map<string, runtime.UserCredential> {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set credentials(v: Map<string, runtime.UserCredential>) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get roles(): Map<string, runtime.UserRole> {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set roles(v: Map<string, runtime.UserRole>) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get fields(): runtime.SecurityFields | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set fields(v: runtime.SecurityFields | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+     static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<string>> {
       return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
     }
-  static create(entities: Array<runtime.SecurityEntity>, credentials: Map<string, runtime.UserCredential>, roles: Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
-    return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[54], entities, credentials, roles, fields);
-  }
-}
-
-export class Runtime extends $sdk.GCObject {
-  static readonly _type = 'runtime::Runtime';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create(entities: Array<runtime.SecurityEntity>, credentials: Map<string, runtime.UserCredential>, roles: Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
+      return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[54], entities, credentials, roles, fields);
+    }
   }
 
- static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
+  export class Runtime extends $sdk.GCObject {
+    static readonly _type = 'runtime::Runtime';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+     static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
       return $g.call('runtime::Runtime::info', undefined, $signal);
     }
- static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+     static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::Runtime::abi', undefined, $signal);
     }
-readModVar(module: string, name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
+    readModVar(module: string, name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
       return $g.call('runtime::Runtime::readModVar', [module, name], $signal);
     }
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
-    return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[55]);
-  }
-}
-
-export class TaskInfo extends $sdk.GCObject {
-  static readonly _type = 'runtime::TaskInfo';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
+      return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[55]);
+    }
   }
 
-  public get user_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set user_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get task_id(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set task_id(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get mod(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set mod(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get type(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set type(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get fun(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set fun(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get creation(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set creation(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get status(): runtime.TaskStatus {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set status(v: runtime.TaskStatus) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get start(): $sdk.std.core.time | null {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set start(v: $sdk.std.core.time | null) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get progress(): number | null {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set progress(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get remaining(): $sdk.std.core.duration | null {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set remaining(v: $sdk.std.core.duration | null) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get duration(): $sdk.std.core.duration | null {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set duration(v: $sdk.std.core.duration | null) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  public get sub_waiting(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[11]];
-  }
-  public set sub_waiting(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[11]] = v;
-  }
-  public get sub_tasks_all(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[12]];
-  }
-  public set sub_tasks_all(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[12]] = v;
-  }
-  static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): TaskInfo {
-    return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
-  }
-}
+  export class TaskInfo extends $sdk.GCObject {
+    static readonly _type = 'runtime::TaskInfo';
 
-export class UserGroupPolicyType extends $sdk.GCEnum {
-  static readonly _type = 'runtime::UserGroupPolicyType';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public static read($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
-    return t.enum_values![t.generated_offsets[0]] as runtime.UserGroupPolicyType;
+    get user_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set user_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get task_id(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set task_id(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get mod(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set mod(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get type(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set type(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get fun(): string | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set fun(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get creation(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set creation(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get status(): runtime.TaskStatus {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set status(v: runtime.TaskStatus) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get start(): $sdk.std.core.time | null {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set start(v: $sdk.std.core.time | null) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get progress(): number | null {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set progress(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get remaining(): $sdk.std.core.duration | null {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set remaining(v: $sdk.std.core.duration | null) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+    get duration(): $sdk.std.core.duration | null {
+      return this.$attrs[this.$type.generated_offsets[10]];
+    }
+    set duration(v: $sdk.std.core.duration | null) {
+      this.$attrs[this.$type.generated_offsets[10]] = v;
+    }
+    get sub_waiting(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[11]];
+    }
+    set sub_waiting(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[11]] = v;
+    }
+    get sub_tasks_all(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[12]];
+    }
+    set sub_tasks_all(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[12]] = v;
+    }
+    static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): TaskInfo {
+      return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
+    }
   }
-  public static write($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
-    return t.enum_values![t.generated_offsets[1]] as runtime.UserGroupPolicyType;
+
+  export class UserGroupPolicyType extends $sdk.GCEnum {
+    static readonly _type = 'runtime::UserGroupPolicyType';
+
+    static read($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
+      return t.enum_values![t.generated_offsets[0]] as runtime.UserGroupPolicyType;
+    }
+    static write($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
+      return t.enum_values![t.generated_offsets[1]] as runtime.UserGroupPolicyType;
+    }
+    static execute($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
+      return t.enum_values![t.generated_offsets[2]] as runtime.UserGroupPolicyType;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
+      return t.enum_values!;
+    }
   }
-  public static execute($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
-    return t.enum_values![t.generated_offsets[2]] as runtime.UserGroupPolicyType;
-  }
-}
 
 }
 
 export namespace io {
-export class Email extends $sdk.GCObject {
-  static readonly _type = 'io::Email';
+  export class Email extends $sdk.GCObject {
+    static readonly _type = 'io::Email';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public get from(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set from(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get subject(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set subject(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get body(): string {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set body(v: string) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get body_is_html(): boolean {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set body_is_html(v: boolean) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get to(): Array<string> {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set to(v: Array<string>) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get cc(): Array<string> | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set cc(v: Array<string> | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get bcc(): Array<string> | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set bcc(v: Array<string> | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create(from: string, subject: string, body: string, body_is_html: boolean, to: Array<string>, cc: Array<string> | null, bcc: Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
-    return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], from, subject, body, body_is_html, to, cc, bcc);
-  }
-}
-
-export class Smtp extends $sdk.GCObject {
-  static readonly _type = 'io::Smtp';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get from(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set from(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get subject(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set subject(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get body(): string {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set body(v: string) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get body_is_html(): boolean {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set body_is_html(v: boolean) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get to(): Array<string> {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set to(v: Array<string>) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get cc(): Array<string> | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set cc(v: Array<string> | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get bcc(): Array<string> | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set bcc(v: Array<string> | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    static create(from: string, subject: string, body: string, body_is_html: boolean, to: Array<string>, cc: Array<string> | null, bcc: Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
+      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], from, subject, body, body_is_html, to, cc, bcc);
+    }
   }
 
-  public get host(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set host(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get port(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set port(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get mode(): io.SmtpMode | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set mode(v: io.SmtpMode | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get authenticate(): io.SmtpAuth | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set authenticate(v: io.SmtpAuth | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get user(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set user(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get pass(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set pass(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  static create(host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
-    return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], host, port, mode, authenticate, user, pass);
-  }
-}
+  export class Smtp extends $sdk.GCObject {
+    static readonly _type = 'io::Smtp';
 
-export class CsvFormat extends $sdk.GCObject {
-  static readonly _type = 'io::CsvFormat';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get header_lines(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set header_lines(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get infer(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set infer(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get string_delimiter(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set string_delimiter(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get decimal_separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set decimal_separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get thousands_separator(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set thousands_separator(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get columns(): Array<io.CsvColumn> | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set columns(v: Array<io.CsvColumn> | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create(header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<io.CsvColumn> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
-    return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
-  }
-}
-
-export class CsvColumnDuration extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnDuration';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get host(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set host(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get port(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set port(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get mode(): io.SmtpMode | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set mode(v: io.SmtpMode | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get authenticate(): io.SmtpAuth | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set authenticate(v: io.SmtpAuth | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get user(): string | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set user(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get pass(): string | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set pass(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    static create(host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
+      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], host, port, mode, authenticate, user, pass);
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get unit(): core.DurationUnit | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set unit(v: core.DurationUnit | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
-    return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], name, mandatory, unit);
-  }
-}
+  export class CsvFormat extends $sdk.GCObject {
+    static readonly _type = 'io::CsvFormat';
 
-export class CsvColumnInteger extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnInteger';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
-    return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory);
-  }
-}
-
-export class HttpHeader extends $sdk.GCObject {
-  static readonly _type = 'io::HttpHeader';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get name(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get value(): string {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set value(v: string) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
-    return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, value);
-  }
-}
-
-export class SmtpMode extends $sdk.GCEnum {
-  static readonly _type = 'io::SmtpMode';
-
-  public static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
-    return t.enum_values![t.generated_offsets[0]] as io.SmtpMode;
-  }
-  public static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
-    return t.enum_values![t.generated_offsets[1]] as io.SmtpMode;
-  }
-  public static starttls($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
-    return t.enum_values![t.generated_offsets[2]] as io.SmtpMode;
-  }
-}
-
-export class Url extends $sdk.GCObject {
-  static readonly _type = 'io::Url';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get header_lines(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set header_lines(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get infer(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set infer(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get separator(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set separator(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get string_delimiter(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set string_delimiter(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get decimal_separator(): string | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set decimal_separator(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get thousands_separator(): string | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set thousands_separator(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get columns(): Array<io.CsvColumn> | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set columns(v: Array<io.CsvColumn> | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    static create(header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: Array<io.CsvColumn> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
+      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
+    }
   }
 
-  public get protocol(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set protocol(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get host(): string | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set host(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get port(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set port(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get path(): string | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set path(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get params(): Map<string, string> | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set params(v: Map<string, string> | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get hash(): string | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set hash(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
-    return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], protocol, host, port, path, params, hash);
-  }
-}
+  export class CsvColumnDuration extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnDuration';
 
-export class CsvColumnFloat extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnFloat';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get unit(): core.DurationUnit | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set unit(v: core.DurationUnit | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
+      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], name, mandatory, unit);
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
-    return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], name, mandatory);
-  }
-}
+  export class CsvColumnInteger extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnInteger';
 
-export class CsvColumn extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumn';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumn {
-    return new CsvColumn($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], name, mandatory);
-  }
-}
-
-export class File extends $sdk.GCObject {
-  static readonly _type = 'io::File';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
+      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory);
+    }
   }
 
-  public get path(): string {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set path(v: string) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get size(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set size(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get last_modification(): $sdk.std.core.time | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set last_modification(v: $sdk.std.core.time | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create(path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): File {
-    return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], path, size, last_modification);
-  }
-}
+  export class HttpHeader extends $sdk.GCObject {
+    static readonly _type = 'io::HttpHeader';
 
-export class Http extends $sdk.GCObject {
-  static readonly _type = 'io::Http';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get name(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get value(): string {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set value(v: string) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
+      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, value);
+    }
   }
 
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
-    return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[69]);
-  }
-}
+  export class SmtpMode extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpMode';
 
-export class CsvColumnTime extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnTime';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get unit(): core.DurationUnit | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set unit(v: core.DurationUnit | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
-    return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, unit);
-  }
-}
-
-export class SmtpAuth extends $sdk.GCEnum {
-  static readonly _type = 'io::SmtpAuth';
-
-  public static none($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
-    return t.enum_values![t.generated_offsets[0]] as io.SmtpAuth;
-  }
-  public static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
-    return t.enum_values![t.generated_offsets[1]] as io.SmtpAuth;
-  }
-  public static login($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
-    return t.enum_values![t.generated_offsets[2]] as io.SmtpAuth;
-  }
-}
-
-export class CsvColumnDate extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnDate';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
+      return t.enum_values![t.generated_offsets[0]] as io.SmtpMode;
+    }
+    static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
+      return t.enum_values![t.generated_offsets[1]] as io.SmtpMode;
+    }
+    static starttls($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
+      return t.enum_values![t.generated_offsets[2]] as io.SmtpMode;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
+      return t.enum_values!;
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get format(): string | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set format(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get tz(): core.TimeZone | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set tz(v: core.TimeZone | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get as_time(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set as_time(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
-    return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], name, mandatory, format, tz, as_time);
-  }
-}
+  export class Url extends $sdk.GCObject {
+    static readonly _type = 'io::Url';
 
-export class CsvColumnString extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnString';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get trim(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set trim(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get try_number(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set try_number(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get try_json(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set try_json(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get values(): Array<string> | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set values(v: Array<string> | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get encoder(): io.TextEncoder | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set encoder(v: io.TextEncoder | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
-    return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory, trim, try_number, try_json, values, encoder);
-  }
-}
-
-export class CsvColumnBoolean extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnBoolean';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get protocol(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set protocol(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get host(): string | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set host(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get port(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set port(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get path(): string | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set path(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get params(): Map<string, string> | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set params(v: Map<string, string> | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get hash(): string | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set hash(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
+      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], protocol, host, port, path, params, hash);
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
-    return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], name, mandatory);
-  }
-}
+  export class CsvColumnFloat extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnFloat';
 
-export class CsvColumnIgnored extends $sdk.GCObject {
-  static readonly _type = 'io::CsvColumnIgnored';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
+      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], name, mandatory);
+    }
   }
 
-  public get name(): string | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set name(v: string | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get mandatory(): boolean | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set mandatory(v: boolean | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
-    return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[75], name, mandatory);
-  }
-}
+  export class CsvColumn extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumn';
 
-export class TextEncoder extends $sdk.GCEnum {
-  static readonly _type = 'io::TextEncoder';
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
-    return t.enum_values![t.generated_offsets[0]] as io.TextEncoder;
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumn {
+      return new CsvColumn($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], name, mandatory);
+    }
   }
-  public static base64($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
-    return t.enum_values![t.generated_offsets[1]] as io.TextEncoder;
+
+  export class File extends $sdk.GCObject {
+    static readonly _type = 'io::File';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get path(): string {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set path(v: string) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get size(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set size(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get last_modification(): $sdk.std.core.time | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set last_modification(v: $sdk.std.core.time | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    static create(path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): File {
+      return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], path, size, last_modification);
+    }
   }
-  public static base64url($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
-    return t.enum_values![t.generated_offsets[2]] as io.TextEncoder;
+
+  export class Http extends $sdk.GCObject {
+    static readonly _type = 'io::Http';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
+      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[69]);
+    }
   }
-  public static hexadecimal($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
-    return t.enum_values![t.generated_offsets[3]] as io.TextEncoder;
+
+  export class CsvColumnTime extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnTime';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get unit(): core.DurationUnit | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set unit(v: core.DurationUnit | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
+      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, unit);
+    }
   }
-}
+
+  export class SmtpAuth extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpAuth';
+
+    static none($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
+      return t.enum_values![t.generated_offsets[0]] as io.SmtpAuth;
+    }
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
+      return t.enum_values![t.generated_offsets[1]] as io.SmtpAuth;
+    }
+    static login($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
+      return t.enum_values![t.generated_offsets[2]] as io.SmtpAuth;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
+      return t.enum_values!;
+    }
+  }
+
+  export class CsvColumnDate extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnDate';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get format(): string | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set format(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get tz(): core.TimeZone | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set tz(v: core.TimeZone | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get as_time(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set as_time(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
+      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], name, mandatory, format, tz, as_time);
+    }
+  }
+
+  export class CsvColumnString extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnString';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get trim(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set trim(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get try_number(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set try_number(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get try_json(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set try_json(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get values(): Array<string> | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set values(v: Array<string> | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get encoder(): io.TextEncoder | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set encoder(v: io.TextEncoder | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
+      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory, trim, try_number, try_json, values, encoder);
+    }
+  }
+
+  export class CsvColumnBoolean extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnBoolean';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
+      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], name, mandatory);
+    }
+  }
+
+  export class CsvColumnIgnored extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnIgnored';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get name(): string | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set name(v: string | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get mandatory(): boolean | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set mandatory(v: boolean | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
+      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[75], name, mandatory);
+    }
+  }
+
+  export class TextEncoder extends $sdk.GCEnum {
+    static readonly _type = 'io::TextEncoder';
+
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
+      return t.enum_values![t.generated_offsets[0]] as io.TextEncoder;
+    }
+    static base64($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
+      return t.enum_values![t.generated_offsets[1]] as io.TextEncoder;
+    }
+    static base64url($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
+      return t.enum_values![t.generated_offsets[2]] as io.TextEncoder;
+    }
+    static hexadecimal($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
+      return t.enum_values![t.generated_offsets[3]] as io.TextEncoder;
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default) {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];
+      return t.enum_values!;
+    }
+  }
 
 }
 
 export namespace math {
-export class MathConstants extends $sdk.GCObject {
-  static readonly _type = 'math::MathConstants';
+  export class MathConstants extends $sdk.GCObject {
+    static readonly _type = 'math::MathConstants';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public static e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[0] as number;
+    static e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[0] as number;
+    }
+    static log_2e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[1] as number;
+    }
+    static log_10e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[2] as number;
+    }
+    static ln2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[3] as number;
+    }
+    static ln10($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[4] as number;
+    }
+    static pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[5] as number;
+    }
+    static pi_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[6] as number;
+    }
+    static pi_4($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[7] as number;
+    }
+    static m1_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[8] as number;
+    }
+    static m2_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[9] as number;
+    }
+    static m2_sqrt_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[10] as number;
+    }
+    static sqrt2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[11] as number;
+    }
+    static sqrt1_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
+      return  t.static_values[12] as number;
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
+      return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[77]);
+    }
   }
-  public static log_2e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[1] as number;
-  }
-  public static log_10e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[2] as number;
-  }
-  public static ln2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[3] as number;
-  }
-  public static ln10($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[4] as number;
-  }
-  public static pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[5] as number;
-  }
-  public static pi_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[6] as number;
-  }
-  public static pi_4($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[7] as number;
-  }
-  public static m1_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[8] as number;
-  }
-  public static m2_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[9] as number;
-  }
-  public static m2_sqrt_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[10] as number;
-  }
-  public static sqrt2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[11] as number;
-  }
-  public static sqrt1_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-    const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[77];
-    return  t.static_values[12] as number;
-  }
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
-    return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[77]);
-  }
-}
 
 }
 
 export namespace util {
-export class SlidingWindow extends std_n.util.SlidingWindow {}
+  export class SlidingWindow extends std_n.util.SlidingWindow {}
 
-export class Assert extends $sdk.GCObject {
-  static readonly _type = 'util::Assert';
+  export class Assert extends $sdk.GCObject {
+    static readonly _type = 'util::Assert';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
-    return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[79]);
-  }
-}
-
-export class Iban extends std_n.util.Iban {}
-
-export class BoxPlotFloat extends $sdk.GCObject {
-  static readonly _type = 'util::BoxPlotFloat';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
+      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[79]);
+    }
   }
 
-  public get min(): number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set min(v: number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get max(): number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set max(v: number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get whiskerLow(): number {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set whiskerLow(v: number) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get whiskerHigh(): number {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set whiskerHigh(v: number) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get percentile1(): number {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set percentile1(v: number) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get percentile5(): number {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set percentile5(v: number) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get percentile25(): number {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set percentile25(v: number) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get percentile50(): number {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set percentile50(v: number) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get percentile75(): number {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set percentile75(v: number) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get percentile95(): number {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set percentile95(v: number) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get percentile99(): number {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set percentile99(v: number) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  public get countOutliersLow(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[11]];
-  }
-  public set countOutliersLow(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[11]] = v;
-  }
-  public get countOutliersHigh(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[12]];
-  }
-  public set countOutliersHigh(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[12]] = v;
-  }
-  public get percentageOutliersLow(): number {
-    return this.$attrs[this.$type.generated_offsets[13]];
-  }
-  public set percentageOutliersLow(v: number) {
-    this.$attrs[this.$type.generated_offsets[13]] = v;
-  }
-  public get percentageOutliersHigh(): number {
-    return this.$attrs[this.$type.generated_offsets[14]];
-  }
-  public set percentageOutliersHigh(v: number) {
-    this.$attrs[this.$type.generated_offsets[14]] = v;
-  }
-  public get sum(): number {
-    return this.$attrs[this.$type.generated_offsets[15]];
-  }
-  public set sum(v: number) {
-    this.$attrs[this.$type.generated_offsets[15]] = v;
-  }
-  public get avg(): number {
-    return this.$attrs[this.$type.generated_offsets[16]];
-  }
-  public set avg(v: number) {
-    this.$attrs[this.$type.generated_offsets[16]] = v;
-  }
-  public get std(): number {
-    return this.$attrs[this.$type.generated_offsets[17]];
-  }
-  public set std(v: number) {
-    this.$attrs[this.$type.generated_offsets[17]] = v;
-  }
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[18]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[18]] = v;
-  }
-  static create(min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-    return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-  }
-}
+  export class Iban extends std_n.util.Iban {}
 
-export class Random extends $sdk.GCObject {
-  static readonly _type = 'util::Random';
+  export class BoxPlotFloat extends $sdk.GCObject {
+    static readonly _type = 'util::BoxPlotFloat';
 
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-  public get seed(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set seed(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get v(): number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set v(v: number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-    return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], seed, v);
-  }
-}
-
-export class Crypto extends $sdk.GCObject {
-  static readonly _type = 'util::Crypto';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get min(): number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set min(v: number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get max(): number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set max(v: number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get whiskerLow(): number {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set whiskerLow(v: number) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get whiskerHigh(): number {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set whiskerHigh(v: number) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get percentile1(): number {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set percentile1(v: number) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get percentile5(): number {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set percentile5(v: number) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get percentile25(): number {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set percentile25(v: number) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get percentile50(): number {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set percentile50(v: number) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get percentile75(): number {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set percentile75(v: number) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get percentile95(): number {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set percentile95(v: number) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+    get percentile99(): number {
+      return this.$attrs[this.$type.generated_offsets[10]];
+    }
+    set percentile99(v: number) {
+      this.$attrs[this.$type.generated_offsets[10]] = v;
+    }
+    get countOutliersLow(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[11]];
+    }
+    set countOutliersLow(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[11]] = v;
+    }
+    get countOutliersHigh(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[12]];
+    }
+    set countOutliersHigh(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[12]] = v;
+    }
+    get percentageOutliersLow(): number {
+      return this.$attrs[this.$type.generated_offsets[13]];
+    }
+    set percentageOutliersLow(v: number) {
+      this.$attrs[this.$type.generated_offsets[13]] = v;
+    }
+    get percentageOutliersHigh(): number {
+      return this.$attrs[this.$type.generated_offsets[14]];
+    }
+    set percentageOutliersHigh(v: number) {
+      this.$attrs[this.$type.generated_offsets[14]] = v;
+    }
+    get sum(): number {
+      return this.$attrs[this.$type.generated_offsets[15]];
+    }
+    set sum(v: number) {
+      this.$attrs[this.$type.generated_offsets[15]] = v;
+    }
+    get avg(): number {
+      return this.$attrs[this.$type.generated_offsets[16]];
+    }
+    set avg(v: number) {
+      this.$attrs[this.$type.generated_offsets[16]] = v;
+    }
+    get std(): number {
+      return this.$attrs[this.$type.generated_offsets[17]];
+    }
+    set std(v: number) {
+      this.$attrs[this.$type.generated_offsets[17]] = v;
+    }
+    get size(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[18]];
+    }
+    set size(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[18]] = v;
+    }
+    static create(min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
   }
 
-  static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-    return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
-  }
-}
+  export class Random extends $sdk.GCObject {
+    static readonly _type = 'util::Random';
 
-export class TimeWindow extends std_n.util.TimeWindow {}
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-export class ProgressTracker extends $sdk.GCObject {
-  static readonly _type = 'util::ProgressTracker';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
-  }
-
-  public get start(): $sdk.std.core.time {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set start(v: $sdk.std.core.time) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get total(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set total(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get counter(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set counter(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get duration(): $sdk.std.core.duration | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set duration(v: $sdk.std.core.duration | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get progress(): number | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set progress(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get speed(): number | null {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set speed(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get remaining(): $sdk.std.core.duration | null {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set remaining(v: $sdk.std.core.duration | null) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-    return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], start, total, counter, duration, progress, speed, remaining);
-  }
-}
-
-export class Quantizer extends std_n.util.Quantizer {}
-
-export class Gaussian extends $sdk.GCObject {
-  static readonly _type = 'util::Gaussian';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    get seed(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set seed(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get v(): number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set v(v: number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], seed, v);
+    }
   }
 
-  public get sum(): number | null {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set sum(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get sum_sq(): number | null {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set sum_sq(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get count(): bigint | number | null {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set count(v: bigint | number | null) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get min(): number | null {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set min(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get max(): number | null {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set max(v: number | null) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
-    return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], sum, sum_sq, count, min, max);
-  }
-}
+  export class Crypto extends $sdk.GCObject {
+    static readonly _type = 'util::Crypto';
 
-export class Queue extends std_n.util.Queue {}
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
 
-export class GaussianProfile extends std_n.util.GaussianProfile {}
-
-export class HistogramInt extends std_n.util.HistogramInt {}
-
-export class Buffer extends std_n.util.Buffer {}
-
-export class BoxPlotInt extends $sdk.GCObject {
-  static readonly _type = 'util::BoxPlotInt';
-
-  constructor(type: $sdk.AbiType, ...attributes: any[]) {
-    super(type, attributes);
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
+    }
   }
 
-  public get min(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[0]];
-  }
-  public set min(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[0]] = v;
-  }
-  public get max(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[1]];
-  }
-  public set max(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[1]] = v;
-  }
-  public get whiskerLow(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[2]];
-  }
-  public set whiskerLow(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[2]] = v;
-  }
-  public get whiskerHigh(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[3]];
-  }
-  public set whiskerHigh(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[3]] = v;
-  }
-  public get percentile1(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[4]];
-  }
-  public set percentile1(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[4]] = v;
-  }
-  public get percentile5(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[5]];
-  }
-  public set percentile5(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[5]] = v;
-  }
-  public get percentile25(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[6]];
-  }
-  public set percentile25(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[6]] = v;
-  }
-  public get percentile50(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[7]];
-  }
-  public set percentile50(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[7]] = v;
-  }
-  public get percentile75(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[8]];
-  }
-  public set percentile75(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[8]] = v;
-  }
-  public get percentile95(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[9]];
-  }
-  public set percentile95(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[9]] = v;
-  }
-  public get percentile99(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[10]];
-  }
-  public set percentile99(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[10]] = v;
-  }
-  public get countOutliersLow(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[11]];
-  }
-  public set countOutliersLow(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[11]] = v;
-  }
-  public get countOutliersHigh(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[12]];
-  }
-  public set countOutliersHigh(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[12]] = v;
-  }
-  public get percentageOutliersLow(): number {
-    return this.$attrs[this.$type.generated_offsets[13]];
-  }
-  public set percentageOutliersLow(v: number) {
-    this.$attrs[this.$type.generated_offsets[13]] = v;
-  }
-  public get percentageOutliersHigh(): number {
-    return this.$attrs[this.$type.generated_offsets[14]];
-  }
-  public set percentageOutliersHigh(v: number) {
-    this.$attrs[this.$type.generated_offsets[14]] = v;
-  }
-  public get sum(): number {
-    return this.$attrs[this.$type.generated_offsets[15]];
-  }
-  public set sum(v: number) {
-    this.$attrs[this.$type.generated_offsets[15]] = v;
-  }
-  public get avg(): number {
-    return this.$attrs[this.$type.generated_offsets[16]];
-  }
-  public set avg(v: number) {
-    this.$attrs[this.$type.generated_offsets[16]] = v;
-  }
-  public get std(): number {
-    return this.$attrs[this.$type.generated_offsets[17]];
-  }
-  public set std(v: number) {
-    this.$attrs[this.$type.generated_offsets[17]] = v;
-  }
-  public get size(): bigint | number {
-    return this.$attrs[this.$type.generated_offsets[18]];
-  }
-  public set size(v: bigint | number) {
-    this.$attrs[this.$type.generated_offsets[18]] = v;
-  }
-  static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-    return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[92], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-  }
-}
+  export class TimeWindow extends std_n.util.TimeWindow {}
 
-export class HistogramFloat extends std_n.util.HistogramFloat {}
+  export class ProgressTracker extends $sdk.GCObject {
+    static readonly _type = 'util::ProgressTracker';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get start(): $sdk.std.core.time {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set start(v: $sdk.std.core.time) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get total(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set total(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get counter(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set counter(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get duration(): $sdk.std.core.duration | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set duration(v: $sdk.std.core.duration | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get progress(): number | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set progress(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get speed(): number | null {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set speed(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get remaining(): $sdk.std.core.duration | null {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set remaining(v: $sdk.std.core.duration | null) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], start, total, counter, duration, progress, speed, remaining);
+    }
+  }
+
+  export class Quantizer extends std_n.util.Quantizer {}
+
+  export class Gaussian extends $sdk.GCObject {
+    static readonly _type = 'util::Gaussian';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get sum(): number | null {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set sum(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get sum_sq(): number | null {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set sum_sq(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get count(): bigint | number | null {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set count(v: bigint | number | null) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get min(): number | null {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set min(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get max(): number | null {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set max(v: number | null) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
+      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], sum, sum_sq, count, min, max);
+    }
+  }
+
+  export class Queue<T = any> extends std_n.util.Queue {}
+
+  export class GaussianProfile extends std_n.util.GaussianProfile {}
+
+  export class HistogramInt extends std_n.util.HistogramInt {}
+
+  export class Buffer extends std_n.util.Buffer {}
+
+  export class BoxPlotInt extends $sdk.GCObject {
+    static readonly _type = 'util::BoxPlotInt';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, attributes);
+    }
+
+    get min(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[0]];
+    }
+    set min(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[0]] = v;
+    }
+    get max(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[1]];
+    }
+    set max(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[1]] = v;
+    }
+    get whiskerLow(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[2]];
+    }
+    set whiskerLow(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[2]] = v;
+    }
+    get whiskerHigh(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[3]];
+    }
+    set whiskerHigh(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[3]] = v;
+    }
+    get percentile1(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[4]];
+    }
+    set percentile1(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[4]] = v;
+    }
+    get percentile5(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[5]];
+    }
+    set percentile5(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[5]] = v;
+    }
+    get percentile25(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[6]];
+    }
+    set percentile25(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[6]] = v;
+    }
+    get percentile50(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[7]];
+    }
+    set percentile50(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[7]] = v;
+    }
+    get percentile75(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[8]];
+    }
+    set percentile75(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[8]] = v;
+    }
+    get percentile95(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[9]];
+    }
+    set percentile95(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[9]] = v;
+    }
+    get percentile99(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[10]];
+    }
+    set percentile99(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[10]] = v;
+    }
+    get countOutliersLow(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[11]];
+    }
+    set countOutliersLow(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[11]] = v;
+    }
+    get countOutliersHigh(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[12]];
+    }
+    set countOutliersHigh(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[12]] = v;
+    }
+    get percentageOutliersLow(): number {
+      return this.$attrs[this.$type.generated_offsets[13]];
+    }
+    set percentageOutliersLow(v: number) {
+      this.$attrs[this.$type.generated_offsets[13]] = v;
+    }
+    get percentageOutliersHigh(): number {
+      return this.$attrs[this.$type.generated_offsets[14]];
+    }
+    set percentageOutliersHigh(v: number) {
+      this.$attrs[this.$type.generated_offsets[14]] = v;
+    }
+    get sum(): number {
+      return this.$attrs[this.$type.generated_offsets[15]];
+    }
+    set sum(v: number) {
+      this.$attrs[this.$type.generated_offsets[15]] = v;
+    }
+    get avg(): number {
+      return this.$attrs[this.$type.generated_offsets[16]];
+    }
+    set avg(v: number) {
+      this.$attrs[this.$type.generated_offsets[16]] = v;
+    }
+    get std(): number {
+      return this.$attrs[this.$type.generated_offsets[17]];
+    }
+    set std(v: number) {
+      this.$attrs[this.$type.generated_offsets[17]] = v;
+    }
+    get size(): bigint | number {
+      return this.$attrs[this.$type.generated_offsets[18]];
+    }
+    set size(v: bigint | number) {
+      this.$attrs[this.$type.generated_offsets[18]] = v;
+    }
+    static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[92], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
+  }
+
+  export class HistogramFloat extends std_n.util.HistogramFloat {}
 
 }
 

@@ -1,6 +1,6 @@
-import { GCObject, AbiType } from './index.js';
-import { AbiWriter } from './io.js';
-import { PrimitiveType, Value } from './types.js';
+import type { AbiWriter, AbiType, Value } from './index.js';
+import { GCObject } from './GCObject.js';
+import { PrimitiveType } from './types.js';
 
 export class GCEnum extends GCObject {
   constructor(
@@ -13,7 +13,6 @@ export class GCEnum extends GCObject {
     public value: Value,
   ) {
     super(type);
-    Object.defineProperty(this, 'offset', { value: offset, enumerable: false });
   }
 
   override saveHeader(w: AbiWriter): void {

@@ -79,16 +79,20 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 8, column: 17 },
-        { module: 'project', fn: 'write_std', line: 12, column: 18 },
-        { module: 'project', fn: 'write_core', line: 86, column: 36 },
+        { module: 'project', fn: 'main', line: 10, column: 17 },
+        { module: 'project', fn: 'write_std', line: 14, column: 18 },
+        { module: 'project', fn: 'write_core', line: 88, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
     { _type: 'core::TensorType', field: 'c128' },
-    { _type: 'core::Table', cols: [[0,0.5,1,1.5]], meta: [{_type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }] },
+    {
+      _type: 'core::Table',
+      cols: [[0, 0.5, 1, 1.5]],
+      meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }],
+    },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',
@@ -168,8 +172,8 @@ describe('project', () => {
     0.31830988618379064, // MathConstants::m1_pi
     0.6366197723675813, // MathConstants::m2_pi
     1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.414213562373095, // MathConstants::sqrt2
-    0.7071067811865476, // MathConstants::sqrt1_2
+    1.4142135623730951, // MathConstants::sqrt2
+    0.7071067811865477, // MathConstants::sqrt1_2
 
     // std::runtime
     {

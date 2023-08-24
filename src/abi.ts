@@ -1,8 +1,7 @@
 import { GCObject, gc_object__is_not_null } from './GCObject.js';
-import { GCEnum } from './index.js';
+import { GCEnum } from './GCEnum.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
-// import type { core } from './index.js';
 
 export class Abi {
   static readonly protocol_version = 1;

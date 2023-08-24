@@ -25,15 +25,15 @@ export class ComputeOptimizerNesterov extends $sdk.GCObject {
   public set decay_rate(v: number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[0];
     return  t.static_values[0] as number;
   }
-  public static decay_rate_def($g: $sdk.GreyCat): number {
+  public static decay_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[0];
     return  t.static_values[1] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, decay_rate: number): ComputeOptimizerNesterov {
+  static create(learning_rate: number | null, decay_rate: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerNesterov {
     return new ComputeOptimizerNesterov($g.abi.libs_by_name.get(algebralib.name)!.mapped[0], learning_rate, decay_rate);
   }
 }
@@ -63,7 +63,7 @@ export class ComputeOperationRaiseToPower extends $sdk.GCObject {
   public set power(v: number) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, power: number): ComputeOperationRaiseToPower {
+  static create(input: string, output: string, power: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationRaiseToPower {
     return new ComputeOperationRaiseToPower($g.abi.libs_by_name.get(algebralib.name)!.mapped[1], input, output, power);
   }
 }
@@ -93,11 +93,11 @@ export class ComputeOperationElu extends $sdk.GCObject {
   public set alpha(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[2];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, alpha: number | null): ComputeOperationElu {
+  static create(input: string, output: string, alpha: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationElu {
     return new ComputeOperationElu($g.abi.libs_by_name.get(algebralib.name)!.mapped[2], input, output, alpha);
   }
 }
@@ -121,7 +121,7 @@ export class ComputeOperationTanh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationTanh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationTanh {
     return new ComputeOperationTanh($g.abi.libs_by_name.get(algebralib.name)!.mapped[3], input, output);
   }
 }
@@ -145,7 +145,7 @@ export class ComputeLayerCall extends $sdk.GCObject {
   public set bindings(v: Array<compute.ComputeBinding>) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, layer_name: string, bindings: Array<compute.ComputeBinding>): ComputeLayerCall {
+  static create(layer_name: string, bindings: Array<compute.ComputeBinding>, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerCall {
     return new ComputeLayerCall($g.abi.libs_by_name.get(algebralib.name)!.mapped[4], layer_name, bindings);
   }
 }
@@ -175,7 +175,7 @@ export class ComputeOperationEuclidean extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationEuclidean {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationEuclidean {
     return new ComputeOperationEuclidean($g.abi.libs_by_name.get(algebralib.name)!.mapped[5], input, input2, output);
   }
 }
@@ -205,7 +205,7 @@ export class ComputeOperationAvg extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationAvg {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAvg {
     return new ComputeOperationAvg($g.abi.libs_by_name.get(algebralib.name)!.mapped[6], input, input2, output);
   }
 }
@@ -235,7 +235,7 @@ export class ComputeOperationMul extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationMul {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationMul {
     return new ComputeOperationMul($g.abi.libs_by_name.get(algebralib.name)!.mapped[7], input, input2, output);
   }
 }
@@ -265,11 +265,11 @@ export class ComputeOperationCelu extends $sdk.GCObject {
   public set alpha(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[8];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, alpha: number | null): ComputeOperationCelu {
+  static create(input: string, output: string, alpha: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationCelu {
     return new ComputeOperationCelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[8], input, output, alpha);
   }
 }
@@ -293,15 +293,15 @@ export class ComputeLayerActivation extends $sdk.GCObject {
   public set activation(v: compute.ComputeActivation) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[9];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[9];
     return  t.static_values[1] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, activation: compute.ComputeActivation): ComputeLayerActivation {
+  static create(name: string, activation: compute.ComputeActivation, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerActivation {
     return new ComputeLayerActivation($g.abi.libs_by_name.get(algebralib.name)!.mapped[9], name, activation);
   }
 }
@@ -325,7 +325,7 @@ export class ComputeOperationSinh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSinh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSinh {
     return new ComputeOperationSinh($g.abi.libs_by_name.get(algebralib.name)!.mapped[10], input, output);
   }
 }
@@ -343,7 +343,7 @@ export class ComputeVar extends $sdk.GCObject {
   public set name(v: string) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string): ComputeVar {
+  static create(name: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVar {
     return new ComputeVar($g.abi.libs_by_name.get(algebralib.name)!.mapped[11], name);
   }
 }
@@ -409,27 +409,27 @@ export class ComputeLayerLinear extends $sdk.GCObject {
   public set bias_regularizer(v: compute.ComputeRegularizer | null) {
     this.$attrs[this.$type.generated_offsets[8]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[12];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[12];
     return  t.static_values[1] as string;
   }
-  public static var_weight_name($g: $sdk.GreyCat): string {
+  public static var_weight_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[12];
     return  t.static_values[2] as string;
   }
-  public static var_bias_name($g: $sdk.GreyCat): string {
+  public static var_bias_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[12];
     return  t.static_values[3] as string;
   }
-  public static var_mult_name($g: $sdk.GreyCat): string {
+  public static var_mult_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[12];
     return  t.static_values[4] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, use_bias: boolean, weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null): ComputeLayerLinear {
+  static create(name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, use_bias: boolean, weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerLinear {
     return new ComputeLayerLinear($g.abi.libs_by_name.get(algebralib.name)!.mapped[12], name, type, inputs, outputs, use_bias, weight_initializer, weight_regularizer, bias_initializer, bias_regularizer);
   }
 }
@@ -453,7 +453,7 @@ export class ComputeOperationSoftmax extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSoftmax {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSoftmax {
     return new ComputeOperationSoftmax($g.abi.libs_by_name.get(algebralib.name)!.mapped[13], input, output);
   }
 }
@@ -471,7 +471,7 @@ export class ComputeOptimizer extends $sdk.GCObject {
   public set learning_rate(v: number | null) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null): ComputeOptimizer {
+  static create(learning_rate: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizer {
     return new ComputeOptimizer($g.abi.libs_by_name.get(algebralib.name)!.mapped[14], learning_rate);
   }
 }
@@ -519,23 +519,23 @@ export class ComputeLayerLossClassification extends $sdk.GCObject {
   public set from_logits(v: boolean) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  public static var_class_weights_name($g: $sdk.GreyCat): string {
+  public static var_class_weights_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[15];
     return  t.static_values[0] as string;
   }
-  public static var_predicted_classes_name($g: $sdk.GreyCat): string {
+  public static var_predicted_classes_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[15];
     return  t.static_values[1] as string;
   }
-  public static var_probabilities_name($g: $sdk.GreyCat): string {
+  public static var_probabilities_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[15];
     return  t.static_values[2] as string;
   }
-  public static var_sum_reduce_name($g: $sdk.GreyCat): string {
+  public static var_sum_reduce_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[15];
     return  t.static_values[3] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, reduction: compute.ComputeReduction | null, loss_type: compute.ComputeClassificationLoss, has_class_weights: boolean, calculate_probabilities: boolean, from_logits: boolean): ComputeLayerLossClassification {
+  static create(name: string, reduction: compute.ComputeReduction | null, loss_type: compute.ComputeClassificationLoss, has_class_weights: boolean, calculate_probabilities: boolean, from_logits: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerLossClassification {
     return new ComputeLayerLossClassification($g.abi.libs_by_name.get(algebralib.name)!.mapped[15], name, reduction, loss_type, has_class_weights, calculate_probabilities, from_logits);
   }
 }
@@ -547,7 +547,7 @@ export class ComputeInitializerLSTM extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerLSTM {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerLSTM {
     return new ComputeInitializerLSTM($g.abi.libs_by_name.get(algebralib.name)!.mapped[16]);
   }
 }
@@ -577,19 +577,19 @@ export class ComputeLayerClassification extends $sdk.GCObject {
   public set from_logits(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[17];
     return  t.static_values[0] as string;
   }
-  public static var_predicted_classes_name($g: $sdk.GreyCat): string {
+  public static var_predicted_classes_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[17];
     return  t.static_values[1] as string;
   }
-  public static var_probabilities_name($g: $sdk.GreyCat): string {
+  public static var_probabilities_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[17];
     return  t.static_values[2] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, calculate_probabilities: boolean, from_logits: boolean): ComputeLayerClassification {
+  static create(name: string, calculate_probabilities: boolean, from_logits: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerClassification {
     return new ComputeLayerClassification($g.abi.libs_by_name.get(algebralib.name)!.mapped[17], name, calculate_probabilities, from_logits);
   }
 }
@@ -613,7 +613,7 @@ export class ComputeOperationSign extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSign {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSign {
     return new ComputeOperationSign($g.abi.libs_by_name.get(algebralib.name)!.mapped[18], input, output);
   }
 }
@@ -637,7 +637,7 @@ export class ComputeOperationAsin extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAsin {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAsin {
     return new ComputeOperationAsin($g.abi.libs_by_name.get(algebralib.name)!.mapped[19], input, output);
   }
 }
@@ -649,7 +649,7 @@ export class ComputeInitializerXavierUniform extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerXavierUniform {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerXavierUniform {
     return new ComputeInitializerXavierUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[20]);
   }
 }
@@ -685,23 +685,23 @@ export class ComputeOptimizerNadam extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[21];
     return  t.static_values[0] as number;
   }
-  public static beta1_def($g: $sdk.GreyCat): number {
+  public static beta1_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[21];
     return  t.static_values[1] as number;
   }
-  public static beta2_def($g: $sdk.GreyCat): number {
+  public static beta2_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[21];
     return  t.static_values[2] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[21];
     return  t.static_values[3] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null): ComputeOptimizerNadam {
+  static create(learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerNadam {
     return new ComputeOptimizerNadam($g.abi.libs_by_name.get(algebralib.name)!.mapped[21], learning_rate, beta1, beta2, smooth_epsilon);
   }
 }
@@ -713,7 +713,7 @@ export class ComputeActivationExp extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationExp {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationExp {
     return new ComputeActivationExp($g.abi.libs_by_name.get(algebralib.name)!.mapped[22]);
   }
 }
@@ -725,7 +725,7 @@ export class ComputeInitializerPytorch extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerPytorch {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerPytorch {
     return new ComputeInitializerPytorch($g.abi.libs_by_name.get(algebralib.name)!.mapped[23]);
   }
 }
@@ -755,7 +755,7 @@ export class ComputeOperationSub extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationSub {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSub {
     return new ComputeOperationSub($g.abi.libs_by_name.get(algebralib.name)!.mapped[24], input, input2, output);
   }
 }
@@ -781,7 +781,7 @@ export class ComputeOperationAcos extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAcos {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAcos {
     return new ComputeOperationAcos($g.abi.libs_by_name.get(algebralib.name)!.mapped[26], input, output);
   }
 }
@@ -805,7 +805,7 @@ export class ComputeOperationSin extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSin {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSin {
     return new ComputeOperationSin($g.abi.libs_by_name.get(algebralib.name)!.mapped[27], input, output);
   }
 }
@@ -817,7 +817,7 @@ export class ComputeInitializerUniformAvg extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerUniformAvg {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerUniformAvg {
     return new ComputeInitializerUniformAvg($g.abi.libs_by_name.get(algebralib.name)!.mapped[28]);
   }
 }
@@ -847,7 +847,7 @@ export class ComputeOperationArg extends $sdk.GCObject {
   public set output2(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, output2: string): ComputeOperationArg {
+  static create(input: string, output: string, output2: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationArg {
     return new ComputeOperationArg($g.abi.libs_by_name.get(algebralib.name)!.mapped[29], input, output, output2);
   }
 }
@@ -877,7 +877,7 @@ export class ComputeVarConst extends $sdk.GCObject {
   public set shape(v: Array<bigint | number>) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>): ComputeVarConst {
+  static create(name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVarConst {
     return new ComputeVarConst($g.abi.libs_by_name.get(algebralib.name)!.mapped[30], name, type, shape);
   }
 }
@@ -897,7 +897,7 @@ export class ComputeLayer extends $sdk.GCObject {
   public set name(v: string) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string): ComputeLayer {
+  static create(name: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayer {
     return new ComputeLayer($g.abi.libs_by_name.get(algebralib.name)!.mapped[32], name);
   }
 }
@@ -921,7 +921,7 @@ export class ComputeOperationSqrt extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSqrt {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSqrt {
     return new ComputeOperationSqrt($g.abi.libs_by_name.get(algebralib.name)!.mapped[33], input, output);
   }
 }
@@ -929,11 +929,11 @@ export class ComputeOperationSqrt extends $sdk.GCObject {
 export class ComputeRegressionLoss extends $sdk.GCEnum {
   static readonly _type = 'compute::ComputeRegressionLoss';
 
-  public static square($g: $sdk.GreyCat): compute.ComputeRegressionLoss {
+  public static square($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeRegressionLoss {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[34];
     return t.enum_values![t.generated_offsets[0]] as compute.ComputeRegressionLoss;
   }
-  public static abs($g: $sdk.GreyCat): compute.ComputeRegressionLoss {
+  public static abs($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeRegressionLoss {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[34];
     return t.enum_values![t.generated_offsets[1]] as compute.ComputeRegressionLoss;
   }
@@ -958,7 +958,7 @@ export class ComputeOperationExp extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationExp {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationExp {
     return new ComputeOperationExp($g.abi.libs_by_name.get(algebralib.name)!.mapped[35], input, output);
   }
 }
@@ -982,19 +982,19 @@ export class ComputeLayerLoss extends $sdk.GCObject {
   public set reduction(v: compute.ComputeReduction | null) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static var_computed_name($g: $sdk.GreyCat): string {
+  public static var_computed_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[36];
     return  t.static_values[0] as string;
   }
-  public static var_expected_name($g: $sdk.GreyCat): string {
+  public static var_expected_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[36];
     return  t.static_values[1] as string;
   }
-  public static var_loss_name($g: $sdk.GreyCat): string {
+  public static var_loss_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[36];
     return  t.static_values[2] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, reduction: compute.ComputeReduction | null): ComputeLayerLoss {
+  static create(name: string, reduction: compute.ComputeReduction | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerLoss {
     return new ComputeLayerLoss($g.abi.libs_by_name.get(algebralib.name)!.mapped[36], name, reduction);
   }
 }
@@ -1024,7 +1024,7 @@ export class ComputeOperation2In1Out extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperation2In1Out {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperation2In1Out {
     return new ComputeOperation2In1Out($g.abi.libs_by_name.get(algebralib.name)!.mapped[37], input, input2, output);
   }
 }
@@ -1054,7 +1054,7 @@ export class ComputeOperationArgMin extends $sdk.GCObject {
   public set output2(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, output2: string): ComputeOperationArgMin {
+  static create(input: string, output: string, output2: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationArgMin {
     return new ComputeOperationArgMin($g.abi.libs_by_name.get(algebralib.name)!.mapped[38], input, output, output2);
   }
 }
@@ -1096,7 +1096,7 @@ export class ComputeOperationSumIf extends $sdk.GCObject {
   public set classes(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, ifCondition: string, output: string, counts: string, classes: bigint | number): ComputeOperationSumIf {
+  static create(input: string, ifCondition: string, output: string, counts: string, classes: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSumIf {
     return new ComputeOperationSumIf($g.abi.libs_by_name.get(algebralib.name)!.mapped[39], input, ifCondition, output, counts, classes);
   }
 }
@@ -1120,15 +1120,15 @@ export class ComputeActivationHardSigmoid extends $sdk.GCObject {
   public set shift(v: number | null) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static slope_def($g: $sdk.GreyCat): number {
+  public static slope_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[40];
     return  t.static_values[0] as number;
   }
-  public static shift_def($g: $sdk.GreyCat): number {
+  public static shift_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[40];
     return  t.static_values[1] as number;
   }
-  static create($g: $sdk.GreyCat, slope: number | null, shift: number | null): ComputeActivationHardSigmoid {
+  static create(slope: number | null, shift: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationHardSigmoid {
     return new ComputeActivationHardSigmoid($g.abi.libs_by_name.get(algebralib.name)!.mapped[40], slope, shift);
   }
 }
@@ -1152,7 +1152,7 @@ export class ComputeOperationAsinh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAsinh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAsinh {
     return new ComputeOperationAsinh($g.abi.libs_by_name.get(algebralib.name)!.mapped[41], input, output);
   }
 }
@@ -1176,7 +1176,7 @@ export class ComputeInitializerNormal extends $sdk.GCObject {
   public set std(v: number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, avg: number, std: number): ComputeInitializerNormal {
+  static create(avg: number, std: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerNormal {
     return new ComputeInitializerNormal($g.abi.libs_by_name.get(algebralib.name)!.mapped[42], avg, std);
   }
 }
@@ -1194,7 +1194,7 @@ export class ComputeVariable extends $sdk.GCObject {
   public set name(v: string) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string): ComputeVariable {
+  static create(name: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVariable {
     return new ComputeVariable($g.abi.libs_by_name.get(algebralib.name)!.mapped[43], name);
   }
 }
@@ -1230,11 +1230,11 @@ export class ComputeOperationRelu extends $sdk.GCObject {
   public set threshold(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static threshold_def($g: $sdk.GreyCat): number {
+  public static threshold_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[44];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, max_value: number | null, threshold: number | null): ComputeOperationRelu {
+  static create(input: string, output: string, max_value: number | null, threshold: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationRelu {
     return new ComputeOperationRelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[44], input, output, max_value, threshold);
   }
 }
@@ -1258,7 +1258,7 @@ export class ComputeOperationSigmoid extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSigmoid {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSigmoid {
     return new ComputeOperationSigmoid($g.abi.libs_by_name.get(algebralib.name)!.mapped[45], input, output);
   }
 }
@@ -1288,23 +1288,23 @@ export class ComputeLayerMinMaxScaler extends $sdk.GCObject {
   public set inverse_transform(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[46];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[46];
     return  t.static_values[1] as string;
   }
-  public static var_min_name($g: $sdk.GreyCat): string {
+  public static var_min_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[46];
     return  t.static_values[2] as string;
   }
-  public static var_max_name($g: $sdk.GreyCat): string {
+  public static var_max_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[46];
     return  t.static_values[3] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean): ComputeLayerMinMaxScaler {
+  static create(name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerMinMaxScaler {
     return new ComputeLayerMinMaxScaler($g.abi.libs_by_name.get(algebralib.name)!.mapped[46], name, type, inverse_transform);
   }
 }
@@ -1316,7 +1316,7 @@ export class ComputeActivationSoftSign extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationSoftSign {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationSoftSign {
     return new ComputeActivationSoftSign($g.abi.libs_by_name.get(algebralib.name)!.mapped[47]);
   }
 }
@@ -1324,11 +1324,11 @@ export class ComputeActivationSoftSign extends $sdk.GCObject {
 export class ComputeClassificationLoss extends $sdk.GCEnum {
   static readonly _type = 'compute::ComputeClassificationLoss';
 
-  public static categorical_cross_entropy($g: $sdk.GreyCat): compute.ComputeClassificationLoss {
+  public static categorical_cross_entropy($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeClassificationLoss {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[48];
     return t.enum_values![t.generated_offsets[0]] as compute.ComputeClassificationLoss;
   }
-  public static sparse_categorical_cross_entropy($g: $sdk.GreyCat): compute.ComputeClassificationLoss {
+  public static sparse_categorical_cross_entropy($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeClassificationLoss {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[48];
     return t.enum_values![t.generated_offsets[1]] as compute.ComputeClassificationLoss;
   }
@@ -1341,7 +1341,7 @@ export class ComputeActivation extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivation {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivation {
     return new ComputeActivation($g.abi.libs_by_name.get(algebralib.name)!.mapped[49]);
   }
 }
@@ -1365,7 +1365,7 @@ export class ComputeOperationCos extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationCos {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationCos {
     return new ComputeOperationCos($g.abi.libs_by_name.get(algebralib.name)!.mapped[50], input, output);
   }
 }
@@ -1395,19 +1395,19 @@ export class ComputeOptimizerAdaDelta extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[51];
     return  t.static_values[0] as number;
   }
-  public static decay_rate_def($g: $sdk.GreyCat): number {
+  public static decay_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[51];
     return  t.static_values[1] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[51];
     return  t.static_values[2] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, decay_rate: number | null, smooth_epsilon: number | null): ComputeOptimizerAdaDelta {
+  static create(learning_rate: number | null, decay_rate: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerAdaDelta {
     return new ComputeOptimizerAdaDelta($g.abi.libs_by_name.get(algebralib.name)!.mapped[51], learning_rate, decay_rate, smooth_epsilon);
   }
 }
@@ -1419,7 +1419,7 @@ export class ComputeInitializerNormalIn extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerNormalIn {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerNormalIn {
     return new ComputeInitializerNormalIn($g.abi.libs_by_name.get(algebralib.name)!.mapped[52]);
   }
 }
@@ -1443,7 +1443,7 @@ export class ComputeOperationSelu extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSelu {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSelu {
     return new ComputeOperationSelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[53], input, output);
   }
 }
@@ -1485,19 +1485,19 @@ export class ComputeOperationLeakyRelu extends $sdk.GCObject {
   public set threshold(v: number | null) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[54];
     return  t.static_values[0] as number;
   }
-  public static max_value_def($g: $sdk.GreyCat): number {
+  public static max_value_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[54];
     return  t.static_values[1] as number;
   }
-  public static threshold_def($g: $sdk.GreyCat): number {
+  public static threshold_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[54];
     return  t.static_values[2] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, alpha: number | null, max_value: number | null, threshold: number | null): ComputeOperationLeakyRelu {
+  static create(input: string, output: string, alpha: number | null, max_value: number | null, threshold: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationLeakyRelu {
     return new ComputeOperationLeakyRelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[54], input, output, alpha, max_value, threshold);
   }
 }
@@ -1521,7 +1521,7 @@ export class ComputeOperationSoftplus extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSoftplus {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSoftplus {
     return new ComputeOperationSoftplus($g.abi.libs_by_name.get(algebralib.name)!.mapped[55], input, output);
   }
 }
@@ -1545,7 +1545,7 @@ export class ComputeOperationSoftSign extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationSoftSign {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSoftSign {
     return new ComputeOperationSoftSign($g.abi.libs_by_name.get(algebralib.name)!.mapped[56], input, output);
   }
 }
@@ -1557,7 +1557,7 @@ export class ComputeInitializerUniformOut extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerUniformOut {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerUniformOut {
     return new ComputeInitializerUniformOut($g.abi.libs_by_name.get(algebralib.name)!.mapped[57]);
   }
 }
@@ -1581,7 +1581,7 @@ export class ComputeOperationLog extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationLog {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationLog {
     return new ComputeOperationLog($g.abi.libs_by_name.get(algebralib.name)!.mapped[58], input, output);
   }
 }
@@ -1593,7 +1593,7 @@ export class ComputeActivationSelu extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationSelu {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationSelu {
     return new ComputeActivationSelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[59]);
   }
 }
@@ -1623,15 +1623,15 @@ export class ComputeActivationLeakyRelu extends $sdk.GCObject {
   public set threshold(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[60];
     return  t.static_values[0] as number;
   }
-  public static threshold_def($g: $sdk.GreyCat): number {
+  public static threshold_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[60];
     return  t.static_values[1] as number;
   }
-  static create($g: $sdk.GreyCat, alpha: number | null, max_value: number | null, threshold: number | null): ComputeActivationLeakyRelu {
+  static create(alpha: number | null, max_value: number | null, threshold: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationLeakyRelu {
     return new ComputeActivationLeakyRelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[60], alpha, max_value, threshold);
   }
 }
@@ -1661,7 +1661,7 @@ export class ComputeOperationSum extends $sdk.GCObject {
   public set axis(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, axis: bigint | number | null): ComputeOperationSum {
+  static create(input: string, output: string, axis: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationSum {
     return new ComputeOperationSum($g.abi.libs_by_name.get(algebralib.name)!.mapped[61], input, output, axis);
   }
 }
@@ -1685,7 +1685,7 @@ export class ComputeOperationFill extends $sdk.GCObject {
   public set value(v: any) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, value: any): ComputeOperationFill {
+  static create(input: string, value: any, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationFill {
     return new ComputeOperationFill($g.abi.libs_by_name.get(algebralib.name)!.mapped[62], input, value);
   }
 }
@@ -1715,7 +1715,7 @@ export class ComputeLayerCustom extends $sdk.GCObject {
   public set vars(v: Array<compute.ComputeVariable>) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, ops: Array<compute.ComputeOperation>, vars: Array<compute.ComputeVariable>): ComputeLayerCustom {
+  static create(name: string, ops: Array<compute.ComputeOperation>, vars: Array<compute.ComputeVariable>, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerCustom {
     return new ComputeLayerCustom($g.abi.libs_by_name.get(algebralib.name)!.mapped[63], name, ops, vars);
   }
 }
@@ -1727,7 +1727,7 @@ export class ComputeActivationSigmoid extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationSigmoid {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationSigmoid {
     return new ComputeActivationSigmoid($g.abi.libs_by_name.get(algebralib.name)!.mapped[64]);
   }
 }
@@ -1751,7 +1751,7 @@ export class ComputeRegularizer extends $sdk.GCObject {
   public set l2(v: number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, l1: number, l2: number): ComputeRegularizer {
+  static create(l1: number, l2: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeRegularizer {
     return new ComputeRegularizer($g.abi.libs_by_name.get(algebralib.name)!.mapped[65], l1, l2);
   }
 }
@@ -1787,7 +1787,7 @@ export class ComputeOperationClip extends $sdk.GCObject {
   public set max(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, min: number | null, max: number | null): ComputeOperationClip {
+  static create(input: string, output: string, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationClip {
     return new ComputeOperationClip($g.abi.libs_by_name.get(algebralib.name)!.mapped[66], input, output, min, max);
   }
 }
@@ -1817,7 +1817,7 @@ export class ComputeOperationPow extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationPow {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationPow {
     return new ComputeOperationPow($g.abi.libs_by_name.get(algebralib.name)!.mapped[67], input, input2, output);
   }
 }
@@ -1835,7 +1835,7 @@ export class ComputeActivationSoftmax extends $sdk.GCObject {
   public set classes(v: string | null) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, classes: string | null): ComputeActivationSoftmax {
+  static create(classes: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationSoftmax {
     return new ComputeActivationSoftmax($g.abi.libs_by_name.get(algebralib.name)!.mapped[68], classes);
   }
 }
@@ -1907,31 +1907,31 @@ export class ComputeLayerDense extends $sdk.GCObject {
   public set activation(v: compute.ComputeActivation | null) {
     this.$attrs[this.$type.generated_offsets[9]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[1] as string;
   }
-  public static var_weight_name($g: $sdk.GreyCat): string {
+  public static var_weight_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[2] as string;
   }
-  public static var_bias_name($g: $sdk.GreyCat): string {
+  public static var_bias_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[3] as string;
   }
-  public static var_mult_name($g: $sdk.GreyCat): string {
+  public static var_mult_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[4] as string;
   }
-  public static var_pre_activation_name($g: $sdk.GreyCat): string {
+  public static var_pre_activation_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[69];
     return  t.static_values[5] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, use_bias: boolean, weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null, activation: compute.ComputeActivation | null): ComputeLayerDense {
+  static create(name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, use_bias: boolean, weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null, activation: compute.ComputeActivation | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerDense {
     return new ComputeLayerDense($g.abi.libs_by_name.get(algebralib.name)!.mapped[69], name, type, inputs, outputs, use_bias, weight_initializer, weight_regularizer, bias_initializer, bias_regularizer, activation);
   }
 }
@@ -1943,7 +1943,7 @@ export class ComputeInitializerRelu extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerRelu {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerRelu {
     return new ComputeInitializerRelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[70]);
   }
 }
@@ -1961,7 +1961,7 @@ export class ComputeInitializerConstant extends $sdk.GCObject {
   public set value(v: any) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, value: any): ComputeInitializerConstant {
+  static create(value: any, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerConstant {
     return new ComputeInitializerConstant($g.abi.libs_by_name.get(algebralib.name)!.mapped[71], value);
   }
 }
@@ -1985,7 +1985,7 @@ export class ComputeInitializerUniform extends $sdk.GCObject {
   public set max(v: number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, min: number, max: number): ComputeInitializerUniform {
+  static create(min: number, max: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerUniform {
     return new ComputeInitializerUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[72], min, max);
   }
 }
@@ -2009,15 +2009,15 @@ export class ComputeOptimizerMomentum extends $sdk.GCObject {
   public set decay_rate(v: number) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[73];
     return  t.static_values[0] as number;
   }
-  public static decay_rate_def($g: $sdk.GreyCat): number {
+  public static decay_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[73];
     return  t.static_values[1] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, decay_rate: number): ComputeOptimizerMomentum {
+  static create(learning_rate: number | null, decay_rate: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerMomentum {
     return new ComputeOptimizerMomentum($g.abi.libs_by_name.get(algebralib.name)!.mapped[73], learning_rate, decay_rate);
   }
 }
@@ -2029,7 +2029,7 @@ export class ComputeInitializerGlorotUniform extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerGlorotUniform {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerGlorotUniform {
     return new ComputeInitializerGlorotUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[74]);
   }
 }
@@ -2083,19 +2083,19 @@ export class ComputeOperationMatMul extends $sdk.GCObject {
   public set beta(v: number) {
     this.$attrs[this.$type.generated_offsets[6]] = v;
   }
-  public static transpose_def($g: $sdk.GreyCat): boolean {
+  public static transpose_def($g: $sdk.GreyCat = globalThis.greycat.default): boolean {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[75];
     return  t.static_values[0] as boolean;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[75];
     return  t.static_values[1] as number;
   }
-  public static beta_def($g: $sdk.GreyCat): number {
+  public static beta_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[75];
     return  t.static_values[2] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string, transposeA: boolean, transposeB: boolean, alpha: number, beta: number): ComputeOperationMatMul {
+  static create(input: string, input2: string, output: string, transposeA: boolean, transposeB: boolean, alpha: number, beta: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationMatMul {
     return new ComputeOperationMatMul($g.abi.libs_by_name.get(algebralib.name)!.mapped[75], input, input2, output, transposeA, transposeB, alpha, beta);
   }
 }
@@ -2125,7 +2125,7 @@ export class ComputeCounter extends $sdk.GCObject {
   public set batchNotOptimized(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, epoch: bigint | number, optimizationSteps: bigint | number, batchNotOptimized: bigint | number): ComputeCounter {
+  static create(epoch: bigint | number, optimizationSteps: bigint | number, batchNotOptimized: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeCounter {
     return new ComputeCounter($g.abi.libs_by_name.get(algebralib.name)!.mapped[76], epoch, optimizationSteps, batchNotOptimized);
   }
 }
@@ -2137,7 +2137,7 @@ export class ComputeInitializerNormalAvg extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerNormalAvg {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerNormalAvg {
     return new ComputeInitializerNormalAvg($g.abi.libs_by_name.get(algebralib.name)!.mapped[77]);
   }
 }
@@ -2161,7 +2161,7 @@ export class ComputeOperation1In1Out extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperation1In1Out {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperation1In1Out {
     return new ComputeOperation1In1Out($g.abi.libs_by_name.get(algebralib.name)!.mapped[78], input, output);
   }
 }
@@ -2191,7 +2191,7 @@ export class ComputeOperationArgMax extends $sdk.GCObject {
   public set output2(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, output2: string): ComputeOperationArgMax {
+  static create(input: string, output: string, output2: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationArgMax {
     return new ComputeOperationArgMax($g.abi.libs_by_name.get(algebralib.name)!.mapped[79], input, output, output2);
   }
 }
@@ -2209,11 +2209,11 @@ export class ComputeActivationElu extends $sdk.GCObject {
   public set alpha(v: number | null) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[80];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, alpha: number | null): ComputeActivationElu {
+  static create(alpha: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationElu {
     return new ComputeActivationElu($g.abi.libs_by_name.get(algebralib.name)!.mapped[80], alpha);
   }
 }
@@ -2221,23 +2221,23 @@ export class ComputeActivationElu extends $sdk.GCObject {
 export class ComputeReduction extends $sdk.GCEnum {
   static readonly _type = 'compute::ComputeReduction';
 
-  public static auto($g: $sdk.GreyCat): compute.ComputeReduction {
+  public static auto($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeReduction {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[81];
     return t.enum_values![t.generated_offsets[0]] as compute.ComputeReduction;
   }
-  public static none($g: $sdk.GreyCat): compute.ComputeReduction {
+  public static none($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeReduction {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[81];
     return t.enum_values![t.generated_offsets[1]] as compute.ComputeReduction;
   }
-  public static sum($g: $sdk.GreyCat): compute.ComputeReduction {
+  public static sum($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeReduction {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[81];
     return t.enum_values![t.generated_offsets[2]] as compute.ComputeReduction;
   }
-  public static mean($g: $sdk.GreyCat): compute.ComputeReduction {
+  public static mean($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeReduction {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[81];
     return t.enum_values![t.generated_offsets[3]] as compute.ComputeReduction;
   }
-  public static disabled($g: $sdk.GreyCat): compute.ComputeReduction {
+  public static disabled($g: $sdk.GreyCat = globalThis.greycat.default): compute.ComputeReduction {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[81];
     return t.enum_values![t.generated_offsets[4]] as compute.ComputeReduction;
   }
@@ -2268,7 +2268,7 @@ export class ComputeOperationAdd extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationAdd {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAdd {
     return new ComputeOperationAdd($g.abi.libs_by_name.get(algebralib.name)!.mapped[82], input, input2, output);
   }
 }
@@ -2286,7 +2286,7 @@ export class ComputeModel extends $sdk.GCObject {
   public set layers(v: Array<compute.ComputeLayer>) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, layers: Array<compute.ComputeLayer>): ComputeModel {
+  static create(layers: Array<compute.ComputeLayer>, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeModel {
     return new ComputeModel($g.abi.libs_by_name.get(algebralib.name)!.mapped[83], layers);
   }
 }
@@ -2310,11 +2310,11 @@ export class ComputeActivationRelu extends $sdk.GCObject {
   public set threshold(v: number | null) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  public static threshold_def($g: $sdk.GreyCat): number {
+  public static threshold_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[84];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, max_value: number | null, threshold: number | null): ComputeActivationRelu {
+  static create(max_value: number | null, threshold: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationRelu {
     return new ComputeActivationRelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[84], max_value, threshold);
   }
 }
@@ -2338,7 +2338,7 @@ export class ComputeOperationAtan extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAtan {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAtan {
     return new ComputeOperationAtan($g.abi.libs_by_name.get(algebralib.name)!.mapped[85], input, output);
   }
 }
@@ -2374,23 +2374,23 @@ export class ComputeOptimizerAdam extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[86];
     return  t.static_values[0] as number;
   }
-  public static beta1_def($g: $sdk.GreyCat): number {
+  public static beta1_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[86];
     return  t.static_values[1] as number;
   }
-  public static beta2_def($g: $sdk.GreyCat): number {
+  public static beta2_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[86];
     return  t.static_values[2] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[86];
     return  t.static_values[3] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null): ComputeOptimizerAdam {
+  static create(learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerAdam {
     return new ComputeOptimizerAdam($g.abi.libs_by_name.get(algebralib.name)!.mapped[86], learning_rate, beta1, beta2, smooth_epsilon);
   }
 }
@@ -2426,23 +2426,23 @@ export class ComputeOptimizerFtrl extends $sdk.GCObject {
   public set beta(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[87];
     return  t.static_values[0] as number;
   }
-  public static beta_def($g: $sdk.GreyCat): number {
+  public static beta_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[87];
     return  t.static_values[1] as number;
   }
-  public static lambda1_def($g: $sdk.GreyCat): number {
+  public static lambda1_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[87];
     return  t.static_values[2] as number;
   }
-  public static lambda2_def($g: $sdk.GreyCat): number {
+  public static lambda2_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[87];
     return  t.static_values[3] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, lambda1: number | null, lambda2: number | null, beta: number | null): ComputeOptimizerFtrl {
+  static create(learning_rate: number | null, lambda1: number | null, lambda2: number | null, beta: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerFtrl {
     return new ComputeOptimizerFtrl($g.abi.libs_by_name.get(algebralib.name)!.mapped[87], learning_rate, lambda1, lambda2, beta);
   }
 }
@@ -2454,7 +2454,7 @@ export class ComputeInitializerIdentity extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerIdentity {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerIdentity {
     return new ComputeInitializerIdentity($g.abi.libs_by_name.get(algebralib.name)!.mapped[88]);
   }
 }
@@ -2466,7 +2466,7 @@ export class ComputeInitializerUniformIn extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerUniformIn {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerUniformIn {
     return new ComputeInitializerUniformIn($g.abi.libs_by_name.get(algebralib.name)!.mapped[89]);
   }
 }
@@ -2478,7 +2478,7 @@ export class ComputeInitializerSigmoidUniform extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerSigmoidUniform {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerSigmoidUniform {
     return new ComputeInitializerSigmoidUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[90]);
   }
 }
@@ -2490,7 +2490,7 @@ export class ComputeActivationSoftplus extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationSoftplus {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationSoftplus {
     return new ComputeActivationSoftplus($g.abi.libs_by_name.get(algebralib.name)!.mapped[91]);
   }
 }
@@ -2514,7 +2514,7 @@ export class ComputeOperationLeCunTanh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationLeCunTanh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationLeCunTanh {
     return new ComputeOperationLeCunTanh($g.abi.libs_by_name.get(algebralib.name)!.mapped[92], input, output);
   }
 }
@@ -2544,7 +2544,7 @@ export class ComputeOperationDiv extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationDiv {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationDiv {
     return new ComputeOperationDiv($g.abi.libs_by_name.get(algebralib.name)!.mapped[93], input, input2, output);
   }
 }
@@ -2556,7 +2556,7 @@ export class ComputeInitializerReluUniform extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerReluUniform {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerReluUniform {
     return new ComputeInitializerReluUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[94]);
   }
 }
@@ -2646,71 +2646,71 @@ export class ComputeLayerLSTM extends $sdk.GCObject {
   public set sequences(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[12]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[1] as string;
   }
-  public static var_hx_name($g: $sdk.GreyCat): string {
+  public static var_hx_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[2] as string;
   }
-  public static var_cx_name($g: $sdk.GreyCat): string {
+  public static var_cx_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[3] as string;
   }
-  public static var_hy_name($g: $sdk.GreyCat): string {
+  public static var_hy_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[4] as string;
   }
-  public static var_cy_name($g: $sdk.GreyCat): string {
+  public static var_cy_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[5] as string;
   }
-  public static var_weight_name($g: $sdk.GreyCat): string {
+  public static var_weight_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[6] as string;
   }
-  public static var_bias_name($g: $sdk.GreyCat): string {
+  public static var_bias_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[7] as string;
   }
-  public static var_internal_i_name($g: $sdk.GreyCat): string {
+  public static var_internal_i_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[8] as string;
   }
-  public static var_internal_f_name($g: $sdk.GreyCat): string {
+  public static var_internal_f_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[9] as string;
   }
-  public static var_internal_cp_name($g: $sdk.GreyCat): string {
+  public static var_internal_cp_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[10] as string;
   }
-  public static var_internal_o_name($g: $sdk.GreyCat): string {
+  public static var_internal_o_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[11] as string;
   }
-  public static var_internal_h_name($g: $sdk.GreyCat): string {
+  public static var_internal_h_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[12] as string;
   }
-  public static var_internal_c_name($g: $sdk.GreyCat): string {
+  public static var_internal_c_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[13] as string;
   }
-  public static var_internal_mult_name($g: $sdk.GreyCat): string {
+  public static var_internal_mult_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[14] as string;
   }
-  public static var_internal_output_name($g: $sdk.GreyCat): string {
+  public static var_internal_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[95];
     return  t.static_values[15] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, bias_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_regularizer: compute.ComputeRegularizer | null, type: $sdk.std.core.TensorType, use_bias: boolean | null, return_sequences: boolean | null, bidirectional: boolean | null, auto_init_states: boolean | null, inputs: bigint | number, outputs: bigint | number, layers: bigint | number, sequences: bigint | number): ComputeLayerLSTM {
+  static create(name: string, bias_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_regularizer: compute.ComputeRegularizer | null, type: $sdk.std.core.TensorType, use_bias: boolean | null, return_sequences: boolean | null, bidirectional: boolean | null, auto_init_states: boolean | null, inputs: bigint | number, outputs: bigint | number, layers: bigint | number, sequences: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerLSTM {
     return new ComputeLayerLSTM($g.abi.libs_by_name.get(algebralib.name)!.mapped[95], name, bias_initializer, weight_regularizer, bias_regularizer, type, use_bias, return_sequences, bidirectional, auto_init_states, inputs, outputs, layers, sequences);
   }
 }
@@ -2722,7 +2722,7 @@ export class ComputeInitializerLeCunUniform extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerLeCunUniform {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerLeCunUniform {
     return new ComputeInitializerLeCunUniform($g.abi.libs_by_name.get(algebralib.name)!.mapped[96]);
   }
 }
@@ -2734,7 +2734,7 @@ export class ComputeActivationTanh extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeActivationTanh {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationTanh {
     return new ComputeActivationTanh($g.abi.libs_by_name.get(algebralib.name)!.mapped[97]);
   }
 }
@@ -2770,7 +2770,7 @@ export class ComputeVarInOut extends $sdk.GCObject {
   public set with_grad(v: boolean) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>, with_grad: boolean): ComputeVarInOut {
+  static create(name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>, with_grad: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVarInOut {
     return new ComputeVarInOut($g.abi.libs_by_name.get(algebralib.name)!.mapped[98], name, type, shape, with_grad);
   }
 }
@@ -2812,19 +2812,19 @@ export class ComputeLayerFilter extends $sdk.GCObject {
   public set maskValues(v: Array<bigint | number>) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[99];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[99];
     return  t.static_values[1] as string;
   }
-  public static var_mask_name($g: $sdk.GreyCat): string {
+  public static var_mask_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[99];
     return  t.static_values[2] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, maskValues: Array<bigint | number>): ComputeLayerFilter {
+  static create(name: string, type: $sdk.std.core.TensorType, inputs: bigint | number, outputs: bigint | number, maskValues: Array<bigint | number>, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerFilter {
     return new ComputeLayerFilter($g.abi.libs_by_name.get(algebralib.name)!.mapped[99], name, type, inputs, outputs, maskValues);
   }
 }
@@ -2854,19 +2854,19 @@ export class ComputeOptimizerRmsProp extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[100];
     return  t.static_values[0] as number;
   }
-  public static decay_rate_def($g: $sdk.GreyCat): number {
+  public static decay_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[100];
     return  t.static_values[1] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[100];
     return  t.static_values[2] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, decay_rate: number | null, smooth_epsilon: number | null): ComputeOptimizerRmsProp {
+  static create(learning_rate: number | null, decay_rate: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerRmsProp {
     return new ComputeOptimizerRmsProp($g.abi.libs_by_name.get(algebralib.name)!.mapped[100], learning_rate, decay_rate, smooth_epsilon);
   }
 }
@@ -2884,11 +2884,11 @@ export class ComputeOptimizerSgd extends $sdk.GCObject {
   public set learning_rate(v: number | null) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[101];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null): ComputeOptimizerSgd {
+  static create(learning_rate: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerSgd {
     return new ComputeOptimizerSgd($g.abi.libs_by_name.get(algebralib.name)!.mapped[101], learning_rate);
   }
 }
@@ -2918,7 +2918,7 @@ export class ComputeBinding extends $sdk.GCObject {
   public set target_var_name(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, src_layer_name: string, src_var_name: string, target_var_name: string): ComputeBinding {
+  static create(src_layer_name: string, src_var_name: string, target_var_name: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeBinding {
     return new ComputeBinding($g.abi.libs_by_name.get(algebralib.name)!.mapped[102], src_layer_name, src_var_name, target_var_name);
   }
 }
@@ -2948,23 +2948,23 @@ export class ComputeLayerStandardScaler extends $sdk.GCObject {
   public set inverse_transform(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[103];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[103];
     return  t.static_values[1] as string;
   }
-  public static var_avg_name($g: $sdk.GreyCat): string {
+  public static var_avg_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[103];
     return  t.static_values[2] as string;
   }
-  public static var_std_name($g: $sdk.GreyCat): string {
+  public static var_std_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[103];
     return  t.static_values[3] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean): ComputeLayerStandardScaler {
+  static create(name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerStandardScaler {
     return new ComputeLayerStandardScaler($g.abi.libs_by_name.get(algebralib.name)!.mapped[103], name, type, inverse_transform);
   }
 }
@@ -2976,7 +2976,7 @@ export class ComputeInitializerNormalOut extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerNormalOut {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerNormalOut {
     return new ComputeInitializerNormalOut($g.abi.libs_by_name.get(algebralib.name)!.mapped[104]);
   }
 }
@@ -2988,7 +2988,7 @@ export class ComputeInitializerNone extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerNone {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerNone {
     return new ComputeInitializerNone($g.abi.libs_by_name.get(algebralib.name)!.mapped[105]);
   }
 }
@@ -3012,7 +3012,7 @@ export class ComputeOperationNeg extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationNeg {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationNeg {
     return new ComputeOperationNeg($g.abi.libs_by_name.get(algebralib.name)!.mapped[106], input, output);
   }
 }
@@ -3036,7 +3036,7 @@ export class ComputeOperationTan extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationTan {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationTan {
     return new ComputeOperationTan($g.abi.libs_by_name.get(algebralib.name)!.mapped[107], input, output);
   }
 }
@@ -3054,7 +3054,7 @@ export class ComputeVarProxy extends $sdk.GCObject {
   public set name(v: string) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string): ComputeVarProxy {
+  static create(name: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVarProxy {
     return new ComputeVarProxy($g.abi.libs_by_name.get(algebralib.name)!.mapped[108], name);
   }
 }
@@ -3078,7 +3078,7 @@ export class ComputeOperationCosh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationCosh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationCosh {
     return new ComputeOperationCosh($g.abi.libs_by_name.get(algebralib.name)!.mapped[109], input, output);
   }
 }
@@ -3108,7 +3108,7 @@ export class ComputeLayerSeq extends $sdk.GCObject {
   public set optimizer(v: compute.ComputeOptimizer | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, calls: Array<compute.ComputeLayerCall>, optimizer: compute.ComputeOptimizer | null): ComputeLayerSeq {
+  static create(name: string, calls: Array<compute.ComputeLayerCall>, optimizer: compute.ComputeOptimizer | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerSeq {
     return new ComputeLayerSeq($g.abi.libs_by_name.get(algebralib.name)!.mapped[110], name, calls, optimizer);
   }
 }
@@ -3138,7 +3138,7 @@ export class ComputeLayerLossRegression extends $sdk.GCObject {
   public set loss_type(v: compute.ComputeRegressionLoss) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, reduction: compute.ComputeReduction | null, loss_type: compute.ComputeRegressionLoss): ComputeLayerLossRegression {
+  static create(name: string, reduction: compute.ComputeReduction | null, loss_type: compute.ComputeRegressionLoss, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerLossRegression {
     return new ComputeLayerLossRegression($g.abi.libs_by_name.get(algebralib.name)!.mapped[111], name, reduction, loss_type);
   }
 }
@@ -3162,7 +3162,7 @@ export class ComputeOperationAcosh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAcosh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAcosh {
     return new ComputeOperationAcosh($g.abi.libs_by_name.get(algebralib.name)!.mapped[112], input, output);
   }
 }
@@ -3198,15 +3198,15 @@ export class ComputeOperationHardSigmoid extends $sdk.GCObject {
   public set shift(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static slope_def($g: $sdk.GreyCat): number {
+  public static slope_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[113];
     return  t.static_values[0] as number;
   }
-  public static shift_def($g: $sdk.GreyCat): number {
+  public static shift_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[113];
     return  t.static_values[1] as number;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, slope: number | null, shift: number | null): ComputeOperationHardSigmoid {
+  static create(input: string, output: string, slope: number | null, shift: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationHardSigmoid {
     return new ComputeOperationHardSigmoid($g.abi.libs_by_name.get(algebralib.name)!.mapped[113], input, output, slope, shift);
   }
 }
@@ -3236,7 +3236,7 @@ export class ComputeOperationLogSoftmax extends $sdk.GCObject {
   public set axis(v: bigint | number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, axis: bigint | number | null): ComputeOperationLogSoftmax {
+  static create(input: string, output: string, axis: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationLogSoftmax {
     return new ComputeOperationLogSoftmax($g.abi.libs_by_name.get(algebralib.name)!.mapped[114], input, output, axis);
   }
 }
@@ -3284,7 +3284,7 @@ export class ComputeVarOptimize extends $sdk.GCObject {
   public set init(v: compute.ComputeInitializer | null) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>, l1: number, l2: number, init: compute.ComputeInitializer | null): ComputeVarOptimize {
+  static create(name: string, type: $sdk.std.core.TensorType, shape: Array<bigint | number>, l1: number, l2: number, init: compute.ComputeInitializer | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeVarOptimize {
     return new ComputeVarOptimize($g.abi.libs_by_name.get(algebralib.name)!.mapped[115], name, type, shape, l1, l2, init);
   }
 }
@@ -3314,7 +3314,7 @@ export class ComputeOperationAddBias extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, input2: string, output: string): ComputeOperationAddBias {
+  static create(input: string, input2: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAddBias {
     return new ComputeOperationAddBias($g.abi.libs_by_name.get(algebralib.name)!.mapped[116], input, input2, output);
   }
 }
@@ -3338,7 +3338,7 @@ export class ComputeOperationAbs extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAbs {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAbs {
     return new ComputeOperationAbs($g.abi.libs_by_name.get(algebralib.name)!.mapped[117], input, output);
   }
 }
@@ -3368,7 +3368,7 @@ export class ComputeOperationScale extends $sdk.GCObject {
   public set alpha(v: number) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, alpha: number): ComputeOperationScale {
+  static create(input: string, output: string, alpha: number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationScale {
     return new ComputeOperationScale($g.abi.libs_by_name.get(algebralib.name)!.mapped[118], input, output, alpha);
   }
 }
@@ -3398,19 +3398,19 @@ export class ComputeOptimizerAdaGrad extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[119];
     return  t.static_values[0] as number;
   }
-  public static initial_accumulator_def($g: $sdk.GreyCat): number {
+  public static initial_accumulator_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[119];
     return  t.static_values[1] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[119];
     return  t.static_values[2] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, initial_accumulator: number | null, smooth_epsilon: number | null): ComputeOptimizerAdaGrad {
+  static create(learning_rate: number | null, initial_accumulator: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerAdaGrad {
     return new ComputeOptimizerAdaGrad($g.abi.libs_by_name.get(algebralib.name)!.mapped[119], learning_rate, initial_accumulator, smooth_epsilon);
   }
 }
@@ -3446,23 +3446,23 @@ export class ComputeOptimizerAdaMax extends $sdk.GCObject {
   public set smooth_epsilon(v: number | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  public static learning_rate_def($g: $sdk.GreyCat): number {
+  public static learning_rate_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[120];
     return  t.static_values[0] as number;
   }
-  public static beta1_def($g: $sdk.GreyCat): number {
+  public static beta1_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[120];
     return  t.static_values[1] as number;
   }
-  public static beta2_def($g: $sdk.GreyCat): number {
+  public static beta2_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[120];
     return  t.static_values[2] as number;
   }
-  public static smooth_epsilon_def($g: $sdk.GreyCat): number {
+  public static smooth_epsilon_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[120];
     return  t.static_values[3] as number;
   }
-  static create($g: $sdk.GreyCat, learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null): ComputeOptimizerAdaMax {
+  static create(learning_rate: number | null, beta1: number | null, beta2: number | null, smooth_epsilon: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOptimizerAdaMax {
     return new ComputeOptimizerAdaMax($g.abi.libs_by_name.get(algebralib.name)!.mapped[120], learning_rate, beta1, beta2, smooth_epsilon);
   }
 }
@@ -3486,7 +3486,7 @@ export class ComputeOperationAtanh extends $sdk.GCObject {
   public set output(v: string) {
     this.$attrs[this.$type.generated_offsets[1]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string): ComputeOperationAtanh {
+  static create(input: string, output: string, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationAtanh {
     return new ComputeOperationAtanh($g.abi.libs_by_name.get(algebralib.name)!.mapped[121], input, output);
   }
 }
@@ -3498,7 +3498,7 @@ export class ComputeInitializerXavier extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializerXavier {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializerXavier {
     return new ComputeInitializerXavier($g.abi.libs_by_name.get(algebralib.name)!.mapped[122]);
   }
 }
@@ -3528,27 +3528,27 @@ export class ComputeLayerPCAScaler extends $sdk.GCObject {
   public set inverse_transform(v: boolean) {
     this.$attrs[this.$type.generated_offsets[2]] = v;
   }
-  public static var_input_name($g: $sdk.GreyCat): string {
+  public static var_input_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[123];
     return  t.static_values[0] as string;
   }
-  public static var_output_name($g: $sdk.GreyCat): string {
+  public static var_output_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[123];
     return  t.static_values[1] as string;
   }
-  public static var_avg_name($g: $sdk.GreyCat): string {
+  public static var_avg_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[123];
     return  t.static_values[2] as string;
   }
-  public static var_std_name($g: $sdk.GreyCat): string {
+  public static var_std_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[123];
     return  t.static_values[3] as string;
   }
-  public static var_space_name($g: $sdk.GreyCat): string {
+  public static var_space_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[123];
     return  t.static_values[4] as string;
   }
-  static create($g: $sdk.GreyCat, name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean): ComputeLayerPCAScaler {
+  static create(name: string, type: $sdk.std.core.TensorType, inverse_transform: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeLayerPCAScaler {
     return new ComputeLayerPCAScaler($g.abi.libs_by_name.get(algebralib.name)!.mapped[123], name, type, inverse_transform);
   }
 }
@@ -3560,7 +3560,7 @@ export class ComputeOperation extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeOperation {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperation {
     return new ComputeOperation($g.abi.libs_by_name.get(algebralib.name)!.mapped[124]);
   }
 }
@@ -3578,11 +3578,11 @@ export class ComputeActivationCelu extends $sdk.GCObject {
   public set alpha(v: number | null) {
     this.$attrs[this.$type.generated_offsets[0]] = v;
   }
-  public static alpha_def($g: $sdk.GreyCat): number {
+  public static alpha_def($g: $sdk.GreyCat = globalThis.greycat.default): number {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[125];
     return  t.static_values[0] as number;
   }
-  static create($g: $sdk.GreyCat, alpha: number | null): ComputeActivationCelu {
+  static create(alpha: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeActivationCelu {
     return new ComputeActivationCelu($g.abi.libs_by_name.get(algebralib.name)!.mapped[125], alpha);
   }
 }
@@ -3594,7 +3594,7 @@ export class ComputeInitializer extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): ComputeInitializer {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): ComputeInitializer {
     return new ComputeInitializer($g.abi.libs_by_name.get(algebralib.name)!.mapped[126]);
   }
 }
@@ -3630,7 +3630,7 @@ export class ComputeOperationFilter extends $sdk.GCObject {
   public set nbOutputs(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  static create($g: $sdk.GreyCat, input: string, output: string, mask: string, nbOutputs: bigint | number): ComputeOperationFilter {
+  static create(input: string, output: string, mask: string, nbOutputs: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): ComputeOperationFilter {
     return new ComputeOperationFilter($g.abi.libs_by_name.get(algebralib.name)!.mapped[127], input, output, mask, nbOutputs);
   }
 }
@@ -3644,803 +3644,803 @@ export namespace nn_layers_names {
 export class NNLayersNames extends $sdk.GCEnum {
   static readonly _type = 'nn_layers_names::NNLayersNames';
 
-  public static layer_0($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_0($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[0]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_1($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_1($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[1]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_2($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_2($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[2]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_3($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_3($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[3]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_4($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_4($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[4]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_5($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_5($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[5]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_6($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_6($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[6]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_7($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_7($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[7]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_8($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_8($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[8]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_9($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_9($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[9]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_10($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_10($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[10]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_11($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_11($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[11]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_12($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_12($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[12]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_13($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_13($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[13]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_14($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_14($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[14]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_15($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_15($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[15]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_16($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_16($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[16]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_17($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_17($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[17]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_18($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_18($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[18]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_19($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_19($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[19]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_20($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_20($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[20]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_21($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_21($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[21]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_22($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_22($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[22]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_23($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_23($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[23]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_24($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_24($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[24]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_25($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_25($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[25]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_26($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_26($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[26]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_27($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_27($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[27]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_28($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_28($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[28]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_29($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_29($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[29]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_30($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_30($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[30]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_31($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_31($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[31]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_32($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_32($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[32]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_33($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_33($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[33]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_34($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_34($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[34]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_35($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_35($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[35]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_36($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_36($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[36]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_37($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_37($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[37]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_38($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_38($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[38]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_39($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_39($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[39]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_40($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_40($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[40]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_41($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_41($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[41]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_42($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_42($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[42]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_43($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_43($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[43]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_44($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_44($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[44]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_45($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_45($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[45]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_46($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_46($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[46]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_47($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_47($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[47]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_48($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_48($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[48]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_49($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_49($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[49]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_50($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_50($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[50]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_51($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_51($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[51]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_52($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_52($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[52]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_53($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_53($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[53]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_54($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_54($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[54]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_55($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_55($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[55]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_56($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_56($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[56]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_57($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_57($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[57]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_58($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_58($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[58]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_59($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_59($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[59]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_60($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_60($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[60]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_61($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_61($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[61]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_62($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_62($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[62]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_63($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_63($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[63]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_64($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_64($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[64]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_65($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_65($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[65]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_66($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_66($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[66]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_67($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_67($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[67]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_68($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_68($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[68]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_69($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_69($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[69]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_70($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_70($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[70]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_71($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_71($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[71]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_72($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_72($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[72]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_73($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_73($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[73]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_74($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_74($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[74]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_75($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_75($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[75]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_76($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_76($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[76]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_77($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_77($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[77]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_78($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_78($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[78]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_79($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_79($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[79]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_80($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_80($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[80]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_81($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_81($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[81]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_82($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_82($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[82]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_83($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_83($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[83]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_84($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_84($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[84]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_85($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_85($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[85]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_86($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_86($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[86]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_87($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_87($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[87]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_88($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_88($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[88]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_89($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_89($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[89]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_90($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_90($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[90]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_91($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_91($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[91]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_92($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_92($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[92]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_93($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_93($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[93]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_94($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_94($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[94]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_95($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_95($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[95]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_96($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_96($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[96]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_97($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_97($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[97]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_98($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_98($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[98]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_99($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_99($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[99]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_100($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_100($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[100]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_101($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_101($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[101]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_102($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_102($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[102]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_103($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_103($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[103]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_104($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_104($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[104]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_105($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_105($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[105]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_106($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_106($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[106]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_107($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_107($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[107]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_108($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_108($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[108]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_109($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_109($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[109]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_110($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_110($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[110]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_111($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_111($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[111]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_112($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_112($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[112]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_113($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_113($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[113]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_114($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_114($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[114]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_115($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_115($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[115]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_116($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_116($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[116]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_117($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_117($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[117]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_118($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_118($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[118]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_119($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_119($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[119]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_120($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_120($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[120]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_121($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_121($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[121]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_122($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_122($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[122]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_123($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_123($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[123]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_124($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_124($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[124]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_125($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_125($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[125]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_126($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_126($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[126]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_127($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_127($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[127]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_128($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_128($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[128]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_129($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_129($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[129]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_130($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_130($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[130]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_131($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_131($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[131]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_132($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_132($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[132]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_133($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_133($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[133]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_134($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_134($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[134]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_135($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_135($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[135]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_136($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_136($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[136]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_137($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_137($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[137]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_138($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_138($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[138]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_139($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_139($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[139]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_140($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_140($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[140]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_141($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_141($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[141]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_142($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_142($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[142]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_143($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_143($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[143]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_144($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_144($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[144]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_145($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_145($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[145]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_146($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_146($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[146]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_147($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_147($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[147]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_148($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_148($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[148]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_149($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_149($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[149]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_150($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_150($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[150]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_151($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_151($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[151]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_152($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_152($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[152]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_153($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_153($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[153]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_154($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_154($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[154]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_155($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_155($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[155]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_156($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_156($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[156]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_157($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_157($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[157]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_158($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_158($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[158]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_159($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_159($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[159]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_160($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_160($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[160]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_161($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_161($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[161]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_162($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_162($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[162]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_163($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_163($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[163]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_164($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_164($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[164]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_165($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_165($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[165]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_166($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_166($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[166]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_167($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_167($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[167]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_168($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_168($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[168]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_169($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_169($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[169]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_170($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_170($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[170]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_171($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_171($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[171]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_172($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_172($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[172]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_173($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_173($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[173]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_174($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_174($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[174]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_175($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_175($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[175]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_176($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_176($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[176]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_177($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_177($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[177]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_178($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_178($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[178]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_179($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_179($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[179]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_180($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_180($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[180]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_181($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_181($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[181]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_182($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_182($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[182]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_183($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_183($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[183]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_184($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_184($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[184]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_185($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_185($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[185]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_186($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_186($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[186]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_187($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_187($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[187]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_188($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_188($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[188]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_189($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_189($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[189]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_190($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_190($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[190]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_191($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_191($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[191]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_192($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_192($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[192]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_193($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_193($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[193]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_194($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_194($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[194]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_195($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_195($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[195]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_196($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_196($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[196]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_197($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_197($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[197]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_198($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_198($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[198]] as nn_layers_names.NNLayersNames;
   }
-  public static layer_199($g: $sdk.GreyCat): nn_layers_names.NNLayersNames {
+  public static layer_199($g: $sdk.GreyCat = globalThis.greycat.default): nn_layers_names.NNLayersNames {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[128];
     return t.enum_values![t.generated_offsets[199]] as nn_layers_names.NNLayersNames;
   }
@@ -4570,127 +4570,127 @@ export class NeuralNetwork extends $sdk.GCObject {
   public set lastOutput(v: string | null) {
     this.$attrs[this.$type.generated_offsets[18]] = v;
   }
-  public static err_negative_in_out($g: $sdk.GreyCat): string {
+  public static err_negative_in_out($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[0] as string;
   }
-  public static err_last_layer_wrong($g: $sdk.GreyCat): string {
+  public static err_last_layer_wrong($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[1] as string;
   }
-  public static err_incompatible_loss($g: $sdk.GreyCat): string {
+  public static err_incompatible_loss($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[2] as string;
   }
-  public static err_layer_not_supported($g: $sdk.GreyCat): string {
+  public static err_layer_not_supported($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[3] as string;
   }
-  public static err_tensor_type_not_supported($g: $sdk.GreyCat): string {
+  public static err_tensor_type_not_supported($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[4] as string;
   }
-  public static err_minimum_layers($g: $sdk.GreyCat): string {
+  public static err_minimum_layers($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[5] as string;
   }
-  public static layer_placeholders_name($g: $sdk.GreyCat): string {
+  public static layer_placeholders_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[6] as string;
   }
-  public static layer_classification_name($g: $sdk.GreyCat): string {
+  public static layer_classification_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[7] as string;
   }
-  public static layer_loss_name($g: $sdk.GreyCat): string {
+  public static layer_loss_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[8] as string;
   }
-  public static var_inputs_name($g: $sdk.GreyCat): string {
+  public static var_inputs_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[9] as string;
   }
-  public static var_enc_inputs_name($g: $sdk.GreyCat): string {
+  public static var_enc_inputs_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[10] as string;
   }
-  public static var_targets_name($g: $sdk.GreyCat): string {
+  public static var_targets_name($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[11] as string;
   }
-  public static var_classifier_classes($g: $sdk.GreyCat): string {
+  public static var_classifier_classes($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[12] as string;
   }
-  public static var_classifier_probabilities($g: $sdk.GreyCat): string {
+  public static var_classifier_probabilities($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[13] as string;
   }
-  public static var_classifier_class_weights($g: $sdk.GreyCat): string {
+  public static var_classifier_class_weights($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[14] as string;
   }
-  public static pre_process($g: $sdk.GreyCat): string {
+  public static pre_process($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[15] as string;
   }
-  public static input_avg($g: $sdk.GreyCat): string {
+  public static input_avg($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[16] as string;
   }
-  public static input_min($g: $sdk.GreyCat): string {
+  public static input_min($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[17] as string;
   }
-  public static input_max($g: $sdk.GreyCat): string {
+  public static input_max($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[18] as string;
   }
-  public static input_std($g: $sdk.GreyCat): string {
+  public static input_std($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[19] as string;
   }
-  public static input_space($g: $sdk.GreyCat): string {
+  public static input_space($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[20] as string;
   }
-  public static output_avg($g: $sdk.GreyCat): string {
+  public static output_avg($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[21] as string;
   }
-  public static output_min($g: $sdk.GreyCat): string {
+  public static output_min($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[22] as string;
   }
-  public static output_max($g: $sdk.GreyCat): string {
+  public static output_max($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[23] as string;
   }
-  public static output_std($g: $sdk.GreyCat): string {
+  public static output_std($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[24] as string;
   }
-  public static post_process($g: $sdk.GreyCat): string {
+  public static post_process($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[25] as string;
   }
-  public static seq_predict($g: $sdk.GreyCat): string {
+  public static seq_predict($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[26] as string;
   }
-  public static seq_learn($g: $sdk.GreyCat): string {
+  public static seq_learn($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[27] as string;
   }
-  public static seq_encode($g: $sdk.GreyCat): string {
+  public static seq_encode($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[28] as string;
   }
-  public static seq_decode($g: $sdk.GreyCat): string {
+  public static seq_decode($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[129];
     return  t.static_values[29] as string;
   }
-  static create($g: $sdk.GreyCat, inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null): NeuralNetwork {
+  static create(inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): NeuralNetwork {
     return new NeuralNetwork($g.abi.libs_by_name.get(algebralib.name)!.mapped[129], inputs, inputs_gradients, outputs, fixed_batch_size, inputs_sequences, outputs_sequences, tensor_type, lossLayer, optimizer, seed, randomizeSeed, placeholders, preProcessType, postProcessType, preProcessObject, postProcessObject, layers, lastLayer, lastOutput);
   }
 }
@@ -4698,75 +4698,75 @@ export class NeuralNetwork extends $sdk.GCObject {
 export class ComputeInitializers extends $sdk.GCEnum {
   static readonly _type = 'nn::ComputeInitializers';
 
-  public static none($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static none($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[0]] as nn.ComputeInitializers;
   }
-  public static constant($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static constant($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[1]] as nn.ComputeInitializers;
   }
-  public static sigmoid_uniform($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static sigmoid_uniform($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[2]] as nn.ComputeInitializers;
   }
-  public static lecun_uniform($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static lecun_uniform($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[3]] as nn.ComputeInitializers;
   }
-  public static xavier($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static xavier($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[4]] as nn.ComputeInitializers;
   }
-  public static xavier_uniform($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static xavier_uniform($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[5]] as nn.ComputeInitializers;
   }
-  public static relu($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static relu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[6]] as nn.ComputeInitializers;
   }
-  public static relu_uniform($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static relu_uniform($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[7]] as nn.ComputeInitializers;
   }
-  public static normal($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static normal($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[8]] as nn.ComputeInitializers;
   }
-  public static normal_in($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static normal_in($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[9]] as nn.ComputeInitializers;
   }
-  public static normal_out($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static normal_out($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[10]] as nn.ComputeInitializers;
   }
-  public static normal_avg($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static normal_avg($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[11]] as nn.ComputeInitializers;
   }
-  public static uniform($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static uniform($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[12]] as nn.ComputeInitializers;
   }
-  public static uniform_in($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static uniform_in($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[13]] as nn.ComputeInitializers;
   }
-  public static uniform_out($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static uniform_out($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[14]] as nn.ComputeInitializers;
   }
-  public static uniform_avg($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static uniform_avg($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[15]] as nn.ComputeInitializers;
   }
-  public static identity($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static identity($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[16]] as nn.ComputeInitializers;
   }
-  public static pytorch($g: $sdk.GreyCat): nn.ComputeInitializers {
+  public static pytorch($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeInitializers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[130];
     return t.enum_values![t.generated_offsets[17]] as nn.ComputeInitializers;
   }
@@ -4803,7 +4803,7 @@ export class InitializerConfig extends $sdk.GCObject {
   public set bias_regularizer(v: compute.ComputeRegularizer | null) {
     this.$attrs[this.$type.generated_offsets[3]] = v;
   }
-  static create($g: $sdk.GreyCat, weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null): InitializerConfig {
+  static create(weight_initializer: compute.ComputeInitializer | null, weight_regularizer: compute.ComputeRegularizer | null, bias_initializer: compute.ComputeInitializer | null, bias_regularizer: compute.ComputeRegularizer | null, $g: $sdk.GreyCat = globalThis.greycat.default): InitializerConfig {
     return new InitializerConfig($g.abi.libs_by_name.get(algebralib.name)!.mapped[131], weight_initializer, weight_regularizer, bias_initializer, bias_regularizer);
   }
 }
@@ -4811,43 +4811,43 @@ export class InitializerConfig extends $sdk.GCObject {
 export class ComputeOptimizers extends $sdk.GCEnum {
   static readonly _type = 'nn::ComputeOptimizers';
 
-  public static ada_delta($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static ada_delta($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[0]] as nn.ComputeOptimizers;
   }
-  public static ada_grad($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static ada_grad($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[1]] as nn.ComputeOptimizers;
   }
-  public static adam($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static adam($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[2]] as nn.ComputeOptimizers;
   }
-  public static ada_max($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static ada_max($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[3]] as nn.ComputeOptimizers;
   }
-  public static nadam($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static nadam($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[4]] as nn.ComputeOptimizers;
   }
-  public static ftrl($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static ftrl($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[5]] as nn.ComputeOptimizers;
   }
-  public static sgd($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static sgd($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[6]] as nn.ComputeOptimizers;
   }
-  public static rms_prop($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static rms_prop($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[7]] as nn.ComputeOptimizers;
   }
-  public static momentum($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static momentum($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[8]] as nn.ComputeOptimizers;
   }
-  public static nesterov($g: $sdk.GreyCat): nn.ComputeOptimizers {
+  public static nesterov($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeOptimizers {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[132];
     return t.enum_values![t.generated_offsets[9]] as nn.ComputeOptimizers;
   }
@@ -4856,27 +4856,27 @@ export class ComputeOptimizers extends $sdk.GCEnum {
 export class ComputeLayerTypes extends $sdk.GCEnum {
   static readonly _type = 'nn::ComputeLayerTypes';
 
-  public static linear($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static linear($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[0]] as nn.ComputeLayerTypes;
   }
-  public static dense($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static dense($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[1]] as nn.ComputeLayerTypes;
   }
-  public static activation($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static activation($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[2]] as nn.ComputeLayerTypes;
   }
-  public static lstm($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static lstm($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[3]] as nn.ComputeLayerTypes;
   }
-  public static loss($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static loss($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[4]] as nn.ComputeLayerTypes;
   }
-  public static filter($g: $sdk.GreyCat): nn.ComputeLayerTypes {
+  public static filter($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeLayerTypes {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[133];
     return t.enum_values![t.generated_offsets[5]] as nn.ComputeLayerTypes;
   }
@@ -4885,15 +4885,15 @@ export class ComputeLayerTypes extends $sdk.GCEnum {
 export class PostProcessType extends $sdk.GCEnum {
   static readonly _type = 'nn::PostProcessType';
 
-  public static none($g: $sdk.GreyCat): nn.PostProcessType {
+  public static none($g: $sdk.GreyCat = globalThis.greycat.default): nn.PostProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[134];
     return t.enum_values![t.generated_offsets[0]] as nn.PostProcessType;
   }
-  public static min_max_scaling($g: $sdk.GreyCat): nn.PostProcessType {
+  public static min_max_scaling($g: $sdk.GreyCat = globalThis.greycat.default): nn.PostProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[134];
     return t.enum_values![t.generated_offsets[1]] as nn.PostProcessType;
   }
-  public static standard_scaling($g: $sdk.GreyCat): nn.PostProcessType {
+  public static standard_scaling($g: $sdk.GreyCat = globalThis.greycat.default): nn.PostProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[134];
     return t.enum_values![t.generated_offsets[2]] as nn.PostProcessType;
   }
@@ -4902,51 +4902,51 @@ export class PostProcessType extends $sdk.GCEnum {
 export class ComputeActivations extends $sdk.GCEnum {
   static readonly _type = 'nn::ComputeActivations';
 
-  public static relu($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static relu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[0]] as nn.ComputeActivations;
   }
-  public static leaky_relu($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static leaky_relu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[1]] as nn.ComputeActivations;
   }
-  public static sigmoid($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static sigmoid($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[2]] as nn.ComputeActivations;
   }
-  public static hard_sigmoid($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static hard_sigmoid($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[3]] as nn.ComputeActivations;
   }
-  public static exp($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static exp($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[4]] as nn.ComputeActivations;
   }
-  public static soft_max($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static soft_max($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[5]] as nn.ComputeActivations;
   }
-  public static soft_plus($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static soft_plus($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[6]] as nn.ComputeActivations;
   }
-  public static soft_sign($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static soft_sign($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[7]] as nn.ComputeActivations;
   }
-  public static tanh($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static tanh($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[8]] as nn.ComputeActivations;
   }
-  public static selu($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static selu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[9]] as nn.ComputeActivations;
   }
-  public static elu($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static elu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[10]] as nn.ComputeActivations;
   }
-  public static celu($g: $sdk.GreyCat): nn.ComputeActivations {
+  public static celu($g: $sdk.GreyCat = globalThis.greycat.default): nn.ComputeActivations {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[135];
     return t.enum_values![t.generated_offsets[11]] as nn.ComputeActivations;
   }
@@ -5073,7 +5073,7 @@ export class RegressionNetwork extends $sdk.GCObject {
   public set lastOutput(v: string | null) {
     this.$attrs[this.$type.generated_offsets[18]] = v;
   }
-  static create($g: $sdk.GreyCat, inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null): RegressionNetwork {
+  static create(inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): RegressionNetwork {
     return new RegressionNetwork($g.abi.libs_by_name.get(algebralib.name)!.mapped[136], inputs, inputs_gradients, outputs, fixed_batch_size, inputs_sequences, outputs_sequences, tensor_type, lossLayer, optimizer, seed, randomizeSeed, placeholders, preProcessType, postProcessType, preProcessObject, postProcessObject, layers, lastLayer, lastOutput);
   }
 }
@@ -5115,7 +5115,7 @@ export class BindingsResult extends $sdk.GCObject {
   public set postLayer(v: compute.ComputeLayer | null) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  static create($g: $sdk.GreyCat, previousLayerName: string, previousLayerOutput: string, expectedLayerName: string, expectedLayerOutput: string, postLayer: compute.ComputeLayer | null): BindingsResult {
+  static create(previousLayerName: string, previousLayerOutput: string, expectedLayerName: string, expectedLayerOutput: string, postLayer: compute.ComputeLayer | null, $g: $sdk.GreyCat = globalThis.greycat.default): BindingsResult {
     return new BindingsResult($g.abi.libs_by_name.get(algebralib.name)!.mapped[137], previousLayerName, previousLayerOutput, expectedLayerName, expectedLayerOutput, postLayer);
   }
 }
@@ -5259,7 +5259,7 @@ export class AutoEncoderNetwork extends $sdk.GCObject {
   public set encoder_layer_var(v: string | null) {
     this.$attrs[this.$type.generated_offsets[21]] = v;
   }
-  static create($g: $sdk.GreyCat, inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, encoder_layer_idx: bigint | number, encoder_layer_name: string | null, encoder_layer_var: string | null): AutoEncoderNetwork {
+  static create(inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, encoder_layer_idx: bigint | number, encoder_layer_name: string | null, encoder_layer_var: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): AutoEncoderNetwork {
     return new AutoEncoderNetwork($g.abi.libs_by_name.get(algebralib.name)!.mapped[138], inputs, inputs_gradients, outputs, fixed_batch_size, inputs_sequences, outputs_sequences, tensor_type, lossLayer, optimizer, seed, randomizeSeed, placeholders, preProcessType, postProcessType, preProcessObject, postProcessObject, layers, lastLayer, lastOutput, encoder_layer_idx, encoder_layer_name, encoder_layer_var);
   }
 }
@@ -5267,19 +5267,19 @@ export class AutoEncoderNetwork extends $sdk.GCObject {
 export class PreProcessType extends $sdk.GCEnum {
   static readonly _type = 'nn::PreProcessType';
 
-  public static none($g: $sdk.GreyCat): nn.PreProcessType {
+  public static none($g: $sdk.GreyCat = globalThis.greycat.default): nn.PreProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[139];
     return t.enum_values![t.generated_offsets[0]] as nn.PreProcessType;
   }
-  public static min_max_scaling($g: $sdk.GreyCat): nn.PreProcessType {
+  public static min_max_scaling($g: $sdk.GreyCat = globalThis.greycat.default): nn.PreProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[139];
     return t.enum_values![t.generated_offsets[1]] as nn.PreProcessType;
   }
-  public static standard_scaling($g: $sdk.GreyCat): nn.PreProcessType {
+  public static standard_scaling($g: $sdk.GreyCat = globalThis.greycat.default): nn.PreProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[139];
     return t.enum_values![t.generated_offsets[2]] as nn.PreProcessType;
   }
-  public static pca_scaling($g: $sdk.GreyCat): nn.PreProcessType {
+  public static pca_scaling($g: $sdk.GreyCat = globalThis.greycat.default): nn.PreProcessType {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[139];
     return t.enum_values![t.generated_offsets[3]] as nn.PreProcessType;
   }
@@ -5424,7 +5424,7 @@ export class ClassificationNetwork extends $sdk.GCObject {
   public set from_logits(v: boolean) {
     this.$attrs[this.$type.generated_offsets[21]] = v;
   }
-  static create($g: $sdk.GreyCat, inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, calculate_probabilities: boolean, has_class_weights: boolean, from_logits: boolean): ClassificationNetwork {
+  static create(inputs: bigint | number, inputs_gradients: boolean, outputs: bigint | number, fixed_batch_size: bigint | number, inputs_sequences: bigint | number, outputs_sequences: bigint | number, tensor_type: $sdk.std.core.TensorType, lossLayer: compute.ComputeLayerLoss | null, optimizer: compute.ComputeOptimizer, seed: bigint | number, randomizeSeed: boolean, placeholders: compute.ComputeLayerCustom | null, preProcessType: compute.ComputeLayer | null, postProcessType: compute.ComputeLayer | null, preProcessObject: any | null, postProcessObject: any | null, layers: Array<compute.ComputeLayer> | null, lastLayer: string | null, lastOutput: string | null, calculate_probabilities: boolean, has_class_weights: boolean, from_logits: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): ClassificationNetwork {
     return new ClassificationNetwork($g.abi.libs_by_name.get(algebralib.name)!.mapped[140], inputs, inputs_gradients, outputs, fixed_batch_size, inputs_sequences, outputs_sequences, tensor_type, lossLayer, optimizer, seed, randomizeSeed, placeholders, preProcessType, postProcessType, preProcessObject, postProcessObject, layers, lastLayer, lastOutput, calculate_probabilities, has_class_weights, from_logits);
   }
 }
@@ -5439,99 +5439,99 @@ export class Kmeans extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  public static var_input($g: $sdk.GreyCat): string {
+  public static var_input($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[0] as string;
   }
-  public static var_assignement($g: $sdk.GreyCat): string {
+  public static var_assignement($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[1] as string;
   }
-  public static var_min_distance($g: $sdk.GreyCat): string {
+  public static var_min_distance($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[2] as string;
   }
-  public static varo_centroids($g: $sdk.GreyCat): string {
+  public static varo_centroids($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[3] as string;
   }
-  public static var_distance($g: $sdk.GreyCat): string {
+  public static var_distance($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[4] as string;
   }
-  public static var_sum_centroids($g: $sdk.GreyCat): string {
+  public static var_sum_centroids($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[5] as string;
   }
-  public static var_sum_min_distance($g: $sdk.GreyCat): string {
+  public static var_sum_min_distance($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[6] as string;
   }
-  public static var_count_centroids($g: $sdk.GreyCat): string {
+  public static var_count_centroids($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[7] as string;
   }
-  public static var_centroid_distances($g: $sdk.GreyCat): string {
+  public static var_centroid_distances($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[8] as string;
   }
-  public static var_sum_cluster_distances($g: $sdk.GreyCat): string {
+  public static var_sum_cluster_distances($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[9] as string;
   }
-  public static var_avg_cluster_distances($g: $sdk.GreyCat): string {
+  public static var_avg_cluster_distances($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[10] as string;
   }
-  public static var_count_cluster_distances($g: $sdk.GreyCat): string {
+  public static var_count_cluster_distances($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[11] as string;
   }
-  public static layer_placeholders($g: $sdk.GreyCat): string {
+  public static layer_placeholders($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[12] as string;
   }
-  public static layer_forward($g: $sdk.GreyCat): string {
+  public static layer_forward($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[13] as string;
   }
-  public static layer_backward($g: $sdk.GreyCat): string {
+  public static layer_backward($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[14] as string;
   }
-  public static layer_init_round($g: $sdk.GreyCat): string {
+  public static layer_init_round($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[15] as string;
   }
-  public static layer_end_round($g: $sdk.GreyCat): string {
+  public static layer_end_round($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[16] as string;
   }
-  public static layer_stats($g: $sdk.GreyCat): string {
+  public static layer_stats($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[17] as string;
   }
-  public static seq_init_round($g: $sdk.GreyCat): string {
+  public static seq_init_round($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[18] as string;
   }
-  public static seq_forward($g: $sdk.GreyCat): string {
+  public static seq_forward($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[19] as string;
   }
-  public static seq_backward($g: $sdk.GreyCat): string {
+  public static seq_backward($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[20] as string;
   }
-  public static seq_end_round($g: $sdk.GreyCat): string {
+  public static seq_end_round($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[21] as string;
   }
-  public static seq_stats($g: $sdk.GreyCat): string {
+  public static seq_stats($g: $sdk.GreyCat = globalThis.greycat.default): string {
     const t = $g.abi.libs_by_name.get(algebralib.name)!.mapped[141];
     return  t.static_values[22] as string;
   }
-  static create($g: $sdk.GreyCat): Kmeans {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): Kmeans {
     return new Kmeans($g.abi.libs_by_name.get(algebralib.name)!.mapped[141]);
   }
 }
@@ -5580,7 +5580,7 @@ export class HeatMapProfile extends $sdk.GCObject {
   public set counts_sum(v: bigint | number) {
     this.$attrs[this.$type.generated_offsets[4]] = v;
   }
-  static create($g: $sdk.GreyCat, counts: $sdk.std.core.Table<bigint | number>, x_labels: Array<string>, y_labels: Array<string>, counts_max: bigint | number, counts_sum: bigint | number): HeatMapProfile {
+  static create(counts: $sdk.std.core.Table<bigint | number>, x_labels: Array<string>, y_labels: Array<string>, counts_max: bigint | number, counts_sum: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): HeatMapProfile {
     return new HeatMapProfile($g.abi.libs_by_name.get(algebralib.name)!.mapped[144], counts, x_labels, y_labels, counts_max, counts_sum);
   }
 }
@@ -5592,7 +5592,7 @@ export class TimeSeriesDecomposition extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): TimeSeriesDecomposition {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): TimeSeriesDecomposition {
     return new TimeSeriesDecomposition($g.abi.libs_by_name.get(algebralib.name)!.mapped[145]);
   }
 }
@@ -5604,7 +5604,7 @@ export class Solver extends $sdk.GCObject {
     super(type, attributes);
   }
 
-  static create($g: $sdk.GreyCat): Solver {
+  static create($g: $sdk.GreyCat = globalThis.greycat.default): Solver {
     return new Solver($g.abi.libs_by_name.get(algebralib.name)!.mapped[146]);
   }
 }
@@ -5705,7 +5705,7 @@ export class PowerLineResult extends $sdk.GCObject {
   public set loading_percent(v: number) {
     this.$attrs[this.$type.generated_offsets[13]] = v;
   }
-  static create($g: $sdk.GreyCat, p_from_mw: number, q_from_mvar: number, p_to_mw: number, q_to_mvar: number, pl_mw: number, ql_mvar: number, i_from_ka: number, i_to_ka: number, i_ka: number, vm_from_pu: number, vm_to_pu: number, va_from_radians: number, va_to_radians: number, loading_percent: number): PowerLineResult {
+  static create(p_from_mw: number, q_from_mvar: number, p_to_mw: number, q_to_mvar: number, pl_mw: number, ql_mvar: number, i_from_ka: number, i_to_ka: number, i_ka: number, vm_from_pu: number, vm_to_pu: number, va_from_radians: number, va_to_radians: number, loading_percent: number, $g: $sdk.GreyCat = globalThis.greycat.default): PowerLineResult {
     return new PowerLineResult($g.abi.libs_by_name.get(algebralib.name)!.mapped[148], p_from_mw, q_from_mvar, p_to_mw, q_to_mvar, pl_mw, ql_mvar, i_from_ka, i_to_ka, i_ka, vm_from_pu, vm_to_pu, va_from_radians, va_to_radians, loading_percent);
   }
 }
@@ -5753,7 +5753,7 @@ export class PowerBusResult extends $sdk.GCObject {
   public set current_img(v: number) {
     this.$attrs[this.$type.generated_offsets[5]] = v;
   }
-  static create($g: $sdk.GreyCat, abs: number, angle_radians: number, voltage: number, voltage_img: number, current: number, current_img: number): PowerBusResult {
+  static create(abs: number, angle_radians: number, voltage: number, voltage_img: number, current: number, current_img: number, $g: $sdk.GreyCat = globalThis.greycat.default): PowerBusResult {
     return new PowerBusResult($g.abi.libs_by_name.get(algebralib.name)!.mapped[149], abs, angle_radians, voltage, voltage_img, current, current_img);
   }
 }

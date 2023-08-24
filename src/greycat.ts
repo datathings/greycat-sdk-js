@@ -4,6 +4,16 @@ import * as std from './std/index.js';
 import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 
+declare global {
+  interface GreyCatGlobal {
+    default: GreyCat;
+  }
+
+  interface Window {
+    greycat: GreyCatGlobal;
+  }
+}
+
 export class GreyCat {
   /** GreyCat's api endpoint normalized (does not contain a trailing slash) */
   readonly api: string;

@@ -1,13 +1,12 @@
 import * as sdk from './index.js';
 
-window.greycat = { sdk };
+// Here we volontary forget about setting 'default' as
+// we want the applications to actually define it, therefore we
+// force cast to 'GreyCatGlobal' even though it is not complete
+window.greycat = { sdk } as GreyCatGlobal;
 
 declare global {
-  interface GreyCat {
+  interface GreyCatGlobal {
     sdk: typeof sdk;
-  }
-
-  interface Window {
-    greycat: GreyCat;
   }
 }

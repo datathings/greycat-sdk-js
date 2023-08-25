@@ -1,4 +1,3 @@
-import { writeFileSync } from 'fs';
 import { GreyCat } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);

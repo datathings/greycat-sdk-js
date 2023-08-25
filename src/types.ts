@@ -100,9 +100,24 @@ export interface Options {
    * Write buffer capacity. Defaults to `2048` (2KB)
    */
   capacity?: number;
+  /**
+   * Called when a request (from `greycat.call(...)`) returns a status code 401.
+   * 
+   * *You can also set this handler directly on the `GreyCat` instance after creating it*
+   * 
+   */
+  unauthorizedHandler?: () => void;
+}
+
+export interface Auth {
+  username: string;
+  password: string;
+  use_cookie?: boolean;
 }
 
 export interface WithoutAbiOptions extends Options {
+  /** If defined, will call `runtime::User::login` prior to initialization */
+  auth?: Auth;
   /** This signal is given to the request that loads the ABI. */
   signal?: AbortSignal;
   /** Libraries to use for (de-)serialization. By default, only "core" is loaded. */
@@ -112,4 +127,6 @@ export interface WithoutAbiOptions extends Options {
 export interface WithAbiOptions extends Options {
   /** The ABI to use internally */
   abi: Abi;
+  /** Optional auth token */
+  token?: string;
 }

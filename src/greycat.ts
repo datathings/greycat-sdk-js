@@ -1,5 +1,5 @@
 import { Abi } from './abi.js';
-import { algebralib, stdlib } from './index.js';
+import { stdlib } from './index.js';
 import * as std from './std/index.js';
 import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
@@ -64,7 +64,7 @@ export class GreyCat {
    * @returns a GreyCat instance to initiate call requests to the backend.
    * @throws on IO and ABI parse errors
    */
-  static async init({ url, libraries = [stdlib, algebralib], capacity, signal, auth, unauthorizedHandler }: WithoutAbiOptions): Promise<GreyCat> {
+  static async init({ url, libraries = [stdlib], capacity, signal, auth, unauthorizedHandler }: WithoutAbiOptions): Promise<GreyCat> {
     if (libraries.indexOf(stdlib) === -1) {
       // ensures 'stdlib' is always loaded
       libraries.push(stdlib);

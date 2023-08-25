@@ -58,7 +58,7 @@ export class GreyCat {
    * 
    * *If the `auth` property is given, a first call to `runtime::User::login` will be made before anything else.*
    * 
-   * *For `libraries`, specifying `stdlib` and `algebralib` is not required as they will always be loaded by default.*
+   * *For `libraries`, specifying `stdlib` is not required as it will always be loaded by default.*
    * 
    * @param options
    * @returns a GreyCat instance to initiate call requests to the backend.
@@ -68,10 +68,6 @@ export class GreyCat {
     if (libraries.indexOf(stdlib) === -1) {
       // ensures 'stdlib' is always loaded
       libraries.push(stdlib);
-    }
-    if (libraries.indexOf(algebralib) === -1) {
-      // ensures 'algebralib' is always loaded
-      libraries.push(algebralib);
     }
     const cleanUrl = normalizeUrl(url);
 

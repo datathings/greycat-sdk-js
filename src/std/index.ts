@@ -2788,7 +2788,7 @@ export namespace runtime {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
      static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
-      return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
+      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
     static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
       return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[39], id, name, activated);
@@ -2824,7 +2824,7 @@ export namespace runtime {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
      static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
-      return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
+      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
     static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityEntity {
       return new SecurityEntity($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], id, name, activated);
@@ -2872,7 +2872,7 @@ export namespace runtime {
       return $g.call('runtime::PeriodicTask::all', undefined, $signal);
     }
      static set_(tasks: Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::PeriodicTask::set_', [tasks], $signal);
+      return $g.call('runtime::PeriodicTask::set', [tasks], $signal);
     }
     static create(name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
       return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], name, user_id, args, start, every);
@@ -3061,10 +3061,10 @@ export namespace runtime {
       this.$attrs[this.$type.generated_offsets[5]] = v;
     }
      static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::SecurityFields::set_', [f], $signal);
+      return $g.call('runtime::SecurityFields::set', [f], $signal);
     }
      static get_($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
-      return $g.call('runtime::SecurityFields::get_', undefined, $signal);
+      return $g.call('runtime::SecurityFields::get', undefined, $signal);
     }
     static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
       return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], email, name, first_name, last_name, roles, groups);
@@ -3337,7 +3337,7 @@ export namespace runtime {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
      static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
-      return $g.call('runtime::SecurityEntity::set_', [entity], $signal);
+      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
      static login(credentials: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::login', [credentials, use_cookie], $signal);
@@ -3466,7 +3466,7 @@ export namespace runtime {
       return $g.call('runtime::UserRole::remove', [name], $signal);
     }
      static set_(value: runtime.UserRole, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::UserRole::set_', [value], $signal);
+      return $g.call('runtime::UserRole::set', [value], $signal);
     }
     static create(name: string, permissions: Array<string>, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
       return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, permissions);

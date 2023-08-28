@@ -23,20 +23,20 @@ export class Tensor extends GCObject {
       shape[i] = r.read_i32();
     }
 
-    let size = r.read_i32();
-    const binSize = size;
+    const size = r.read_i32();
+    let binSize = size;
     switch (tensorType) {
       case 0:
       case 2:
-        size *= 4;
+        binSize *= 4;
         break;
       case 1:
       case 3:
       case 4:
-        size *= 8;
+        binSize *= 8;
         break;
       case 5:
-        size *= 16;
+        binSize *= 16;
         break;
       default:
         throw new Error(`invalid TensorType ${tensorType}`);

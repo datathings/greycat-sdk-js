@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, algebralib, stdlib } from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -79,9 +79,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 10, column: 17 },
-        { module: 'project', fn: 'write_std', line: 14, column: 18 },
-        { module: 'project', fn: 'write_core', line: 88, column: 36 },
+        { module: 'project', fn: 'main', line: 12, column: 17 },
+        { module: 'project', fn: 'write_std', line: 17, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 91, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -93,6 +93,7 @@ describe('project', () => {
       cols: [[0, 0.5, 1, 1.5]],
       meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }],
     },
+    { _type: 'core::Tensor' },
     { _type: 'core::Tensor' },
     {
       _type: 'core::GeoCircle',
@@ -172,8 +173,8 @@ describe('project', () => {
     0.31830988618379064, // MathConstants::m1_pi
     0.6366197723675813, // MathConstants::m2_pi
     1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.4142135623730951, // MathConstants::sqrt2
-    0.7071067811865477, // MathConstants::sqrt1_2
+    1.414213562373095, // MathConstants::sqrt2
+    0.7071067811865476, // MathConstants::sqrt1_2
 
     // std::runtime
     {
@@ -259,11 +260,15 @@ describe('project', () => {
     { _type: 'util::SlidingWindow' },
     { _type: 'util::Queue' },
     { _type: 'util::Crypto' },
+
+    // algebra::ml
+    { _type: 'ml::GaussianND' },
+    { _type: 'ml::GaussianND' },
   ];
 
   before(async () => {
     const buffer = (await readFile('project.test.abi')).buffer;
-    abi = new Abi(buffer, [stdlib]);
+    abi = new Abi(buffer, [stdlib, algebralib]);
 
     const data = (await readFile('project.test.gcb')).buffer;
     reader = new AbiReader(abi, data);

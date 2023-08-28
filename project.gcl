@@ -5,20 +5,23 @@ use math;
 use runtime;
 use util;
 
+use ml;
+
 fn main() {
   var out = GcbWriter::new("project.test.gcb");
   write_std(out);
+  write_algebra(out);
 }
 
 fn write_std(out: GcbWriter) {
-  write_core(out);
-  write_io(out);
-  write_math(out);
-  write_runtime(out);
-  write_util(out);
+  write_std_core(out);
+  write_std_io(out);
+  write_std_math(out);
+  write_std_runtime(out);
+  write_std_util(out);
 }
 
-fn write_core(out: GcbWriter) {
+fn write_std_core(out: GcbWriter) {
   out.write(true);
   // 1 byte
   out.write(0);
@@ -92,6 +95,10 @@ fn write_core(out: GcbWriter) {
   out.write(TensorType::c128);
   out.write(table());
   out.write(Tensor {});
+  var tensor = Tensor {};
+  tensor.init(TensorType::f64, [1, 1]);
+  tensor.add([0, 0], 3.14);
+  out.write(tensor);
   out.write(GeoCircle::new(42_geo, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
   out.write(nodeTime<nodeGeo>::new());
@@ -112,7 +119,7 @@ fn write_core(out: GcbWriter) {
   out.write(tf4d::new(13.37, 12.42, -13.37, -12.42));
 }
 
-fn write_io(out: GcbWriter) {
+fn write_std_io(out: GcbWriter) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
   out.write(TextEncoder::plain);
@@ -137,7 +144,7 @@ fn write_io(out: GcbWriter) {
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
 }
 
-fn write_math(out: GcbWriter) {
+fn write_std_math(out: GcbWriter) {
   out.write(MathConstants::e);
   out.write(MathConstants::log_2e);
   out.write(MathConstants::log_10e);
@@ -153,7 +160,7 @@ fn write_math(out: GcbWriter) {
   out.write(MathConstants::sqrt1_2);
 }
 
-fn write_runtime(out: GcbWriter) {
+fn write_std_runtime(out: GcbWriter) {
   out.write(Task {
       user_id: 13,
       task_id: 37,
@@ -238,7 +245,7 @@ fn write_runtime(out: GcbWriter) {
     });
 }
 
-fn write_util(out: GcbWriter) {
+fn write_std_util(out: GcbWriter) {
   out.write(Random {
       seed: 42,
       v: 13.37,
@@ -278,6 +285,16 @@ fn write_util(out: GcbWriter) {
     */
   // out.write(ByteArray{}); // segfault
   out.write(Crypto {});
+}
+
+fn write_algebra(out: GcbWriter) {
+  out.write(GaussianND {});
+  var gaussian = GaussianND {};
+  var tensor = Tensor {};
+  tensor.init(TensorType::f64, [1, 1]);
+  tensor.add([0, 0], 0.0);
+  gaussian.learn(tensor);
+  out.write(gaussian);
 }
 
 @expose

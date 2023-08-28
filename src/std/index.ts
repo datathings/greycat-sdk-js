@@ -33,7 +33,7 @@ export namespace core {
     }
   }
 
-  export class Table<T = any> extends std_n.core.Table {}
+  export class Table<T extends $sdk.Value = any> extends std_n.core.Table<T> {}
 
   export class ti6d extends std_n.core.ti6d {}
 
@@ -351,7 +351,7 @@ export namespace core {
 
   export class String extends std_n.core.String {}
 
-  export class Map<K = any, V = any> extends std_n.core.Map {}
+  export class Map<K extends $sdk.Value = any, V extends $sdk.Value = any> extends std_n.core.Map<K, V> {}
 
   export class TensorType extends $sdk.GCEnum {
     static readonly _type = 'core::TensorType';
@@ -2667,7 +2667,7 @@ export namespace core {
     }
   }
 
-  export class Tuple<T = any, U = any> extends $sdk.GCObject {
+  export class Tuple<T extends $sdk.Value = any, U extends $sdk.Value = any> extends $sdk.GCObject {
     static readonly _type = 'core::Tuple';
 
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
@@ -2750,7 +2750,7 @@ export namespace core {
 
   export class ti10d extends std_n.core.ti10d {}
 
-  export class Array<T = any> extends std_n.core.Array {}
+  export class Array<T extends $sdk.Value = any> extends std_n.core.Array<T> {}
 
   export class tf4d extends std_n.core.tf4d {}
 
@@ -4608,7 +4608,7 @@ export namespace util {
     }
   }
 
-  export class Queue<T = any> extends std_n.util.Queue {}
+  export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {}
 
   export class GaussianProfile extends std_n.util.GaussianProfile {}
 

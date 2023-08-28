@@ -4,7 +4,8 @@ import { PrimitiveType, PrimitiveTypeName, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GreyCat } from '../../greycat.js';
 
-export class Table extends GCObject {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Table<_ extends Value = any> extends GCObject {
   static readonly _type = 'core::Table' as const;
 
   constructor(type: AbiType, public cols: Array<Value[]>, public meta: NativeTableColumnMeta[]) {

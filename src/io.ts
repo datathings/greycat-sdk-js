@@ -400,10 +400,13 @@ export class AbiReader extends Reader {
     const id = this.read_vu32();
     const off = this.read_vu32();
     const type = this.abi.types[id];
-    const attr = type.attrs[off];
-    // We want this line to actually fail at runtime if the value cannot be found
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new GCEnum(type, off, attr.name, type.enum_values![attr.mapped_att_offset]);
+    if (type === undefined) {
+      throw new Error(`unknown enum id '${id}'`);
+    }
+    if (type.enum_values && type.enum_values.length > off) {
+      return type.enum_values[off];
+    }
+    throw new Error(`no value registered for enum '${id}' at field offset '${off}'`);
   }
 
   read_function(): AbiFunction {

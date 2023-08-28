@@ -173,8 +173,8 @@ describe('project', () => {
     0.31830988618379064, // MathConstants::m1_pi
     0.6366197723675813, // MathConstants::m2_pi
     1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.414213562373095, // MathConstants::sqrt2
-    0.7071067811865476, // MathConstants::sqrt1_2
+    1.4142135623730951, // MathConstants::sqrt2
+    0.7071067811865477, // MathConstants::sqrt1_2
 
     // std::runtime
     {

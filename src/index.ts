@@ -19,6 +19,18 @@ export * from './algebra/index.js';
 
 export * as utils from './utils/index.js';
 
+import type { GreyCat } from './greycat.js';
+
+declare global {
+  interface GreyCatGlobal {
+    default: GreyCat;
+  }
+
+  interface Window {
+    greycat: GreyCatGlobal;
+  }
+}
+
 // Here we volontary forget about setting 'default' as
 // we want the applications to actually define it, therefore we
 // force cast to 'GreyCatGlobal' even though it is not complete

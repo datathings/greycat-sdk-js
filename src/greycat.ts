@@ -5,16 +5,6 @@ import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
-declare global {
-  interface GreyCatGlobal {
-    default: GreyCat;
-  }
-
-  interface Window {
-    greycat: GreyCatGlobal;
-  }
-}
-
 const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
   if (process.env['NODE_ENV'] && process.env['NODE_ENV'] !== 'production') {
     const bg =
@@ -216,8 +206,8 @@ export class GreyCat {
   /**
    * Deserializes one value from the given `ArrayBuffer`.
    */
-  deserialize(data: ArrayBuffer): Value {
-    return new AbiReader(this.abi, data).deserialize();
+  deserialize(data: Uint8Array): Value {
+    return new AbiReader(this.abi, data.buffer).deserialize();
   }
 
   /**

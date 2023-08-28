@@ -4,11 +4,42 @@ import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GCEnum } from '../../index.js';
 
-export class Map extends GCObject {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Map<K extends Value = any, V extends Value = any> extends GCObject {
   static readonly _type = 'core::Map' as const;
 
-  constructor(type: AbiType, readonly map: globalThis.Map<Value, Value>) {
+  constructor(type: AbiType, readonly map: globalThis.Map<K, V>) {
     super(type);
+  }
+
+  get size(): number {
+    return this.map.size;
+  }
+
+  get(key: K): V | undefined {
+    return this.map.get(key);
+  }
+
+  has(key: K): boolean {
+    return this.map.has(key);
+  }
+
+  set(key: K, value: V): this {
+    this.map.set(key, value);
+    return this;
+  }
+
+  clear(): void {
+    this.map.clear();
+  }
+
+  delete(key: K): boolean {
+    return this.map.delete(key);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  forEach(callback: (value: V, key: K, map: globalThis.Map<K, V>) => void, thisArg?: any): void {
+    this.map.forEach(callback, thisArg);
   }
 
   override saveContent(w: AbiWriter): void {

@@ -3048,16 +3048,16 @@ export namespace runtime {
     set last_name(v: string | null) {
       this.$attrs[this.$type.generated_offsets[3]] = v;
     }
-    get roles(): Map<string, string> | null {
+    get roles(): $sdk.std.core.Map<string, string> | null {
       return this.$attrs[this.$type.generated_offsets[4]];
     }
-    set roles(v: Map<string, string> | null) {
+    set roles(v: $sdk.std.core.Map<string, string> | null) {
       this.$attrs[this.$type.generated_offsets[4]] = v;
     }
-    get groups(): Map<string, string> | null {
+    get groups(): $sdk.std.core.Map<string, string> | null {
       return this.$attrs[this.$type.generated_offsets[5]];
     }
-    set groups(v: Map<string, string> | null) {
+    set groups(v: $sdk.std.core.Map<string, string> | null) {
       this.$attrs[this.$type.generated_offsets[5]] = v;
     }
      static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
@@ -3066,7 +3066,7 @@ export namespace runtime {
      static get_($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
       return $g.call('runtime::SecurityFields::get', undefined, $signal);
     }
-    static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: Map<string, string> | null, groups: Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
+    static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: $sdk.std.core.Map<string, string> | null, groups: $sdk.std.core.Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
       return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], email, name, first_name, last_name, roles, groups);
     }
   }
@@ -3486,16 +3486,16 @@ export namespace runtime {
     set entities(v: Array<runtime.SecurityEntity>) {
       this.$attrs[this.$type.generated_offsets[0]] = v;
     }
-    get credentials(): Map<string, runtime.UserCredential> {
+    get credentials(): $sdk.std.core.Map<string, runtime.UserCredential> {
       return this.$attrs[this.$type.generated_offsets[1]];
     }
-    set credentials(v: Map<string, runtime.UserCredential>) {
+    set credentials(v: $sdk.std.core.Map<string, runtime.UserCredential>) {
       this.$attrs[this.$type.generated_offsets[1]] = v;
     }
-    get roles(): Map<string, runtime.UserRole> {
+    get roles(): $sdk.std.core.Map<string, runtime.UserRole> {
       return this.$attrs[this.$type.generated_offsets[2]];
     }
-    set roles(v: Map<string, runtime.UserRole>) {
+    set roles(v: $sdk.std.core.Map<string, runtime.UserRole>) {
       this.$attrs[this.$type.generated_offsets[2]] = v;
     }
     get fields(): runtime.SecurityFields | null {
@@ -3507,7 +3507,7 @@ export namespace runtime {
      static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<Array<string>> {
       return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
     }
-    static create(entities: Array<runtime.SecurityEntity>, credentials: Map<string, runtime.UserCredential>, roles: Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
+    static create(entities: Array<runtime.SecurityEntity>, credentials: $sdk.std.core.Map<string, runtime.UserCredential>, roles: $sdk.std.core.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
       return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[54], entities, credentials, roles, fields);
     }
   }
@@ -3933,10 +3933,10 @@ export namespace io {
     set path(v: string | null) {
       this.$attrs[this.$type.generated_offsets[3]] = v;
     }
-    get params(): Map<string, string> | null {
+    get params(): $sdk.std.core.Map<string, string> | null {
       return this.$attrs[this.$type.generated_offsets[4]];
     }
-    set params(v: Map<string, string> | null) {
+    set params(v: $sdk.std.core.Map<string, string> | null) {
       this.$attrs[this.$type.generated_offsets[4]] = v;
     }
     get hash(): string | null {
@@ -3945,7 +3945,7 @@ export namespace io {
     set hash(v: string | null) {
       this.$attrs[this.$type.generated_offsets[5]] = v;
     }
-    static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
+    static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: $sdk.std.core.Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
       return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], protocol, host, port, path, params, hash);
     }
   }

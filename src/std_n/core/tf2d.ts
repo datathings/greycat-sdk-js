@@ -12,7 +12,7 @@ export class tf2d extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, x0: number, x1: number): tf2d {
+  static create(x0: number, x1: number, g: GreyCat = globalThis.greycat.default): tf2d {
     const ty = g.abi.types[g.abi.core_tf2d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, x0, x1) as tf2d;

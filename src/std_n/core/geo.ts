@@ -12,7 +12,7 @@ export class geo extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, value: bigint): geo {
+  static create(value: bigint, g: GreyCat = globalThis.greycat.default): geo {
     const ty = g.abi.types[g.abi.core_geo_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as geo;

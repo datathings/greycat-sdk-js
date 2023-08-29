@@ -1,3 +1,14 @@
+import type { GreyCat } from './greycat.js';
+
+declare global {
+  interface GreyCatGlobal {
+    default: GreyCat;
+  }
+
+  // eslint-disable-next-line no-var
+  var greycat: GreyCatGlobal;
+}
+
 export * from './greycat.js';
 export * from './GCEnum.js';
 export * from './GCObject.js';
@@ -19,20 +30,7 @@ export * from './algebra/index.js';
 
 export * as utils from './utils/index.js';
 
-import type { GreyCat } from './greycat.js';
-
-declare global {
-  interface GreyCatGlobal {
-    default: GreyCat;
-  }
-
-  interface Window {
-    greycat: GreyCatGlobal;
-  }
-}
-
 // Here we volontary forget about setting 'default' as
 // we want the applications to actually define it, therefore we
-// force cast to 'GreyCatGlobal' even though it is not complete
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(globalThis as any).greycat = {} as GreyCatGlobal;
+// force cast to 'GreyCat' even though it is not set
+globalThis.greycat = { default: null as unknown as GreyCat };

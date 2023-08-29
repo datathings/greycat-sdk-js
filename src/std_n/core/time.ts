@@ -12,7 +12,7 @@ export class time extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, value: bigint | number): time {
+  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): time {
     const ty = g.abi.types[g.abi.core_time_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as time;

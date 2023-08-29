@@ -218,6 +218,12 @@ export class GreyCat {
     return new AbiReader(this.abi, data).deserializeWithHeaders();
   }
 
+  /**
+   * Constructs a non-native type by resolving the AbiType from its fqn and passing in the attributes values
+   * @param name non-native type fqn (eg. 'runtime::User')
+   * @param attributes 
+   * @returns 
+   */
   create(name: string, attributes: Value[]) {
     return this.abi.create(name, attributes);
   }

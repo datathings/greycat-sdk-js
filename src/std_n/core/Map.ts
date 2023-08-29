@@ -3,6 +3,7 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GCEnum } from '../../index.js';
+import type { core, GreyCat } from '../../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Map<K extends Value = any, V extends Value = any> extends GCObject {
@@ -10,6 +11,13 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
 
   constructor(type: AbiType, readonly map: globalThis.Map<K, V>) {
     super(type);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static create<K extends Value = any, V extends Value = any>(map: globalThis.Map<K, V>, g: GreyCat = globalThis.greycat.default): core.Map<K, V> {
+    const ty = g.abi.types[g.abi.core_map_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, map) as core.Map<K, V>;
   }
 
   get size(): number {

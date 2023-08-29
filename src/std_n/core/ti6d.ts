@@ -20,7 +20,7 @@ export class ti6d extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, x0: number, x1: number, x2: number, x3: number, x4: number, x5: number): ti6d {
+  static create(x0: number, x1: number, x2: number, x3: number, x4: number, x5: number, g: GreyCat = globalThis.greycat.default): ti6d {
     const ty = g.abi.types[g.abi.core_ti6d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, x0, x1, x2, x3, x4, x5) as ti6d;

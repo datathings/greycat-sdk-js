@@ -13,7 +13,7 @@ export class Table<_ extends Value = any> extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, cols: Array<Value[]>, meta: NativeTableColumnMeta[]): Table {
+  static create(cols: Array<Value[]>, meta: NativeTableColumnMeta[], g: GreyCat = globalThis.greycat.default): Table {
     const ty = g.abi.types[g.abi.core_table_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, cols, meta) as Table;

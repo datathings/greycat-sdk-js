@@ -24,7 +24,7 @@ export class ti10d extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, x0: number,
+  static create(x0: number,
     x1: number,
     x2: number,
     x3: number,
@@ -34,6 +34,7 @@ export class ti10d extends GCObject {
     x7: number,
     x8: number,
     x9: number,
+    g: GreyCat = globalThis.greycat.default,
   ): ti10d {
     const ty = g.abi.types[g.abi.core_ti10d_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -2,7 +2,7 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
-import { GreyCat } from '../../greycat.js';
+import type { GreyCat } from '../../greycat.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
@@ -11,7 +11,7 @@ export class duration extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat, value: bigint | number): duration {
+  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as duration;

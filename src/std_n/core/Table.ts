@@ -3,6 +3,7 @@ import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType, PrimitiveTypeName, Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { GreyCat } from '../../greycat.js';
+import type { time, duration } from './index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Table<_ extends Value = any> extends GCObject {
@@ -35,20 +36,41 @@ export class Table<_ extends Value = any> extends GCObject {
           break;
         case PrimitiveType.int:
           for (let row = 0; row < rows; row++) {
-            values[row] = r.read_vi64();
+            const value = r.read_vi64();
+            if (meta[col].min === null || (meta[col].min as number | bigint) > value) {
+              meta[col].min = value;
+            }
+            if (meta[col].max === null || (meta[col].max as number | bigint) < value) {
+              meta[col].max = value;
+            }
+            values[row] = value;
           }
           break;
         case PrimitiveType.time: {
           const type = r.abi.types[r.abi.core_time_offset];
           for (let row = 0; row < rows; row++) {
-            values[row] = type.loader(r, type);
+            const value = type.loader(r, type) as time;
+            if (meta[col].min === null || (meta[col].min as time).value > value.value) {
+              meta[col].min = value;
+            }
+            if (meta[col].max === null || (meta[col].max as time).value < value.value) {
+              meta[col].max = value;
+            }
+            values[row] = value;
           }
           break;
         }
         case PrimitiveType.duration: {
           const type = r.abi.types[r.abi.core_duration_offset];
           for (let row = 0; row < rows; row++) {
-            values[row] = type.loader(r, type);
+            const value = type.loader(r, type) as duration;
+            if (meta[col].min === null || (meta[col].min as duration).value > value.value) {
+              meta[col].min = value;
+            }
+            if (meta[col].max === null || (meta[col].max as duration).value < value.value) {
+              meta[col].max = value;
+            }
+            values[row] = value;
           }
           break;
         }
@@ -69,7 +91,14 @@ export class Table<_ extends Value = any> extends GCObject {
           // // TODO decompress
           // throw new Error('core.Table float decompression is not handled yet');
           for (let row = 0; row < rows; row++) {
-            values[row] = r.read_f64();
+            const value = r.read_f64();
+            if (meta[col].min === null || (meta[col].min as number) > value) {
+              meta[col].min = value;
+            }
+            if (meta[col].max === null || (meta[col].max as number) < value) {
+              meta[col].max = value;
+            }
+            values[row] = value;
           }
           break;
         }
@@ -154,6 +183,8 @@ export class Table<_ extends Value = any> extends GCObject {
 }
 
 export class NativeTableColumnMeta {
+  min: Value = null;
+  max: Value = null;
   constructor(readonly abi: Abi, public col_type: PrimitiveType, public type: number, public index: boolean) { }
 
   static load(r: AbiReader): NativeTableColumnMeta {
@@ -190,6 +221,8 @@ export class NativeTableColumnMeta {
       _type: 'core::NativeTableColumnMeta',
       typeName: this.typeName,
       index: this.index,
+      min: this.min,
+      max: this.max,
     }
   }
 }

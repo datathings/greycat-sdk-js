@@ -97,7 +97,7 @@ export class time extends GCObject {
   override toJSON() {
     return {
       _type: this.$type.name,
-      epoch: this.epoch,
+      epoch: this.epochMs,
       us: this.us,
     };
   }

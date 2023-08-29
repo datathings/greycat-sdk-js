@@ -394,7 +394,7 @@ export class AbiType {
           break;
         }
         default: {
-          value = r.deserializers[att.sbi_type](r);
+          value = r.deserializers[loadType](r);
           break;
         }
       }

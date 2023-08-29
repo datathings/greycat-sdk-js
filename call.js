@@ -33,7 +33,7 @@ function displayValue(value) {
     });
     console.log({ map: o });
   } else if (typeof value === 'object') {
-    console.log(
+    console.dir(
       JSON.parse(
         JSON.stringify(value, (_, value) => {
           if (typeof value === 'bigint') {
@@ -45,6 +45,7 @@ function displayValue(value) {
           return value;
         }),
       ),
+      { depth: Infinity },
     );
   } else {
     console.log({ [typeof value]: value });

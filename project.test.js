@@ -91,7 +91,7 @@ describe('project', () => {
     {
       _type: 'core::Table',
       cols: [[0, 0.5, 1, 1.5]],
-      meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float' }],
+      meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float', min: 0, max: 1.5 }],
     },
     { _type: 'core::Tensor' },
     { _type: 'core::Tensor' },
@@ -104,10 +104,11 @@ describe('project', () => {
       },
       radius: 13.37,
     },
-    { _type: 'core::Date', iso: '<todo>', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
+    { _type: 'core::Date', iso: '2012-12-12T11:12:12.000Z', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '0000000000003000' },
     [],
     { _type: 'core::Tuple', x: [], y: {} },
+    { _type: 'core::Tuple', x: 42, y: "hello" },
     { _type: 'core::nodeIndex', ref: '0000000000004000' },
     {
       _type: 'core::GeoPoly',

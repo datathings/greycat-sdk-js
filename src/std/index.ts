@@ -11,6 +11,10 @@ export namespace core {
   export class SamplingMode extends $sdk.GCEnum {
     static readonly _type = 'core::SamplingMode';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: SamplingMode.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static fixed($g: $sdk.GreyCat = globalThis.greycat.default): core.SamplingMode {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[1];
       return t.enum_values![t.generated_offsets[0]] as core.SamplingMode;
@@ -70,6 +74,10 @@ export namespace core {
 
   export class DurationUnit extends $sdk.GCEnum {
     static readonly _type = 'core::DurationUnit';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: DurationUnit.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
     static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): core.DurationUnit {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[7];
@@ -172,6 +180,10 @@ export namespace core {
 
   export class ErrorCode extends $sdk.GCEnum {
     static readonly _type = 'core::ErrorCode';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: ErrorCode.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
     static none($g: $sdk.GreyCat = globalThis.greycat.default): core.ErrorCode {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[13];
@@ -365,6 +377,10 @@ export namespace core {
   export class TensorType extends $sdk.GCEnum {
     static readonly _type = 'core::TensorType';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: TensorType.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static i32($g: $sdk.GreyCat = globalThis.greycat.default): core.TensorType {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.enum_values![t.generated_offsets[0]] as core.TensorType;
@@ -400,6 +416,10 @@ export namespace core {
   }
   export class TimeZone extends $sdk.GCEnum {
     static readonly _type = 'core::TimeZone';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: TimeZone.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
     static Africa_Accra($g: $sdk.GreyCat = globalThis.greycat.default): core.TimeZone {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[26];
@@ -2709,6 +2729,10 @@ export namespace core {
   export class DatePart extends $sdk.GCEnum {
     static readonly _type = 'core::DatePart';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: DatePart.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static years($g: $sdk.GreyCat = globalThis.greycat.default): core.DatePart {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[29];
       return t.enum_values![t.generated_offsets[0]] as core.DatePart;
@@ -3428,6 +3452,10 @@ export namespace runtime {
   export class TaskStatus extends $sdk.GCEnum {
     static readonly _type = 'runtime::TaskStatus';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: TaskStatus.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static empty($g: $sdk.GreyCat = globalThis.greycat.default): runtime.TaskStatus {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
       return t.enum_values![t.generated_offsets[0]] as runtime.TaskStatus;
@@ -3646,6 +3674,10 @@ export namespace runtime {
 
   export class UserGroupPolicyType extends $sdk.GCEnum {
     static readonly _type = 'runtime::UserGroupPolicyType';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: UserGroupPolicyType.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
     static read($g: $sdk.GreyCat = globalThis.greycat.default): runtime.UserGroupPolicyType {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[57];
@@ -3908,6 +3940,10 @@ export namespace io {
   export class SmtpMode extends $sdk.GCEnum {
     static readonly _type = 'io::SmtpMode';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpMode.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpMode {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[64];
       return t.enum_values![t.generated_offsets[0]] as io.SmtpMode;
@@ -4100,6 +4136,10 @@ export namespace io {
   export class SmtpAuth extends $sdk.GCEnum {
     static readonly _type = 'io::SmtpAuth';
 
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpAuth.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
     static none($g: $sdk.GreyCat = globalThis.greycat.default): io.SmtpAuth {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[71];
       return t.enum_values![t.generated_offsets[0]] as io.SmtpAuth;
@@ -4267,6 +4307,10 @@ export namespace io {
 
   export class TextEncoder extends $sdk.GCEnum {
     static readonly _type = 'io::TextEncoder';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: TextEncoder.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
     static plain($g: $sdk.GreyCat = globalThis.greycat.default): io.TextEncoder {
       const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[76];

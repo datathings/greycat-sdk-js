@@ -1,5 +1,4 @@
 import { core } from '@greycat/sdk';
-import { durationToStr } from './duration.js';
 import slugify from './slugify.js';
 
 const NUM = '0123456789';
@@ -137,7 +136,7 @@ export function stringify(props: StringifyProps): string {
     }
     return dateFmt.format(date);
   } else if (value instanceof core.duration) {
-    return durationToStr(value);
+    return value.toString();
   } else if (value instanceof Date) {
     return dateFmt.format(value);
   } else if (value instanceof core.Date) {

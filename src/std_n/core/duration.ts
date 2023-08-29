@@ -1,11 +1,6 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
-import type { GreyCat } from '../../greycat.js';
-
-const MICROS_IN_A_YEAR = (86_400_000_000 * 365);
-const MICROS_IN_A_MONTH = (86_400_000_000 * 30.44);
+import type { GreyCat, core, AbiType, AbiWriter, AbiReader } from '../../index.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
@@ -14,21 +9,65 @@ export class duration extends GCObject {
     super(type);
   }
 
-  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): duration {
+  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as duration;
   }
 
+  static from_ms(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 1_000) as core.duration;
+  }
+
+  static from_secs(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 1_000_000) as core.duration;
+  }
+
+  static from_mins(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 60_000_000) as core.duration;
+  }
+
+  static from_hours(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 3_600_000_000) as core.duration;
+  }
+
+  static from_days(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 86_400_000_000) as core.duration;
+  }
+
+  static from_weeks(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 604_800_000_000) as core.duration;
+  }
+
+  static from_months(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 2_630_016_000_000) as core.duration;
+  }
+
+  static from_years(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, value * 31_536_000_000_000) as core.duration;
+  }
+
+
   static load(r: AbiReader, ty: AbiType): duration {
     const value = r.read_vi64();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new ty.factory!(ty, value) as duration;
-  }
-
-  static fromJSON(o: unknown): duration {
-    Object.setPrototypeOf(o, duration.prototype);
-    return o as duration;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -92,18 +131,47 @@ export class duration extends GCObject {
    * Returns the duration in months
    */
   get month(): number {
-    return Number(this.value) / MICROS_IN_A_MONTH;
+    return Number(this.value) / 2_630_016_000_000;
   }
 
   /**
    * Returns the duration in years
    */
   get year(): number {
-    return Number(this.value) / MICROS_IN_A_YEAR;
+    return Number(this.value) / 31_536_000_000_000;
   }
 
   equals(other: duration): boolean {
     return BigInt(this.value) === BigInt(other.value);
+  }
+
+  override toString(): string {
+    const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
+    if (us < 1_000n) {
+      return `${us} μs`;
+    }
+    if (us < 1_000_000n) {
+      return `${us / 1_000n} ms`;
+    }
+    if (us < 60_000_000n) {
+      return `${us / 1_000_000n} s`;
+    }
+    if (us < 3_600_000_000n) {
+      return `${us / 60_000_000n} min`;
+    }
+    if (us < 86_400_000_000n) {
+      return `${us / 3_600_000_000n} hour`;
+    }
+    if (us < 604_800_000_000n) {
+      return `${us / 86_400_000_000n} day`;
+    }
+    if (us < 2_630_016_000_000n) {
+      return `${us / 604_800_000_000n} week`;
+    }
+    if (us < 31_536_000_000_000n) {
+      return `${us / 2_630_016_000_000n} month`;
+    }
+    return `${us / 31_536_000_000_000n} year`;
   }
 
   override toJSON() {
@@ -116,7 +184,7 @@ export class duration extends GCObject {
 
     return {
       _type: this.$type.name,
-      s: this.s,
+      s: Math.round(this.s),
       us,
     };
   }

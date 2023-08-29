@@ -19,9 +19,13 @@ export class time extends GCObject {
   }
 
   static fromDate(date: Date, g: GreyCat = globalThis.greycat.default): core.time {
+    return time.fromMs(date.getTime(), g);
+  }
+
+  static fromMs(epochMs: number, g: GreyCat = globalThis.greycat.default): core.time {
     const ty = g.abi.types[g.abi.core_time_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, date.getTime() * 1000) as core.time;
+    return new ty.factory!(ty, epochMs * 1000) as core.time;
   }
 
   static load(r: AbiReader, ty: AbiType): core.time {

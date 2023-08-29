@@ -4,6 +4,9 @@ import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import type { GreyCat } from '../../greycat.js';
 
+const MICROS_IN_A_YEAR = (86_400_000_000 * 365);
+const MICROS_IN_A_MONTH = (86_400_000_000 * 30.44);
+
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
 
@@ -36,18 +39,67 @@ export class duration extends GCObject {
     w.write_vi64(BigInt(this.value));
   }
 
-  get s(): number {
-    if (typeof this.value === 'bigint') {
-      return Math.round(Number(this.value / 1_000_000n));
-    }
-    return Math.round(this.value / 1_000_000);
+  /**
+   * Returns the duration in microseconds
+   */
+  get us(): number | bigint {
+    return this.value;
   }
 
-  get us(): number {
-    if (typeof this.value === 'bigint') {
-      return Number(this.value % 1_000_000n);
-    }
-    return this.value % 1_000_000;
+  /**
+   * Returns the duration in milliseconds
+   */
+  get ms(): number {
+    return Number(this.value) / 1_000;
+  }
+
+  /**
+   * Returns the duration in seconds
+   */
+  get s(): number {
+    return Number(this.value) / 1_000_000;
+  }
+
+  /**
+   * Returns the duration in minutes
+   */
+  get min(): number {
+    return Number(this.value) / 60_000_000;
+  }
+
+  /**
+   * Returns the duration in hours
+   */
+  get hour(): number {
+    return Number(this.value) / 3_600_000_000;
+  }
+
+  /**
+   * Returns the duration in days
+   */
+  get day(): number {
+    return Number(this.value) / 86_400_000_000;
+  }
+
+  /**
+   * Returns the duration in weeks
+   */
+  get week(): number {
+    return Number(this.value) / 604_800_000_000;
+  }
+
+  /**
+   * Returns the duration in months
+   */
+  get month(): number {
+    return Number(this.value) / MICROS_IN_A_MONTH;
+  }
+
+  /**
+   * Returns the duration in years
+   */
+  get year(): number {
+    return Number(this.value) / MICROS_IN_A_YEAR;
   }
 
   equals(other: duration): boolean {
@@ -55,10 +107,17 @@ export class duration extends GCObject {
   }
 
   override toJSON() {
+    let us: number;
+    if (typeof this.value === 'bigint') {
+      us = Number(this.value % 1_000_000n);
+    } else {
+      us = this.value % 1_000_000;
+    }
+
     return {
       _type: this.$type.name,
       s: this.s,
-      us: this.us,
+      us,
     };
   }
 }

@@ -15,18 +15,19 @@ export class time extends GCObject {
   static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): time {
     const ty = g.abi.types[g.abi.core_time_offset];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as time;
+    return new ty.factory!(ty, value) as core.time;
   }
 
-  static load(r: AbiReader, ty: AbiType): time {
+  static fromDate(date: Date, g: GreyCat = globalThis.greycat.default): core.time {
+    const ty = g.abi.types[g.abi.core_time_offset];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return new ty.factory!(ty, date.getTime() * 1000) as core.time;
+  }
+
+  static load(r: AbiReader, ty: AbiType): core.time {
     const value = r.read_vi64();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as time;
-  }
-
-  static fromJSON(o: unknown): time {
-    Object.setPrototypeOf(o, time.prototype);
-    return o as time;
+    return new ty.factory!(ty, value) as core.time;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -62,6 +63,10 @@ export class time extends GCObject {
       return Number(this.value % 1_000_000n);
     }
     return this.value % 1_000_000;
+  }
+
+  toDate(): Date {
+    return new Date(this.epochMs);
   }
 
   equals(other: time): boolean {

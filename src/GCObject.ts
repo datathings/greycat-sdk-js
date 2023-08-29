@@ -110,6 +110,12 @@ export class GCObject {
               for (let i = 0; i < value.length; i++) {
                 w.serialize(value[i]);
               }
+            } else if (value instanceof Map) {
+              w.write_vu32(value.size);
+              value.forEach((value, key) => {
+                w.serialize(key);
+                w.serialize(value);
+              });
             } else if (typeof value === 'string') {
               w.raw_string(value);
             } else {

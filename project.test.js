@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, algebralib, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, GCEnum, algebralib, stdlib } from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -104,11 +104,15 @@ describe('project', () => {
       },
       radius: 13.37,
     },
-    { _type: 'core::Date', iso: '2012-12-12T11:12:12.000Z', timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' } }, // TODO this is not what we actually expect
+    {
+      _type: 'core::Date',
+      iso: '2012-12-12T11:12:12.000Z',
+      timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
+    }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '0000000000003000' },
     [],
     { _type: 'core::Tuple', x: [], y: {} },
-    { _type: 'core::Tuple', x: 42, y: "hello" },
+    { _type: 'core::Tuple', x: 42, y: 'hello' },
     { _type: 'core::nodeIndex', ref: '0000000000004000' },
     {
       _type: 'core::GeoPoly',
@@ -319,6 +323,20 @@ function toJson(value) {
         return Number(value);
       }
       return `$bigint:${value}`;
+    } else if (value instanceof Map) {
+      const json = {};
+      value.forEach((value, key) => {
+        if (key === null) {
+          json['null'] = value;
+        } else if (key === undefined) {
+          json['undefined'] = value;
+        } else if (key instanceof GCEnum) {
+          json[`${key.$type.name}::${key.key}`] = value;
+        } else {
+          json[key.toString()] = value;
+        }
+      });
+      return json;
     }
     return value;
   });

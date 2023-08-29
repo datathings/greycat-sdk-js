@@ -58,7 +58,7 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
     });
   }
 
-  static load(r: AbiReader, ty: AbiType) {
+  static load(r: AbiReader) {
     const len = r.read_vu32();
     const map = new globalThis.Map<Value, Value>();
 
@@ -68,7 +68,7 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
       map.set(key, value);
     }
 
-    return new Map(ty, map);
+    return map;
   }
 
   override toJSON() {

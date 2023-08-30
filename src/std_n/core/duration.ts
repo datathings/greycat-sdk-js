@@ -1,6 +1,6 @@
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
-import type { GreyCat, core, AbiType, AbiWriter, AbiReader } from '../../index.js';
+import type { core, GreyCat, AbiType, AbiWriter, AbiReader } from '../../index.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;

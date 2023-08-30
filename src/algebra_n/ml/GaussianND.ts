@@ -1,6 +1,4 @@
-import type { AbiType } from '../../abi.js';
-import type { AbiReader, AbiWriter } from '../../io.js';
-import type { core } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, core } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class GaussianND extends GCObject {
@@ -16,6 +14,20 @@ export class GaussianND extends GCObject {
   ) {
     super(type);
   }
+
+  // static create({ count,
+  //   min,
+  //   max,
+  //   sum,
+  //   sumsq, }: {
+  //     count: bigint,
+  //     min: core.Tensor | null,
+  //     max: core.Tensor | null,
+  //     sum: core.Tensor | null,
+  //     sumsq: core.Tensor | null,
+  //   }, g = globalThis.greycat.default) {
+  //     const ty = g.abi.types[g.abi]
+  // }
 
   override saveContent(w: AbiWriter): void {
     w.write_i64(this.count);

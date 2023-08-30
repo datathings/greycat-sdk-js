@@ -1,4 +1,3 @@
-import { GreyCat } from '../greycat.js';
 import { core } from '../std/index.js';
 
 /**
@@ -7,7 +6,7 @@ import { core } from '../std/index.js';
  * @param duration
  * @returns
  */
-export function decomposeDuration(g: GreyCat, duration: core.duration): [number | bigint, core.DurationUnit] {
+export function decomposeDuration(duration: core.duration, g = globalThis.greycat.default): [number | bigint, core.DurationUnit] {
   if (duration.s === 0) {
     if (duration.us >= 10e5) {
       return [duration.s, core.DurationUnit.seconds(g)];

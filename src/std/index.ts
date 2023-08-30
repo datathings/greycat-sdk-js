@@ -47,22 +47,32 @@ export namespace core {
   export class nodeTimeSingleton extends $sdk.GCObject {
     static readonly _type = 'core::nodeTimeSingleton';
 
+    t: $sdk.std.core.time;
+    v: any;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        t: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        v: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get t(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set t(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get v(): any {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set v(v: any) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({t, v, }: {t: $sdk.std.core.time, v: any, }, $g: $sdk.GreyCat = globalThis.greycat.default): nodeTimeSingleton {
       return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[4], t, v);
     }
@@ -127,28 +137,42 @@ export namespace core {
   export class NodeTimeInfo extends $sdk.GCObject {
     static readonly _type = 'core::NodeTimeInfo';
 
+    size: bigint | number;
+    from: $sdk.std.core.time | null;
+    to: $sdk.std.core.time | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        from: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        to: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get size(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set size(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get from(): $sdk.std.core.time | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set from(v: $sdk.std.core.time | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get to(): $sdk.std.core.time | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set to(v: $sdk.std.core.time | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
     static create({size, from, to, }: {size: bigint | number, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): NodeTimeInfo {
       return new NodeTimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[8], size, from, to);
     }
@@ -159,16 +183,22 @@ export namespace core {
   export class GeoPoly extends $sdk.GCObject {
     static readonly _type = 'core::GeoPoly';
 
+    points: globalThis.Array<$sdk.std.core.geo>;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        points: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+      });
     }
 
-    get points(): globalThis.Array<$sdk.std.core.geo> {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set points(v: globalThis.Array<$sdk.std.core.geo>) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
     static create({points, }: {points: globalThis.Array<$sdk.std.core.geo>, }, $g: $sdk.GreyCat = globalThis.greycat.default): GeoPoly {
       return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[10], points);
     }
@@ -285,52 +315,82 @@ export namespace core {
   export class TableColumnMeta extends $sdk.GCObject {
     static readonly _type = 'core::TableColumnMeta';
 
+    type: string | null;
+    size: bigint | number;
+    index: boolean;
+    min: any;
+    max: any;
+    avg: any;
+    std: any;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        type: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        index: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        avg: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        std: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get type(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set type(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get size(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set size(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get index(): boolean {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set index(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get min(): any {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set min(v: any) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get max(): any {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set max(v: any) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get avg(): any {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set avg(v: any) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get std(): any {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set std(v: any) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
     static create({type, size, index, min, max, avg, std, }: {type: string | null, size: bigint | number, index: boolean, min: any | null, max: any | null, avg: any | null, std: any | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMeta {
       return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[16], type, size, index, min, max, avg, std);
     }
@@ -345,22 +405,32 @@ export namespace core {
   export class GeoCircle extends $sdk.GCObject {
     static readonly _type = 'core::GeoCircle';
 
+    center: $sdk.std.core.geo;
+    radius: number;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        center: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        radius: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get center(): $sdk.std.core.geo {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set center(v: $sdk.std.core.geo) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get radius(): number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set radius(v: number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({center, radius, }: {center: $sdk.std.core.geo, radius: number, }, $g: $sdk.GreyCat = globalThis.greycat.default): GeoCircle {
       return new GeoCircle($g.abi.libs_by_name.get(stdlib.name)!.mapped[20], center, radius);
     }
@@ -2681,22 +2751,32 @@ export namespace core {
   export class GeoBox extends $sdk.GCObject {
     static readonly _type = 'core::GeoBox';
 
+    sw: $sdk.std.core.geo;
+    ne: $sdk.std.core.geo;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        sw: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        ne: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get sw(): $sdk.std.core.geo {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set sw(v: $sdk.std.core.geo) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get ne(): $sdk.std.core.geo {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set ne(v: $sdk.std.core.geo) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({sw, ne, }: {sw: $sdk.std.core.geo, ne: $sdk.std.core.geo, }, $g: $sdk.GreyCat = globalThis.greycat.default): GeoBox {
       return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[27], sw, ne);
     }
@@ -2705,22 +2785,32 @@ export namespace core {
   export class Tuple<T extends $sdk.Value = any, U extends $sdk.Value = any> extends $sdk.GCObject {
     static readonly _type = 'core::Tuple';
 
+    x: T;
+    y: U;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        x: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        y: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get x(): T {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set x(v: T) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get y(): U {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set y(v: U) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({x, y, }: {x: any, y: any, }, $g: $sdk.GreyCat = globalThis.greycat.default): Tuple {
       return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[28], x, y);
     }
@@ -2804,28 +2894,42 @@ export namespace runtime {
   export class UserGroup extends $sdk.GCObject {
     static readonly _type = 'runtime::UserGroup';
 
+    id: bigint | number;
+    name: string;
+    activated: boolean;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        activated: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get activated(): boolean {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set activated(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
      static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
@@ -2840,28 +2944,42 @@ export namespace runtime {
   export class SecurityEntity extends $sdk.GCObject {
     static readonly _type = 'runtime::SecurityEntity';
 
+    id: bigint | number;
+    name: string;
+    activated: boolean;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        activated: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get activated(): boolean {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set activated(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
      static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
@@ -2876,40 +2994,62 @@ export namespace runtime {
   export class PeriodicTask extends $sdk.GCObject {
     static readonly _type = 'runtime::PeriodicTask';
 
+    name: string;
+    user_id: bigint | number;
+    args: string | null;
+    start: $sdk.std.core.time;
+    every: $sdk.std.core.duration;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        user_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        args: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        start: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        every: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get user_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set user_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get args(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set args(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get start(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set start(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get every(): $sdk.std.core.duration {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set every(v: $sdk.std.core.duration) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
      static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.PeriodicTask>> {
       return $g.call('runtime::PeriodicTask::all', undefined, $signal);
     }
@@ -2924,70 +3064,112 @@ export namespace runtime {
   export class License extends $sdk.GCObject {
     static readonly _type = 'runtime::License';
 
+    name: string | null;
+    start: $sdk.std.core.time;
+    end: $sdk.std.core.time;
+    company: string | null;
+    max_workers: bigint | number;
+    max_memory: bigint | number;
+    extra_1: bigint | number | null;
+    extra_2: bigint | number | null;
+    extra_3: bigint | number | null;
+    extra_4: bigint | number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        start: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        end: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        company: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        max_workers: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        max_memory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        extra_1: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        extra_2: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        extra_3: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        extra_4: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get start(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set start(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get end(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set end(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get company(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set company(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get max_workers(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set max_workers(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get max_memory(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set max_memory(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get extra_1(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set extra_1(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get extra_2(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set extra_2(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get extra_3(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set extra_3(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get extra_4(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set extra_4(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
     static create({name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4, }: {name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, extra_3: bigint | number | null, extra_4: bigint | number | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): License {
       return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[42], name, start, end, company, max_workers, max_memory, extra_1, extra_2, extra_3, extra_4);
     }
@@ -2996,64 +3178,102 @@ export namespace runtime {
   export class StoreStat extends $sdk.GCObject {
     static readonly _type = 'runtime::StoreStat';
 
+    capacity_bytes: bigint | number;
+    allocated_bytes: bigint | number;
+    allocated_ratio: number;
+    remained_bytes: bigint | number;
+    remained_ratio: number;
+    used_bytes: bigint | number;
+    used_ratio: number;
+    available_bytes: bigint | number;
+    available_ratio: number;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        capacity_bytes: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        allocated_bytes: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        allocated_ratio: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        remained_bytes: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        remained_ratio: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        used_bytes: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        used_ratio: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        available_bytes: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        available_ratio: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+      });
     }
 
-    get capacity_bytes(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set capacity_bytes(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get allocated_bytes(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set allocated_bytes(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get allocated_ratio(): number {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set allocated_ratio(v: number) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get remained_bytes(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set remained_bytes(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get remained_ratio(): number {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set remained_ratio(v: number) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get used_bytes(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set used_bytes(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get used_ratio(): number {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set used_ratio(v: number) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get available_bytes(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set available_bytes(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get available_ratio(): number {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set available_ratio(v: number) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
     static create({capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio, }: {capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number, }, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
       return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
     }
@@ -3062,46 +3282,72 @@ export namespace runtime {
   export class SecurityFields extends $sdk.GCObject {
     static readonly _type = 'runtime::SecurityFields';
 
+    email: string | null;
+    name: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    roles: globalThis.Map<string, string> | null;
+    groups: globalThis.Map<string, string> | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        email: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        first_name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        last_name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        roles: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        groups: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+      });
     }
 
-    get email(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set email(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get first_name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set first_name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get last_name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set last_name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get roles(): globalThis.Map<string, string> | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set roles(v: globalThis.Map<string, string> | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get groups(): globalThis.Map<string, string> | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set groups(v: globalThis.Map<string, string> | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
      static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::SecurityFields::set', [f], $signal);
     }
@@ -3116,52 +3362,82 @@ export namespace runtime {
   export class Task extends $sdk.GCObject {
     static readonly _type = 'runtime::Task';
 
+    user_id: bigint | number;
+    task_id: bigint | number;
+    mod: string | null;
+    type: string | null;
+    fun: string | null;
+    creation: $sdk.std.core.time;
+    status: runtime.TaskStatus;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        user_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        task_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        mod: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        type: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        fun: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        creation: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        status: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get user_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set user_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get task_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set task_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get mod(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set mod(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get type(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set type(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get fun(): string | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set fun(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get creation(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set creation(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get status(): runtime.TaskStatus {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set status(v: runtime.TaskStatus) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
      static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.TaskInfo>> {
       return $g.call('runtime::Task::running', undefined, $signal);
     }
@@ -3182,22 +3458,32 @@ export namespace runtime {
   export class OpenIDConnect extends $sdk.GCObject {
     static readonly _type = 'runtime::OpenIDConnect';
 
+    url: string;
+    clientId: string;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        url: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        clientId: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get url(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set url(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get clientId(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set clientId(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
      static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
       return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
     }
@@ -3209,22 +3495,32 @@ export namespace runtime {
   export class UserGroupPolicy extends $sdk.GCObject {
     static readonly _type = 'runtime::UserGroupPolicy';
 
+    group_id: bigint | number;
+    type: runtime.UserGroupPolicyType;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        group_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        type: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get group_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set group_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get type(): runtime.UserGroupPolicyType {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set type(v: runtime.UserGroupPolicyType) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({group_id, type, }: {group_id: bigint | number, type: runtime.UserGroupPolicyType, }, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
       return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], group_id, type);
     }
@@ -3233,76 +3529,122 @@ export namespace runtime {
   export class RuntimeInfo extends $sdk.GCObject {
     static readonly _type = 'runtime::RuntimeInfo';
 
+    version: string;
+    arch: string;
+    timezone: core.TimeZone;
+    license: runtime.License;
+    io_threads: bigint | number;
+    bg_threads: bigint | number;
+    fg_threads: bigint | number;
+    mem_total: bigint | number;
+    mem_worker: bigint | number;
+    nb_ctx: bigint | number;
+    store_stats: runtime.StoreStat | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        version: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        arch: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        timezone: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        license: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        io_threads: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        bg_threads: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        fg_threads: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        mem_total: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        mem_worker: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        nb_ctx: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+        store_stats: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[10]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[10]] = v;
+          },
+        },
+      });
     }
 
-    get version(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set version(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get arch(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set arch(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get timezone(): core.TimeZone {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set timezone(v: core.TimeZone) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get license(): runtime.License {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set license(v: runtime.License) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get io_threads(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set io_threads(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get bg_threads(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set bg_threads(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get fg_threads(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set fg_threads(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get mem_total(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set mem_total(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get mem_worker(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set mem_worker(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get nb_ctx(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set nb_ctx(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
-    get store_stats(): runtime.StoreStat | null {
-      return this.$attrs[this.$type.generated_offsets[10]];
-    }
-    set store_stats(v: runtime.StoreStat | null) {
-      this.$attrs[this.$type.generated_offsets[10]] = v;
-    }
     static create({version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats, }: {version: string, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): RuntimeInfo {
       return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
     }
@@ -3311,70 +3653,112 @@ export namespace runtime {
   export class User extends $sdk.GCObject {
     static readonly _type = 'runtime::User';
 
+    id: bigint | number;
+    name: string;
+    activated: boolean;
+    full_name: string | null;
+    email: string | null;
+    role: string | null;
+    permissions_flags: bigint | number | null;
+    groups: globalThis.Array<runtime.UserGroupPolicy> | null;
+    groups_flags: bigint | number | null;
+    external: boolean;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        activated: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        full_name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        email: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        role: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        permissions_flags: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        groups: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        groups_flags: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        external: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+      });
     }
 
-    get id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get activated(): boolean {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set activated(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get full_name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set full_name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get email(): string | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set email(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get role(): string | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set role(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get permissions_flags(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set permissions_flags(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get groups(): globalThis.Array<runtime.UserGroupPolicy> | null {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set groups(v: globalThis.Array<runtime.UserGroupPolicy> | null) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get groups_flags(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set groups_flags(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get external(): boolean {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set external(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
      static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
@@ -3428,22 +3812,32 @@ export namespace runtime {
   export class UserCredential extends $sdk.GCObject {
     static readonly _type = 'runtime::UserCredential';
 
+    offset: bigint | number;
+    pass: string | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        pass: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get offset(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set offset(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get pass(): string | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set pass(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({offset, pass, }: {offset: bigint | number, pass: string | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
       return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], offset, pass);
     }
@@ -3492,22 +3886,32 @@ export namespace runtime {
   export class UserRole extends $sdk.GCObject {
     static readonly _type = 'runtime::UserRole';
 
+    name: string;
+    permissions: globalThis.Array<string>;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        permissions: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get permissions(): globalThis.Array<string> {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set permissions(v: globalThis.Array<string>) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
      static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.UserRole>> {
       return $g.call('runtime::UserRole::all', undefined, $signal);
     }
@@ -3525,34 +3929,52 @@ export namespace runtime {
   export class SecurityPolicy extends $sdk.GCObject {
     static readonly _type = 'runtime::SecurityPolicy';
 
+    entities: globalThis.Array<runtime.SecurityEntity>;
+    credentials: globalThis.Map<string, runtime.UserCredential>;
+    roles: globalThis.Map<string, runtime.UserRole>;
+    fields: runtime.SecurityFields | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        entities: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        credentials: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        roles: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        fields: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+      });
     }
 
-    get entities(): globalThis.Array<runtime.SecurityEntity> {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set entities(v: globalThis.Array<runtime.SecurityEntity>) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get credentials(): globalThis.Map<string, runtime.UserCredential> {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set credentials(v: globalThis.Map<string, runtime.UserCredential>) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get roles(): globalThis.Map<string, runtime.UserRole> {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set roles(v: globalThis.Map<string, runtime.UserRole>) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get fields(): runtime.SecurityFields | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set fields(v: runtime.SecurityFields | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
      static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
       return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
     }
@@ -3585,88 +4007,142 @@ export namespace runtime {
   export class TaskInfo extends $sdk.GCObject {
     static readonly _type = 'runtime::TaskInfo';
 
+    user_id: bigint | number;
+    task_id: bigint | number;
+    mod: string | null;
+    type: string | null;
+    fun: string | null;
+    creation: $sdk.std.core.time;
+    status: runtime.TaskStatus;
+    start: $sdk.std.core.time | null;
+    progress: number | null;
+    remaining: $sdk.std.core.duration | null;
+    duration: $sdk.std.core.duration | null;
+    sub_waiting: bigint | number | null;
+    sub_tasks_all: bigint | number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        user_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        task_id: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        mod: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        type: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        fun: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        creation: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        status: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        start: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        progress: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        remaining: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+        duration: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[10]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[10]] = v;
+          },
+        },
+        sub_waiting: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[11]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[11]] = v;
+          },
+        },
+        sub_tasks_all: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[12]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[12]] = v;
+          },
+        },
+      });
     }
 
-    get user_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set user_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get task_id(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set task_id(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get mod(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set mod(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get type(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set type(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get fun(): string | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set fun(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get creation(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set creation(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get status(): runtime.TaskStatus {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set status(v: runtime.TaskStatus) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get start(): $sdk.std.core.time | null {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set start(v: $sdk.std.core.time | null) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get progress(): number | null {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set progress(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get remaining(): $sdk.std.core.duration | null {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set remaining(v: $sdk.std.core.duration | null) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
-    get duration(): $sdk.std.core.duration | null {
-      return this.$attrs[this.$type.generated_offsets[10]];
-    }
-    set duration(v: $sdk.std.core.duration | null) {
-      this.$attrs[this.$type.generated_offsets[10]] = v;
-    }
-    get sub_waiting(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[11]];
-    }
-    set sub_waiting(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[11]] = v;
-    }
-    get sub_tasks_all(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[12]];
-    }
-    set sub_tasks_all(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[12]] = v;
-    }
     static create({user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all, }: {user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, start: $sdk.std.core.time | null, progress: number | null, remaining: $sdk.std.core.duration | null, duration: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): TaskInfo {
       return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], user_id, task_id, mod, type, fun, creation, status, start, progress, remaining, duration, sub_waiting, sub_tasks_all);
     }
@@ -3706,52 +4182,82 @@ export namespace io {
   export class Email extends $sdk.GCObject {
     static readonly _type = 'io::Email';
 
+    from: string;
+    subject: string;
+    body: string;
+    body_is_html: boolean;
+    to: globalThis.Array<string>;
+    cc: globalThis.Array<string> | null;
+    bcc: globalThis.Array<string> | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        from: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        subject: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        body: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        body_is_html: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        to: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        cc: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        bcc: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get from(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set from(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get subject(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set subject(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get body(): string {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set body(v: string) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get body_is_html(): boolean {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set body_is_html(v: boolean) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get to(): globalThis.Array<string> {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set to(v: globalThis.Array<string>) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get cc(): globalThis.Array<string> | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set cc(v: globalThis.Array<string> | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get bcc(): globalThis.Array<string> | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set bcc(v: globalThis.Array<string> | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
     static create({from, subject, body, body_is_html, to, cc, bcc, }: {from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
       return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], from, subject, body, body_is_html, to, cc, bcc);
     }
@@ -3760,46 +4266,72 @@ export namespace io {
   export class Smtp extends $sdk.GCObject {
     static readonly _type = 'io::Smtp';
 
+    host: string;
+    port: bigint | number;
+    mode: io.SmtpMode | null;
+    authenticate: io.SmtpAuth | null;
+    user: string | null;
+    pass: string | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        host: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        port: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        mode: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        authenticate: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        user: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        pass: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+      });
     }
 
-    get host(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set host(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get port(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set port(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get mode(): io.SmtpMode | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set mode(v: io.SmtpMode | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get authenticate(): io.SmtpAuth | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set authenticate(v: io.SmtpAuth | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get user(): string | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set user(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get pass(): string | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set pass(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
     static create({host, port, mode, authenticate, user, pass, }: {host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
       return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], host, port, mode, authenticate, user, pass);
     }
@@ -3808,52 +4340,82 @@ export namespace io {
   export class CsvFormat extends $sdk.GCObject {
     static readonly _type = 'io::CsvFormat';
 
+    header_lines: bigint | number | null;
+    infer: boolean | null;
+    separator: string | null;
+    string_delimiter: string | null;
+    decimal_separator: string | null;
+    thousands_separator: string | null;
+    columns: globalThis.Array<io.CsvColumn> | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        header_lines: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        infer: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        string_delimiter: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        decimal_separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        thousands_separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        columns: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get header_lines(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set header_lines(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get infer(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set infer(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get separator(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set separator(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get string_delimiter(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set string_delimiter(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get decimal_separator(): string | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set decimal_separator(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get thousands_separator(): string | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set thousands_separator(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get columns(): globalThis.Array<io.CsvColumn> | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set columns(v: globalThis.Array<io.CsvColumn> | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
     static create({header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns, }: {header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: globalThis.Array<io.CsvColumn> | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
       return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
     }
@@ -3862,28 +4424,42 @@ export namespace io {
   export class CsvColumnDuration extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnDuration';
 
+    name: string | null;
+    mandatory: boolean | null;
+    unit: core.DurationUnit | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        unit: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get unit(): core.DurationUnit | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set unit(v: core.DurationUnit | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
     static create({name, mandatory, unit, }: {name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
       return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], name, mandatory, unit);
     }
@@ -3892,22 +4468,32 @@ export namespace io {
   export class CsvColumnInteger extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnInteger';
 
+    name: string | null;
+    mandatory: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, mandatory, }: {name: string | null, mandatory: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
       return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory);
     }
@@ -3916,22 +4502,32 @@ export namespace io {
   export class HttpHeader extends $sdk.GCObject {
     static readonly _type = 'io::HttpHeader';
 
+    name: string;
+    value: string;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        value: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get value(): string {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set value(v: string) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, value, }: {name: string, value: string, }, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
       return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, value);
     }
@@ -3968,46 +4564,72 @@ export namespace io {
   export class Url extends $sdk.GCObject {
     static readonly _type = 'io::Url';
 
+    protocol: string | null;
+    host: string | null;
+    port: bigint | number | null;
+    path: string | null;
+    params: globalThis.Map<string, string> | null;
+    hash: string | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        protocol: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        host: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        port: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        path: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        params: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        hash: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+      });
     }
 
-    get protocol(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set protocol(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get host(): string | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set host(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get port(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set port(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get path(): string | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set path(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get params(): globalThis.Map<string, string> | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set params(v: globalThis.Map<string, string> | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get hash(): string | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set hash(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
     static create({protocol, host, port, path, params, hash, }: {protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
       return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], protocol, host, port, path, params, hash);
     }
@@ -4016,22 +4638,32 @@ export namespace io {
   export class CsvColumnFloat extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnFloat';
 
+    name: string | null;
+    mandatory: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, mandatory, }: {name: string | null, mandatory: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
       return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], name, mandatory);
     }
@@ -4040,22 +4672,32 @@ export namespace io {
   export class CsvColumn extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumn';
 
+    name: string | null;
+    mandatory: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, mandatory, }: {name: string | null, mandatory: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumn {
       return new CsvColumn($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], name, mandatory);
     }
@@ -4064,28 +4706,42 @@ export namespace io {
   export class File extends $sdk.GCObject {
     static readonly _type = 'io::File';
 
+    path: string;
+    size: bigint | number | null;
+    last_modification: $sdk.std.core.time | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        path: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        last_modification: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get path(): string {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set path(v: string) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get size(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set size(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get last_modification(): $sdk.std.core.time | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set last_modification(v: $sdk.std.core.time | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
     static create({path, size, last_modification, }: {path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): File {
       return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], path, size, last_modification);
     }
@@ -4106,28 +4762,42 @@ export namespace io {
   export class CsvColumnTime extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnTime';
 
+    name: string | null;
+    mandatory: boolean | null;
+    unit: core.DurationUnit | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        unit: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get unit(): core.DurationUnit | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set unit(v: core.DurationUnit | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
     static create({name, mandatory, unit, }: {name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
       return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, unit);
     }
@@ -4164,40 +4834,62 @@ export namespace io {
   export class CsvColumnDate extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnDate';
 
+    name: string | null;
+    mandatory: boolean | null;
+    format: string | null;
+    tz: core.TimeZone | null;
+    as_time: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        format: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        tz: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        as_time: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get format(): string | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set format(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get tz(): core.TimeZone | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set tz(v: core.TimeZone | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get as_time(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set as_time(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
     static create({name, mandatory, format, tz, as_time, }: {name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
       return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], name, mandatory, format, tz, as_time);
     }
@@ -4206,52 +4898,82 @@ export namespace io {
   export class CsvColumnString extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnString';
 
+    name: string | null;
+    mandatory: boolean | null;
+    trim: boolean | null;
+    try_number: boolean | null;
+    try_json: boolean | null;
+    values: globalThis.Array<string> | null;
+    encoder: io.TextEncoder | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        trim: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        try_number: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        try_json: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        values: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        encoder: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get trim(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set trim(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get try_number(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set try_number(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get try_json(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set try_json(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get values(): globalThis.Array<string> | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set values(v: globalThis.Array<string> | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get encoder(): io.TextEncoder | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set encoder(v: io.TextEncoder | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
     static create({name, mandatory, trim, try_number, try_json, values, encoder, }: {name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
       return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory, trim, try_number, try_json, values, encoder);
     }
@@ -4260,22 +4982,32 @@ export namespace io {
   export class CsvColumnBoolean extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnBoolean';
 
+    name: string | null;
+    mandatory: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, mandatory, }: {name: string | null, mandatory: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
       return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], name, mandatory);
     }
@@ -4284,22 +5016,32 @@ export namespace io {
   export class CsvColumnIgnored extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnIgnored';
 
+    name: string | null;
+    mandatory: boolean | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get name(): string | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set name(v: string | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get mandatory(): boolean | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set mandatory(v: boolean | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({name, mandatory, }: {name: string | null, mandatory: boolean | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
       return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[75], name, mandatory);
     }
@@ -4426,124 +5168,202 @@ export namespace util {
   export class BoxPlotFloat extends $sdk.GCObject {
     static readonly _type = 'util::BoxPlotFloat';
 
+    min: number;
+    max: number;
+    whiskerLow: number;
+    whiskerHigh: number;
+    percentile1: number;
+    percentile5: number;
+    percentile25: number;
+    percentile50: number;
+    percentile75: number;
+    percentile95: number;
+    percentile99: number;
+    countOutliersLow: bigint | number;
+    countOutliersHigh: bigint | number;
+    percentageOutliersLow: number;
+    percentageOutliersHigh: number;
+    sum: number;
+    avg: number;
+    std: number;
+    size: bigint | number;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        whiskerLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        whiskerHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        percentile1: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        percentile5: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        percentile25: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        percentile50: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        percentile75: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        percentile95: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+        percentile99: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[10]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[10]] = v;
+          },
+        },
+        countOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[11]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[11]] = v;
+          },
+        },
+        countOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[12]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[12]] = v;
+          },
+        },
+        percentageOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[13]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[13]] = v;
+          },
+        },
+        percentageOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[14]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[14]] = v;
+          },
+        },
+        sum: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[15]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[15]] = v;
+          },
+        },
+        avg: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[16]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[16]] = v;
+          },
+        },
+        std: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[17]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[17]] = v;
+          },
+        },
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[18]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[18]] = v;
+          },
+        },
+      });
     }
 
-    get min(): number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set min(v: number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get max(): number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set max(v: number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get whiskerLow(): number {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set whiskerLow(v: number) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get whiskerHigh(): number {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set whiskerHigh(v: number) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get percentile1(): number {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set percentile1(v: number) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get percentile5(): number {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set percentile5(v: number) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get percentile25(): number {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set percentile25(v: number) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get percentile50(): number {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set percentile50(v: number) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get percentile75(): number {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set percentile75(v: number) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get percentile95(): number {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set percentile95(v: number) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
-    get percentile99(): number {
-      return this.$attrs[this.$type.generated_offsets[10]];
-    }
-    set percentile99(v: number) {
-      this.$attrs[this.$type.generated_offsets[10]] = v;
-    }
-    get countOutliersLow(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[11]];
-    }
-    set countOutliersLow(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[11]] = v;
-    }
-    get countOutliersHigh(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[12]];
-    }
-    set countOutliersHigh(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[12]] = v;
-    }
-    get percentageOutliersLow(): number {
-      return this.$attrs[this.$type.generated_offsets[13]];
-    }
-    set percentageOutliersLow(v: number) {
-      this.$attrs[this.$type.generated_offsets[13]] = v;
-    }
-    get percentageOutliersHigh(): number {
-      return this.$attrs[this.$type.generated_offsets[14]];
-    }
-    set percentageOutliersHigh(v: number) {
-      this.$attrs[this.$type.generated_offsets[14]] = v;
-    }
-    get sum(): number {
-      return this.$attrs[this.$type.generated_offsets[15]];
-    }
-    set sum(v: number) {
-      this.$attrs[this.$type.generated_offsets[15]] = v;
-    }
-    get avg(): number {
-      return this.$attrs[this.$type.generated_offsets[16]];
-    }
-    set avg(v: number) {
-      this.$attrs[this.$type.generated_offsets[16]] = v;
-    }
-    get std(): number {
-      return this.$attrs[this.$type.generated_offsets[17]];
-    }
-    set std(v: number) {
-      this.$attrs[this.$type.generated_offsets[17]] = v;
-    }
-    get size(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[18]];
-    }
-    set size(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[18]] = v;
-    }
     static create({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size, }: {min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, }, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
       return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
@@ -4552,22 +5372,32 @@ export namespace util {
   export class Random extends $sdk.GCObject {
     static readonly _type = 'util::Random';
 
+    seed: bigint | number;
+    v: number;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        seed: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        v: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
     }
 
-    get seed(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set seed(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get v(): number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set v(v: number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
     static create({seed, v, }: {seed: bigint | number, v: number, }, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
       return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], seed, v);
     }
@@ -4590,52 +5420,82 @@ export namespace util {
   export class ProgressTracker extends $sdk.GCObject {
     static readonly _type = 'util::ProgressTracker';
 
+    start: $sdk.std.core.time;
+    total: bigint | number | null;
+    counter: bigint | number | null;
+    duration: $sdk.std.core.duration | null;
+    progress: number | null;
+    speed: number | null;
+    remaining: $sdk.std.core.duration | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        start: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        total: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        counter: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        duration: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        progress: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        speed: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        remaining: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
     }
 
-    get start(): $sdk.std.core.time {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set start(v: $sdk.std.core.time) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get total(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set total(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get counter(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set counter(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get duration(): $sdk.std.core.duration | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set duration(v: $sdk.std.core.duration | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get progress(): number | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set progress(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get speed(): number | null {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set speed(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get remaining(): $sdk.std.core.duration | null {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set remaining(v: $sdk.std.core.duration | null) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
     static create({start, total, counter, duration, progress, speed, remaining, }: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
       return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], start, total, counter, duration, progress, speed, remaining);
     }
@@ -4646,40 +5506,62 @@ export namespace util {
   export class Gaussian extends $sdk.GCObject {
     static readonly _type = 'util::Gaussian';
 
+    sum: number | null;
+    sum_sq: number | null;
+    count: bigint | number | null;
+    min: number | null;
+    max: number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        sum: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        sum_sq: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        count: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+      });
     }
 
-    get sum(): number | null {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set sum(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get sum_sq(): number | null {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set sum_sq(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get count(): bigint | number | null {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set count(v: bigint | number | null) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get min(): number | null {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set min(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get max(): number | null {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set max(v: number | null) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
     static create({sum, sum_sq, count, min, max, }: {sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
       return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], sum, sum_sq, count, min, max);
     }
@@ -4696,124 +5578,202 @@ export namespace util {
   export class BoxPlotInt extends $sdk.GCObject {
     static readonly _type = 'util::BoxPlotInt';
 
+    min: bigint | number;
+    max: bigint | number;
+    whiskerLow: bigint | number;
+    whiskerHigh: bigint | number;
+    percentile1: bigint | number;
+    percentile5: bigint | number;
+    percentile25: bigint | number;
+    percentile50: bigint | number;
+    percentile75: bigint | number;
+    percentile95: bigint | number;
+    percentile99: bigint | number;
+    countOutliersLow: bigint | number;
+    countOutliersHigh: bigint | number;
+    percentageOutliersLow: number;
+    percentageOutliersHigh: number;
+    sum: number;
+    avg: number;
+    std: number;
+    size: bigint | number;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, attributes);
+      Object.defineProperties(this, {
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        whiskerLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        whiskerHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        percentile1: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        percentile5: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        percentile25: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        percentile50: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        percentile75: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        percentile95: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+        percentile99: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[10]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[10]] = v;
+          },
+        },
+        countOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[11]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[11]] = v;
+          },
+        },
+        countOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[12]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[12]] = v;
+          },
+        },
+        percentageOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[13]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[13]] = v;
+          },
+        },
+        percentageOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[14]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[14]] = v;
+          },
+        },
+        sum: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[15]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[15]] = v;
+          },
+        },
+        avg: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[16]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[16]] = v;
+          },
+        },
+        std: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[17]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[17]] = v;
+          },
+        },
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[18]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[18]] = v;
+          },
+        },
+      });
     }
 
-    get min(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[0]];
-    }
-    set min(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[0]] = v;
-    }
-    get max(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[1]];
-    }
-    set max(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[1]] = v;
-    }
-    get whiskerLow(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[2]];
-    }
-    set whiskerLow(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[2]] = v;
-    }
-    get whiskerHigh(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[3]];
-    }
-    set whiskerHigh(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[3]] = v;
-    }
-    get percentile1(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[4]];
-    }
-    set percentile1(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[4]] = v;
-    }
-    get percentile5(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[5]];
-    }
-    set percentile5(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[5]] = v;
-    }
-    get percentile25(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[6]];
-    }
-    set percentile25(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[6]] = v;
-    }
-    get percentile50(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[7]];
-    }
-    set percentile50(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[7]] = v;
-    }
-    get percentile75(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[8]];
-    }
-    set percentile75(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[8]] = v;
-    }
-    get percentile95(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[9]];
-    }
-    set percentile95(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[9]] = v;
-    }
-    get percentile99(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[10]];
-    }
-    set percentile99(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[10]] = v;
-    }
-    get countOutliersLow(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[11]];
-    }
-    set countOutliersLow(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[11]] = v;
-    }
-    get countOutliersHigh(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[12]];
-    }
-    set countOutliersHigh(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[12]] = v;
-    }
-    get percentageOutliersLow(): number {
-      return this.$attrs[this.$type.generated_offsets[13]];
-    }
-    set percentageOutliersLow(v: number) {
-      this.$attrs[this.$type.generated_offsets[13]] = v;
-    }
-    get percentageOutliersHigh(): number {
-      return this.$attrs[this.$type.generated_offsets[14]];
-    }
-    set percentageOutliersHigh(v: number) {
-      this.$attrs[this.$type.generated_offsets[14]] = v;
-    }
-    get sum(): number {
-      return this.$attrs[this.$type.generated_offsets[15]];
-    }
-    set sum(v: number) {
-      this.$attrs[this.$type.generated_offsets[15]] = v;
-    }
-    get avg(): number {
-      return this.$attrs[this.$type.generated_offsets[16]];
-    }
-    set avg(v: number) {
-      this.$attrs[this.$type.generated_offsets[16]] = v;
-    }
-    get std(): number {
-      return this.$attrs[this.$type.generated_offsets[17]];
-    }
-    set std(v: number) {
-      this.$attrs[this.$type.generated_offsets[17]] = v;
-    }
-    get size(): bigint | number {
-      return this.$attrs[this.$type.generated_offsets[18]];
-    }
-    set size(v: bigint | number) {
-      this.$attrs[this.$type.generated_offsets[18]] = v;
-    }
     static create({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size, }: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, }, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
       return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[92], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }

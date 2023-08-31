@@ -176,33 +176,6 @@ export class GreyCat {
     return writer.buffer;
   }
 
-  // serializeJson(value: unknown, writer = new AbiWriter(this.abi, this.capacity)): Uint8Array {
-  //   if (typeof value === 'object') {
-  //     if (value === null) {
-  //       writer.serialize(null);
-  //     } else {
-  //       if ('_type' in value && typeof value._type === 'string') {
-  //         const type = this.abi.type_by_fqn.get(value._type);
-  //         if (!type) {
-  //           throw new Error(`cannot serialize unknown type '${value._type}'`);
-  //         }
-  //         const o = new type.factory!(type, ...attrs);
-  //         for (const attr of type.attrs) {
-  //           let attr_value: Value;
-  //           if (attr.name in value) {
-  //             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //             attr_value = (value as any)[attr.name];
-  //           }
-
-  //         }
-  //       }
-  //     }
-  //     throw new Error('not implemented');
-  //   }
-  //   writer.serialize(value as Value);
-  //   return writer.buffer;
-  // }
-
   /**
    * Deserializes one value from the given `ArrayBuffer`.
    */
@@ -248,25 +221,3 @@ function normalizeUrl(url: URL): string {
   }
   return url.href.slice(0, end + 1);
 }
-
-// export function fromJson(value: string) {
-//   return JSON.parse(value, (_, value) => {
-//     if (typeof value === 'string' && value.startsWith('$bigint:')) {
-//       // eslint-disable-next-line no-undef
-//       return BigInt(value.slice(8));
-//     }
-//     return value;
-//   });
-// }
-
-// export function toJson(value: Value): string {
-//   return JSON.stringify(value, (_, value) => {
-//     if (typeof value === 'bigint') {
-//       if (value >= Number.MIN_SAFE_INTEGER && value <= Number.MAX_SAFE_INTEGER) {
-//         return Number(value);
-//       }
-//       return `$bigint:${value}`;
-//     }
-//     return value;
-//   });
-// }

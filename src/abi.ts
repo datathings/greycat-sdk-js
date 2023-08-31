@@ -239,12 +239,14 @@ export class Abi {
   }
 
   create<T = GCObject>(name: string, attributes: Value[]): T | undefined {
-    const t = this.type_by_fqn.get(name);
-    if (t === undefined) {
-      return;
+    const ty = this.type_by_fqn.get(name);
+    if (ty === undefined) {
+      throw new Error(`unknown type '${name}'`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, ...attributes) as T;
+    if (ty.factory) {
+      return new ty.factory(ty, ...attributes) as T;
+    }
+    return new GCObject(ty, attributes) as T;
   }
 
   createGeo(lat: number, lng: number) {

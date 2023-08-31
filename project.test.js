@@ -56,7 +56,12 @@ describe('project', () => {
     [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
     { _type: 'core::geo', lat: -85.05112876019749, lng: -179.99999937135726 },
     {},
-    { 42: 42, true: true, hello: 'hello', 'core::DatePart::months': { _type: 'core::DatePart', field: 'months' } },
+    {
+      42: 42,
+      true: true,
+      hello: 'hello',
+      'core::DatePart::months': { _type: 'core::DatePart', field: 'months' },
+    },
     {
       _type: 'core::GeoBox',
       sw: {
@@ -91,10 +96,30 @@ describe('project', () => {
     {
       _type: 'core::Table',
       cols: [[0, 0.5, 1, 1.5]],
-      meta: [{ _type: 'core::NativeTableColumnMeta', index: false, typeName: 'core::float', min: 0, max: 1.5 }],
+      meta: [
+        {
+          _type: 'core::NativeTableColumnMeta',
+          index: false,
+          typeName: 'core::float',
+          min: 0,
+          max: 1.5,
+        },
+      ],
     },
-    { _type: 'core::Tensor' },
-    { _type: 'core::Tensor' },
+    {
+      _type: 'core::Tensor',
+      dim: 0,
+      shape: [],
+      type: { _type: 'core::TensorType', field: 'i32' },
+      data: null,
+    },
+    {
+      _type: 'core::Tensor',
+      dim: 1,
+      shape: [1, 1],
+      type: { _type: 'core::TensorType', field: 'f64' },
+      data: [[3.14]],
+    },
     {
       _type: 'core::GeoCircle',
       center: {
@@ -141,7 +166,19 @@ describe('project', () => {
     { _type: 'core::ti4d', x0: 13, x1: 37, x2: 42, x3: 12 },
     { _type: 'core::ti5d', x0: -1, x1: 13, x2: 37, x3: 42, x4: 12 },
     { _type: 'core::ti6d', x0: -1, x1: 13, x2: 37, x3: 42, x4: 12, x5: -12 },
-    { _type: 'core::ti10d', x0: -1, x1: 13, x2: 27, x3: 22, x4: 12, x5: 1, x6: -13, x7: -27, x8: -22, x9: -12 },
+    {
+      _type: 'core::ti10d',
+      x0: -1,
+      x1: 13,
+      x2: 27,
+      x3: 22,
+      x4: 12,
+      x5: 1,
+      x6: -13,
+      x7: -27,
+      x8: -22,
+      x9: -12,
+    },
     { _type: 'core::tf2d', x0: 13.369999885559082, x1: 12.420000076293945 },
     { _type: 'core::tf3d', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
     { _type: 'core::tf4d', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
@@ -284,7 +321,11 @@ describe('project', () => {
   // test ser/de
   for (const expected of expected_values) {
     const testName =
-      typeof expected === 'object' ? (expected._type ? expected._type : expected.constructor.name) : expected;
+      typeof expected === 'object'
+        ? expected._type
+          ? expected._type
+          : expected.constructor.name
+        : expected;
     it(`${testName}`, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();

@@ -94,8 +94,14 @@ export interface Library {
 }
 
 export interface Options {
-  /** URL of the GreyCat server */
-  url: URL;
+  /**
+   * URL of the GreyCat server
+   * 
+   * Defaults to:
+   *  - `window.location.origin` in browser contexts
+   *  - `'http://localhost:8080'` in other contexts (eg. Node.js)
+   */
+  url?: URL;
   /**
    * Write buffer capacity. Defaults to `2048` (2KB)
    */

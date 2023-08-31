@@ -50,6 +50,7 @@ export class Abi {
   readonly core_timezone_offset: number = 0;
   readonly core_date_offset: number = 0;
   readonly core_table_offset: number = 0;
+  readonly core_tensortype_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.off_by_symbol = new Map();
@@ -185,6 +186,7 @@ export class Abi {
           case 'TimeZone': this.core_timezone_offset = i; break;
           case 'Date': this.core_date_offset = i; break;
           case 'Table': this.core_table_offset = i; break;
+          case 'TensorType': this.core_tensortype_offset = i; break;
           default:
             // noop
             break;

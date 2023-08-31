@@ -5,6 +5,8 @@ import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
+const DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://localhost:8080');
+
 const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
   if (process.env['NODE_ENV'] && process.env['NODE_ENV'] !== 'production') {
     const bg =
@@ -19,7 +21,6 @@ const debugLogger = (status: number, method: string, params?: Value[], value?: u
     );
   }
 };
-
 
 export class GreyCat {
   /** GreyCat's api endpoint normalized (does not contain a trailing slash) */
@@ -54,7 +55,7 @@ export class GreyCat {
    * @returns a GreyCat instance to initiate call requests to the backend.
    * @throws on IO and ABI parse errors
    */
-  static async init({ url, libraries = [stdlib], capacity, signal, auth, unauthorizedHandler }: WithoutAbiOptions): Promise<GreyCat> {
+  static async init({ url = DEFAULT_URL, libraries = [stdlib], capacity, signal, auth, unauthorizedHandler }: WithoutAbiOptions = { url: DEFAULT_URL }): Promise<GreyCat> {
     if (libraries.indexOf(stdlib) === -1) {
       // ensures 'stdlib' is always loaded
       libraries.push(stdlib);
@@ -97,7 +98,7 @@ export class GreyCat {
     return new GreyCat(cleanUrl, abi, capacity, token, unauthorizedHandler);
   }
 
-  static initWithAbi({ url, capacity, abi, token, unauthorizedHandler }: WithAbiOptions): GreyCat {
+  static initWithAbi({ url = DEFAULT_URL, capacity, abi, token, unauthorizedHandler }: WithAbiOptions): GreyCat {
     return new GreyCat(normalizeUrl(url), abi, capacity, token, unauthorizedHandler);
   }
 
@@ -153,9 +154,8 @@ export class GreyCat {
       throw new Error(`Access to '${method}' is forbidden`);
     } else if (res.status === 404) {
       // not found
-      const data = await res.json();
-      debugLogger(res.status, method, params, data);
-      throw new Error(`calling '${method}' failed with message "${data.value}"`);
+      debugLogger(res.status, method, params, null);
+      throw new Error(`unknown method "${method}"`);
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);

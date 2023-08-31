@@ -309,3 +309,53 @@ fn table() {
 
   return table;
 }
+
+@expose
+task longTask() {
+  println("long task ${Task::id()}: start");
+  Runtime::sleep(5_s);
+  println("long task ${Task::id()}: done");
+}
+
+@expose
+fn testTensor(): Tensor {
+  var t = Tensor {};
+  t.init(TensorType::f64, [2, 10]);
+  for (var a = 0; a < 2; a++) {
+    for (var b = 0; b < 10; b++) {
+      t.add([a, b], a + b * 1.0);
+    }
+  }
+  return t;
+}
+
+@expose
+fn tensor() {
+  return Tensor {};
+}
+
+@expose
+fn tensor2() {
+  var tensor = Tensor {};
+  tensor.init(TensorType::f64, [1, 5]);
+  tensor.add([0, 0], 0.1);
+  return tensor;
+}
+
+@expose
+fn tensor3() {
+  var tensor = Tensor {};
+  tensor.init(TensorType::f64, [1, 1]);
+  tensor.add([0, 0], 3.14);
+  return tensor;
+}
+
+@expose
+fn gaussianND() {
+  var gaussian = GaussianND {};
+  var tensor = Tensor {};
+  tensor.init(TensorType::f64, [1, 1]);
+  tensor.add([0, 0], 0.0);
+  gaussian.learn(tensor);
+  return gaussian;
+}

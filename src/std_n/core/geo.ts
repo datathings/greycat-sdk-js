@@ -1,9 +1,7 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
 import { deinterleave64_2d, interleave64_2d } from '../morton.js';
-import { GreyCat } from '../../greycat.js';
+import type { GreyCat, core, AbiType, AbiReader, AbiWriter } from '../../index.js';
 
 export class geo extends GCObject {
   static readonly _type = 'core::geo' as const;
@@ -64,6 +62,10 @@ export class geo extends GCObject {
 
   override saveContent(w: AbiWriter) {
     w.write_u64(this.value);
+  }
+
+  equals(other: core.geo): boolean {
+    return this.value === other.value;
   }
 
   override toJSON() {

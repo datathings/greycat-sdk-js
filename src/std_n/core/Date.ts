@@ -1,7 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
 import { GCObject } from '../../GCObject.js';
-import { core } from '../../std/index.js';
+import type { core, AbiType, AbiReader, AbiWriter } from '../../index.js';
 
 export class Date extends GCObject {
   static readonly _type = 'core::Date' as const;
@@ -25,11 +23,6 @@ export class Date extends GCObject {
     const tz = tzType.enum_values![tzFieldOff];
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new type.factory!(type, localizedEpochS, epochUs, tz) as core.Date;
-  }
-
-  static fromJSON(o: unknown): Date {
-    Object.setPrototypeOf(o, Date.prototype);
-    return o as Date;
   }
 
   override saveContent(w: AbiWriter) {
@@ -69,7 +62,7 @@ export class Date extends GCObject {
     }
 
     return {
-      _type: this.$type.name,
+      _type: Date._type,
       iso: new globalThis.Date(timestamp).toISOString(),
       timeZone: this.timeZone,
     };

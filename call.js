@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat } from './dist/esm/index.js';
+import { GreyCat, algebralib, stdlib } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
 if (args.length !== 1) {
@@ -7,21 +7,18 @@ if (args.length !== 1) {
   process.exit(1);
 }
 
-console.time('abi');
-const g = await GreyCat.init({
+const g = (global.greycat.default = await GreyCat.init({
   url: new URL('http://localhost:8080'),
-});
-console.timeEnd('abi');
-
-console.time('value');
+  libraries: [stdlib, algebralib],
+}));
 
 try {
   const value = await g.call(args[0]);
+  // console.dir({ ...value }, { depth: Infinity });
   displayValue(value);
 } catch (err) {
-  console.log({ error: err });
-} finally {
-  console.timeEnd('value');
+  console.error(`Error: ${err.message}`);
+  process.exit(1);
 }
 
 function displayValue(value) {

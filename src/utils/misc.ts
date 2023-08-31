@@ -1,4 +1,4 @@
-import { core } from '@greycat/sdk';
+import { GCObject, core } from '../index.js';
 import slugify from './slugify.js';
 
 const NUM = '0123456789';
@@ -46,19 +46,19 @@ export function extractType(value: unknown): string {
     return 'null';
   }
 
+  if (value instanceof GCObject) {
+    return value.$type.name;
+  }
+
   if (typeof value === 'object') {
-    if ('toJSON' in value && typeof value.toJSON === 'function') {
-      const json = value.toJSON();
-      if (json._type) {
-        return json._type;
-      }
-    } else if ('_type' in value && typeof value._type === 'string') {
+    if ('_type' in value && typeof value._type === 'string') {
       return value._type;
     }
+    return `Object { ${Object.keys(value).length} }`;
   }
 
   if (value instanceof Array) {
-    return `Array(${value.length})`;
+    return `Array [ ${value.length} ]`;
   }
 
   return typeof value;
@@ -91,9 +91,15 @@ export function capitalize(txt: string): string {
   return txt;
 }
 
-function toStrTiny(s: string) {
-  if (s.length > 100) {
-    return `${s.slice(0, 100)}...`;
+/**
+ * Ellipsis a string after `max` character.
+ * @param s 
+ * @param max 
+ * @returns 
+ */
+function toStrTiny(s: string, max = 100) {
+  if (s.length > max) {
+    return `${s.slice(0, max)}...`;
   }
   return s;
 }

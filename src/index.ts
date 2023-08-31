@@ -29,6 +29,7 @@ export * as algebra_n from './algebra_n/index.js';
 export * from './algebra/index.js';
 
 export * as utils from './utils/index.js';
+export * from './utils/index.js';
 
 // Here we volontary forget about setting 'default' as
 // we want the applications to actually define it, therefore we

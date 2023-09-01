@@ -313,7 +313,7 @@ fn table() {
 @expose
 task longTask() {
   println("long task ${Task::id()}: start");
-  Runtime::sleep(5_s);
+  Runtime::sleep(15_s);
   println("long task ${Task::id()}: done");
 }
 

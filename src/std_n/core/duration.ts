@@ -141,27 +141,27 @@ export class duration extends GCObject {
       return `${us} μs`;
     }
     if (us < 1_000_000n) {
-      return `${us / 1_000n} ms`;
+      return `${us / 1_000n}ms`;
     }
     if (us < 60_000_000n) {
-      return `${us / 1_000_000n} s`;
+      return `${us / 1_000_000n}s`;
     }
     if (us < 3_600_000_000n) {
-      return `${us / 60_000_000n} min`;
+      return `${us / 60_000_000n}min`;
     }
     if (us < 86_400_000_000n) {
-      return `${us / 3_600_000_000n} hour`;
+      return `${us / 3_600_000_000n}hour`;
     }
     if (us < 604_800_000_000n) {
-      return `${us / 86_400_000_000n} day`;
+      return `${us / 86_400_000_000n}day`;
     }
     if (us < 2_630_016_000_000n) {
-      return `${us / 604_800_000_000n} week`;
+      return `${us / 604_800_000_000n}week`;
     }
     if (us < 31_536_000_000_000n) {
-      return `${us / 2_630_016_000_000n} month`;
+      return `${us / 2_630_016_000_000n}month`;
     }
-    return `${us / 31_536_000_000_000n} year`;
+    return `${us / 31_536_000_000_000n}year`;
   }
 
   override toJSON() {

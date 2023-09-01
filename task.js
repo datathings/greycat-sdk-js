@@ -1,65 +1,35 @@
-import { GreyCat, runtime } from './dist/esm/index.js';
+// @ts-check
+import { GreyCat, TaskHandler } from './dist/esm/index.js';
 
-const greycat = (global.greycat.default = await GreyCat.init());
+global.greycat.default = await GreyCat.init();
 
-const task = await greycat.call('project::longTask');
-console.dir({ ...task });
-
-/**
- *
- * @param {number} user_id
- * @param {number} task_id
- * @param {{ cancel: AbortSignal, stop: AbortSignal, delay: number }} param2
- * @returns
- */
-async function pollTask(user_id, task_id, { delay = 2000, cancel, stop } = {}) {
-  let info = await runtime.Task.info(user_id, task_id);
-
-  async function handleCancel() {
-    await runtime.Task.cancel(task_id);
-    info = await runtime.Task.info(user_id, task_id);
-    return info;
-  }
-
-  while (
-    info.status === runtime.TaskStatus.running() ||
-    info.status === runtime.TaskStatus.waiting()
-  ) {
-    if (cancel.aborted) {
-      return handleCancel();
-    }
-    if (stop.aborted) {
-      return info;
-    }
-    info = await runtime.Task.info(user_id, task_id);
-    if (cancel.aborted) {
-      return handleCancel();
-    }
-    if (stop.aborted) {
-      return info;
-    }
-    // wait a bit before polling again
-    await new Promise((resolve) => setTimeout(resolve, delay));
-    if (cancel.aborted) {
-      return handleCancel();
-    }
-    if (stop.aborted) {
-      return info;
-    }
-  }
-
-  return info;
-}
-
-const cancelCtrl = new AbortController();
-const stopCtrl = new AbortController();
-
-pollTask(task.user_id, task.task_id, { cancel: cancelCtrl.signal, stop: stopCtrl.signal }).then(
-  (info) => {
-    console.log({ ...info });
-  },
-);
+/** @type {import('./dist/esm/index.js').runtime.Task} */
+const task = await global.greycat.default.call('project::longTask');
+const handler = new TaskHandler(task);
+// const handler = new TaskHandler({ user_id: 1, task_id: 1 });
 
 setTimeout(() => {
-  stopCtrl.abort();
-}, 3000);
+  handler.cancel();
+}, 5000);
+
+const info = await handler.start(2000, (info) => {
+  console.log(
+    `user=${info.user_id}, task=${info.task_id}, created_at=${info.creation}, duration=${info.duration}, status=${info.status.key}`,
+  );
+});
+
+if (info) {
+  console.log(
+    `user=${info.user_id}, task=${info.task_id}, created_at=${info.creation}, duration=${info.duration}, status=${info.status.key}`,
+  );
+}
+
+// handler.stop();
+// handler.cancel();
+
+// const info = await promise;
+// if (info) {
+//   console.log(
+//     `user=${info.user_id}, task=${info.task_id}, created_at=${info.creation}, duration=${info.duration}, status=${info.status.key}`,
+//   );
+// }

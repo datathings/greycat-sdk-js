@@ -11,17 +11,6 @@ interface CancellableTaskPromise extends Promise<runtime.TaskInfo | null> {
   stop: () => void;
 }
 
-export interface PollOptions {
-  /**
-   * Delay in milliseconds between every poll
-   */
-  delay?: number;
-  /**
-   * Called whenever the `runtime.TaskInfo` are polled
-   */
-  hook?: (info: runtime.TaskInfo) => void;
-}
-
 export type TaskLike = Pick<runtime.Task, 'user_id' | 'task_id'>;
 
 export class TaskHandler {

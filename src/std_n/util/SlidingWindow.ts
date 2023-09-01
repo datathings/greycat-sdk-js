@@ -1,6 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { Value } from '../../types.js';
+import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class SlidingWindow extends GCObject {
@@ -36,7 +34,7 @@ export class SlidingWindow extends GCObject {
     }
   }
 
-  static load(r: AbiReader, type: AbiType): SlidingWindow {
+  static load(r: AbiReader, type: AbiType): util.SlidingWindow {
     const width = r.read_vi64();
     const sum_type = r.read_u8();
     const sum = r.read_f64();
@@ -51,7 +49,6 @@ export class SlidingWindow extends GCObject {
       values[i] = r.deserialize();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, width, sum_type, sum, sumsq, size, capacity, head, tail, values) as SlidingWindow;
+    return new type.factory(type, width, sum_type, sum, sumsq, size, capacity, head, tail, values) as util.SlidingWindow;
   }
 }

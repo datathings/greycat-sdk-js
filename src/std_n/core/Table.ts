@@ -1,9 +1,5 @@
-import { Abi, AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType, PrimitiveTypeName, Value } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import { GreyCat } from '../../greycat.js';
-import type { time, duration } from './index.js';
+import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject } from '../../index.js';
+import type { Abi, AbiReader, AbiWriter, AbiType, core } from '../../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Table<_ extends Value = any> extends GCObject {
@@ -13,10 +9,9 @@ export class Table<_ extends Value = any> extends GCObject {
     super(type);
   }
 
-  static create(cols: Array<Value[]>, meta: NativeTableColumnMeta[], g: GreyCat = globalThis.greycat.default): Table {
+  static create(cols: Array<Value[]>, meta: NativeTableColumnMeta[], g: GreyCat = globalThis.greycat.default): core.Table {
     const ty = g.abi.types[g.abi.core_table_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, cols, meta) as Table;
+    return new ty.factory(ty, cols, meta) as core.Table;
   }
 
   static load(r: AbiReader, type: AbiType): Table {
@@ -49,11 +44,11 @@ export class Table<_ extends Value = any> extends GCObject {
         case PrimitiveType.time: {
           const type = r.abi.types[r.abi.core_time_offset];
           for (let row = 0; row < rows; row++) {
-            const value = type.loader(r, type) as time;
-            if (meta[col].min === null || (meta[col].min as time).value > value.value) {
+            const value = type.loader(r, type) as core.time;
+            if (meta[col].min === null || (meta[col].min as core.time).value > value.value) {
               meta[col].min = value;
             }
-            if (meta[col].max === null || (meta[col].max as time).value < value.value) {
+            if (meta[col].max === null || (meta[col].max as core.time).value < value.value) {
               meta[col].max = value;
             }
             values[row] = value;
@@ -63,11 +58,11 @@ export class Table<_ extends Value = any> extends GCObject {
         case PrimitiveType.duration: {
           const type = r.abi.types[r.abi.core_duration_offset];
           for (let row = 0; row < rows; row++) {
-            const value = type.loader(r, type) as duration;
-            if (meta[col].min === null || (meta[col].min as duration).value > value.value) {
+            const value = type.loader(r, type) as core.duration;
+            if (meta[col].min === null || (meta[col].min as core.duration).value > value.value) {
               meta[col].min = value;
             }
-            if (meta[col].max === null || (meta[col].max as duration).value < value.value) {
+            if (meta[col].max === null || (meta[col].max as core.duration).value < value.value) {
               meta[col].max = value;
             }
             values[row] = value;
@@ -118,8 +113,7 @@ export class Table<_ extends Value = any> extends GCObject {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, cols, meta) as Table;
+    return new type.factory(type, cols, meta) as Table;
   }
 
   override saveContent(w: AbiWriter) {

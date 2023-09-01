@@ -14,14 +14,12 @@ export class tf4d extends GCObject {
 
   static create(x0: number, x1: number, x2: number, x3: number, g: GreyCat = globalThis.greycat.default): tf4d {
     const ty = g.abi.types[g.abi.core_tf4d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3) as tf4d;
+    return new ty.factory(ty, x0, x1, x2, x3) as tf4d;
   }
 
   static load(r: AbiReader, ty: AbiType): tf4d {
     const [x0, x1, x2, x3] = deinterleave64_4df(r.read_u64());
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3) as tf4d;
+    return new ty.factory(ty, x0, x1, x2, x3) as tf4d;
   }
 
   static fromJSON(o: unknown): tf4d {

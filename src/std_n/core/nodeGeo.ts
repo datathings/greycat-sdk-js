@@ -1,7 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
+import type { core, AbiType, AbiReader, AbiWriter } from '../../index.js';
+import { GCObject, PrimitiveType } from '../../index.js';
 
 export class nodeGeo extends GCObject {
   static readonly _type = 'core::nodeGeo' as const;
@@ -10,10 +8,9 @@ export class nodeGeo extends GCObject {
     super(type);
   }
 
-  static load(r: AbiReader, ty: AbiType): nodeGeo {
+  static load(r: AbiReader, ty: AbiType): core.nodeGeo {
     const value = r.read_vu64_bigint();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as nodeGeo;
+    return new ty.factory(ty, value) as core.nodeGeo;
   }
 
   static fromJSON(o: unknown): nodeGeo {

@@ -5,9 +5,11 @@ import { PrimitiveType } from './types.js';
  * A dynamic GreyCat type instance, used when no matching class found in the factory
  */
 export class GCObject {
-  constructor(readonly $type: AbiType, readonly $attrs?: Value[]) {
+  readonly $attrs?: Value[];
+
+  constructor(readonly $type: AbiType, ...attributes: Value[]) {
     Object.defineProperty(this, '$type', { value: $type, enumerable: false });
-    Object.defineProperty(this, '$attrs', { value: $attrs, enumerable: false });
+    Object.defineProperty(this, '$attrs', { value: attributes, enumerable: false });
   }
 
   getByName(name: string): Value | undefined {

@@ -21,14 +21,12 @@ export class ti5d extends GCObject {
 
   static create(x0: number, x1: number, x2: number, x3: number, x4: number, g: GreyCat = globalThis.greycat.default): ti5d {
     const ty = g.abi.types[g.abi.core_ti5d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3, x4) as ti5d;
+    return new ty.factory(ty, x0, x1, x2, x3, x4) as ti5d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti5d {
     const [x0, x1, x2, x3, x4] = deinterleave64_5di(r.read_u64());
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3, x4) as ti5d;
+    return new ty.factory(ty, x0, x1, x2, x3, x4) as ti5d;
   }
 
   static fromJSON(o: unknown): ti5d {

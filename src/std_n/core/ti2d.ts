@@ -15,15 +15,13 @@ export class ti2d extends GCObject {
 
   static create(x0: number, x1: number, g: GreyCat = globalThis.greycat.default): ti2d {
     const ty = g.abi.types[g.abi.core_ti2d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1) as ti2d;
+    return new ty.factory(ty, x0, x1) as ti2d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti2d {
     const value = r.read_u64();
     const [x0, x1] = deinterleave64_2di(value);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1) as ti2d;
+    return new ty.factory(ty, x0, x1) as ti2d;
   }
 
   static fromJSON(o: unknown): ti2d {

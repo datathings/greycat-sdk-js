@@ -37,14 +37,12 @@ export class ti10d extends GCObject {
     g: GreyCat = globalThis.greycat.default,
   ): ti10d {
     const ty = g.abi.types[g.abi.core_ti10d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
+    return new ty.factory(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti10d {
     const [x0, x1, x2, x3, x4, x5, x6, x7, x8, x9] = deinterleave64_10di(r.read_u64());
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
+    return new ty.factory(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
   }
 
   static fromJSON(o: unknown): ti10d {

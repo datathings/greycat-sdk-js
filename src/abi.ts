@@ -243,46 +243,37 @@ export class Abi {
     if (ty === undefined) {
       throw new Error(`unknown type '${name}'`);
     }
-    if (ty.factory) {
-      return new ty.factory(ty, ...attributes) as T;
-    }
-    return new GCObject(ty, attributes) as T;
+    return new ty.factory(ty, ...attributes) as T;
   }
 
   createGeo(lat: number, lng: number) {
     const t = this.types[this.core_geo_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, lat, lng);
+    return new t.factory(t, lat, lng);
   }
 
   createTime(value: bigint) {
     const t = this.types[this.core_time_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, value);
+    return new t.factory(t, value);
   }
 
   createDuration(value: bigint) {
     const t = this.types[this.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, value);
+    return new t.factory(t, value);
   }
 
   createTu2d(x0: bigint | number, x1: bigint | number) {
     const t = this.types[this.core_ti2d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1);
+    return new t.factory(t, x0, x1);
   }
 
   createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
     const t = this.types[this.core_ti3d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2);
+    return new t.factory(t, x0, x1, x2);
   }
 
   createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
     const t = this.types[this.core_ti4d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2, x3);
+    return new t.factory(t, x0, x1, x2, x3);
   }
 
   // prettier-ignore
@@ -294,8 +285,7 @@ export class Abi {
     x4: bigint | number,
   ) {
     const t = this.types[this.core_ti5d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2, x3, x4);
+    return new t.factory(t, x0, x1, x2, x3, x4);
   }
 
   createTu6d(
@@ -307,8 +297,7 @@ export class Abi {
     x5: bigint | number,
   ) {
     const t = this.types[this.core_ti6d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2, x3, x4, x5);
+    return new t.factory(t, x0, x1, x2, x3, x4, x5);
   }
 
   createTu10d(
@@ -324,26 +313,22 @@ export class Abi {
     x9: bigint | number,
   ) {
     const t = this.types[this.core_ti10d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+    return new t.factory(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
   }
 
   createTuf2d(x0: number, x1: number) {
     const t = this.types[this.core_tf2d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1);
+    return new t.factory(t, x0, x1);
   }
 
   createTuf3d(x0: number, x1: number, x2: number) {
     const t = this.types[this.core_tf3d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2);
+    return new t.factory(t, x0, x1, x2);
   }
 
   createTuf4d(x0: number, x1: number, x2: number, x3: number) {
     const t = this.types[this.core_tf4d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new t.factory!(t, x0, x1, x2, x3);
+    return new t.factory(t, x0, x1, x2, x3);
   }
 }
 
@@ -406,9 +391,6 @@ export class AbiType {
         attrs[att.mapped_att_offset] = value;
       }
     }
-    if (programType.factory == null) {
-      return new GCObject(programType, attrs);
-    }
     return new programType.factory(programType, ...attrs);
   };
 
@@ -416,7 +398,7 @@ export class AbiType {
   readonly enum_values: GCEnum[] | null;
   static_values: Value[];
   readonly loader: ILoader;
-  readonly factory: IFactory | null;
+  readonly factory: IFactory;
   generated_offsets: number[] = [];
 
   constructor(
@@ -436,7 +418,7 @@ export class AbiType {
     readonly is_masked: boolean,
     readonly attrs: AbiAttribute[],
     loader: ILoader | undefined,
-    factory: IFactory | undefined,
+    factory: IFactory = GCObject,
     readonly abi: Abi,
   ) {
     this.attrs_by_name = new Map();

@@ -14,8 +14,7 @@ export class time extends GCObject {
 
   static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): time {
     const ty = g.abi.types[g.abi.core_time_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as core.time;
+    return new ty.factory(ty, value) as core.time;
   }
 
   static fromDate(date: Date, g: GreyCat = globalThis.greycat.default): core.time {
@@ -24,14 +23,12 @@ export class time extends GCObject {
 
   static fromMs(epochMs: number, g: GreyCat = globalThis.greycat.default): core.time {
     const ty = g.abi.types[g.abi.core_time_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, epochMs * 1000) as core.time;
+    return new ty.factory(ty, epochMs * 1000) as core.time;
   }
 
   static load(r: AbiReader, ty: AbiType): core.time {
     const value = r.read_vi64();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as core.time;
+    return new ty.factory(ty, value) as core.time;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -101,6 +98,10 @@ export class time extends GCObject {
     const locales = globalThis.navigator ? globalThis.navigator.language : undefined;
     options.timeZone = tz.value as string;
     return new Intl.DateTimeFormat(locales, options).format(this.epochMs);
+  }
+
+  override toString(): string {
+    return new Date(this.epochMs).toISOString();
   }
 
   override toJSON() {

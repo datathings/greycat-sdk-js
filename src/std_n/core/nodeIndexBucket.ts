@@ -1,6 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import { GCObject } from '../../index.js';
 
 export class nodeIndexBucket extends GCObject {
   static readonly _type = 'core::nodeIndexBucket' as const;
@@ -16,13 +15,12 @@ export class nodeIndexBucket extends GCObject {
     }
   }
 
-  static load(r: AbiReader, type: AbiType): nodeIndexBucket {
+  static load(r: AbiReader, type: AbiType): core.nodeIndexBucket {
     const len = r.read_u32();
     const attrs = new Array(len);
     for (let i = 0; i < len; i++) {
       attrs[i] = r.deserialize();
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, attrs) as nodeIndexBucket;
+    return new type.factory(type, attrs) as core.nodeIndexBucket;
   }
 }

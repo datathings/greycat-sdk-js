@@ -9,4 +9,3 @@ export * from './Queue.js';
 export * from './SlidingWindow.js';
 export * from './TimeWindow.js';
 export * from './Quantizer.js';
-export * from './ByteArray.js';

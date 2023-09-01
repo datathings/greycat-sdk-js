@@ -21,8 +21,7 @@ export class Date extends GCObject {
     // safety: if core.TimeZone does not exist, you have bigger problems
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const tz = tzType.enum_values![tzFieldOff];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, localizedEpochS, epochUs, tz) as core.Date;
+    return new type.factory(type, localizedEpochS, epochUs, tz) as core.Date;
   }
 
   override saveContent(w: AbiWriter) {
@@ -51,6 +50,10 @@ export class Date extends GCObject {
     // this is for Node.js compat (no `navigator` in Node.js)
     const locales = globalThis.navigator ? globalThis.navigator.language : undefined;
     return new Intl.DateTimeFormat(locales, { timeZone: this.timeZone.value as string }).format(this.toDate());
+  }
+
+  override toString(): string {
+    return this.iso;
   }
 
   override toJSON() {

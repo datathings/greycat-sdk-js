@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, core } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, ml, core } from '../../index.js';
+import { GCObject } from '../../index.js';
 
 export class GaussianND extends GCObject {
   static readonly _type = 'ml::GaussianND' as const;
@@ -37,14 +37,13 @@ export class GaussianND extends GCObject {
     w.serialize(this.sumsq);
   }
 
-  static load(r: AbiReader, type: AbiType): GaussianND {
+  static load(r: AbiReader, type: AbiType): ml.GaussianND {
     const count = r.read_i64();
     const min = r.deserialize() as core.Tensor | null;
     const max = r.deserialize() as core.Tensor | null;
     const sum = r.deserialize() as core.Tensor | null;
     const sumsq = r.deserialize() as core.Tensor | null;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, count, min, max, sum, sumsq) as GaussianND;
+    return new type.factory(type, count, min, max, sum, sumsq) as ml.GaussianND;
   }
 }

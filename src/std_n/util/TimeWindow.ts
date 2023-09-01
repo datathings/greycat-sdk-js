@@ -1,6 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { Value } from '../../types.js';
+import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class TimeWindow extends GCObject {
@@ -36,7 +34,7 @@ export class TimeWindow extends GCObject {
     }
   }
 
-  static load(r: AbiReader, type: AbiType): TimeWindow {
+  static load(r: AbiReader, type: AbiType): util.TimeWindow {
     const timeWidth = r.read_vi64();
     const sum_type = r.read_u8();
     const sum = r.read_f64();
@@ -52,11 +50,10 @@ export class TimeWindow extends GCObject {
       values[i] = new TimedValue(time, value);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, timeWidth, sum_type, sum, sumsq, size, capacity, head, tail, values) as TimeWindow;
+    return new type.factory(type, timeWidth, sum_type, sum, sumsq, size, capacity, head, tail, values) as util.TimeWindow;
   }
 }
 
 export class TimedValue {
-  constructor(public time: bigint, public value: Value) {}
+  constructor(public time: bigint, public value: Value) { }
 }

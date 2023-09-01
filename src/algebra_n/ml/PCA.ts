@@ -1,7 +1,5 @@
-import type { AbiType } from '../../abi.js';
-import type { AbiReader, AbiWriter } from '../../io.js';
-import type { core } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, ml, core } from '../../index.js';
+import { GCObject } from '../../index.js';
 
 export class PCA extends GCObject {
   static readonly _type = 'ml::PCA' as const;
@@ -39,7 +37,7 @@ export class PCA extends GCObject {
     w.serialize(this.dim_info);
   }
 
-  static load(r: AbiReader, type: AbiType): PCA {
+  static load(r: AbiReader, type: AbiType): ml.PCA {
     const best_dim = r.read_i32();
     const selected_dim = r.read_i32();
     const threshold = r.read_f64();
@@ -53,8 +51,7 @@ export class PCA extends GCObject {
     const space_cropped = r.deserialize() as core.Tensor | null;
     const dim_info = r.deserialize() as core.Tensor | null;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(
+    return new type.factory(
       type,
       best_dim,
       selected_dim,
@@ -68,6 +65,6 @@ export class PCA extends GCObject {
       space_origin,
       space_cropped,
       dim_info,
-    ) as PCA;
+    ) as ml.PCA;
   }
 }

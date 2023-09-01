@@ -1,7 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { Value } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, Value, core } from '../../index.js';
 
 export class Error extends GCObject {
   static readonly _type = 'core::Error' as const;
@@ -16,7 +14,7 @@ export class Error extends GCObject {
     super(type);
   }
 
-  static load(r: AbiReader, type: AbiType): Error {
+  static load(r: AbiReader, type: AbiType): core.Error {
     const code = r.read_vu32();
     const frames_len = r.read_vu32();
     const msg_len = r.read_vu32();
@@ -27,8 +25,7 @@ export class Error extends GCObject {
     const msg = r.read_string(msg_len);
     const value = r.deserialize();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, code, msg, value, frames) as Error;
+    return new type.factory(type, code, msg, value, frames) as core.Error;
   }
 
   static fromJSON(o: unknown): Error {

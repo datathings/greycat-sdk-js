@@ -1,5 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class HistogramFloat extends GCObject {
@@ -56,7 +55,7 @@ export class HistogramFloat extends GCObject {
     w.write_i64(this.total_count);
   }
 
-  static load(r: AbiReader, type: AbiType): HistogramFloat {
+  static load(r: AbiReader, type: AbiType): util.HistogramFloat {
     const real_min = r.read_f64();
     const real_max = r.read_f64();
     const min = r.read_f64();
@@ -79,8 +78,7 @@ export class HistogramFloat extends GCObject {
     const counts_len = r.read_i32();
     const total_count = r.read_i64();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(
+    return new type.factory(
       type,
       real_min,
       real_max,
@@ -103,6 +101,6 @@ export class HistogramFloat extends GCObject {
       normalizing_index_offset,
       counts_len,
       total_count,
-    ) as HistogramFloat;
+    ) as util.HistogramFloat;
   }
 }

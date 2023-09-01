@@ -1,5 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class GaussianProfile extends GCObject {
@@ -15,11 +14,10 @@ export class GaussianProfile extends GCObject {
     w.write_all(this.data);
   }
 
-  static load(r: AbiReader, type: AbiType): GaussianProfile {
+  static load(r: AbiReader, type: AbiType): util.GaussianProfile {
     const size = r.read_u32();
     const bin_len = r.read_u32();
     const data = r.take(bin_len);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, size, data) as GaussianProfile;
+    return new type.factory(type, size, data) as util.GaussianProfile;
   }
 }

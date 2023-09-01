@@ -11,63 +11,53 @@ export class duration extends GCObject {
 
   static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as duration;
+    return new ty.factory(ty, value) as duration;
   }
 
   static from_ms(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 1_000) as core.duration;
+    return new ty.factory(ty, value * 1_000) as core.duration;
   }
 
   static from_secs(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 1_000_000) as core.duration;
+    return new ty.factory(ty, value * 1_000_000) as core.duration;
   }
 
   static from_mins(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 60_000_000) as core.duration;
+    return new ty.factory(ty, value * 60_000_000) as core.duration;
   }
 
   static from_hours(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 3_600_000_000) as core.duration;
+    return new ty.factory(ty, value * 3_600_000_000) as core.duration;
   }
 
   static from_days(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 86_400_000_000) as core.duration;
+    return new ty.factory(ty, value * 86_400_000_000) as core.duration;
   }
 
   static from_weeks(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 604_800_000_000) as core.duration;
+    return new ty.factory(ty, value * 604_800_000_000) as core.duration;
   }
 
   static from_months(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 2_630_016_000_000) as core.duration;
+    return new ty.factory(ty, value * 2_630_016_000_000) as core.duration;
   }
 
   static from_years(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value * 31_536_000_000_000) as core.duration;
+    return new ty.factory(ty, value * 31_536_000_000_000) as core.duration;
   }
 
 
-  static load(r: AbiReader, ty: AbiType): duration {
+  static load(r: AbiReader, ty: AbiType): core.duration {
     const value = r.read_vi64();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as duration;
+    return new ty.factory(ty, value) as core.duration;
   }
 
   override saveHeader(w: AbiWriter): void {

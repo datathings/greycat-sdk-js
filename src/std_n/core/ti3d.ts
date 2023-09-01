@@ -14,14 +14,12 @@ export class ti3d extends GCObject {
 
   static create(x0: number, x1: number, x2: number, g: GreyCat = globalThis.greycat.default): ti3d {
     const ty = g.abi.types[g.abi.core_ti3d_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2) as ti3d;
+    return new ty.factory(ty, x0, x1, x2) as ti3d;
   }
 
   static load(r: AbiReader, ty: AbiType): ti3d {
     const [x0, x1, x2] = deinterleave64_3di(r.read_u64());
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, x0, x1, x2) as ti3d;
+    return new ty.factory(ty, x0, x1, x2) as ti3d;
   }
 
   static fromJSON(o: unknown): ti3d {

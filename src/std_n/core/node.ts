@@ -1,7 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import { GCObject, PrimitiveType } from '../../index.js';
 
 export class node extends GCObject {
   static readonly _type = 'core::node' as const;
@@ -10,15 +8,9 @@ export class node extends GCObject {
     super(type);
   }
 
-  static load(r: AbiReader, ty: AbiType): node {
+  static load(r: AbiReader, ty: AbiType): core.node {
     const value = r.read_vu64_bigint();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as node;
-  }
-
-  static fromJSON(o: unknown): node {
-    Object.setPrototypeOf(o, node.prototype);
-    return o as node;
+    return new ty.factory(ty, value) as core.node;
   }
 
   override saveHeader(w: AbiWriter): void {

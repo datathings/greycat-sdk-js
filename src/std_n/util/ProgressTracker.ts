@@ -1,5 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class ProgressTracker extends GCObject {
@@ -38,7 +37,7 @@ export class ProgressTracker extends GCObject {
     w.write_i64(this.remaining_time);
   }
 
-  static load(r: AbiReader, type: AbiType): ProgressTracker {
+  static load(r: AbiReader, type: AbiType): util.ProgressTracker {
     const initial_time = r.read_i64();
     const last_time = r.read_i64();
     const previous_time = r.read_i64();
@@ -52,8 +51,7 @@ export class ProgressTracker extends GCObject {
     const progress = r.read_f64();
     const remaining_time = r.read_i64();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(
+    return new type.factory(
       type,
       initial_time,
       last_time,
@@ -67,6 +65,6 @@ export class ProgressTracker extends GCObject {
       step_speed,
       progress,
       remaining_time,
-    ) as ProgressTracker;
+    ) as util.ProgressTracker;
   }
 }

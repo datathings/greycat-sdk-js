@@ -10,10 +10,9 @@ export class geo extends GCObject {
     super(type);
   }
 
-  static create(value: bigint, g: GreyCat = globalThis.greycat.default): geo {
+  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.geo {
     const ty = g.abi.types[g.abi.core_geo_offset];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value) as geo;
+    return new ty.factory(ty, value) as core.geo;
   }
 
   /**
@@ -30,16 +29,9 @@ export class geo extends GCObject {
     return geoDecode(value);
   }
 
-  static load(r: AbiReader, ty: AbiType): geo {
+  static load(r: AbiReader, ty: AbiType): core.geo {
     const value = r.read_u64();
-    const [lat, lng] = geoDecode(value);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, value, lat, lng) as geo;
-  }
-
-  static fromJSON(o: unknown): geo {
-    Object.setPrototypeOf(o, geo.prototype);
-    return o as geo;
+    return new ty.factory(ty, value) as core.geo;
   }
 
   get lat(): number {

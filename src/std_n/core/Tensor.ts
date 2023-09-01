@@ -39,8 +39,7 @@ export class Tensor extends GCObject {
     }
     const size = r.read_i32();
     if (nb_dim === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return new ty.factory!(ty, shape, tensorType, size, null) as core.Tensor;
+      return new ty.factory(ty, shape, tensorType, size, null) as core.Tensor;
     }
 
     const data = new Array(shape[0]);
@@ -72,8 +71,7 @@ export class Tensor extends GCObject {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new ty.factory!(ty, shape, tensorType, size, data) as core.Tensor;
+    return new ty.factory(ty, shape, tensorType, size, data) as core.Tensor;
   }
 
   override saveContent(w: AbiWriter): void {

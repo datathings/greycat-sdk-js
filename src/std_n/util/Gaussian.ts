@@ -1,5 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Gaussian extends GCObject {
@@ -34,7 +33,7 @@ export class Gaussian extends GCObject {
     w.write_f64(this.maxBound);
   }
 
-  static load(r: AbiReader, type: AbiType): Gaussian {
+  static load(r: AbiReader, type: AbiType): util.Gaussian {
     const sum = r.read_f64();
     const sumSq = r.read_f64();
     const size = r.read_vi64();
@@ -46,8 +45,7 @@ export class Gaussian extends GCObject {
     const minBound = r.read_f64();
     const maxBound = r.read_f64();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(
+    return new type.factory(
       type,
       sum,
       sumSq,
@@ -59,6 +57,6 @@ export class Gaussian extends GCObject {
       max,
       minBound,
       maxBound,
-    ) as Gaussian;
+    ) as util.Gaussian;
   }
 }

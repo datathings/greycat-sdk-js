@@ -1,6 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { Value } from '../../types.js';
+import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Queue extends GCObject {
@@ -40,7 +38,7 @@ export class Queue extends GCObject {
     }
   }
 
-  static load(r: AbiReader, type: AbiType): Queue {
+  static load(r: AbiReader, type: AbiType): util.Queue {
     /* const width = */ r.read_vi64();
     const size = r.read_vu32();
     const capacity = r.read_vu32();
@@ -57,8 +55,7 @@ export class Queue extends GCObject {
       r.deserialize(); // read empty slots to reach capacity
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, queue) as Queue;
+    return new type.factory(type, queue) as util.Queue;
   }
 }
 

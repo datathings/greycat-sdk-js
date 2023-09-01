@@ -1,5 +1,4 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
 export class Buffer extends GCObject {
@@ -14,10 +13,9 @@ export class Buffer extends GCObject {
     w.write_all(this.data);
   }
 
-  static load(r: AbiReader, type: AbiType): Buffer {
+  static load(r: AbiReader, type: AbiType): util.Buffer {
     const len = r.read_vu32();
     const data = r.take(len);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new type.factory!(type, data) as Buffer;
+    return new type.factory(type, data) as util.Buffer;
   }
 }

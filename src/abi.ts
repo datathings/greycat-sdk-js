@@ -347,6 +347,10 @@ export class AbiType {
   static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
     const attrs = new Array(programType.attrs.length);
+    // initialize every elements to null
+    for (let i = 0; i < attrs.length; i++) {
+      attrs[i] = null;
+    }
     const previous_nullable = r.take(type.nullable_nb_bytes);
     let nullable_offset = -1;
     for (let attOffset = 0; attOffset < type.attrs.length; attOffset++) {

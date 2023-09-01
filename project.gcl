@@ -359,3 +359,10 @@ fn gaussianND() {
   gaussian.learn(tensor);
   return gaussian;
 }
+
+type Foo { a: int?; }
+
+@expose
+fn foo(): Foo {
+  return Foo {};
+}

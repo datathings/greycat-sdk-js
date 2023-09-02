@@ -1,7 +1,7 @@
 // @ts-check
 import { GreyCat, TaskHandler } from './dist/esm/index.js';
 
-global.greycat.default = await GreyCat.init();
+const greycat = (global.greycat.default = await GreyCat.init());
 
 /** @type {import('./dist/esm/index.js').runtime.Task} */
 const task = await global.greycat.default.call('project::longTask');

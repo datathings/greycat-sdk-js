@@ -155,7 +155,7 @@ export class GreyCat {
     } else if (res.status === 404) {
       // not found
       debugLogger(res.status, method, params, null);
-      throw new Error(`unknown method "${method}"`);
+      throw new Error(`Unknown method '${method}'`);
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);
@@ -169,6 +169,8 @@ export class GreyCat {
 
   /**
    * Serializes the given `value` into ABI-compliant binary format.
+   * 
+   * *If you want to re-use the write buffer, to reduce allocations, use `AbiWriter` directly*
    */
   serialize(value: Value): Uint8Array {
     const writer = new AbiWriter(this.abi, this.capacity);
@@ -179,16 +181,88 @@ export class GreyCat {
   /**
    * Deserializes one value from the given `ArrayBuffer`.
    */
-  deserialize(data: Uint8Array): Value {
-    return new AbiReader(this.abi, data.buffer).deserialize();
+  deserialize(data: ArrayBuffer): Value {
+    return new AbiReader(this.abi, data).deserialize();
   }
 
   /**
-   * Deserializes ABI headers, then
-   * deserializes one value from the given `ArrayBuffer`
+   * Deserializes ABI headers, then deserializes one value from the given `ArrayBuffer`.
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
     return new AbiReader(this.abi, data).deserializeWithHeaders();
+  }
+
+  /**
+   * Downloads a file from GreyCat.
+   * 
+   * Deserializes the content of the file based on the extension:
+   * 
+   *  - `.json`: deserializes the payload as JSON
+   *  - `.gcb`: deserializes the payload as GreyCat instance if `filepath` ends with `.gcb`, returns the `ArrayBuffer` otherwise
+   *  - `others`: returns the payload as a string
+   * 
+   * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
+   * @param signal optional `AbortSignal` to cancel the request prematurely
+   * @returns 
+   */
+  async getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T> {
+    const route = `files/${filepath}`;
+    const res = await fetch(`${this.api}/${route}`, { signal });
+    if (res.ok) {
+      debugLogger(res.status, route);
+      if (filepath.endsWith('.json')) {
+        return res.json();
+      } else if (filepath.endsWith('.gcb')) {
+        const data = await res.arrayBuffer();
+        return this.deserialize(new Uint8Array(data)) as T;
+      }
+      return res.text() as T;
+    }
+    if (res.status === 404) {
+      debugLogger(res.status, route);
+      throw new Error(`file '${filepath}' not found`);
+    } else if (res.status === 403) {
+      // forbidden
+      debugLogger(res.status, route);
+      throw new Error(`file '${filepath}' access forbidden`);
+    } else if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, route);
+      this.token = undefined;
+      this.unauthorizedHandler?.();
+      throw new Error(`you must be logged-in to access files`);
+    }
+    throw new Error(`unexpected error while getting file '${filepath}'`);
+  }
+
+  /**
+   * Uploads a file to GreyCat.
+   * 
+   * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
+   * @param file the file to upload
+   * @param signal optional `AbortSignal` to cancel the request prematurely
+   */
+  async putFile(filepath: string, file: File, signal?: AbortSignal): Promise<void> {
+    const route = `files/${filepath}`;
+    const res = await fetch(`${this.api}/${route}`, { method: 'PUT', body: file, signal });
+    if (res.ok) {
+      return;
+    }
+    if (res.status === 404) {
+      debugLogger(res.status, route);
+      throw new Error(`file '${filepath}' not found`);
+    } else if (res.status === 403) {
+      // forbidden
+      debugLogger(res.status, route);
+      throw new Error(`file '${filepath}' access forbidden`);
+    } else if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, route);
+      this.token = undefined;
+      this.unauthorizedHandler?.();
+      throw new Error(`you must be logged-in to access files`);
+    }
+    throw new Error(`unexpected error while getting file '${filepath}'`);
   }
 
   /**

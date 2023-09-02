@@ -318,6 +318,12 @@ task longTask() {
 }
 
 @expose
+task computeTask() {
+  var writer = TextWriter::new("${File::taskDir()}/foo.txt");
+  writer.write(42);
+}
+
+@expose
 fn testTensor(): Tensor {
   var t = Tensor {};
   t.init(TensorType::f64, [2, 10]);

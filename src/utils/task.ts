@@ -33,7 +33,7 @@ export class TaskHandler {
    * @param callback an optional callback function that will be called every time the new info are polled
    * @returns 
    */
-  async start(delay = 2000, callback?: (info: runtime.TaskInfo) => void): Promise<runtime.TaskInfo | null> {
+  start(delay = 2000, callback?: (info: runtime.TaskInfo) => void): Promise<runtime.TaskInfo | null> {
     if (this._promise) {
       // already started
       return this._promise;

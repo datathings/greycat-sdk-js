@@ -219,7 +219,6 @@ export class Abi {
         type === 0
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
-      console.log({ fqn, arity, });
       this.functions[i] = new AbiFunction(
         lib === 0 ? 'project' : this.symbols[lib],
         this.symbols[module],

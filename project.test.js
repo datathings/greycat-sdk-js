@@ -84,9 +84,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 12, column: 17 },
-        { module: 'project', fn: 'write_std', line: 17, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 91, column: 36 },
+        { module: 'project', fn: 'main', line: 13, column: 17 },
+        { module: 'project', fn: 'write_std', line: 18, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 92, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -365,6 +365,9 @@ describe('project', () => {
     // algebra::ml
     { _type: 'ml::GaussianND' },
     { _type: 'ml::GaussianND' },
+
+    // algebra::compute
+    { _type: 'compute::ComputeActivationSigmoid' },
   ];
 
   before(async () => {

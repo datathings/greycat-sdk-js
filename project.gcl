@@ -6,6 +6,7 @@ use runtime;
 use util;
 
 use ml;
+use compute;
 
 fn main() {
   var out = GcbWriter::new("project.test.gcb");
@@ -289,6 +290,11 @@ fn write_std_util(out: GcbWriter) {
 }
 
 fn write_algebra(out: GcbWriter) {
+  write_algebra_ml(out);
+  write_algebra_compute(out);
+}
+
+fn write_algebra_ml(out: GcbWriter) {
   out.write(GaussianND {});
   var gaussian = GaussianND {};
   var tensor = Tensor {};
@@ -296,6 +302,10 @@ fn write_algebra(out: GcbWriter) {
   tensor.add([0, 0], 0.0);
   gaussian.learn(tensor);
   out.write(gaussian);
+}
+
+fn write_algebra_compute(out: GcbWriter) {
+  out.write(ComputeActivationSigmoid {});
 }
 
 @expose

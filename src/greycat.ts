@@ -344,7 +344,7 @@ export type LogoutOptions = {
 /**
  * @param {LogoutOptions} opts
  */
-export async function logout({ url = DEFAULT_URL, signal }: LogoutOptions): Promise<void> {
+export async function logout({ url = DEFAULT_URL, signal }: LogoutOptions = {}): Promise<void> {
   const res = await fetch(`${normalizeUrl(url)}/runtime::User::logout`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },

@@ -1,7 +1,7 @@
 import { Abi } from './abi.js';
 import { stdlib } from './index.js';
 import * as std from './std/index.js';
-import { Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
+import { Auth, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
@@ -34,7 +34,13 @@ export class GreyCat {
   /** called when a request returns a status code 401 */
   unauthorizedHandler: (() => void) | undefined;
 
-  private constructor(api: string, abi: Abi, capacity = 2048, token?: string, unauthorizedHandler?: () => void) {
+  private constructor(
+    api: string,
+    abi: Abi,
+    capacity = 2048,
+    token?: string,
+    unauthorizedHandler?: () => void,
+  ) {
     this.api = api;
     this.abi = abi;
     this.capacity = capacity;
@@ -46,16 +52,25 @@ export class GreyCat {
    * Initializes a GreyCat RPC client using the given `options.url`.
    *
    * This method is asynchronous as we need to download the server ABI in order to serialize/deserialize the future requests.
-   * 
+   *
    * *If the `auth` property is given, a first call to `runtime::User::login` will be made before anything else.*
-   * 
+   *
    * *For `libraries`, specifying `stdlib` is not required as it will always be loaded by default.*
-   * 
+   *
    * @param options
    * @returns a GreyCat instance to initiate call requests to the backend.
    * @throws on IO and ABI parse errors
    */
-  static async init({ url = DEFAULT_URL, libraries = [stdlib], capacity, signal, auth, unauthorizedHandler }: WithoutAbiOptions = { url: DEFAULT_URL }): Promise<GreyCat> {
+  static async init(
+    {
+      url = DEFAULT_URL,
+      libraries = [stdlib],
+      capacity,
+      signal,
+      auth,
+      unauthorizedHandler,
+    }: WithoutAbiOptions = { url: DEFAULT_URL },
+  ): Promise<GreyCat> {
     if (libraries.indexOf(stdlib) === -1) {
       // ensures 'stdlib' is always loaded
       libraries.push(stdlib);
@@ -64,23 +79,7 @@ export class GreyCat {
 
     let token: string | undefined;
     if (auth) {
-      const credentials = btoa(`${auth.username}:${sha256hex(auth.password)}`);
-      const res = await fetch(
-        `${cleanUrl}/runtime::User::login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify([credentials, auth.use_cookie ?? false]),
-          signal
-        },
-      );
-      if (!res.ok) {
-        throw new Error(`unable to login (${res.status} ${res.statusText})`);
-      }
-      token = await res.json();
+      token = await login({ ...auth, url, signal });
     }
 
     const abiReqOpts: RequestInit = { method: 'POST', signal };
@@ -105,7 +104,13 @@ export class GreyCat {
     return new GreyCat(cleanUrl, abi, capacity, token, unauthorizedHandler);
   }
 
-  static initWithAbi({ url = DEFAULT_URL, capacity, abi, token, unauthorizedHandler }: WithAbiOptions): GreyCat {
+  static initWithAbi({
+    url = DEFAULT_URL,
+    capacity,
+    abi,
+    token,
+    unauthorizedHandler,
+  }: WithAbiOptions): GreyCat {
     return new GreyCat(normalizeUrl(url), abi, capacity, token, unauthorizedHandler);
   }
 
@@ -176,7 +181,7 @@ export class GreyCat {
 
   /**
    * Serializes the given `value` into ABI-compliant binary format.
-   * 
+   *
    * *If you want to re-use the write buffer, to reduce allocations, use `AbiWriter` directly*
    */
   serialize(value: Value): Uint8Array {
@@ -201,16 +206,16 @@ export class GreyCat {
 
   /**
    * Downloads a file from GreyCat.
-   * 
+   *
    * Deserializes the content of the file based on the extension:
-   * 
+   *
    *  - `.json`: deserializes the payload as JSON
    *  - `.gcb`: deserializes the payload as GreyCat instance if `filepath` ends with `.gcb`, returns the `ArrayBuffer` otherwise
    *  - `others`: returns the payload as a string
-   * 
+   *
    * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
    * @param signal optional `AbortSignal` to cancel the request prematurely
-   * @returns 
+   * @returns
    */
   async getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T> {
     const route = `files/${filepath}`;
@@ -244,14 +249,18 @@ export class GreyCat {
 
   /**
    * Uploads a file to GreyCat.
-   * 
+   *
    * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
    * @param file the file to upload
    * @param signal optional `AbortSignal` to cancel the request prematurely
    */
   async putFile(filepath: string, file: File, signal?: AbortSignal): Promise<void> {
     const route = `files/${filepath}`;
-    const res = await fetch(`${this.api}/${route}`, { method: 'PUT', body: file, signal });
+    const res = await fetch(`${this.api}/${route}`, {
+      method: 'PUT',
+      body: file,
+      signal,
+    });
     if (res.ok) {
       return;
     }
@@ -275,8 +284,8 @@ export class GreyCat {
   /**
    * Constructs a non-native type by resolving the AbiType from its fqn and passing in the attributes values
    * @param name non-native type fqn (eg. 'runtime::User')
-   * @param attributes 
-   * @returns 
+   * @param attributes
+   * @returns
    */
   create(name: string, attributes: Value[]) {
     return this.abi.create(name, attributes);
@@ -293,6 +302,58 @@ export class GreyCat {
   createDuration(value: bigint | number) {
     return this.abi.createDuration(typeof value === 'bigint' ? value : BigInt(value));
   }
+}
+
+export type LoginOptions = Auth & {
+  url?: URL;
+  signal?: AbortSignal;
+};
+
+/**
+ * 
+ * @param {LoginOptions} opts
+ * @returns the user token
+ */
+export async function login({
+  username,
+  password,
+  use_cookie = false,
+  url = DEFAULT_URL,
+  signal,
+}: LoginOptions): Promise<string> {
+  const credentials = btoa(`${username}:${sha256hex(password)}`);
+  const body = JSON.stringify([credentials, use_cookie]);
+  const res = await fetch(`${normalizeUrl(url)}/runtime::User::login`, {
+    method: 'POST',
+    body,
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    signal,
+  });
+
+  if (res.ok) {
+    return (await res.json()) as string;
+  }
+  throw new Error(`unable to login (${res.status} ${res.statusText})`);
+}
+
+export type LogoutOptions = {
+  url?: URL;
+  signal?: AbortSignal;
+};
+
+/**
+ * @param {LogoutOptions} opts
+ */
+export async function logout({ url = DEFAULT_URL, signal }: LogoutOptions): Promise<void> {
+  const res = await fetch(`${normalizeUrl(url)}/runtime::User::logout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    signal,
+  });
+  if (res.ok) {
+    return;
+  }
+  throw new Error(`unable to logout (${res.status} ${res.statusText})`);
 }
 
 function normalizeUrl(url: URL): string {

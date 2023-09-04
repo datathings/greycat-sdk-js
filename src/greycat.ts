@@ -89,8 +89,15 @@ export class GreyCat {
         Authorization: token,
       };
     }
-    const res = await fetch(`${cleanUrl}/runtime::Runtime::abi`, abiReqOpts);
-    if (!res.ok) {
+    const method = 'runtime::Runtime::abi';
+    const res = await fetch(`${cleanUrl}/${method}`, abiReqOpts);
+    if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, method);
+      // call handler if any
+      unauthorizedHandler?.();
+      throw new Error(`you need to be logged-in to access '${method}'`);
+    } else if (!res.ok) {
       throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
     }
     const data = await res.arrayBuffer();
@@ -147,15 +154,15 @@ export class GreyCat {
       this.token = undefined;
       // call handler if any
       this.unauthorizedHandler?.();
-      throw new Error(`You need to be logged-in to access '${method}'`);
+      throw new Error(`you need to be logged-in to access '${method}'`);
     } else if (res.status === 403) {
       // forbidden
       debugLogger(res.status, method, params);
-      throw new Error(`Access to '${method}' is forbidden`);
+      throw new Error(`access to '${method}' is forbidden`);
     } else if (res.status === 404) {
       // not found
       debugLogger(res.status, method, params, null);
-      throw new Error(`Unknown method '${method}'`);
+      throw new Error(`unknown method '${method}'`);
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);

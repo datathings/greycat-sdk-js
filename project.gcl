@@ -372,3 +372,8 @@ type Foo { a: int?; }
 fn foo(): Foo {
   return Foo {};
 }
+
+@expose
+task task_with_params(different: String, age: int) {
+  return different;
+}

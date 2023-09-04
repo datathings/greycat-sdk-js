@@ -208,7 +208,7 @@ export class Abi {
         const nullable = cursor.read_u8() === 1;
         const param_type = cursor.read_vu32();
         const param_symbol = cursor.read_vu32();
-        params[i] = new AbiParam(this.symbols[param_symbol], this.types[param_type], nullable);
+        params[p] = new AbiParam(this.symbols[param_symbol], this.types[param_type], nullable);
       }
       const return_type = cursor.read_vu32();
       const flags = cursor.read_u8();
@@ -219,8 +219,12 @@ export class Abi {
         type === 0
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
+      console.log({ fqn, arity, });
       this.functions[i] = new AbiFunction(
-        lib,
+        lib === 0 ? 'project' : this.symbols[lib],
+        this.symbols[module],
+        type === 0 ? undefined : this.symbols[type],
+        this.symbols[name],
         module,
         type,
         name,
@@ -514,10 +518,13 @@ export class AbiAttribute {
 
 export class AbiFunction {
   constructor(
-    readonly lib: number,
-    readonly module: number,
-    readonly type: number,
-    readonly name: number,
+    readonly lib: string,
+    readonly module: string,
+    readonly type: string | undefined,
+    readonly name: string,
+    readonly module_id: number,
+    readonly type_id: number,
+    readonly name_id: number,
     readonly fqn: string,
     readonly params: AbiParam[],
     readonly return_type: AbiType,

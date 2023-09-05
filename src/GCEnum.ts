@@ -24,6 +24,10 @@ export class GCEnum extends GCObject {
     w.write_vu32(this.offset);
   }
 
+  override toString(): string {
+    return `${this.$type.name}::${this.key}`
+  }
+
   override toJSON() {
     return {
       _type: this.$type.name,

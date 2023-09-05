@@ -431,25 +431,26 @@ export class AbiType {
     this.attrs_by_name = new Map();
     this.enum_values = null;
     this.static_values = [];
-    if (is_enum) {
-      this.factory = factory ?? GCEnum;
-    } else {
-      this.factory = factory ?? GCObject;
-    }
 
     for (let i = 0; i < attrs.length; i++) {
+      // registers attribute offset by name
       this.attrs_by_name.set(attrs[i].name, i);
     }
-    if (offset === mapped_type_off) {
-      // this is a program type, so lets initialize all needed fields
-      // in case this is an enum, create all the values
-      if (is_enum) {
+
+    if (is_enum) {
+      this.factory = factory ?? GCEnum;
+
+      if (offset === mapped_type_off) {
+        // initialize all enum fields
         this.enum_values = new Array(attrs.length);
         for (let offset = 0; offset < attrs.length; offset++) {
           this.enum_values[offset] = new this.factory(this, offset, attrs[offset].name, null) as GCEnum;
         }
       }
+    } else {
+      this.factory = factory ?? GCObject;
     }
+
     if (loader != null) {
       this.loader = loader;
     } else if (this.is_native) {

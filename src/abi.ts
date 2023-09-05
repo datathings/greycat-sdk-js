@@ -425,13 +425,17 @@ export class AbiType {
     readonly is_masked: boolean,
     readonly attrs: AbiAttribute[],
     loader: ILoader | undefined,
-    factory: IFactory = GCObject,
+    factory: IFactory | undefined,
     readonly abi: Abi,
   ) {
     this.attrs_by_name = new Map();
     this.enum_values = null;
     this.static_values = [];
-    this.factory = factory ?? null;
+    if (is_enum) {
+      this.factory = factory ?? GCEnum;
+    } else {
+      this.factory = factory ?? GCObject;
+    }
 
     for (let i = 0; i < attrs.length; i++) {
       this.attrs_by_name.set(attrs[i].name, i);
@@ -442,11 +446,7 @@ export class AbiType {
       if (is_enum) {
         this.enum_values = new Array(attrs.length);
         for (let offset = 0; offset < attrs.length; offset++) {
-          if (factory == null) {
-            this.enum_values[offset] = new GCEnum(this, offset, attrs[offset].name, null);
-          } else {
-            this.enum_values[offset] = new factory(this, offset, attrs[offset].name, null) as GCEnum;
-          }
+          this.enum_values[offset] = new this.factory(this, offset, attrs[offset].name, null) as GCEnum;
         }
       }
     }

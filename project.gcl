@@ -387,3 +387,14 @@ fn foo(): Foo {
 task task_with_params(different: String, age: int) {
   return different;
 }
+
+enum Confidence {
+  High;
+  Medium;
+  Low;
+}
+
+@expose
+fn enum() {
+  return TimeZone::Europe_Andorra;
+}

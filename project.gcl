@@ -398,3 +398,28 @@ enum Confidence {
 fn enum() {
   return TimeZone::Europe_Andorra;
 }
+
+@expose
+@write
+fn table2(): Table<any?> {
+  var a = nodeTime<any?>::new();
+
+  for (var i = 0; i < 10; i++) {
+    if (i % 2 == 0) {
+      a.setAt(time::new(i, DurationUnit::hours), i);
+    } else {
+      a.setAt(time::new(i, DurationUnit::hours), null);
+    }
+  }
+
+  var t = nodeTime::sample([a], null, null, 100, SamplingMode::adaptative, null, null);
+  info(t);
+  return t;
+}
+
+@expose
+fn time() {
+  var v = 42_s + 1337_us;
+  var t = time::new(v.to(DurationUnit::microseconds), DurationUnit::microseconds);
+  return t;
+}

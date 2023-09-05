@@ -2,7 +2,7 @@
 import { GreyCat, algebralib, stdlib } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
-if (args.length !== 1) {
+if (args.length < 1) {
   console.log(`usage: node ${process.argv[1]} <path/to/endpoint>`);
   process.exit(1);
 }
@@ -14,7 +14,6 @@ const g = (global.greycat.default = await GreyCat.init({
 
 try {
   const value = await g.call(args[0]);
-  // console.dir({ ...value }, { depth: Infinity });
   displayValue(value);
 } catch (err) {
   console.error(`Error: ${err.message}`);

@@ -105,7 +105,7 @@ export class Table<_ extends Value = any> extends GCObject {
           break;
         }
         default:
-          // gc_undefined
+          // gc_type_undefined
           for (let row = 0; row < rows; row++) {
             values[row] = r.deserialize();
           }

@@ -337,7 +337,7 @@ export class Abi {
 
 export class AbiType {
   static readonly error_loader: ILoader = (_, type) => {
-    throw new Error(`no registered loader for '${type.name}'`);
+    throw new Error(`no registered loader for native type '${type.name}'`);
   };
   static readonly enum_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];

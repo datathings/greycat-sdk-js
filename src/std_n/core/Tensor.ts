@@ -54,7 +54,7 @@ export class Tensor extends GCObject {
             data[x][y] = r.read_f32();
             break;
           case TensorType.i64:
-            data[x][y] = r.read_i64();
+            data[x][y] = r.read_i64_number();
             break;
           case TensorType.f64:
             data[x][y] = r.read_f64();

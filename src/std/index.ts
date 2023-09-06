@@ -3640,10 +3640,10 @@ export namespace runtime {
       });
     }
 
-     static set_(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static set(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::SecurityFields::set', [f], $signal);
     }
-     static get_($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
+    static get($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
       return $g.call('runtime::SecurityFields::get', undefined, $signal);
     }
     static createFrom({email, name, first_name, last_name, roles, groups, }: {email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: globalThis.Map<string, string> | null, groups: globalThis.Map<string, string> | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
@@ -3840,13 +3840,13 @@ export namespace runtime {
       });
     }
 
-     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.UserRole>> {
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.UserRole>> {
       return $g.call('runtime::UserRole::all', undefined, $signal);
     }
-     static remove(name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static remove(name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::UserRole::remove', [name], $signal);
     }
-     static set_(value: runtime.UserRole, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static set(value: runtime.UserRole, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::UserRole::set', [value], $signal);
     }
     static createFrom({name, permissions, }: {name: string, permissions: globalThis.Array<string>, }, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
@@ -3934,7 +3934,7 @@ export namespace runtime {
       });
     }
 
-     static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
+    static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
       return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
     }
     static createFrom({entities, credentials, roles, fields, }: {entities: globalThis.Array<runtime.SecurityEntity>, credentials: globalThis.Map<string, runtime.UserCredential>, roles: globalThis.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, }, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
@@ -4155,7 +4155,7 @@ export namespace runtime {
       });
     }
 
-     static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
+    static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
       return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
     }
     static createFrom({url, clientId, }: {url: string, clientId: string, }, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
@@ -4352,10 +4352,10 @@ export namespace runtime {
       });
     }
 
-     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.PeriodicTask>> {
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.PeriodicTask>> {
       return $g.call('runtime::PeriodicTask::all', undefined, $signal);
     }
-     static set_(tasks: globalThis.Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static set(tasks: globalThis.Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::PeriodicTask::set', [tasks], $signal);
     }
     static createFrom({name, user_id, args, start, every, }: {name: string, user_id: bigint | number, args: string | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, }, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
@@ -4567,10 +4567,10 @@ export namespace runtime {
       });
     }
 
-     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
-     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
     static createFrom({id, name, activated, }: {id: bigint | number, name: string, activated: boolean, }, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityEntity {
@@ -4690,37 +4690,37 @@ export namespace runtime {
       });
     }
 
-     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
-     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
-     static login(credentials: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+    static login(credentials: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::login', [credentials, use_cookie], $signal);
     }
-     static tokenLogin(token: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+    static tokenLogin(token: string, use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::tokenLogin', [token, use_cookie], $signal);
     }
-     static renew(use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+    static renew(use_cookie: boolean, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::renew', [use_cookie], $signal);
     }
-     static logout($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static logout($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::User::logout', undefined, $signal);
     }
-     static current($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number> {
+    static current($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number> {
       return $g.call('runtime::User::current', undefined, $signal);
     }
-     static me($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.User> {
+    static me($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.User> {
       return $g.call('runtime::User::me', undefined, $signal);
     }
-     static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
+    static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
       return $g.call('runtime::User::permissions', undefined, $signal);
     }
-     static setPassword(name: string, pass: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
+    static setPassword(name: string, pass: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
       return $g.call('runtime::User::setPassword', [name, pass], $signal);
     }
-     static getToken(id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
+    static getToken(id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('runtime::User::getToken', [id], $signal);
     }
     static createFrom({id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external, }: {id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: globalThis.Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean, }, $g: $sdk.GreyCat = globalThis.greycat.default): User {
@@ -4810,16 +4810,16 @@ export namespace runtime {
       });
     }
 
-     static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.TaskInfo>> {
+    static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.TaskInfo>> {
       return $g.call('runtime::Task::running', undefined, $signal);
     }
-     static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.Task>> {
+    static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.Task>> {
       return $g.call('runtime::Task::history', [offset, max], $signal);
     }
-     static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
+    static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
       return $g.call('runtime::Task::cancel', [task_id], $signal);
     }
-     static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
+    static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
       return $g.call('runtime::Task::info', [user_id, task_id], $signal);
     }
     static createFrom({user_id, task_id, mod, type, fun, creation, status, }: {user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, status: runtime.TaskStatus, }, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
@@ -4869,10 +4869,10 @@ export namespace runtime {
       });
     }
 
-     static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
       return $g.call('runtime::SecurityEntity::all', undefined, $signal);
     }
-     static set_(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
       return $g.call('runtime::SecurityEntity::set', [entity], $signal);
     }
     static createFrom({id, name, activated, }: {id: bigint | number, name: string, activated: boolean, }, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
@@ -4890,10 +4890,10 @@ export namespace runtime {
       super(type, ...attributes);
     }
 
-     static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
+    static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
       return $g.call('runtime::Runtime::info', undefined, $signal);
     }
-     static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+    static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::Runtime::abi', undefined, $signal);
     }
     readModVar(module: string, name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {

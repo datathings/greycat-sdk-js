@@ -226,7 +226,7 @@ export class GreyCat {
         return res.json();
       } else if (filepath.endsWith('.gcb')) {
         const data = await res.arrayBuffer();
-        return this.deserialize(new Uint8Array(data)) as T;
+        return this.deserializeWithHeader(data) as T;
       }
       return res.text() as T;
     }

@@ -423,3 +423,8 @@ fn time() {
   var t = time::new(v.to(DurationUnit::microseconds), DurationUnit::microseconds);
   return t;
 }
+
+@expose
+task errorTask() {
+  throw "error message";
+}

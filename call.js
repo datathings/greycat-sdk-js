@@ -13,6 +13,8 @@ const g = (global.greycat.default = await GreyCat.init({
 }));
 
 try {
+  // [204,59,127,102,158,160,246,63]
+  // [205,59,127,102,158,160,256,63]
   const value = await g.call(args[0]);
   displayValue(value);
 } catch (err) {

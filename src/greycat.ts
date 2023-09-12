@@ -7,8 +7,11 @@ import { sha256hex } from './crypto/index.js';
 
 const DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://localhost:8080');
 
+globalThis.process = globalThis.process ?? {};
+globalThis.process.env = globalThis.process.env ?? {};
+
 const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
-  if (process.env['NODE_ENV'] && process.env['NODE_ENV'] !== 'production') {
+  if (process.env.NODE_ENV && process.env.NODE_ENV !== 'production') {
     const bg =
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       status >= 400 ? '#e8590c' : '#1983c1';

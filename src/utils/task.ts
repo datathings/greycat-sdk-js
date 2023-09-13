@@ -126,6 +126,10 @@ export class TaskHandler {
           }
         }
 
+        if (this.info) {
+          callback(this.info);
+        }
+
         return this.info;
       };
 

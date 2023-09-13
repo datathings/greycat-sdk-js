@@ -8,7 +8,7 @@ export function prettyError(err: unknown, defaultMsg: string): string {
     return err;
   }
   if (err instanceof core.Error) {
-    if (typeof err.msg === 'string') {
+    if (typeof err.msg === 'string' && err.msg.length > 0) {
       return err.msg;
     }
     if (typeof err.value === 'string') {

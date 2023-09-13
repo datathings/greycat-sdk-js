@@ -428,3 +428,13 @@ fn time() {
 task errorTask() {
   throw "error message";
 }
+
+@expose
+fn stringError() {
+  throw "my message";
+}
+
+@expose
+fn errorError() {
+  throw Error::new("my message wrapped in an Error");
+}

@@ -438,3 +438,7 @@ fn stringError() {
 fn errorError() {
   throw Error::new("my message wrapped in an Error");
 }
+
+fn writeResponse() {
+  GcbWriter::new("response.gcb").write({ hello: "world" });
+}

@@ -216,22 +216,38 @@ export class GreyCat {
    *  - `.gcb`: deserializes the payload as GreyCat instance if `filepath` ends with `.gcb`, returns the `ArrayBuffer` otherwise
    *  - `others`: returns the payload as a string
    *
+   * *This uses `getFileResponse(filepath, signal)` under-the-hood*.
+   * 
    * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
    * @param signal optional `AbortSignal` to cancel the request prematurely
    * @returns
    */
   async getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T> {
+    const res = await this.getFileResponse(filepath, signal);
+    if (filepath.endsWith('.json')) {
+      return res.json();
+    } else if (filepath.endsWith('.gcb')) {
+      const data = await res.arrayBuffer();
+      return this.deserializeWithHeader(data) as T;
+    }
+    return res.text() as T;
+  }
+
+  /**
+   * Request GreyCat for a file and returns the received `Response` on success.
+   * 
+   * *This method should be used when you want to keep control over "how" to read the body bytes (eg. `res.text()`, `res.arrayBuffer()`, etc.).*
+   *
+   * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
+   * @param signal optional `AbortSignal` to cancel the request prematurely
+   * @returns
+   */
+  async getFileResponse(filepath: string, signal?: AbortSignal): Promise<Response> {
     const route = `files/${filepath}`;
     const res = await fetch(`${this.api}/${route}`, { signal });
     if (res.ok) {
       debugLogger(res.status, route);
-      if (filepath.endsWith('.json')) {
-        return res.json();
-      } else if (filepath.endsWith('.gcb')) {
-        const data = await res.arrayBuffer();
-        return this.deserializeWithHeader(data) as T;
-      }
-      return res.text() as T;
+      return res;
     }
     if (res.status === 404) {
       debugLogger(res.status, route);

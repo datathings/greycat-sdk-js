@@ -15,6 +15,10 @@ export class geo extends GCObject {
     return new ty.factory(ty, value) as core.geo;
   }
 
+  static fromLatLng(lat: number, lng: number): core.geo {
+    return geo.create(geoEncode(lat, lng));
+  }
+
   /**
    * Morton encode's a `lat`, `lng` tuple into a `bigint` which is a valid GreyCat `geo` value
    */

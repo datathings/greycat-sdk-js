@@ -2,7 +2,8 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
-import * as m from './dist/esm/std_n/morton.js';
+import * as sdk from './dist/greycat.sdk.js';
+const m = sdk.std_n._morton;
 
 const INT32_MIN = -2147483648;
 const INT32_MAX = 2147483647;

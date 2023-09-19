@@ -10,14 +10,11 @@ sed -i -e "s/\"version\":\\s*\"0.0.0\"/\"version\": \"${VERSION}\"/g" package.js
 pnpm install
 pnpm test
 pnpm build
+pnpm pack
 
 mkdir -p dist/sdk/js
 
-# sdk/js/greycat-sdk.tgz
-pnpm pack
 mv greycat-sdk*.tgz dist/sdk/js/package.tgz
+mv dist/greycat.sdk.js dist/greycat.sdk.min.js dist/sdk/js/
 
-# sdk/js/greycat.sdk.min.js
-mv dist/bundle/greycat.sdk.min.js dist/sdk/js/
-
-rm -rf dist/esm dist/bundle
+rm -rf dist/types

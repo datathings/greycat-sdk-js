@@ -2,7 +2,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import * as $sdk from '@greycat/sdk';
+import * as $sdk from '../index.js';
 import * as std_n from '../std_n/index.js';
 
 export namespace core {

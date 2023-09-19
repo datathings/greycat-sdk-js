@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, GCEnum, algebralib, stdlib } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, GCEnum, algebralib, stdlib } from './dist/greycat.sdk.js';
 
 describe('project', () => {
   let abi, reader;

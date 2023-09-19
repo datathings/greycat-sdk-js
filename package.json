@@ -2,26 +2,28 @@
   "name": "@greycat/sdk",
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
+  "module": "dist/greycat.sdk.js",
+  "typings": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/greycat.sdk.js"
     }
   },
   "files": [
-    "dist/bundle",
-    "dist/esm"
+    "dist/greycat.sdk.js",
+    "dist/greycat.sdk.min.js",
+    "dist/types"
   ],
   "scripts": {
     "clean": "rm -rf dist",
     "gen": "pnpm gen:std && pnpm gen:algebra",
-    "gen:std": "greycat codegen --lib=std src/std",
-    "gen:algebra": "greycat codegen --lib=algebra src/algebra",
-    "build": "pnpm build:esm && pnpm build:bundle",
-    "build:esm": "tsc -b tsconfig.json",
-    "build:bundle": "esbuild --bundle src/bundle.ts --tsconfig=tsconfig.json --outfile=dist/bundle/greycat.sdk.min.js --minify",
+    "gen:std": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=std src/std",
+    "gen:algebra": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=algebra src/algebra",
+    "build": "pnpm build:types && pnpm build:esm && pnpm build:esm-min",
+    "build:esm": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.sdk.js --external:@greycat/sdk --allow-overwrite",
+    "build:esm-min": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.sdk.min.js --minify --external:@greycat/sdk --allow-overwrite",
+    "build:types": "tsc -b tsconfig.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/store/abi project.test.abi",
@@ -29,10 +31,9 @@
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "https://creativecommons.org/licenses/by-nd/4.0/legalcode.txt",
-  "dependencies": {
-    "slugify": "1.6.6"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "slugify": "1.6.6",
     "@types/node": "18.17.7",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "esbuild": "0.17.11",

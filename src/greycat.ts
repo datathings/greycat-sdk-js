@@ -5,7 +5,12 @@ import { Auth, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
-const DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://localhost:8080');
+let DEFAULT_URL: URL;
+try {
+  DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://localhost:8080');
+} catch {
+  DEFAULT_URL = new URL('http://localhost:8080');
+}
 
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
@@ -152,6 +157,9 @@ export class GreyCat {
     });
     if (res.status >= 200 && res.status < 300) {
       const data = await res.arrayBuffer();
+      if (data.byteLength === 0) {
+        return null as T;
+      }
       const value = this.deserializeWithHeader(data);
       debugLogger(res.status, method, params, value);
       return value as T;

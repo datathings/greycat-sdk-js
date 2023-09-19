@@ -12,7 +12,7 @@ declare global {
 }
 
 // volontary forget about 'default: sdk.GreyCat'
-globalThis.greycat = globalThis.greycat ?? {};
+globalThis.greycat = globalThis.greycat ?? { default: null as unknown as sdk.GreyCat };
 Object.assign(globalThis.greycat, sdk);
 
 export * from './exports.js';

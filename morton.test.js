@@ -2,7 +2,7 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
-import * as sdk from './dist/greycat.sdk.js';
+import * as sdk from './dist/greycat.js';
 const m = sdk.std_n._morton;
 
 const INT32_MIN = -2147483648;

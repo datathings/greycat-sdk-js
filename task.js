@@ -1,9 +1,8 @@
-// @ts-check
-import { GreyCat, TaskHandler } from './dist/esm/index.js';
+import { GreyCat, TaskHandler } from './dist/greycat.js';
 
-const greycat = (globalThis.greycat.default = await GreyCat.init());
+const greycat = (global.greycat.default = await GreyCat.init());
 
-const task = await globalThis.greycat.default.call('project::errorTask');
+const task = await global.greycat.default.call('project::errorTask');
 const handler = new TaskHandler(task);
 await handler.start();
 const result = await greycat.getFile(`${task.user_id}/tasks/${task.task_id}/result.gcb`);

@@ -18,6 +18,6 @@ zip -r $file sdk
 curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.zip"
 curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/latest.zip"
 curl -s -X PUT -H "Authorization: $token" -T sdk/js/package.tgz "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.tgz"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.sdk.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.js"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.sdk.min.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.min.js"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.js"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.min.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.min.js"
 curl -s -X PUT -H "Authorization: $token" -d "${VERSION_MAJOR_MINOR}/${VERSION}" -H "Content-Type: text/plain" "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/latest"

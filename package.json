@@ -2,17 +2,17 @@
   "name": "@greycat/sdk",
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/greycat.sdk.js",
+  "module": "dist/greycat.js",
   "typings": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/greycat.sdk.js"
+      "import": "./dist/greycat.js"
     }
   },
   "files": [
-    "dist/greycat.sdk.js",
-    "dist/greycat.sdk.min.js",
+    "dist/greycat.js",
+    "dist/greycat.min.js",
     "dist/types"
   ],
   "scripts": {
@@ -21,8 +21,8 @@
     "gen:std": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=std src/std",
     "gen:algebra": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=algebra src/algebra",
     "build": "pnpm build:types && pnpm build:esm && pnpm build:esm-min",
-    "build:esm": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.sdk.js --external:@greycat/sdk --allow-overwrite",
-    "build:esm-min": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.sdk.min.js --minify --external:@greycat/sdk --allow-overwrite",
+    "build:esm": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --external:@greycat/sdk --allow-overwrite",
+    "build:esm-min": "esbuild src/index.ts --bundle --tsconfig=./tsconfig.json --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --external:@greycat/sdk --allow-overwrite",
     "build:types": "tsc -b tsconfig.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
@@ -30,7 +30,7 @@
     "test": "pnpm build:esm && node --test"
   },
   "author": "DataThings s.a <contact@datathings.com>",
-  "license": "https://creativecommons.org/licenses/by-nd/4.0/legalcode.txt",
+  "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {
     "slugify": "1.6.6",

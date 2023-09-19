@@ -20,7 +20,7 @@ type Record {
 }
 
 fn main() {
-  var f_name = "${File::dir()}/history.gcb";
+  var f_name = "${File::baseDir()}/history.gcb";
   var t_start = time::now();
 
   var w = GcbWriter::new(f_name);

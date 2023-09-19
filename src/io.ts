@@ -441,6 +441,9 @@ export class Writer {
     this.txt = new TextEncoder();
   }
 
+  /**
+   * Returns a slice of the current writer buffer from `0` to `this._curr`
+   */
   get buffer(): Uint8Array {
     return this._buf.slice(0, this._curr);
   }

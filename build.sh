@@ -14,7 +14,7 @@ pnpm pack
 
 mkdir -p dist/sdk/js
 
-mv greycat-sdk*.tgz dist/sdk/js/package.tgz
-mv dist/greycat.sdk.js dist/greycat.sdk.min.js dist/sdk/js/
+mv greycat-*.tgz dist/sdk/js/package.tgz
+mv dist/greycat.js dist/greycat.min.js dist/sdk/js/
 
 rm -rf dist/types

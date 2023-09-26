@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat, algebralib, stdlib } from './dist/greycat.js';
+import { GreyCat, algebralib, patternslib, stdlib } from './dist/greycat.js';
 
 const args = process.argv.slice(2);
 if (args.length < 1) {
@@ -9,7 +9,7 @@ if (args.length < 1) {
 
 const g = (global.greycat.default = await GreyCat.init({
   url: new URL('http://localhost:8080'),
-  libraries: [stdlib, algebralib],
+  libraries: [stdlib, algebralib, patternslib],
 }));
 
 try {

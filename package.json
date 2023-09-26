@@ -45,8 +45,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@7.9.5",
-  "publishConfig": {
-    "@greycat:registry": "https://hub.datathings.com/api/v4/projects/289/packages/npm/"
-  }
+  "packageManager": "pnpm@7.9.5"
 }

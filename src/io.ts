@@ -342,9 +342,9 @@ export class AbiReader extends Reader {
   }
 
   headers(): void {
-    const major = this.read_u16();
-    if (major !== Abi.protocol_version) {
-      throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${major})`);
+    const protocol = this.read_u16();
+    if (protocol !== Abi.protocol_version) {
+      throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${protocol})`);
     }
     const magic = this.read_u16();
     if (magic !== this.abi.magic) {

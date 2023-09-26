@@ -17,5 +17,8 @@ export * as algebra from './algebra/index.js';
 // // exports algebra's modules directly (shortcut)
 export * from './algebra/index.js';
 
+export * as patterns from './patterns/index.js';
+export * from './patterns/index.js';
+
 export * as utils from './utils/index.js';
 export * from './utils/index.js';

@@ -23,9 +23,7 @@ const debugLogger = (status: number, method: string, params?: Value[], value?: u
     console.log(
       '%cGreyCat',
       `background:${bg};color:#fff;padding:2px;font-weight:bold`,
-      method,
-      params,
-      value,
+      { method, params, response: value },
     );
   }
 };

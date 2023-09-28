@@ -48,6 +48,7 @@ describe('project', () => {
     9223372036854775807n,
     -9223372036854775808n,
     13.37,
+    42,
     'Hello world',
     'Hello world',
     { _type: 'core::duration', s: 0, us: 12 },
@@ -86,7 +87,7 @@ describe('project', () => {
       stack: [
         { module: 'project', fn: 'main', line: 14, column: 17 },
         { module: 'project', fn: 'write_std', line: 19, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 93, column: 36 },
+        { module: 'project', fn: 'write_std_core', line: 94, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

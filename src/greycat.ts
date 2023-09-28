@@ -130,16 +130,23 @@ export class GreyCat {
    *
    * @param method the exposed endpoint to call, without leading slash
    * (eg. `'runtime/User/me'`)
-   * @param params a list of parameters to send for the call
+   * @param args a list of parameters to send for the call
    * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
-  async call<T = unknown>(method: string, params?: Value[], signal?: AbortSignal): Promise<T> {
+  async call<T = unknown>(method: string, args?: Value[], signal?: AbortSignal): Promise<T> {
     const url = `${this.api}/${method}`;
     const writer = new AbiWriter(this.abi, this.capacity);
     writer.headers();
-    if (params && params.length > 0) {
-      for (let i = 0; i < params.length; i++) {
-        writer.serialize(params[i]);
+    if (args && args.length > 0) {
+      const fn = this.abi.fn_by_fqn.get(method);
+      for (let i = 0; i < args.length; i++) {
+        const param = fn?.params[i];
+        const arg = args[i];
+        if (param?.type.offset === this.abi.core_float_offset) {
+          writer.float(arg as number);
+        } else {
+          writer.serialize(arg);
+        }
       }
     }
     const headers: HeadersInit = {
@@ -161,11 +168,11 @@ export class GreyCat {
         return null as T;
       }
       const value = this.deserializeWithHeader(data);
-      debugLogger(res.status, method, params, value);
+      debugLogger(res.status, method, args, value);
       return value as T;
     } else if (res.status === 401) {
       // unauthorized
-      debugLogger(res.status, method, params);
+      debugLogger(res.status, method, args);
       // reset token
       this.token = undefined;
       // call handler if any
@@ -173,17 +180,17 @@ export class GreyCat {
       throw new Error(`you need to be logged-in to access '${method}'`);
     } else if (res.status === 403) {
       // forbidden
-      debugLogger(res.status, method, params);
+      debugLogger(res.status, method, args);
       throw new Error(`access to '${method}' is forbidden`);
     } else if (res.status === 404) {
       // not found
-      debugLogger(res.status, method, params, null);
+      debugLogger(res.status, method, args, null);
       throw new Error(`unknown method '${method}'`);
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);
     const err = value as std.core.Error;
-    debugLogger(res.status, method, params, data);
+    debugLogger(res.status, method, args, data);
     throw new Error(
       `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,

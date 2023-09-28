@@ -72,6 +72,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(9223372036854775807);
   out.write(-9223372036854775808);
   out.write(13.37);
+  out.write(42.0); // looks-like-int-float
   out.write("Hello world");
   out.write("${"Hello world"}");
   out.write(12_us);
@@ -439,3 +440,6 @@ fn stringError() {
 fn errorError() {
   throw Error::new("my message wrapped in an Error");
 }
+
+@expose
+fn float(f: float) {}

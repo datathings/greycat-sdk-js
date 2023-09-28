@@ -743,6 +743,11 @@ export class AbiWriter extends Writer {
     }
   }
 
+  float(value: number): void {
+    this.write_u8(PrimitiveType.float);
+    this.write_f64(value);
+  }
+
   /**
    * Serializes a `boolean`
    */

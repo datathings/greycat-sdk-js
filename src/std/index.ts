@@ -4044,8 +4044,8 @@ export namespace runtime {
     static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::Runtime::abi', undefined, $signal);
     }
-    static readModVar(module: string, name: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
-      return $g.call('runtime::Runtime::readModVar', [module, name], $signal);
+    static readModVar(mod_var: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
+      return $g.call('runtime::Runtime::readModVar', [mod_var], $signal);
     }
     static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
       return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[54]);

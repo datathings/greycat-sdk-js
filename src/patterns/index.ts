@@ -158,38 +158,6 @@ export namespace pattern_detectors {
     }
   }
 
-  export class MatchingNormalisation extends $sdk.GCEnum {
-    static readonly _type = 'pattern_detectors::MatchingNormalisation';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: MatchingNormalisation.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static as_is($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[3];
-      return t.enum_values![t.generated_offsets[0]];
-    }
-    static shift($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[3];
-      return t.enum_values![t.generated_offsets[1]];
-    }
-    static scaling($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[3];
-      return t.enum_values![t.generated_offsets[2]];
-    }
-    static shift_and_scaling($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[3];
-      return t.enum_values![t.generated_offsets[3]];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation[] {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[3];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace MatchingNormalisation  {
-    export type Field = 'as_is'|'shift'|'scaling'|'shift_and_scaling';
-  }
   export class PatternDetectionSensitivity extends $sdk.GCObject {
     static readonly _type = 'pattern_detectors::PatternDetectionSensitivity';
 
@@ -220,10 +188,10 @@ export namespace pattern_detectors {
     }
 
     static createFrom({threshold, overlap}: {threshold: number, overlap: number}, $g: $sdk.GreyCat = globalThis.greycat.default): PatternDetectionSensitivity {
-      return new PatternDetectionSensitivity($g.abi.libs_by_name.get(patternslib.name)!.mapped[4], threshold, overlap);
+      return new PatternDetectionSensitivity($g.abi.libs_by_name.get(patternslib.name)!.mapped[3], threshold, overlap);
     }
     static create(threshold: number, overlap: number, $g: $sdk.GreyCat = globalThis.greycat.default): PatternDetectionSensitivity {
-      return new PatternDetectionSensitivity($g.abi.libs_by_name.get(patternslib.name)!.mapped[4], threshold, overlap);
+      return new PatternDetectionSensitivity($g.abi.libs_by_name.get(patternslib.name)!.mapped[3], threshold, overlap);
     }
   }
 
@@ -368,10 +336,10 @@ export namespace pattern_detectors {
     }
 
     static createFrom({alphabet_size, fingerprint_length}: {alphabet_size: bigint | number, fingerprint_length: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): SaxPatternDetector {
-      return new SaxPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[8], alphabet_size, fingerprint_length);
+      return new SaxPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[7], alphabet_size, fingerprint_length);
     }
     static create(alphabet_size: bigint | number, fingerprint_length: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): SaxPatternDetector {
-      return new SaxPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[8], alphabet_size, fingerprint_length);
+      return new SaxPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[7], alphabet_size, fingerprint_length);
     }
   }
 
@@ -383,27 +351,27 @@ export namespace pattern_detectors {
     }
 
     static replace($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values![t.generated_offsets[0]];
     }
     static interpolate($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values![t.generated_offsets[1]];
     }
     static previous($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values![t.generated_offsets[2]];
     }
     static next($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values![t.generated_offsets[3]];
     }
     static none($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values![t.generated_offsets[4]];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): PatternNullStrategy[] {
-      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[9];
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[8];
       return t.enum_values!;
     }
   }
@@ -419,10 +387,10 @@ export namespace pattern_detectors {
     }
 
     static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): RandomPatternDetector {
-      return new RandomPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[10]);
+      return new RandomPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[9]);
     }
     static create($g: $sdk.GreyCat = globalThis.greycat.default): RandomPatternDetector {
-      return new RandomPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[10]);
+      return new RandomPatternDetector($g.abi.libs_by_name.get(patternslib.name)!.mapped[9]);
     }
   }
 
@@ -456,13 +424,45 @@ export namespace pattern_detectors {
     }
 
     static createFrom({best_pattern, timespan}: {best_pattern: bigint | number, timespan: $sdk.std.core.duration}, $g: $sdk.GreyCat = globalThis.greycat.default): ScoreDetails {
-      return new ScoreDetails($g.abi.libs_by_name.get(patternslib.name)!.mapped[11], best_pattern, timespan);
+      return new ScoreDetails($g.abi.libs_by_name.get(patternslib.name)!.mapped[10], best_pattern, timespan);
     }
     static create(best_pattern: bigint | number, timespan: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): ScoreDetails {
-      return new ScoreDetails($g.abi.libs_by_name.get(patternslib.name)!.mapped[11], best_pattern, timespan);
+      return new ScoreDetails($g.abi.libs_by_name.get(patternslib.name)!.mapped[10], best_pattern, timespan);
     }
   }
 
+  export class MatchingNormalisation extends $sdk.GCEnum {
+    static readonly _type = 'pattern_detectors::MatchingNormalisation';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: MatchingNormalisation.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static as_is($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[11];
+      return t.enum_values![t.generated_offsets[0]];
+    }
+    static shift($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[11];
+      return t.enum_values![t.generated_offsets[1]];
+    }
+    static scaling($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[11];
+      return t.enum_values![t.generated_offsets[2]];
+    }
+    static shift_and_scaling($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation {
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[11];
+      return t.enum_values![t.generated_offsets[3]];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): MatchingNormalisation[] {
+      const t = $g.abi.libs_by_name.get(patternslib.name)!.mapped[11];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace MatchingNormalisation  {
+    export type Field = 'as_is'|'shift'|'scaling'|'shift_and_scaling';
+  }
   export class EuclideanPatternDetector extends $sdk.GCObject {
     static readonly _type = 'pattern_detectors::EuclideanPatternDetector';
 
@@ -864,7 +864,6 @@ export const patternslib: $sdk.Library = {
     factories.set(pattern_detectors.RandomPatternDetectionEngine._type, pattern_detectors.RandomPatternDetectionEngine);
     factories.set(pattern_detectors.SamplingPolicy._type, pattern_detectors.SamplingPolicy);
     factories.set(pattern_detectors.ScoreDetailsSingleton._type, pattern_detectors.ScoreDetailsSingleton);
-    factories.set(pattern_detectors.MatchingNormalisation._type, pattern_detectors.MatchingNormalisation);
     factories.set(pattern_detectors.PatternDetectionSensitivity._type, pattern_detectors.PatternDetectionSensitivity);
     factories.set(pattern_detectors.Detection._type, pattern_detectors.Detection);
     factories.set(pattern_detectors.PatternDetectionEngine._type, pattern_detectors.PatternDetectionEngine);
@@ -873,6 +872,7 @@ export const patternslib: $sdk.Library = {
     factories.set(pattern_detectors.PatternNullStrategy._type, pattern_detectors.PatternNullStrategy);
     factories.set(pattern_detectors.RandomPatternDetector._type, pattern_detectors.RandomPatternDetector);
     factories.set(pattern_detectors.ScoreDetails._type, pattern_detectors.ScoreDetails);
+    factories.set(pattern_detectors.MatchingNormalisation._type, pattern_detectors.MatchingNormalisation);
     factories.set(pattern_detectors.EuclideanPatternDetector._type, pattern_detectors.EuclideanPatternDetector);
     factories.set(pattern_detectors.PatternDetectors._type, pattern_detectors.PatternDetectors);
     factories.set(pattern_detectors.PatternDetectionEngineState._type, pattern_detectors.PatternDetectionEngineState);
@@ -888,22 +888,22 @@ export const patternslib: $sdk.Library = {
     this.mapped[1].resolveGeneratedOffsetWithValues('as_is', "As-is",'average_frequency', "Average frequency",'highest_frequency', "Highest frequency");
     this.mapped[2] = abi.type_by_fqn.get(pattern_detectors.ScoreDetailsSingleton._type)!;
     this.mapped[2].resolveGeneratedOffsets('best_pattern','timespan','timestamp');
-    this.mapped[3] = abi.type_by_fqn.get(pattern_detectors.MatchingNormalisation._type)!;
-    this.mapped[3].resolveGeneratedOffsetWithValues('as_is', "As-is",'shift', "Vertical shift",'scaling', "Vertical scaling",'shift_and_scaling', "Vertical shift and scaling");
-    this.mapped[4] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionSensitivity._type)!;
-    this.mapped[4].resolveGeneratedOffsets('threshold','overlap');
-    this.mapped[5] = abi.type_by_fqn.get(pattern_detectors.Detection._type)!;
-    this.mapped[5].resolveGeneratedOffsets('score','best_pattern','timespan');
-    this.mapped[6] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionEngine._type)!;
-    this.mapped[6].resolveGeneratedOffsets('timeseries','state','nullStrategy','nullReplaceConstant','samplingPolicy');
-    this.mapped[7] = abi.type_by_fqn.get(pattern_detectors.PatternDetector._type)!;
-    this.mapped[8] = abi.type_by_fqn.get(pattern_detectors.SaxPatternDetector._type)!;
-    this.mapped[8].resolveGeneratedOffsets('alphabet_size','fingerprint_length');
-    this.mapped[9] = abi.type_by_fqn.get(pattern_detectors.PatternNullStrategy._type)!;
-    this.mapped[9].resolveGeneratedOffsetWithValues('replace', "Replace",'interpolate', "Interpolate",'previous', "Previous",'next', "Next",'none', "None");
-    this.mapped[10] = abi.type_by_fqn.get(pattern_detectors.RandomPatternDetector._type)!;
-    this.mapped[11] = abi.type_by_fqn.get(pattern_detectors.ScoreDetails._type)!;
-    this.mapped[11].resolveGeneratedOffsets('best_pattern','timespan');
+    this.mapped[3] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionSensitivity._type)!;
+    this.mapped[3].resolveGeneratedOffsets('threshold','overlap');
+    this.mapped[4] = abi.type_by_fqn.get(pattern_detectors.Detection._type)!;
+    this.mapped[4].resolveGeneratedOffsets('score','best_pattern','timespan');
+    this.mapped[5] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionEngine._type)!;
+    this.mapped[5].resolveGeneratedOffsets('timeseries','state','nullStrategy','nullReplaceConstant','samplingPolicy');
+    this.mapped[6] = abi.type_by_fqn.get(pattern_detectors.PatternDetector._type)!;
+    this.mapped[7] = abi.type_by_fqn.get(pattern_detectors.SaxPatternDetector._type)!;
+    this.mapped[7].resolveGeneratedOffsets('alphabet_size','fingerprint_length');
+    this.mapped[8] = abi.type_by_fqn.get(pattern_detectors.PatternNullStrategy._type)!;
+    this.mapped[8].resolveGeneratedOffsetWithValues('replace', "Replace",'interpolate', "Interpolate",'previous', "Previous",'next', "Next",'none', "None");
+    this.mapped[9] = abi.type_by_fqn.get(pattern_detectors.RandomPatternDetector._type)!;
+    this.mapped[10] = abi.type_by_fqn.get(pattern_detectors.ScoreDetails._type)!;
+    this.mapped[10].resolveGeneratedOffsets('best_pattern','timespan');
+    this.mapped[11] = abi.type_by_fqn.get(pattern_detectors.MatchingNormalisation._type)!;
+    this.mapped[11].resolveGeneratedOffsetWithValues('as_is', "As-is",'shift', "Vertical shift",'scaling', "Vertical scaling",'shift_and_scaling', "Vertical shift and scaling");
     this.mapped[12] = abi.type_by_fqn.get(pattern_detectors.EuclideanPatternDetector._type)!;
     this.mapped[13] = abi.type_by_fqn.get(pattern_detectors.PatternDetectors._type)!;
     this.mapped[13].resolveGeneratedOffsetWithValues('none', "None",'euclidean', "Euclidean",'random', "Random",'sax', "SAX");

@@ -52,6 +52,7 @@ export class Abi {
   readonly core_table_offset: number = 0;
   readonly core_tensortype_offset: number = 0;
   readonly core_float_offset: number = 0;
+  readonly core_char_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
     this.off_by_symbol = new Map();
@@ -189,6 +190,7 @@ export class Abi {
           case 'Table': this.core_table_offset = i; break;
           case 'TensorType': this.core_tensortype_offset = i; break;
           case 'float': this.core_float_offset = i; break;
+          case 'char': this.core_char_offset = i; break;
           default:
             // noop
             break;

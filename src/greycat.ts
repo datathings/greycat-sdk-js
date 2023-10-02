@@ -140,8 +140,17 @@ export class GreyCat {
       for (let i = 0; i < args.length; i++) {
         const param = fn?.params[i];
         const arg = args[i];
-        if (param?.type.offset === this.abi.core_float_offset) {
-          writer.float(arg as number);
+        if (param) {
+          switch (param.type.offset) {
+            case this.abi.core_float_offset:
+              writer.float(arg as number);
+              break;
+            case this.abi.core_char_offset:
+              writer.char(arg as string);
+              break;
+            default:
+              writer.serialize(arg);
+          }
         } else {
           writer.serialize(arg);
         }

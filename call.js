@@ -18,7 +18,7 @@ try {
   const value = await g.call(args[0]);
   displayValue(value);
 } catch (err) {
-  console.error(`Error: ${err.message}`);
+  console.error(`Error: ${err.stack}`);
   process.exit(1);
 }
 

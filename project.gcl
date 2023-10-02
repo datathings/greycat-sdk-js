@@ -443,3 +443,9 @@ fn errorError() {
 
 @expose
 fn float(f: float) {}
+
+@expose
+fn blockingFn() {
+  // this should trigger a timeout as rpc are maxed at 30s by default
+  Runtime::sleep(40s);
+}

@@ -54,6 +54,24 @@ export class duration extends GCObject {
     return new ty.factory(ty, value * 31_536_000_000_000) as core.duration;
   }
 
+  /**
+   * Creates a `core.duration` from a number `value` and a `core.DurationUnit`.
+   * 
+   * eg. `core.duration.from_unit(42, core.DurationUnit.seconds())` => `42s`
+   */
+  static from_unit(value: number, unit: core.DurationUnit, g: GreyCat = globalThis.greycat.default): core.duration {
+    switch (unit.key) {
+      case 'microseconds': return duration.create(value, g);
+      case 'milliseconds': return duration.from_ms(value, g);
+      case 'seconds': return duration.from_secs(value, g);
+      case 'minutes': return duration.from_mins(value, g);
+      case 'hours': return duration.from_hours(value, g);
+      case 'days': return duration.from_days(value, g);
+      case 'weeks': return duration.from_weeks(value, g);
+      case 'months': return duration.from_months(value, g);
+      case 'years': return duration.from_years(value, g);
+    }
+  }
 
   static load(r: AbiReader, ty: AbiType): core.duration {
     const value = r.read_vi64();

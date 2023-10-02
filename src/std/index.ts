@@ -6,7 +6,8 @@ import * as $sdk from '../index.js';
 import * as std_n from '../std_n/index.js';
 
 export namespace core {
-  export class tf2d extends std_n.core.tf2d {}
+  export class tf2d extends std_n.core.tf2d {
+}
 
   export class SamplingMode extends $sdk.GCEnum {
     static readonly _type = 'core::SamplingMode';
@@ -40,9 +41,11 @@ export namespace core {
   export namespace SamplingMode  {
     export type Field = 'fixed'|'fixed_reg'|'adaptative'|'dense';
   }
-  export class Table<T extends $sdk.Value = any> extends std_n.core.Table<T> {}
+  export class Table<T extends $sdk.Value = any> extends std_n.core.Table<T> {
+}
 
-  export class ti6d extends std_n.core.ti6d {}
+  export class ti6d extends std_n.core.ti6d {
+}
 
   export class nodeTimeSingleton extends $sdk.GCObject {
     static readonly _type = 'core::nodeTimeSingleton';
@@ -81,9 +84,17 @@ export namespace core {
     }
   }
 
-  export class time extends std_n.core.time {}
+  export class time extends std_n.core.time {
+}
 
-  export class nodeTime extends std_n.core.nodeTime {}
+  export class nodeTime extends std_n.core.nodeTime {
+    static sample(refs: globalThis.Array<$sdk.std.core.nodeTime>, from: $sdk.std.core.time | null, to: $sdk.std.core.time | null, maxRows: bigint | number, mode: core.SamplingMode, maxDephasing: $sdk.std.core.duration | null, tz: core.TimeZone | null, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<core.Table> {
+      return $g.call('core::nodeTime::sample', [refs, from, to, maxRows, mode, maxDephasing, tz], $signal);
+    }
+    static info(nodes: globalThis.Array<$sdk.std.core.nodeTime>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<core.NodeTimeInfo>> {
+      return $g.call('core::nodeTime::info', [nodes], $signal);
+    }
+}
 
   export class DurationUnit extends $sdk.GCEnum {
     static readonly _type = 'core::DurationUnit';
@@ -184,7 +195,8 @@ export namespace core {
     }
   }
 
-  export class Error extends std_n.core.Error {}
+  export class Error extends std_n.core.Error {
+}
 
   export class GeoPoly extends $sdk.GCObject {
     static readonly _type = 'core::GeoPoly';
@@ -213,9 +225,11 @@ export namespace core {
     }
   }
 
-  export class duration extends std_n.core.duration {}
+  export class duration extends std_n.core.duration {
+}
 
-  export class ti2d extends std_n.core.ti2d {}
+  export class ti2d extends std_n.core.ti2d {
+}
 
   export class ErrorCode extends $sdk.GCEnum {
     static readonly _type = 'core::ErrorCode';
@@ -317,9 +331,14 @@ export namespace core {
   export namespace ErrorCode  {
     export type Field = 'none'|'too_deep_workspace'|'too_deep_iterator'|'wrong_operand'|'wrong_params'|'wrong_param_type'|'wrong_numeric'|'wrong_state'|'wrong_null'|'unresolved_ref'|'assign_error'|'interrupted'|'throw'|'wrong_type'|'wrong_dimension'|'unsupported_operation'|'unsupported_type'|'dimensions_mismatch'|'timeout'|'forbidden'|'runtime_error';
   }
-  export class geo extends std_n.core.geo {}
+  export class geo extends std_n.core.geo {
+}
 
-  export class node extends std_n.core.node {}
+  export class node extends std_n.core.node {
+    static resolve_all(n: globalThis.Array<$sdk.std.core.node>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<any>> {
+      return $g.call('core::node::resolve_all', [n], $signal);
+    }
+}
 
   export class TableColumnMeta extends $sdk.GCObject {
     static readonly _type = 'core::TableColumnMeta';
@@ -408,11 +427,14 @@ export namespace core {
     }
   }
 
-  export class Date extends std_n.core.Date {}
+  export class Date extends std_n.core.Date {
+}
 
-  export class Tensor extends std_n.core.Tensor {}
+  export class Tensor extends std_n.core.Tensor {
+}
 
-  export class ti4d extends std_n.core.ti4d {}
+  export class ti4d extends std_n.core.ti4d {
+}
 
   export class GeoCircle extends $sdk.GCObject {
     static readonly _type = 'core::GeoCircle';
@@ -451,13 +473,20 @@ export namespace core {
     }
   }
 
-  export class nodeGeo extends std_n.core.nodeGeo {}
+  export class nodeGeo extends std_n.core.nodeGeo {
+    static sample(refs: globalThis.Array<$sdk.std.core.nodeGeo>, from: $sdk.std.core.geo | null, to: $sdk.std.core.geo | null, maxRows: bigint | number, mode: core.SamplingMode, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<core.Table> {
+      return $g.call('core::nodeGeo::sample', [refs, from, to, maxRows, mode], $signal);
+    }
+}
 
-  export class ti5d extends std_n.core.ti5d {}
+  export class ti5d extends std_n.core.ti5d {
+}
 
-  export class String extends std_n.core.String {}
+  export class String extends std_n.core.String {
+}
 
-  export class Map<K extends $sdk.Value = any, V extends $sdk.Value = any> extends std_n.core.Map<K, V> {}
+  export class Map<K extends $sdk.Value = any, V extends $sdk.Value = any> extends std_n.core.Map<K, V> {
+}
 
   export class TensorType extends $sdk.GCEnum {
     static readonly _type = 'core::TensorType';
@@ -2881,21 +2910,35 @@ export namespace core {
   export namespace DatePart  {
     export type Field = 'years'|'months'|'days'|'hours'|'minutes'|'seconds'|'microseconds';
   }
-  export class nodeIndex extends std_n.core.nodeIndex {}
+  export class nodeIndex extends std_n.core.nodeIndex {
+    static sample(refs: globalThis.Array<$sdk.std.core.nodeIndex>, from: any | null, maxRows: bigint | number, mode: core.SamplingMode, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<core.Table> {
+      return $g.call('core::nodeIndex::sample', [refs, from, maxRows, mode], $signal);
+    }
+}
 
-  export class nodeList extends std_n.core.nodeList {}
+  export class nodeList extends std_n.core.nodeList {
+    static sample(refs: globalThis.Array<$sdk.std.core.nodeList>, from: bigint | number | null, to: bigint | number | null, maxRows: bigint | number, mode: core.SamplingMode, maxDephasing: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<core.Table> {
+      return $g.call('core::nodeList::sample', [refs, from, to, maxRows, mode, maxDephasing], $signal);
+    }
+}
 
-  export class tf3d extends std_n.core.tf3d {}
+  export class tf3d extends std_n.core.tf3d {
+}
 
-  export class nodeIndexBucket extends std_n.core.nodeIndexBucket {}
+  export class nodeIndexBucket extends std_n.core.nodeIndexBucket {
+}
 
-  export class ti10d extends std_n.core.ti10d {}
+  export class ti10d extends std_n.core.ti10d {
+}
 
-  export class Array<T extends $sdk.Value = any> extends std_n.core.Array<T> {}
+  export class Array<T extends $sdk.Value = any> extends std_n.core.Array<T> {
+}
 
-  export class tf4d extends std_n.core.tf4d {}
+  export class tf4d extends std_n.core.tf4d {
+}
 
-  export class ti3d extends std_n.core.ti3d {}
+  export class ti3d extends std_n.core.ti3d {
+}
 
 }
 
@@ -5248,11 +5291,14 @@ export namespace math {
 }
 
 export namespace util {
-  export class TimeWindow extends std_n.util.TimeWindow {}
+  export class TimeWindow extends std_n.util.TimeWindow {
+}
 
-  export class Iban extends std_n.util.Iban {}
+  export class Iban extends std_n.util.Iban {
+}
 
-  export class Quantizer extends std_n.util.Quantizer {}
+  export class Quantizer extends std_n.util.Quantizer {
+}
 
   export class BoxPlotFloat extends $sdk.GCObject {
     static readonly _type = 'util::BoxPlotFloat';
@@ -5461,9 +5507,11 @@ export namespace util {
     }
   }
 
-  export class GaussianProfile extends std_n.util.GaussianProfile {}
+  export class GaussianProfile extends std_n.util.GaussianProfile {
+}
 
-  export class HistogramFloat extends std_n.util.HistogramFloat {}
+  export class HistogramFloat extends std_n.util.HistogramFloat {
+}
 
   export class Random extends $sdk.GCObject {
     static readonly _type = 'util::Random';
@@ -5502,7 +5550,8 @@ export namespace util {
     }
   }
 
-  export class Buffer extends std_n.util.Buffer {}
+  export class Buffer extends std_n.util.Buffer {
+}
 
   export class Crypto extends $sdk.GCObject {
     static readonly _type = 'util::Crypto';
@@ -5741,7 +5790,8 @@ export namespace util {
     }
   }
 
-  export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {}
+  export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {
+}
 
   export class ProgressTracker extends $sdk.GCObject {
     static readonly _type = 'util::ProgressTracker';
@@ -5830,7 +5880,8 @@ export namespace util {
     }
   }
 
-  export class SlidingWindow extends std_n.util.SlidingWindow {}
+  export class SlidingWindow extends std_n.util.SlidingWindow {
+}
 
   export class Gaussian extends $sdk.GCObject {
     static readonly _type = 'util::Gaussian';
@@ -5899,7 +5950,8 @@ export namespace util {
     }
   }
 
-  export class HistogramInt extends std_n.util.HistogramInt {}
+  export class HistogramInt extends std_n.util.HistogramInt {
+}
 
 }
 

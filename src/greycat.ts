@@ -7,9 +7,9 @@ import { sha256hex } from './crypto/index.js';
 
 let DEFAULT_URL: URL;
 try {
-  DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://localhost:8080');
+  DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://127.0.0.1:8080');
 } catch {
-  DEFAULT_URL = new URL('http://localhost:8080');
+  DEFAULT_URL = new URL('http://127.0.0.1:8080');
 }
 
 globalThis.process = globalThis.process ?? {};

@@ -471,7 +471,7 @@ export class AbiType {
     for (let i = 0; i < attributeNames.length; i++) {
       const resolved = this.attrs_by_name.get(attributeNames[i]);
       if (resolved == undefined) {
-        throw new Error('unmapped generated attribute, please re-generate');
+        continue;
       }
       this.generated_offsets[i] = resolved;
     }
@@ -497,7 +497,7 @@ export class AbiType {
     for (let i = 0; i < values.length; i += 2) {
       const resolved = this.attrs_by_name.get(values[i] as string);
       if (resolved == undefined) {
-        throw new Error('unmapped generated enum field, please re-generate');
+        continue;
       }
       this.generated_offsets[i / 2] = resolved;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

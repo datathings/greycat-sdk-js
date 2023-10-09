@@ -15,7 +15,7 @@ try {
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
 
-const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
+export const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
   if (process.env.NODE_ENV && process.env.NODE_ENV !== 'production') {
     const bg =
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -150,6 +150,7 @@ export class GreyCat {
               break;
             default:
               writer.serialize(arg);
+              break;
           }
         } else {
           writer.serialize(arg);

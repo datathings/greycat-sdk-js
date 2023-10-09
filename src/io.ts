@@ -341,19 +341,15 @@ export class AbiReader extends Reader {
     return this.deserialize();
   }
 
-  headers(): void {
+  headers(): [number, number, number] {
     const protocol = this.read_u16();
     if (protocol !== Abi.protocol_version) {
       throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${protocol})`);
     }
     const magic = this.read_u16();
-    if (magic !== this.abi.magic) {
-      throw new Error(`magic number mismatch (expected=${this.abi.magic}, actual=${magic})`);
-    }
     const version = this.read_u32();
-    if (version !== this.abi.version) {
-      throw new Error(`version number mismatch (expected=${this.abi.version}, actual=${version})`);
-    }
+
+    return [protocol, magic, version];
   }
 
   /**

@@ -14,7 +14,7 @@ export class GCObject {
 
   getByName(name: string): Value | undefined {
     const offset = this.$type.attrs_by_name.get(name);
-    if (!offset) {
+    if (offset === undefined) {
       return;
     }
     // we actually want this to throw if the attributes array is not initialized

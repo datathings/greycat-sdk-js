@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist/types",
-    "module": "ES2022",
+    "module": "NodeNext",
     "target": "ES2022",
     "emitDeclarationOnly": true,
     "moduleResolution": "NodeNext",
@@ -27,7 +27,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noEmitOnError": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
 }

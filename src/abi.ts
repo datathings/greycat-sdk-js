@@ -55,7 +55,7 @@ export class Abi {
   readonly core_float_offset: number = 0;
   readonly core_char_offset: number = 0;
 
-  constructor(buffer: ArrayBuffer, readonly libraries: Library[]) {
+  constructor(buffer: ArrayBuffer, readonly libraries: Library[] = []) {
     this.off_by_symbol = new Map();
     this.type_by_fqn = new Map();
     this.loaders = new Map();

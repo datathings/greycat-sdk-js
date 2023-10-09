@@ -27,112 +27,77 @@ export const debugLogger = (status: number, method: string, params?: Value[], va
   }
 };
 
-export type DownloadAbiOption = {
-  url: URL;
-  tokenOrAuth?: string | Auth;
-  unauthorizedHandler?: () => void;
-  signal?: AbortSignal;
-};
-
-
-/**
- * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI headers and optionally the token if a login has occured
- */
 export async function downloadAbiHeaders(
-  { url = DEFAULT_URL, tokenOrAuth, signal, unauthorizedHandler }: DownloadAbiOption = {
+  { url = DEFAULT_URL, auth, signal, unauthorizedHandler }: WithoutAbiOptions = {
     url: DEFAULT_URL,
   },
 ): Promise<[[number, number, number], string | undefined]> {
-  const doFetch = async (token: string | undefined): Promise<[[number, number, number], string | undefined]> => {
-    const headers: RequestInit['headers'] = { Accept: 'application/json' };
-    if (token) {
-      headers['Authorization'] = token;
-    }
-
-    const cleanUrl = normalizeUrl(url);
-    const method = 'runtime::Runtime::abi_headers';
-    const res = await fetch(`${cleanUrl}/${method}`, {
-      method: 'POST',
-      headers,
-      signal,
-    });
-    if (res.status === 401) {
-      // unauthorized
-      debugLogger(res.status, method);
-      // call handler if any
-      unauthorizedHandler?.();
-      throw new Error(`you need to be logged-in to access '${method}'`);
-    } else if (!res.ok) {
-      throw new Error(`unable to fetch ABI headers (${res.status} ${res.statusText})`);
-    }
-    return [await res.json(), token];
-  }
-
   let token: string | undefined;
 
-  if (typeof tokenOrAuth === 'string') {
-    token = tokenOrAuth;
-  } else if (tokenOrAuth) {
-    token = await login({
-      url,
-      username: tokenOrAuth.username,
-      password: tokenOrAuth.password,
-      use_cookie: tokenOrAuth.use_cookie,
-      signal,
-    });
+  if (auth) {
+    token = await login({ ...auth, url, signal });
   }
 
-  return await doFetch(token);
+  const headers: RequestInit['headers'] = { Accept: 'application/json' };
+  if (token) {
+    headers['Authorization'] = token;
+  }
+
+  const cleanUrl = normalizeUrl(url);
+  const method = 'runtime::Runtime::abi_headers';
+  const res = await fetch(`${cleanUrl}/${method}`, {
+    method: 'POST',
+    headers,
+    signal,
+  });
+  if (res.status === 401) {
+    // unauthorized
+    debugLogger(res.status, method);
+    // call handler if any
+    unauthorizedHandler?.();
+    throw new Error(`you need to be logged-in to access '${method}'`);
+  } else if (!res.ok) {
+    throw new Error(`unable to fetch ABI headers (${res.status} ${res.statusText})`);
+  }
+  return [await res.json(), token];
 }
 
 /**
  * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI data and optionally the token if a login has occured
  */
 export async function downloadAbi(
-  { url = DEFAULT_URL, tokenOrAuth, signal, unauthorizedHandler }: DownloadAbiOption = {
+  { url = DEFAULT_URL, auth, signal, unauthorizedHandler }: WithoutAbiOptions = {
     url: DEFAULT_URL,
   },
 ): Promise<[ArrayBuffer, string | undefined]> {
-  const doFetch = async (token: string | undefined): Promise<[ArrayBuffer, string | undefined]> => {
-    const headers: RequestInit['headers'] = { Accept: 'application/octet-stream' };
-    if (token) {
-      headers['Authorization'] = token;
-    }
-
-    const cleanUrl = normalizeUrl(url);
-    const method = 'runtime::Runtime::abi';
-    const res = await fetch(`${cleanUrl}/${method}`, {
-      method: 'POST',
-      headers,
-      signal,
-    });
-    if (res.status === 401) {
-      // unauthorized
-      debugLogger(res.status, method);
-      // call handler if any
-      unauthorizedHandler?.();
-      throw new Error(`you need to be logged-in to access '${method}'`);
-    } else if (!res.ok) {
-      throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
-    }
-    return [await res.arrayBuffer(), token];
-  }
-
   let token: string | undefined;
 
-  if (typeof tokenOrAuth === 'string') {
-    token = tokenOrAuth;
-  } else if (tokenOrAuth) {
-    token = await login({
-      url,
-      username: tokenOrAuth.username,
-      password: tokenOrAuth.password,
-      use_cookie: tokenOrAuth.use_cookie,
-      signal,
-    });
+  if (auth) {
+    token = await login({ ...auth, url, signal });
   }
 
-  return await doFetch(token);
+  const headers: RequestInit['headers'] = { Accept: 'application/octet-stream' };
+  if (token) {
+    headers['Authorization'] = token;
+  }
+
+  const cleanUrl = normalizeUrl(url);
+  const method = 'runtime::Runtime::abi';
+  const res = await fetch(`${cleanUrl}/${method}`, {
+    method: 'POST',
+    headers,
+    signal,
+  });
+  if (res.status === 401) {
+    // unauthorized
+    debugLogger(res.status, method);
+    // call handler if any
+    unauthorizedHandler?.();
+    throw new Error(`you need to be logged-in to access '${method}'`);
+  } else if (!res.ok) {
+    throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
+  }
+  return [await res.arrayBuffer(), token];
 }
 
 export class GreyCat {
@@ -177,14 +142,19 @@ export class GreyCat {
   static async init(
     {
       url = DEFAULT_URL,
-      libraries = [],
+      libraries,
       capacity,
       signal,
       auth,
       unauthorizedHandler,
     }: WithoutAbiOptions = { url: DEFAULT_URL },
   ): Promise<GreyCat> {
-    const [data, token] = await downloadAbi({ url, tokenOrAuth: auth, unauthorizedHandler, signal });
+    const [data, token] = await downloadAbi({
+      url,
+      auth,
+      unauthorizedHandler,
+      signal,
+    });
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
     return new GreyCat(cleanUrl, abi, capacity, token, unauthorizedHandler);

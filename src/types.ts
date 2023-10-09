@@ -103,7 +103,7 @@ export interface Options {
    */
   url?: URL;
   /**
-   * Write buffer capacity. Defaults to `2048` (2KB)
+   * Write buffer capacity. Defaults to `4096` (4KB)
    */
   capacity?: number;
   /**

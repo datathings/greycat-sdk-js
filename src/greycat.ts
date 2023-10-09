@@ -1,5 +1,4 @@
 import { Abi } from './abi.js';
-import { stdlib } from './index.js';
 import * as std from './std/index.js';
 import { Auth, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
@@ -20,13 +19,70 @@ export const debugLogger = (status: number, method: string, params?: Value[], va
     const bg =
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       status >= 400 ? '#e8590c' : '#1983c1';
-    console.log(
-      '%cGreyCat',
-      `background:${bg};color:#fff;padding:2px;font-weight:bold`,
-      { method, params, response: value },
-    );
+    console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
+      method,
+      params,
+      response: value,
+    });
   }
 };
+
+export type DownloadAbiOption = {
+  url: URL;
+  tokenOrAuth?: string | Auth;
+  unauthorizedHandler?: () => void;
+  signal?: AbortSignal;
+};
+
+/**
+ * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI data and optionally the token if a login has occured
+ */
+export async function downloadAbi(
+  { url = DEFAULT_URL, tokenOrAuth, signal, unauthorizedHandler }: DownloadAbiOption = {
+    url: DEFAULT_URL,
+  },
+): Promise<[ArrayBuffer, string | undefined]> {
+  const doFetch = async (token: string | undefined): Promise<[ArrayBuffer, string | undefined]> => {
+    const headers: RequestInit['headers'] = { Accept: 'application/octet-stream' };
+    if (token) {
+      headers['Authorization'] = token;
+    }
+
+    const cleanUrl = normalizeUrl(url);
+    const method = 'runtime::Runtime::abi';
+    const res = await fetch(`${cleanUrl}/${method}`, {
+      method: 'POST',
+      headers,
+      signal,
+    });
+    if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, method);
+      // call handler if any
+      unauthorizedHandler?.();
+      throw new Error(`you need to be logged-in to access '${method}'`);
+    } else if (!res.ok) {
+      throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
+    }
+    return [await res.arrayBuffer(), token];
+  }
+
+  let token: string | undefined;
+
+  if (typeof tokenOrAuth === 'string') {
+    token = tokenOrAuth;
+  } else if (tokenOrAuth) {
+    token = await login({
+      url,
+      username: tokenOrAuth.username,
+      password: tokenOrAuth.password,
+      use_cookie: tokenOrAuth.use_cookie,
+      signal,
+    });
+  }
+
+  return await doFetch(token);
+}
 
 export class GreyCat {
   /** GreyCat's api endpoint normalized (does not contain a trailing slash) */
@@ -40,10 +96,10 @@ export class GreyCat {
   /** called when a request returns a status code 401 */
   unauthorizedHandler: (() => void) | undefined;
 
-  private constructor(
+  constructor(
     api: string,
     abi: Abi,
-    capacity = 2048,
+    capacity = 4096,
     token?: string,
     unauthorizedHandler?: () => void,
   ) {
@@ -70,43 +126,16 @@ export class GreyCat {
   static async init(
     {
       url = DEFAULT_URL,
-      libraries = [stdlib],
+      libraries = [],
       capacity,
       signal,
       auth,
       unauthorizedHandler,
     }: WithoutAbiOptions = { url: DEFAULT_URL },
   ): Promise<GreyCat> {
-    if (libraries.indexOf(stdlib) === -1) {
-      // ensures 'stdlib' is always loaded
-      libraries.push(stdlib);
-    }
-    const cleanUrl = normalizeUrl(url);
-
-    let token: string | undefined;
-    if (auth) {
-      token = await login({ ...auth, url, signal });
-    }
-
-    const abiReqOpts: RequestInit = { method: 'POST', signal };
-    if (token) {
-      abiReqOpts.headers = {
-        Authorization: token,
-      };
-    }
-    const method = 'runtime::Runtime::abi';
-    const res = await fetch(`${cleanUrl}/${method}`, abiReqOpts);
-    if (res.status === 401) {
-      // unauthorized
-      debugLogger(res.status, method);
-      // call handler if any
-      unauthorizedHandler?.();
-      throw new Error(`you need to be logged-in to access '${method}'`);
-    } else if (!res.ok) {
-      throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
-    }
-    const data = await res.arrayBuffer();
+    const [data, token] = await downloadAbi({ url, tokenOrAuth: auth, unauthorizedHandler, signal });
     const abi = new Abi(data, libraries);
+    const cleanUrl = normalizeUrl(url);
     return new GreyCat(cleanUrl, abi, capacity, token, unauthorizedHandler);
   }
 
@@ -240,7 +269,7 @@ export class GreyCat {
    *  - `others`: returns the payload as a string
    *
    * *This uses `getFileResponse(filepath, signal)` under-the-hood*.
-   * 
+   *
    * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
    * @param signal optional `AbortSignal` to cancel the request prematurely
    * @returns
@@ -258,7 +287,7 @@ export class GreyCat {
 
   /**
    * Request GreyCat for a file and returns the received `Response` on success.
-   * 
+   *
    * *This method should be used when you want to keep control over "how" to read the body bytes (eg. `res.text()`, `res.arrayBuffer()`, etc.).*
    *
    * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
@@ -352,7 +381,7 @@ export type LoginOptions = Auth & {
 };
 
 /**
- * 
+ *
  * @param {LoginOptions} opts
  * @returns the user token
  */

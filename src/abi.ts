@@ -2,6 +2,7 @@ import { GCObject, gc_object__is_not_null } from './GCObject.js';
 import { GCEnum } from './GCEnum.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
+import { stdlib } from './exports.js';
 
 export class Abi {
   static readonly protocol_version = 1;
@@ -61,6 +62,12 @@ export class Abi {
     this.factories = new Map();
     this.libs_by_name = new Map();
     this.fn_by_fqn = new Map();
+
+    // always load 'stdlib'
+    if (libraries.indexOf(stdlib) === -1) {
+      stdlib.configure(this.loaders, this.factories);
+      this.libs_by_name.set(stdlib.name, stdlib);
+    }
 
     for (let i = 0; i < libraries.length; i++) {
       const lib = libraries[i];

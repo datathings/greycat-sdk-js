@@ -63,8 +63,9 @@ export class Abi {
     this.libs_by_name = new Map();
     this.fn_by_fqn = new Map();
 
+    const noStd = libraries.indexOf(stdlib) === -1;
     // always load 'stdlib'
-    if (libraries.indexOf(stdlib) === -1) {
+    if (noStd) {
       stdlib.configure(this.loaders, this.factories);
       this.libs_by_name.set(stdlib.name, stdlib);
     }
@@ -245,6 +246,11 @@ export class Abi {
         is_task,
       );
       this.fn_by_fqn.set(fqn, this.functions[i]);
+    }
+
+    // always init 'stdlib'
+    if (noStd) {
+      stdlib.init(this);
     }
 
     for (let i = 0; i < libraries.length; i++) {

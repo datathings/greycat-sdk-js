@@ -156,7 +156,7 @@ export function stringify(props: StringifyProps): string {
   } else if (isNode(value)) {
     if (name) {
       const type = Object.getPrototypeOf(value).constructor._type.split('::')[1];
-      return `gc://${type}/${slugify(name)}`;
+      return `${type}/${slugify(name)}`;
     }
     return value.toString();
   } else if (typeof value === 'string') {

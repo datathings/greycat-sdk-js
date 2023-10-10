@@ -4293,6 +4293,7 @@ export namespace io {
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     unit: core.DurationUnit | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, ...attributes);
@@ -4315,7 +4316,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
-        unit: {
+        offset: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[2]];
@@ -4324,14 +4325,23 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[2]] = v;
           },
         },
+        unit: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
       });
     }
 
-    static createFrom({name, mandatory, unit}: {name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
-      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], name, mandatory, unit);
+    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
+      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], name, mandatory, offset, unit);
     }
-    static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
-      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], name, mandatory, unit);
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
+      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], name, mandatory, offset, unit);
     }
   }
 
@@ -4382,76 +4392,12 @@ export namespace io {
     }
   }
 
-  export class SmtpMode extends $sdk.GCEnum {
-    static readonly _type = 'io::SmtpMode';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: SmtpMode.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[59];
-      return t.enum_values![t.generated_offsets[0]];
-    }
-    static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[59];
-      return t.enum_values![t.generated_offsets[1]];
-    }
-    static starttls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[59];
-      return t.enum_values![t.generated_offsets[2]];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[59];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace SmtpMode  {
-    export type Field = 'plain'|'ssl_tls'|'starttls';
-  }
-  export class HttpHeader extends $sdk.GCObject {
-    static readonly _type = 'io::HttpHeader';
-
-    name: string;
-    value: string;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        name: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        value: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-      });
-    }
-
-    static createFrom({name, value}: {name: string, value: string}, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
-      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], name, value);
-    }
-    static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
-      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], name, value);
-    }
-  }
-
   export class CsvColumnBoolean extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnBoolean';
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, ...attributes);
       Object.defineProperties(this, {
@@ -4473,101 +4419,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
-      });
-    }
-
-    static createFrom({name, mandatory}: {name: string | null, mandatory: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
-      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], name, mandatory);
-    }
-    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
-      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], name, mandatory);
-    }
-  }
-
-  export class CsvColumnIgnored extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnIgnored';
-
-    name: string | null;
-    mandatory: boolean | null;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        name: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        mandatory: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-      });
-    }
-
-    static createFrom({name, mandatory}: {name: string | null, mandatory: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
-      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory);
-    }
-    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
-      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory);
-    }
-  }
-
-  export class Http extends $sdk.GCObject {
-    static readonly _type = 'io::Http';
-
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-    }
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Http {
-      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[63]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
-      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[63]);
-    }
-  }
-
-  export class CsvFormat extends $sdk.GCObject {
-    static readonly _type = 'io::CsvFormat';
-
-    header_lines: bigint | number | null;
-    infer: boolean | null;
-    separator: string | null;
-    string_delimiter: string | null;
-    decimal_separator: string | null;
-    thousands_separator: string | null;
-    columns: globalThis.Array<io.CsvColumn> | null;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        header_lines: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        infer: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-        separator: {
+        offset: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[2]];
@@ -4576,50 +4428,14 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[2]] = v;
           },
         },
-        string_delimiter: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[3]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[3]] = v;
-          },
-        },
-        decimal_separator: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[4]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[4]] = v;
-          },
-        },
-        thousands_separator: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[5]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[5]] = v;
-          },
-        },
-        columns: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[6]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[6]] = v;
-          },
-        },
       });
     }
 
-    static createFrom({header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns}: {header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: globalThis.Array<io.CsvColumn> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
-      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
+      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], name, mandatory, offset);
     }
-    static create(header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: globalThis.Array<io.CsvColumn> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
-      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns);
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
+      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], name, mandatory, offset);
     }
   }
 
@@ -4693,10 +4509,10 @@ export namespace io {
     }
 
     static createFrom({host, port, mode, authenticate, user, pass}: {host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
-      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], host, port, mode, authenticate, user, pass);
+      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], host, port, mode, authenticate, user, pass);
     }
     static create(host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
-      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], host, port, mode, authenticate, user, pass);
+      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], host, port, mode, authenticate, user, pass);
     }
   }
 
@@ -4770,18 +4586,228 @@ export namespace io {
     }
 
     static createFrom({protocol, host, port, path, params, hash}: {protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
-      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], protocol, host, port, path, params, hash);
+      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], protocol, host, port, path, params, hash);
     }
     static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
-      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], protocol, host, port, path, params, hash);
+      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], protocol, host, port, path, params, hash);
     }
   }
 
+  export class CsvColumnIgnored extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnIgnored';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
+      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
+      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[62], name, mandatory, offset);
+    }
+  }
+
+  export class HttpHeader extends $sdk.GCObject {
+    static readonly _type = 'io::HttpHeader';
+
+    name: string;
+    value: string;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        value: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({name, value}: {name: string, value: string}, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
+      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, value);
+    }
+    static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
+      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, value);
+    }
+  }
+
+  export class CsvFormat extends $sdk.GCObject {
+    static readonly _type = 'io::CsvFormat';
+
+    header_lines: bigint | number | null;
+    infer: boolean | null;
+    separator: string | null;
+    string_delimiter: string | null;
+    decimal_separator: string | null;
+    thousands_separator: string | null;
+    columns_size: bigint | number | null;
+    columns: globalThis.Array<io.CsvColumn> | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        header_lines: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        infer: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        string_delimiter: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        decimal_separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        thousands_separator: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        columns_size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        columns: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns}: {header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns_size: bigint | number | null, columns: globalThis.Array<io.CsvColumn> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
+      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
+    }
+    static create(header_lines: bigint | number | null, infer: boolean | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns_size: bigint | number | null, columns: globalThis.Array<io.CsvColumn> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
+      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], header_lines, infer, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
+    }
+  }
+
+  export class SmtpAuth extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpAuth';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpAuth.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static none($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[65];
+      return t.enum_values![t.generated_offsets[0]];
+    }
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[65];
+      return t.enum_values![t.generated_offsets[1]];
+    }
+    static login($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[65];
+      return t.enum_values![t.generated_offsets[2]];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[65];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace SmtpAuth  {
+    export type Field = 'none'|'plain'|'login';
+  }
   export class CsvColumnString extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnString';
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     trim: boolean | null;
     try_number: boolean | null;
     try_json: boolean | null;
@@ -4808,7 +4834,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
-        trim: {
+        offset: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[2]];
@@ -4817,7 +4843,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[2]] = v;
           },
         },
-        try_number: {
+        trim: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[3]];
@@ -4826,7 +4852,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[3]] = v;
           },
         },
-        try_json: {
+        try_number: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[4]];
@@ -4835,7 +4861,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[4]] = v;
           },
         },
-        values: {
+        try_json: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[5]];
@@ -4844,7 +4870,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[5]] = v;
           },
         },
-        encoder: {
+        values: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[6]];
@@ -4853,98 +4879,23 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[6]] = v;
           },
         },
-      });
-    }
-
-    static createFrom({name, mandatory, trim, try_number, try_json, values, encoder}: {name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
-      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], name, mandatory, trim, try_number, try_json, values, encoder);
-    }
-    static create(name: string | null, mandatory: boolean | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
-      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], name, mandatory, trim, try_number, try_json, values, encoder);
-    }
-  }
-
-  export class CsvColumnFloat extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnFloat';
-
-    name: string | null;
-    mandatory: boolean | null;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        name: {
+        encoder: {
           enumerate: true,
           get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
+            return this.$attrs[this.$type.generated_offsets[7]];
           },
           set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        mandatory: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
+            this.$attrs[this.$type.generated_offsets[7]] = v;
           },
         },
       });
     }
 
-    static createFrom({name, mandatory}: {name: string | null, mandatory: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
-      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], name, mandatory);
+    static createFrom({name, mandatory, offset, trim, try_number, try_json, values, encoder}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
+      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], name, mandatory, offset, trim, try_number, try_json, values, encoder);
     }
-    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
-      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], name, mandatory);
-    }
-  }
-
-  export class CsvColumnTime extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnTime';
-
-    name: string | null;
-    mandatory: boolean | null;
-    unit: core.DurationUnit | null;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        name: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        mandatory: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-        unit: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[2]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[2]] = v;
-          },
-        },
-      });
-    }
-
-    static createFrom({name, mandatory, unit}: {name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
-      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], name, mandatory, unit);
-    }
-    static create(name: string | null, mandatory: boolean | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
-      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], name, mandatory, unit);
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
+      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], name, mandatory, offset, trim, try_number, try_json, values, encoder);
     }
   }
 
@@ -5028,10 +4979,142 @@ export namespace io {
     }
 
     static createFrom({from, subject, body, body_is_html, to, cc, bcc}: {from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
-      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], from, subject, body, body_is_html, to, cc, bcc);
+      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], from, subject, body, body_is_html, to, cc, bcc);
     }
     static create(from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
-      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], from, subject, body, body_is_html, to, cc, bcc);
+      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[67], from, subject, body, body_is_html, to, cc, bcc);
+    }
+  }
+
+  export class CsvColumnFloat extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnFloat';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
+      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
+      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], name, mandatory, offset);
+    }
+  }
+
+  export class SmtpMode extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpMode';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpMode.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[69];
+      return t.enum_values![t.generated_offsets[0]];
+    }
+    static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[69];
+      return t.enum_values![t.generated_offsets[1]];
+    }
+    static starttls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[69];
+      return t.enum_values![t.generated_offsets[2]];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[69];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace SmtpMode  {
+    export type Field = 'plain'|'ssl_tls'|'starttls';
+  }
+  export class CsvColumnTime extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnTime';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    unit: core.DurationUnit | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        name: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        mandatory: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        unit: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
+      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, offset, unit);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
+      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, offset, unit);
     }
   }
 
@@ -5040,6 +5123,7 @@ export namespace io {
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, ...attributes);
       Object.defineProperties(this, {
@@ -5061,44 +5145,26 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
       });
     }
 
   }
 
-  export class SmtpAuth extends $sdk.GCEnum {
-    static readonly _type = 'io::SmtpAuth';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: SmtpAuth.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static none($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[72];
-      return t.enum_values![t.generated_offsets[0]];
-    }
-    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[72];
-      return t.enum_values![t.generated_offsets[1]];
-    }
-    static login($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[72];
-      return t.enum_values![t.generated_offsets[2]];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[72];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace SmtpAuth  {
-    export type Field = 'none'|'plain'|'login';
-  }
   export class CsvColumnInteger extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnInteger';
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, ...attributes);
       Object.defineProperties(this, {
@@ -5120,14 +5186,23 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
+        offset: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
       });
     }
 
-    static createFrom({name, mandatory}: {name: string | null, mandatory: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
-      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory);
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
+      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], name, mandatory, offset);
     }
-    static create(name: string | null, mandatory: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
-      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory);
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
+      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], name, mandatory, offset);
     }
   }
 
@@ -5136,6 +5211,7 @@ export namespace io {
 
     name: string | null;
     mandatory: boolean | null;
+    offset: bigint | number | null;
     format: string | null;
     tz: core.TimeZone | null;
     as_time: boolean | null;
@@ -5160,7 +5236,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[1]] = v;
           },
         },
-        format: {
+        offset: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[2]];
@@ -5169,7 +5245,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[2]] = v;
           },
         },
-        tz: {
+        format: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[3]];
@@ -5178,7 +5254,7 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[3]] = v;
           },
         },
-        as_time: {
+        tz: {
           enumerate: true,
           get() {
             return this.$attrs[this.$type.generated_offsets[4]];
@@ -5187,14 +5263,38 @@ export namespace io {
             this.$attrs[this.$type.generated_offsets[4]] = v;
           },
         },
+        as_time: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
       });
     }
 
-    static createFrom({name, mandatory, format, tz, as_time}: {name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
-      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], name, mandatory, format, tz, as_time);
+    static createFrom({name, mandatory, offset, format, tz, as_time}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
+      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory, offset, format, tz, as_time);
     }
-    static create(name: string | null, mandatory: boolean | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
-      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], name, mandatory, format, tz, as_time);
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
+      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], name, mandatory, offset, format, tz, as_time);
+    }
+  }
+
+  export class Http extends $sdk.GCObject {
+    static readonly _type = 'io::Http';
+
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+    }
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Http {
+      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[74]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
+      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[74]);
     }
   }
 
@@ -5303,13 +5403,296 @@ export namespace math {
 }
 
 export namespace util {
-  export class TimeWindow extends std_n.util.TimeWindow {
+  export class SlidingWindow extends std_n.util.SlidingWindow {
+}
+
+  export class Gaussian extends $sdk.GCObject {
+    static readonly _type = 'util::Gaussian';
+
+    sum: number | null;
+    sum_sq: number | null;
+    count: bigint | number | null;
+    min: number | null;
+    max: number | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        sum: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        sum_sq: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        count: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({sum, sum_sq, count, min, max}: {sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
+      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], sum, sum_sq, count, min, max);
+    }
+    static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
+      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], sum, sum_sq, count, min, max);
+    }
+  }
+
+  export class HistogramFloat extends std_n.util.HistogramFloat {
+}
+
+  export class Buffer extends std_n.util.Buffer {
+}
+
+  export class BoxPlotInt extends $sdk.GCObject {
+    static readonly _type = 'util::BoxPlotInt';
+
+    min: bigint | number;
+    max: bigint | number;
+    whiskerLow: bigint | number;
+    whiskerHigh: bigint | number;
+    percentile1: bigint | number;
+    percentile5: bigint | number;
+    percentile25: bigint | number;
+    percentile50: bigint | number;
+    percentile75: bigint | number;
+    percentile95: bigint | number;
+    percentile99: bigint | number;
+    countOutliersLow: bigint | number;
+    countOutliersHigh: bigint | number;
+    percentageOutliersLow: number;
+    percentageOutliersHigh: number;
+    sum: number;
+    avg: number;
+    std: number;
+    size: bigint | number;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        min: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        max: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        whiskerLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        whiskerHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        percentile1: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        percentile5: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        percentile25: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+        percentile50: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[7]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[7]] = v;
+          },
+        },
+        percentile75: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[8]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[8]] = v;
+          },
+        },
+        percentile95: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[9]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[9]] = v;
+          },
+        },
+        percentile99: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[10]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[10]] = v;
+          },
+        },
+        countOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[11]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[11]] = v;
+          },
+        },
+        countOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[12]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[12]] = v;
+          },
+        },
+        percentageOutliersLow: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[13]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[13]] = v;
+          },
+        },
+        percentageOutliersHigh: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[14]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[14]] = v;
+          },
+        },
+        sum: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[15]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[15]] = v;
+          },
+        },
+        avg: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[16]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[16]] = v;
+          },
+        },
+        std: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[17]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[17]] = v;
+          },
+        },
+        size: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[18]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[18]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
+    static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
+  }
+
+  export class Quantizer extends std_n.util.Quantizer {
 }
 
   export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {
 }
 
-  export class Buffer extends std_n.util.Buffer {
+  export class HistogramInt extends std_n.util.HistogramInt {
 }
 
   export class Random extends $sdk.GCObject {
@@ -5342,10 +5725,103 @@ export namespace util {
     }
 
     static createFrom({seed, v}: {seed: bigint | number, v: number}, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[80], seed, v);
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], seed, v);
     }
     static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[80], seed, v);
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], seed, v);
+    }
+  }
+
+  export class Iban extends std_n.util.Iban {
+}
+
+  export class GaussianProfile extends std_n.util.GaussianProfile {
+}
+
+  export class ProgressTracker extends $sdk.GCObject {
+    static readonly _type = 'util::ProgressTracker';
+
+    start: $sdk.std.core.time;
+    total: bigint | number | null;
+    counter: bigint | number | null;
+    duration: $sdk.std.core.duration | null;
+    progress: number | null;
+    speed: number | null;
+    remaining: $sdk.std.core.duration | null;
+    constructor(type: $sdk.AbiType, ...attributes: any[]) {
+      super(type, ...attributes);
+      Object.defineProperties(this, {
+        start: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[0]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[0]] = v;
+          },
+        },
+        total: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[1]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[1]] = v;
+          },
+        },
+        counter: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[2]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[2]] = v;
+          },
+        },
+        duration: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[3]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[3]] = v;
+          },
+        },
+        progress: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[4]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[4]] = v;
+          },
+        },
+        speed: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[5]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[5]] = v;
+          },
+        },
+        remaining: {
+          enumerate: true,
+          get() {
+            return this.$attrs[this.$type.generated_offsets[6]];
+          },
+          set(v) {
+            this.$attrs[this.$type.generated_offsets[6]] = v;
+          },
+        },
+      });
+    }
+
+    static createFrom({start, total, counter, duration, progress, speed, remaining}: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null}, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], start, total, counter, duration, progress, speed, remaining);
+    }
+    static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], start, total, counter, duration, progress, speed, remaining);
     }
   }
 
@@ -5549,25 +6025,10 @@ export namespace util {
     }
 
     static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[89], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
     static create(min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-  }
-
-  export class Crypto extends $sdk.GCObject {
-    static readonly _type = 'util::Crypto';
-
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-    }
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[82]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[82]);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[89], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
   }
 
@@ -5579,397 +6040,36 @@ export namespace util {
     }
 
     static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
-      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
+      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[90]);
     }
     static create($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
-      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
+      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[90]);
     }
   }
 
-  export class GaussianProfile extends std_n.util.GaussianProfile {
+  export class TimeWindow extends std_n.util.TimeWindow {
 }
 
-  export class Gaussian extends $sdk.GCObject {
-    static readonly _type = 'util::Gaussian';
+  export class Crypto extends $sdk.GCObject {
+    static readonly _type = 'util::Crypto';
 
-    sum: number | null;
-    sum_sq: number | null;
-    count: bigint | number | null;
-    min: number | null;
-    max: number | null;
     constructor(type: $sdk.AbiType, ...attributes: any[]) {
       super(type, ...attributes);
-      Object.defineProperties(this, {
-        sum: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        sum_sq: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-        count: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[2]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[2]] = v;
-          },
-        },
-        min: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[3]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[3]] = v;
-          },
-        },
-        max: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[4]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[4]] = v;
-          },
-        },
-      });
     }
 
-    static createFrom({sum, sum_sq, count, min, max}: {sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
-      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], sum, sum_sq, count, min, max);
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[92]);
     }
-    static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
-      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], sum, sum_sq, count, min, max);
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[92]);
     }
   }
-
-  export class Iban extends std_n.util.Iban {
-}
-
-  export class BoxPlotInt extends $sdk.GCObject {
-    static readonly _type = 'util::BoxPlotInt';
-
-    min: bigint | number;
-    max: bigint | number;
-    whiskerLow: bigint | number;
-    whiskerHigh: bigint | number;
-    percentile1: bigint | number;
-    percentile5: bigint | number;
-    percentile25: bigint | number;
-    percentile50: bigint | number;
-    percentile75: bigint | number;
-    percentile95: bigint | number;
-    percentile99: bigint | number;
-    countOutliersLow: bigint | number;
-    countOutliersHigh: bigint | number;
-    percentageOutliersLow: number;
-    percentageOutliersHigh: number;
-    sum: number;
-    avg: number;
-    std: number;
-    size: bigint | number;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        min: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        max: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-        whiskerLow: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[2]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[2]] = v;
-          },
-        },
-        whiskerHigh: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[3]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[3]] = v;
-          },
-        },
-        percentile1: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[4]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[4]] = v;
-          },
-        },
-        percentile5: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[5]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[5]] = v;
-          },
-        },
-        percentile25: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[6]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[6]] = v;
-          },
-        },
-        percentile50: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[7]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[7]] = v;
-          },
-        },
-        percentile75: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[8]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[8]] = v;
-          },
-        },
-        percentile95: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[9]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[9]] = v;
-          },
-        },
-        percentile99: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[10]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[10]] = v;
-          },
-        },
-        countOutliersLow: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[11]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[11]] = v;
-          },
-        },
-        countOutliersHigh: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[12]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[12]] = v;
-          },
-        },
-        percentageOutliersLow: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[13]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[13]] = v;
-          },
-        },
-        percentageOutliersHigh: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[14]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[14]] = v;
-          },
-        },
-        sum: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[15]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[15]] = v;
-          },
-        },
-        avg: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[16]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[16]] = v;
-          },
-        },
-        std: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[17]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[17]] = v;
-          },
-        },
-        size: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[18]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[18]] = v;
-          },
-        },
-      });
-    }
-
-    static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-    static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-  }
-
-  export class HistogramInt extends std_n.util.HistogramInt {
-}
-
-  export class Quantizer extends std_n.util.Quantizer {
-}
-
-  export class HistogramFloat extends std_n.util.HistogramFloat {
-}
-
-  export class ProgressTracker extends $sdk.GCObject {
-    static readonly _type = 'util::ProgressTracker';
-
-    start: $sdk.std.core.time;
-    total: bigint | number | null;
-    counter: bigint | number | null;
-    duration: $sdk.std.core.duration | null;
-    progress: number | null;
-    speed: number | null;
-    remaining: $sdk.std.core.duration | null;
-    constructor(type: $sdk.AbiType, ...attributes: any[]) {
-      super(type, ...attributes);
-      Object.defineProperties(this, {
-        start: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[0]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[0]] = v;
-          },
-        },
-        total: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[1]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[1]] = v;
-          },
-        },
-        counter: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[2]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[2]] = v;
-          },
-        },
-        duration: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[3]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[3]] = v;
-          },
-        },
-        progress: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[4]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[4]] = v;
-          },
-        },
-        speed: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[5]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[5]] = v;
-          },
-        },
-        remaining: {
-          enumerate: true,
-          get() {
-            return this.$attrs[this.$type.generated_offsets[6]];
-          },
-          set(v) {
-            this.$attrs[this.$type.generated_offsets[6]] = v;
-          },
-        },
-      });
-    }
-
-    static createFrom({start, total, counter, duration, progress, speed, remaining}: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null}, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], start, total, counter, duration, progress, speed, remaining);
-    }
-    static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], start, total, counter, duration, progress, speed, remaining);
-    }
-  }
-
-  export class SlidingWindow extends std_n.util.SlidingWindow {
-}
 
 }
 
 export const stdlib: $sdk.Library = {
   name: 'std',
-  mapped: [],
+  mapped: new globalThis.Array(93),
   configure(loaders, factories) {
     factories.set(core.Error._type, core.Error);
     loaders.set(core.Error._type, std_n.core.Error.load);
@@ -6055,203 +6155,388 @@ export const stdlib: $sdk.Library = {
     factories.set(runtime.UserCredential._type, runtime.UserCredential);
     factories.set(io.CsvColumnDuration._type, io.CsvColumnDuration);
     factories.set(io.File._type, io.File);
-    factories.set(io.SmtpMode._type, io.SmtpMode);
-    factories.set(io.HttpHeader._type, io.HttpHeader);
     factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
-    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
-    factories.set(io.Http._type, io.Http);
-    factories.set(io.CsvFormat._type, io.CsvFormat);
     factories.set(io.Smtp._type, io.Smtp);
     factories.set(io.Url._type, io.Url);
-    factories.set(io.CsvColumnString._type, io.CsvColumnString);
-    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
-    factories.set(io.CsvColumnTime._type, io.CsvColumnTime);
-    factories.set(io.Email._type, io.Email);
-    factories.set(io.CsvColumn._type, io.CsvColumn);
+    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
+    factories.set(io.HttpHeader._type, io.HttpHeader);
+    factories.set(io.CsvFormat._type, io.CsvFormat);
     factories.set(io.SmtpAuth._type, io.SmtpAuth);
+    factories.set(io.CsvColumnString._type, io.CsvColumnString);
+    factories.set(io.Email._type, io.Email);
+    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
+    factories.set(io.SmtpMode._type, io.SmtpMode);
+    factories.set(io.CsvColumnTime._type, io.CsvColumnTime);
+    factories.set(io.CsvColumn._type, io.CsvColumn);
     factories.set(io.CsvColumnInteger._type, io.CsvColumnInteger);
     factories.set(io.CsvColumnDate._type, io.CsvColumnDate);
+    factories.set(io.Http._type, io.Http);
     factories.set(io.TextEncoder._type, io.TextEncoder);
     factories.set(math.MathConstants._type, math.MathConstants);
-    factories.set(util.TimeWindow._type, util.TimeWindow);
-    loaders.set(util.TimeWindow._type, std_n.util.TimeWindow.load);
-    factories.set(util.Queue._type, util.Queue);
-    loaders.set(util.Queue._type, std_n.util.Queue.load);
-    factories.set(util.Buffer._type, util.Buffer);
-    loaders.set(util.Buffer._type, std_n.util.Buffer.load);
-    factories.set(util.Random._type, util.Random);
-    factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
-    factories.set(util.Crypto._type, util.Crypto);
-    factories.set(util.Assert._type, util.Assert);
-    factories.set(util.GaussianProfile._type, util.GaussianProfile);
-    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
-    factories.set(util.Gaussian._type, util.Gaussian);
-    factories.set(util.Iban._type, util.Iban);
-    loaders.set(util.Iban._type, std_n.util.Iban.load);
-    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
-    factories.set(util.HistogramInt._type, util.HistogramInt);
-    loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
-    factories.set(util.Quantizer._type, util.Quantizer);
-    loaders.set(util.Quantizer._type, std_n.util.Quantizer.load);
-    factories.set(util.HistogramFloat._type, util.HistogramFloat);
-    loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
-    factories.set(util.ProgressTracker._type, util.ProgressTracker);
     factories.set(util.SlidingWindow._type, util.SlidingWindow);
     loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
+    factories.set(util.Gaussian._type, util.Gaussian);
+    factories.set(util.HistogramFloat._type, util.HistogramFloat);
+    loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
+    factories.set(util.Buffer._type, util.Buffer);
+    loaders.set(util.Buffer._type, std_n.util.Buffer.load);
+    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
+    factories.set(util.Quantizer._type, util.Quantizer);
+    loaders.set(util.Quantizer._type, std_n.util.Quantizer.load);
+    factories.set(util.Queue._type, util.Queue);
+    loaders.set(util.Queue._type, std_n.util.Queue.load);
+    factories.set(util.HistogramInt._type, util.HistogramInt);
+    loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
+    factories.set(util.Random._type, util.Random);
+    factories.set(util.Iban._type, util.Iban);
+    loaders.set(util.Iban._type, std_n.util.Iban.load);
+    factories.set(util.GaussianProfile._type, util.GaussianProfile);
+    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.ProgressTracker._type, util.ProgressTracker);
+    factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
+    factories.set(util.Assert._type, util.Assert);
+    factories.set(util.TimeWindow._type, util.TimeWindow);
+    loaders.set(util.TimeWindow._type, std_n.util.TimeWindow.load);
+    factories.set(util.Crypto._type, util.Crypto);
   },
   init(abi) {
-    this.mapped.length = 93;
-    this.mapped[0] = abi.type_by_fqn.get(core.Error._type)!;
-    this.mapped[1] = abi.type_by_fqn.get(core.Table._type)!;
-    this.mapped[2] = abi.type_by_fqn.get(core.String._type)!;
-    this.mapped[3] = abi.type_by_fqn.get(core.nodeList._type)!;
-    this.mapped[4] = abi.type_by_fqn.get(core.geo._type)!;
-    this.mapped[4].static_values = [abi.createGeo(-85.0511287602,-179.9999999581),abi.createGeo(85.0511287602,179.9999999581)];
-    this.mapped[5] = abi.type_by_fqn.get(core.ti5d._type)!;
-    this.mapped[6] = abi.type_by_fqn.get(core.tf4d._type)!;
-    this.mapped[7] = abi.type_by_fqn.get(core.SamplingMode._type)!;
-    this.mapped[7].resolveGeneratedOffsetWithValues('fixed', 0,'fixed_reg', 1,'adaptative', 2,'dense', 3);
-    this.mapped[8] = abi.type_by_fqn.get(core.node._type)!;
-    this.mapped[9] = abi.type_by_fqn.get(core.nodeTimeSingleton._type)!;
-    this.mapped[9].resolveGeneratedOffsets('t','v');
-    this.mapped[10] = abi.type_by_fqn.get(core.ti2d._type)!;
-    this.mapped[11] = abi.type_by_fqn.get(core.Array._type)!;
-    this.mapped[12] = abi.type_by_fqn.get(core.ti10d._type)!;
-    this.mapped[13] = abi.type_by_fqn.get(core.tf3d._type)!;
-    this.mapped[14] = abi.type_by_fqn.get(core.Map._type)!;
-    this.mapped[15] = abi.type_by_fqn.get(core.TimeZone._type)!;
-    this.mapped[15].resolveGeneratedOffsetWithValues('Africa_Accra', "Africa/Accra",'Africa_Bamako', "Africa/Bamako",'Africa_Banjul', "Africa/Banjul",'Africa_Conakry', "Africa/Conakry",'Africa_Dakar', "Africa/Dakar",'Africa_Freetown', "Africa/Freetown",'Africa_Lome', "Africa/Lome",'Africa_Nouakchott', "Africa/Nouakchott",'Africa_Ouagadougou', "Africa/Ouagadougou",'Africa_Timbuktu', "Africa/Timbuktu",'Atlantic_Reykjavik', "Atlantic/Reykjavik",'Atlantic_St_Helena', "Atlantic/St_Helena",'Iceland', "Iceland",'Egypt', "Egypt",'Africa_Maseru', "Africa/Maseru",'Africa_Mbabane', "Africa/Mbabane",'Africa_Bangui', "Africa/Bangui",'Africa_Brazzaville', "Africa/Brazzaville",'Africa_Douala', "Africa/Douala",'Africa_Kinshasa', "Africa/Kinshasa",'Africa_Libreville', "Africa/Libreville",'Africa_Luanda', "Africa/Luanda",'Africa_Malabo', "Africa/Malabo",'Africa_Niamey', "Africa/Niamey",'Africa_Porto_Novo', "Africa/Porto-Novo",'Africa_Blantyre', "Africa/Blantyre",'Africa_Bujumbura', "Africa/Bujumbura",'Africa_Gaborone', "Africa/Gaborone",'Africa_Harare', "Africa/Harare",'Africa_Kigali', "Africa/Kigali",'Africa_Lubumbashi', "Africa/Lubumbashi",'Africa_Lusaka', "Africa/Lusaka",'Africa_Addis_Ababa', "Africa/Addis_Ababa",'Africa_Asmara', "Africa/Asmara",'Africa_Asmera', "Africa/Asmera",'Africa_Dar_es_Salaam', "Africa/Dar_es_Salaam",'Africa_Djibouti', "Africa/Djibouti",'Africa_Kampala', "Africa/Kampala",'Africa_Mogadishu', "Africa/Mogadishu",'Indian_Antananarivo', "Indian/Antananarivo",'Indian_Comoro', "Indian/Comoro",'Indian_Mayotte', "Indian/Mayotte",'Libya', "Libya",'America_Atka', "America/Atka",'US_Aleutian', "US/Aleutian",'US_Alaska', "US/Alaska",'America_Buenos_Aires', "America/Buenos_Aires",'America_Argentina_ComodRivadavia', "America/Argentina/ComodRivadavia",'America_Catamarca', "America/Catamarca",'America_Cordoba', "America/Cordoba",'America_Rosario', "America/Rosario",'America_Jujuy', "America/Jujuy",'America_Mendoza', "America/Mendoza",'US_Central', "US/Central",'America_Shiprock', "America/Shiprock",'Navajo', "Navajo",'US_Mountain', "US/Mountain",'US_Michigan', "US/Michigan",'America_Yellowknife', "America/Yellowknife",'Canada_Mountain', "Canada/Mountain",'Canada_Atlantic', "Canada/Atlantic",'Cuba', "Cuba",'America_Fort_Wayne', "America/Fort_Wayne",'America_Indianapolis', "America/Indianapolis",'US_East_Indiana', "US/East-Indiana",'America_Knox_IN', "America/Knox_IN",'US_Indiana_Starke', "US/Indiana-Starke",'America_Pangnirtung', "America/Pangnirtung",'Jamaica', "Jamaica",'America_Louisville', "America/Louisville",'US_Pacific', "US/Pacific",'Brazil_West', "Brazil/West",'Mexico_BajaSur', "Mexico/BajaSur",'Mexico_General', "Mexico/General",'US_Eastern', "US/Eastern",'Brazil_DeNoronha', "Brazil/DeNoronha",'America_Godthab', "America/Godthab",'America_Atikokan', "America/Atikokan",'America_Cayman', "America/Cayman",'America_Coral_Harbour', "America/Coral_Harbour",'America_Creston', "America/Creston",'US_Arizona', "US/Arizona",'America_Anguilla', "America/Anguilla",'America_Antigua', "America/Antigua",'America_Aruba', "America/Aruba",'America_Blanc_Sablon', "America/Blanc-Sablon",'America_Curacao', "America/Curacao",'America_Dominica', "America/Dominica",'America_Grenada', "America/Grenada",'America_Guadeloupe', "America/Guadeloupe",'America_Kralendijk', "America/Kralendijk",'America_Lower_Princes', "America/Lower_Princes",'America_Marigot', "America/Marigot",'America_Montserrat', "America/Montserrat",'America_Port_of_Spain', "America/Port_of_Spain",'America_St_Barthelemy', "America/St_Barthelemy",'America_St_Kitts', "America/St_Kitts",'America_St_Lucia', "America/St_Lucia",'America_St_Thomas', "America/St_Thomas",'America_St_Vincent', "America/St_Vincent",'America_Tortola', "America/Tortola",'America_Virgin', "America/Virgin",'Canada_Saskatchewan', "Canada/Saskatchewan",'America_Porto_Acre', "America/Porto_Acre",'Brazil_Acre', "Brazil/Acre",'Chile_Continental', "Chile/Continental",'Brazil_East', "Brazil/East",'Canada_Newfoundland', "Canada/Newfoundland",'America_Ensenada', "America/Ensenada",'America_Santa_Isabel', "America/Santa_Isabel",'Mexico_BajaNorte', "Mexico/BajaNorte",'America_Montreal', "America/Montreal",'America_Nassau', "America/Nassau",'America_Nipigon', "America/Nipigon",'America_Thunder_Bay', "America/Thunder_Bay",'Canada_Eastern', "Canada/Eastern",'Canada_Pacific', "Canada/Pacific",'Canada_Yukon', "Canada/Yukon",'America_Rainy_River', "America/Rainy_River",'Canada_Central', "Canada/Central",'Asia_Ashkhabad', "Asia/Ashkhabad",'Asia_Phnom_Penh', "Asia/Phnom_Penh",'Asia_Vientiane', "Asia/Vientiane",'Indian_Christmas', "Indian/Christmas",'Asia_Dacca', "Asia/Dacca",'Asia_Muscat', "Asia/Muscat",'Indian_Mahe', "Indian/Mahe",'Indian_Reunion', "Indian/Reunion",'Asia_Saigon', "Asia/Saigon",'Hongkong', "Hongkong",'Asia_Tel_Aviv', "Asia/Tel_Aviv",'Israel', "Israel",'Asia_Katmandu', "Asia/Katmandu",'Asia_Calcutta', "Asia/Calcutta",'Asia_Brunei', "Asia/Brunei",'Asia_Macao', "Asia/Macao",'Asia_Ujung_Pandang', "Asia/Ujung_Pandang",'Europe_Nicosia', "Europe/Nicosia",'Asia_Bahrain', "Asia/Bahrain",'Antarctica_Syowa', "Antarctica/Syowa",'Asia_Aden', "Asia/Aden",'Asia_Kuwait', "Asia/Kuwait",'ROK', "ROK",'Asia_Chongqing', "Asia/Chongqing",'Asia_Chungking', "Asia/Chungking",'Asia_Harbin', "Asia/Harbin",'PRC', "PRC",'Asia_Kuala_Lumpur', "Asia/Kuala_Lumpur",'Singapore', "Singapore",'ROC', "ROC",'Iran', "Iran",'Asia_Thimbu', "Asia/Thimbu",'Japan', "Japan",'Asia_Ulan_Bator', "Asia/Ulan_Bator",'Antarctica_Vostok', "Antarctica/Vostok",'Asia_Kashgar', "Asia/Kashgar",'Asia_Rangoon', "Asia/Rangoon",'Indian_Cocos', "Indian/Cocos",'Atlantic_Faeroe', "Atlantic/Faeroe",'Australia_South', "Australia/South",'Australia_Queensland', "Australia/Queensland",'Australia_Yancowinna', "Australia/Yancowinna",'Australia_North', "Australia/North",'Australia_Currie', "Australia/Currie",'Australia_Tasmania', "Australia/Tasmania",'Australia_LHI', "Australia/LHI",'Australia_Victoria', "Australia/Victoria",'Australia_West', "Australia/West",'Australia_ACT', "Australia/ACT",'Australia_Canberra', "Australia/Canberra",'Australia_NSW', "Australia/NSW",'GMT', "GMT",'GMTx0', "GMT+0",'GMT_0', "GMT-0",'GMT0', "GMT0",'Greenwich', "Greenwich",'UCT', "UCT",'UTC', "UTC",'Universal', "Universal",'Zulu', "Zulu",'Europe_Ljubljana', "Europe/Ljubljana",'Europe_Podgorica', "Europe/Podgorica",'Europe_Sarajevo', "Europe/Sarajevo",'Europe_Skopje', "Europe/Skopje",'Europe_Zagreb', "Europe/Zagreb",'Arctic_Longyearbyen', "Arctic/Longyearbyen",'Atlantic_Jan_Mayen', "Atlantic/Jan_Mayen",'Europe_Copenhagen', "Europe/Copenhagen",'Europe_Oslo', "Europe/Oslo",'Europe_Stockholm', "Europe/Stockholm",'Europe_Amsterdam', "Europe/Amsterdam",'Europe_Luxembourg', "Europe/Luxembourg",'Europe_Tiraspol', "Europe/Tiraspol",'Eire', "Eire",'Europe_Mariehamn', "Europe/Mariehamn",'Asia_Istanbul', "Asia/Istanbul",'Turkey', "Turkey",'Europe_Kiev', "Europe/Kiev",'Europe_Uzhgorod', "Europe/Uzhgorod",'Europe_Zaporozhye', "Europe/Zaporozhye",'Portugal', "Portugal",'Europe_Belfast', "Europe/Belfast",'Europe_Guernsey', "Europe/Guernsey",'Europe_Isle_of_Man', "Europe/Isle_of_Man",'Europe_Jersey', "Europe/Jersey",'GB', "GB",'GB_Eire', "GB-Eire",'W_SU', "W-SU",'Europe_Monaco', "Europe/Monaco",'Europe_Bratislava', "Europe/Bratislava",'Europe_San_Marino', "Europe/San_Marino",'Europe_Vatican', "Europe/Vatican",'Poland', "Poland",'Europe_Busingen', "Europe/Busingen",'Europe_Vaduz', "Europe/Vaduz",'Indian_Kerguelen', "Indian/Kerguelen",'Antarctica_McMurdo', "Antarctica/McMurdo",'Antarctica_South_Pole', "Antarctica/South_Pole",'NZ', "NZ",'NZ_CHAT', "NZ-CHAT",'Chile_EasterIsland', "Chile/EasterIsland",'Pacific_Pohnpei', "Pacific/Pohnpei",'Pacific_Ponape', "Pacific/Ponape",'Pacific_Saipan', "Pacific/Saipan",'Pacific_Johnston', "Pacific/Johnston",'US_Hawaii', "US/Hawaii",'Pacific_Enderbury', "Pacific/Enderbury",'Kwajalein', "Kwajalein",'Pacific_Midway', "Pacific/Midway",'Pacific_Samoa', "Pacific/Samoa",'US_Samoa', "US/Samoa",'Antarctica_DumontDUrville', "Antarctica/DumontDUrville",'Pacific_Chuuk', "Pacific/Chuuk",'Pacific_Truk', "Pacific/Truk",'Pacific_Yap', "Pacific/Yap",'Pacific_Funafuti', "Pacific/Funafuti",'Pacific_Majuro', "Pacific/Majuro",'Pacific_Wake', "Pacific/Wake",'Pacific_Wallis', "Pacific/Wallis",'Africa_Abidjan', "Africa/Abidjan",'Africa_Algiers', "Africa/Algiers",'Africa_Bissau', "Africa/Bissau",'Africa_Cairo', "Africa/Cairo",'Africa_Casablanca', "Africa/Casablanca",'Africa_Ceuta', "Africa/Ceuta",'Africa_El_Aaiun', "Africa/El_Aaiun",'Africa_Johannesburg', "Africa/Johannesburg",'Africa_Juba', "Africa/Juba",'Africa_Khartoum', "Africa/Khartoum",'Africa_Lagos', "Africa/Lagos",'Africa_Maputo', "Africa/Maputo",'Africa_Monrovia', "Africa/Monrovia",'Africa_Nairobi', "Africa/Nairobi",'Africa_Ndjamena', "Africa/Ndjamena",'Africa_Sao_Tome', "Africa/Sao_Tome",'Africa_Tripoli', "Africa/Tripoli",'Africa_Tunis', "Africa/Tunis",'Africa_Windhoek', "Africa/Windhoek",'America_Adak', "America/Adak",'America_Anchorage', "America/Anchorage",'America_Araguaina', "America/Araguaina",'America_Argentina_Buenos_Aires', "America/Argentina/Buenos_Aires",'America_Argentina_Catamarca', "America/Argentina/Catamarca",'America_Argentina_Cordoba', "America/Argentina/Cordoba",'America_Argentina_Jujuy', "America/Argentina/Jujuy",'America_Argentina_La_Rioja', "America/Argentina/La_Rioja",'America_Argentina_Mendoza', "America/Argentina/Mendoza",'America_Argentina_Rio_Gallegos', "America/Argentina/Rio_Gallegos",'America_Argentina_Salta', "America/Argentina/Salta",'America_Argentina_San_Juan', "America/Argentina/San_Juan",'America_Argentina_San_Luis', "America/Argentina/San_Luis",'America_Argentina_Tucuman', "America/Argentina/Tucuman",'America_Argentina_Ushuaia', "America/Argentina/Ushuaia",'America_Asuncion', "America/Asuncion",'America_Bahia', "America/Bahia",'America_Bahia_Banderas', "America/Bahia_Banderas",'America_Barbados', "America/Barbados",'America_Belem', "America/Belem",'America_Belize', "America/Belize",'America_Boa_Vista', "America/Boa_Vista",'America_Bogota', "America/Bogota",'America_Boise', "America/Boise",'America_Cambridge_Bay', "America/Cambridge_Bay",'America_Campo_Grande', "America/Campo_Grande",'America_Cancun', "America/Cancun",'America_Caracas', "America/Caracas",'America_Cayenne', "America/Cayenne",'America_Chicago', "America/Chicago",'America_Chihuahua', "America/Chihuahua",'America_Ciudad_Juarez', "America/Ciudad_Juarez",'America_Costa_Rica', "America/Costa_Rica",'America_Cuiaba', "America/Cuiaba",'America_Danmarkshavn', "America/Danmarkshavn",'America_Dawson', "America/Dawson",'America_Dawson_Creek', "America/Dawson_Creek",'America_Denver', "America/Denver",'America_Detroit', "America/Detroit",'America_Edmonton', "America/Edmonton",'America_Eirunepe', "America/Eirunepe",'America_El_Salvador', "America/El_Salvador",'America_Fort_Nelson', "America/Fort_Nelson",'America_Fortaleza', "America/Fortaleza",'America_Glace_Bay', "America/Glace_Bay",'America_Goose_Bay', "America/Goose_Bay",'America_Grand_Turk', "America/Grand_Turk",'America_Guatemala', "America/Guatemala",'America_Guayaquil', "America/Guayaquil",'America_Guyana', "America/Guyana",'America_Halifax', "America/Halifax",'America_Havana', "America/Havana",'America_Hermosillo', "America/Hermosillo",'America_Indiana_Indianapolis', "America/Indiana/Indianapolis",'America_Indiana_Knox', "America/Indiana/Knox",'America_Indiana_Marengo', "America/Indiana/Marengo",'America_Indiana_Petersburg', "America/Indiana/Petersburg",'America_Indiana_Tell_City', "America/Indiana/Tell_City",'America_Indiana_Vevay', "America/Indiana/Vevay",'America_Indiana_Vincennes', "America/Indiana/Vincennes",'America_Indiana_Winamac', "America/Indiana/Winamac",'America_Inuvik', "America/Inuvik",'America_Iqaluit', "America/Iqaluit",'America_Jamaica', "America/Jamaica",'America_Juneau', "America/Juneau",'America_Kentucky_Louisville', "America/Kentucky/Louisville",'America_Kentucky_Monticello', "America/Kentucky/Monticello",'America_La_Paz', "America/La_Paz",'America_Lima', "America/Lima",'America_Los_Angeles', "America/Los_Angeles",'America_Maceio', "America/Maceio",'America_Managua', "America/Managua",'America_Manaus', "America/Manaus",'America_Martinique', "America/Martinique",'America_Matamoros', "America/Matamoros",'America_Mazatlan', "America/Mazatlan",'America_Menominee', "America/Menominee",'America_Merida', "America/Merida",'America_Metlakatla', "America/Metlakatla",'America_Mexico_City', "America/Mexico_City",'America_Miquelon', "America/Miquelon",'America_Moncton', "America/Moncton",'America_Monterrey', "America/Monterrey",'America_Montevideo', "America/Montevideo",'America_New_York', "America/New_York",'America_Nome', "America/Nome",'America_Noronha', "America/Noronha",'America_North_Dakota_Beulah', "America/North_Dakota/Beulah",'America_North_Dakota_Center', "America/North_Dakota/Center",'America_North_Dakota_New_Salem', "America/North_Dakota/New_Salem",'America_Nuuk', "America/Nuuk",'America_Ojinaga', "America/Ojinaga",'America_Panama', "America/Panama",'America_Paramaribo', "America/Paramaribo",'America_Phoenix', "America/Phoenix",'America_Port_au_Prince', "America/Port-au-Prince",'America_Porto_Velho', "America/Porto_Velho",'America_Puerto_Rico', "America/Puerto_Rico",'America_Punta_Arenas', "America/Punta_Arenas",'America_Rankin_Inlet', "America/Rankin_Inlet",'America_Recife', "America/Recife",'America_Regina', "America/Regina",'America_Resolute', "America/Resolute",'America_Rio_Branco', "America/Rio_Branco",'America_Santarem', "America/Santarem",'America_Santiago', "America/Santiago",'America_Santo_Domingo', "America/Santo_Domingo",'America_Sao_Paulo', "America/Sao_Paulo",'America_Scoresbysund', "America/Scoresbysund",'America_Sitka', "America/Sitka",'America_St_Johns', "America/St_Johns",'America_Swift_Current', "America/Swift_Current",'America_Tegucigalpa', "America/Tegucigalpa",'America_Thule', "America/Thule",'America_Tijuana', "America/Tijuana",'America_Toronto', "America/Toronto",'America_Vancouver', "America/Vancouver",'America_Whitehorse', "America/Whitehorse",'America_Winnipeg', "America/Winnipeg",'America_Yakutat', "America/Yakutat",'Antarctica_Casey', "Antarctica/Casey",'Antarctica_Davis', "Antarctica/Davis",'Antarctica_Macquarie', "Antarctica/Macquarie",'Antarctica_Mawson', "Antarctica/Mawson",'Antarctica_Palmer', "Antarctica/Palmer",'Antarctica_Rothera', "Antarctica/Rothera",'Antarctica_Troll', "Antarctica/Troll",'Asia_Almaty', "Asia/Almaty",'Asia_Amman', "Asia/Amman",'Asia_Anadyr', "Asia/Anadyr",'Asia_Aqtau', "Asia/Aqtau",'Asia_Aqtobe', "Asia/Aqtobe",'Asia_Ashgabat', "Asia/Ashgabat",'Asia_Atyrau', "Asia/Atyrau",'Asia_Baghdad', "Asia/Baghdad",'Asia_Baku', "Asia/Baku",'Asia_Bangkok', "Asia/Bangkok",'Asia_Barnaul', "Asia/Barnaul",'Asia_Beirut', "Asia/Beirut",'Asia_Bishkek', "Asia/Bishkek",'Asia_Chita', "Asia/Chita",'Asia_Choibalsan', "Asia/Choibalsan",'Asia_Colombo', "Asia/Colombo",'Asia_Damascus', "Asia/Damascus",'Asia_Dhaka', "Asia/Dhaka",'Asia_Dili', "Asia/Dili",'Asia_Dubai', "Asia/Dubai",'Asia_Dushanbe', "Asia/Dushanbe",'Asia_Famagusta', "Asia/Famagusta",'Asia_Gaza', "Asia/Gaza",'Asia_Hebron', "Asia/Hebron",'Asia_Ho_Chi_Minh', "Asia/Ho_Chi_Minh",'Asia_Hong_Kong', "Asia/Hong_Kong",'Asia_Hovd', "Asia/Hovd",'Asia_Irkutsk', "Asia/Irkutsk",'Asia_Jakarta', "Asia/Jakarta",'Asia_Jayapura', "Asia/Jayapura",'Asia_Jerusalem', "Asia/Jerusalem",'Asia_Kabul', "Asia/Kabul",'Asia_Kamchatka', "Asia/Kamchatka",'Asia_Karachi', "Asia/Karachi",'Asia_Kathmandu', "Asia/Kathmandu",'Asia_Khandyga', "Asia/Khandyga",'Asia_Kolkata', "Asia/Kolkata",'Asia_Krasnoyarsk', "Asia/Krasnoyarsk",'Asia_Kuching', "Asia/Kuching",'Asia_Macau', "Asia/Macau",'Asia_Magadan', "Asia/Magadan",'Asia_Makassar', "Asia/Makassar",'Asia_Manila', "Asia/Manila",'Asia_Nicosia', "Asia/Nicosia",'Asia_Novokuznetsk', "Asia/Novokuznetsk",'Asia_Novosibirsk', "Asia/Novosibirsk",'Asia_Omsk', "Asia/Omsk",'Asia_Oral', "Asia/Oral",'Asia_Pontianak', "Asia/Pontianak",'Asia_Pyongyang', "Asia/Pyongyang",'Asia_Qatar', "Asia/Qatar",'Asia_Qostanay', "Asia/Qostanay",'Asia_Qyzylorda', "Asia/Qyzylorda",'Asia_Riyadh', "Asia/Riyadh",'Asia_Sakhalin', "Asia/Sakhalin",'Asia_Samarkand', "Asia/Samarkand",'Asia_Seoul', "Asia/Seoul",'Asia_Shanghai', "Asia/Shanghai",'Asia_Singapore', "Asia/Singapore",'Asia_Srednekolymsk', "Asia/Srednekolymsk",'Asia_Taipei', "Asia/Taipei",'Asia_Tashkent', "Asia/Tashkent",'Asia_Tbilisi', "Asia/Tbilisi",'Asia_Tehran', "Asia/Tehran",'Asia_Thimphu', "Asia/Thimphu",'Asia_Tokyo', "Asia/Tokyo",'Asia_Tomsk', "Asia/Tomsk",'Asia_Ulaanbaatar', "Asia/Ulaanbaatar",'Asia_Urumqi', "Asia/Urumqi",'Asia_Ust_Nera', "Asia/Ust-Nera",'Asia_Vladivostok', "Asia/Vladivostok",'Asia_Yakutsk', "Asia/Yakutsk",'Asia_Yangon', "Asia/Yangon",'Asia_Yekaterinburg', "Asia/Yekaterinburg",'Asia_Yerevan', "Asia/Yerevan",'Atlantic_Azores', "Atlantic/Azores",'Atlantic_Bermuda', "Atlantic/Bermuda",'Atlantic_Canary', "Atlantic/Canary",'Atlantic_Cape_Verde', "Atlantic/Cape_Verde",'Atlantic_Faroe', "Atlantic/Faroe",'Atlantic_Madeira', "Atlantic/Madeira",'Atlantic_South_Georgia', "Atlantic/South_Georgia",'Atlantic_Stanley', "Atlantic/Stanley",'Australia_Adelaide', "Australia/Adelaide",'Australia_Brisbane', "Australia/Brisbane",'Australia_Broken_Hill', "Australia/Broken_Hill",'Australia_Darwin', "Australia/Darwin",'Australia_Eucla', "Australia/Eucla",'Australia_Hobart', "Australia/Hobart",'Australia_Lindeman', "Australia/Lindeman",'Australia_Lord_Howe', "Australia/Lord_Howe",'Australia_Melbourne', "Australia/Melbourne",'Australia_Perth', "Australia/Perth",'Australia_Sydney', "Australia/Sydney",'CET', "CET",'CST6CDT', "CST6CDT",'EET', "EET",'EST', "EST",'EST5EDT', "EST5EDT",'Europe_Andorra', "Europe/Andorra",'Europe_Astrakhan', "Europe/Astrakhan",'Europe_Athens', "Europe/Athens",'Europe_Belgrade', "Europe/Belgrade",'Europe_Berlin', "Europe/Berlin",'Europe_Brussels', "Europe/Brussels",'Europe_Bucharest', "Europe/Bucharest",'Europe_Budapest', "Europe/Budapest",'Europe_Chisinau', "Europe/Chisinau",'Europe_Dublin', "Europe/Dublin",'Europe_Gibraltar', "Europe/Gibraltar",'Europe_Helsinki', "Europe/Helsinki",'Europe_Istanbul', "Europe/Istanbul",'Europe_Kaliningrad', "Europe/Kaliningrad",'Europe_Kirov', "Europe/Kirov",'Europe_Kyiv', "Europe/Kyiv",'Europe_Lisbon', "Europe/Lisbon",'Europe_London', "Europe/London",'Europe_Madrid', "Europe/Madrid",'Europe_Malta', "Europe/Malta",'Europe_Minsk', "Europe/Minsk",'Europe_Moscow', "Europe/Moscow",'Europe_Paris', "Europe/Paris",'Europe_Prague', "Europe/Prague",'Europe_Riga', "Europe/Riga",'Europe_Rome', "Europe/Rome",'Europe_Samara', "Europe/Samara",'Europe_Saratov', "Europe/Saratov",'Europe_Simferopol', "Europe/Simferopol",'Europe_Sofia', "Europe/Sofia",'Europe_Tallinn', "Europe/Tallinn",'Europe_Tirane', "Europe/Tirane",'Europe_Ulyanovsk', "Europe/Ulyanovsk",'Europe_Vienna', "Europe/Vienna",'Europe_Vilnius', "Europe/Vilnius",'Europe_Volgograd', "Europe/Volgograd",'Europe_Warsaw', "Europe/Warsaw",'Europe_Zurich', "Europe/Zurich",'Factory', "Factory",'HST', "HST",'Indian_Chagos', "Indian/Chagos",'Indian_Maldives', "Indian/Maldives",'Indian_Mauritius', "Indian/Mauritius",'MET', "MET",'MST', "MST",'MST7MDT', "MST7MDT",'PST8PDT', "PST8PDT",'Pacific_Apia', "Pacific/Apia",'Pacific_Auckland', "Pacific/Auckland",'Pacific_Bougainville', "Pacific/Bougainville",'Pacific_Chatham', "Pacific/Chatham",'Pacific_Easter', "Pacific/Easter",'Pacific_Efate', "Pacific/Efate",'Pacific_Fakaofo', "Pacific/Fakaofo",'Pacific_Fiji', "Pacific/Fiji",'Pacific_Galapagos', "Pacific/Galapagos",'Pacific_Gambier', "Pacific/Gambier",'Pacific_Guadalcanal', "Pacific/Guadalcanal",'Pacific_Guam', "Pacific/Guam",'Pacific_Honolulu', "Pacific/Honolulu",'Pacific_Kanton', "Pacific/Kanton",'Pacific_Kiritimati', "Pacific/Kiritimati",'Pacific_Kosrae', "Pacific/Kosrae",'Pacific_Kwajalein', "Pacific/Kwajalein",'Pacific_Marquesas', "Pacific/Marquesas",'Pacific_Nauru', "Pacific/Nauru",'Pacific_Niue', "Pacific/Niue",'Pacific_Norfolk', "Pacific/Norfolk",'Pacific_Noumea', "Pacific/Noumea",'Pacific_Pago_Pago', "Pacific/Pago_Pago",'Pacific_Palau', "Pacific/Palau",'Pacific_Pitcairn', "Pacific/Pitcairn",'Pacific_Port_Moresby', "Pacific/Port_Moresby",'Pacific_Rarotonga', "Pacific/Rarotonga",'Pacific_Tahiti', "Pacific/Tahiti",'Pacific_Tarawa', "Pacific/Tarawa",'Pacific_Tongatapu', "Pacific/Tongatapu",'WET', "WET");
-    this.mapped[16] = abi.type_by_fqn.get(core.Date._type)!;
-    this.mapped[17] = abi.type_by_fqn.get(core.nodeIndex._type)!;
-    this.mapped[18] = abi.type_by_fqn.get(core.DurationUnit._type)!;
-    this.mapped[18].resolveGeneratedOffsetWithValues('microseconds', 1,'milliseconds', 1000,'seconds', 1000000,'minutes', 60000000,'hours', 3600000000,'days', 86400000000,'weeks', 604800000000,'months', 2628000000000,'years', 31536000000000);
-    this.mapped[19] = abi.type_by_fqn.get(core.Tensor._type)!;
-    this.mapped[20] = abi.type_by_fqn.get(core.nodeIndexBucket._type)!;
-    this.mapped[21] = abi.type_by_fqn.get(core.duration._type)!;
-    this.mapped[22] = abi.type_by_fqn.get(core.TensorType._type)!;
-    this.mapped[22].resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
-    this.mapped[23] = abi.type_by_fqn.get(core.ti3d._type)!;
-    this.mapped[24] = abi.type_by_fqn.get(core.nodeTime._type)!;
-    this.mapped[25] = abi.type_by_fqn.get(core.ti4d._type)!;
-    this.mapped[26] = abi.type_by_fqn.get(core.ErrorCode._type)!;
-    this.mapped[26].resolveGeneratedOffsetWithValues('none', 0,'too_deep_workspace', 1,'too_deep_iterator', 2,'wrong_operand', 3,'wrong_params', 4,'wrong_param_type', 5,'wrong_numeric', 6,'wrong_state', 7,'wrong_null', 8,'unresolved_ref', 9,'assign_error', 10,'interrupted', 11,'throw', 12,'wrong_type', 13,'wrong_dimension', 14,'unsupported_operation', 15,'unsupported_type', 16,'dimensions_mismatch', 17,'timeout', 18,'forbidden', 19,'runtime_error', 20);
-    this.mapped[27] = abi.type_by_fqn.get(core.Tuple._type)!;
-    this.mapped[27].resolveGeneratedOffsets('x','y');
-    this.mapped[28] = abi.type_by_fqn.get(core.nodeGeo._type)!;
-    this.mapped[29] = abi.type_by_fqn.get(core.GeoPoly._type)!;
-    this.mapped[29].resolveGeneratedOffsets('points');
-    this.mapped[30] = abi.type_by_fqn.get(core.NodeInfo._type)!;
-    this.mapped[30].resolveGeneratedOffsets('size','from','to');
-    this.mapped[31] = abi.type_by_fqn.get(core.time._type)!;
-    this.mapped[31].static_values = [abi.createTime(-9223372036854775808n),abi.createTime(9223372036854775807n)];
-    this.mapped[32] = abi.type_by_fqn.get(core.DatePart._type)!;
-    this.mapped[32].resolveGeneratedOffsetWithValues('years', 0,'months', 1,'days', 2,'hours', 3,'minutes', 4,'seconds', 5,'microseconds', 6);
-    this.mapped[33] = abi.type_by_fqn.get(core.ti6d._type)!;
-    this.mapped[34] = abi.type_by_fqn.get(core.GeoBox._type)!;
-    this.mapped[34].resolveGeneratedOffsets('sw','ne');
-    this.mapped[35] = abi.type_by_fqn.get(core.TableColumnMeta._type)!;
-    this.mapped[35].resolveGeneratedOffsets('type','size','index','min','max','avg','std');
-    this.mapped[36] = abi.type_by_fqn.get(core.GeoCircle._type)!;
-    this.mapped[36].resolveGeneratedOffsets('center','radius');
-    this.mapped[37] = abi.type_by_fqn.get(core.tf2d._type)!;
-    this.mapped[38] = abi.type_by_fqn.get(runtime.UserRole._type)!;
-    this.mapped[38].resolveGeneratedOffsets('name','permissions');
-    this.mapped[39] = abi.type_by_fqn.get(runtime.RuntimeInfo._type)!;
-    this.mapped[39].resolveGeneratedOffsets('version','arch','timezone','license','io_threads','bg_threads','fg_threads','mem_total','mem_worker','nb_ctx','store_stats');
-    this.mapped[40] = abi.type_by_fqn.get(runtime.SecurityPolicy._type)!;
-    this.mapped[40].resolveGeneratedOffsets('entities','credentials','roles','fields');
-    this.mapped[41] = abi.type_by_fqn.get(runtime.StoreStat._type)!;
-    this.mapped[41].resolveGeneratedOffsets('capacity_bytes','allocated_bytes','allocated_ratio','remained_bytes','remained_ratio','used_bytes','used_ratio','available_bytes','available_ratio');
-    this.mapped[42] = abi.type_by_fqn.get(runtime.System._type)!;
-    this.mapped[43] = abi.type_by_fqn.get(runtime.Task._type)!;
-    this.mapped[43].resolveGeneratedOffsets('user_id','task_id','mod','type','fun','creation','status');
-    this.mapped[44] = abi.type_by_fqn.get(runtime.OpenIDConnect._type)!;
-    this.mapped[44].resolveGeneratedOffsets('url','clientId');
-    this.mapped[45] = abi.type_by_fqn.get(runtime.PeriodicTask._type)!;
-    this.mapped[45].resolveGeneratedOffsets('name','user_id','args','start','every');
-    this.mapped[46] = abi.type_by_fqn.get(runtime.UserGroupPolicy._type)!;
-    this.mapped[46].resolveGeneratedOffsets('group_id','type');
-    this.mapped[47] = abi.type_by_fqn.get(runtime.UserGroupPolicyType._type)!;
-    this.mapped[47].resolveGeneratedOffsetWithValues('read', 0,'write', 1,'execute', 2);
-    this.mapped[48] = abi.type_by_fqn.get(runtime.TaskInfo._type)!;
-    this.mapped[48].resolveGeneratedOffsets('user_id','task_id','mod','type','fun','creation','status','start','progress','remaining','duration','sub_waiting','sub_tasks_all');
-    this.mapped[49] = abi.type_by_fqn.get(runtime.UserGroup._type)!;
-    this.mapped[49].resolveGeneratedOffsets('id','name','activated');
-    this.mapped[50] = abi.type_by_fqn.get(runtime.SecurityFields._type)!;
-    this.mapped[50].resolveGeneratedOffsets('email','name','first_name','last_name','roles','groups');
-    this.mapped[51] = abi.type_by_fqn.get(runtime.SecurityEntity._type)!;
-    this.mapped[51].resolveGeneratedOffsets('id','name','activated');
-    this.mapped[52] = abi.type_by_fqn.get(runtime.Runtime._type)!;
-    this.mapped[53] = abi.type_by_fqn.get(runtime.TaskStatus._type)!;
-    this.mapped[53].resolveGeneratedOffsetWithValues('empty', 0,'waiting', 1,'running', 2,'cancelled', 3,'error', 4,'ended', 5);
-    this.mapped[54] = abi.type_by_fqn.get(runtime.User._type)!;
-    this.mapped[54].resolveGeneratedOffsets('id','name','activated','full_name','email','role','permissions_flags','groups','groups_flags','external');
-    this.mapped[55] = abi.type_by_fqn.get(runtime.License._type)!;
-    this.mapped[55].resolveGeneratedOffsets('name','start','end','company','max_workers','max_memory','extra_1','extra_2','extra_3','extra_4');
-    this.mapped[56] = abi.type_by_fqn.get(runtime.UserCredential._type)!;
-    this.mapped[56].resolveGeneratedOffsets('offset','pass');
-    this.mapped[57] = abi.type_by_fqn.get(io.CsvColumnDuration._type)!;
-    this.mapped[57].resolveGeneratedOffsets('name','mandatory','unit');
-    this.mapped[58] = abi.type_by_fqn.get(io.File._type)!;
-    this.mapped[58].resolveGeneratedOffsets('path','size','last_modification');
-    this.mapped[59] = abi.type_by_fqn.get(io.SmtpMode._type)!;
-    this.mapped[59].resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
-    this.mapped[60] = abi.type_by_fqn.get(io.HttpHeader._type)!;
-    this.mapped[60].resolveGeneratedOffsets('name','value');
-    this.mapped[61] = abi.type_by_fqn.get(io.CsvColumnBoolean._type)!;
-    this.mapped[61].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[62] = abi.type_by_fqn.get(io.CsvColumnIgnored._type)!;
-    this.mapped[62].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[63] = abi.type_by_fqn.get(io.Http._type)!;
-    this.mapped[64] = abi.type_by_fqn.get(io.CsvFormat._type)!;
-    this.mapped[64].resolveGeneratedOffsets('header_lines','infer','separator','string_delimiter','decimal_separator','thousands_separator','columns');
-    this.mapped[65] = abi.type_by_fqn.get(io.Smtp._type)!;
-    this.mapped[65].resolveGeneratedOffsets('host','port','mode','authenticate','user','pass');
-    this.mapped[66] = abi.type_by_fqn.get(io.Url._type)!;
-    this.mapped[66].resolveGeneratedOffsets('protocol','host','port','path','params','hash');
-    this.mapped[67] = abi.type_by_fqn.get(io.CsvColumnString._type)!;
-    this.mapped[67].resolveGeneratedOffsets('name','mandatory','trim','try_number','try_json','values','encoder');
-    this.mapped[68] = abi.type_by_fqn.get(io.CsvColumnFloat._type)!;
-    this.mapped[68].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[69] = abi.type_by_fqn.get(io.CsvColumnTime._type)!;
-    this.mapped[69].resolveGeneratedOffsets('name','mandatory','unit');
-    this.mapped[70] = abi.type_by_fqn.get(io.Email._type)!;
-    this.mapped[70].resolveGeneratedOffsets('from','subject','body','body_is_html','to','cc','bcc');
-    this.mapped[71] = abi.type_by_fqn.get(io.CsvColumn._type)!;
-    this.mapped[71].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[72] = abi.type_by_fqn.get(io.SmtpAuth._type)!;
-    this.mapped[72].resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
-    this.mapped[73] = abi.type_by_fqn.get(io.CsvColumnInteger._type)!;
-    this.mapped[73].resolveGeneratedOffsets('name','mandatory');
-    this.mapped[74] = abi.type_by_fqn.get(io.CsvColumnDate._type)!;
-    this.mapped[74].resolveGeneratedOffsets('name','mandatory','format','tz','as_time');
-    this.mapped[75] = abi.type_by_fqn.get(io.TextEncoder._type)!;
-    this.mapped[75].resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
-    this.mapped[76] = abi.type_by_fqn.get(math.MathConstants._type)!;
-    this.mapped[76].static_values = [2.7182818285,1.4426950409,0.4342944819,0.6931471806,2.302585093,3.1415926536,1.5707963268,0.7853981634,0.3183098862,0.6366197724,1.1283791671,1.4142135624,0.7071067812];
-    this.mapped[77] = abi.type_by_fqn.get(util.TimeWindow._type)!;
-    this.mapped[78] = abi.type_by_fqn.get(util.Queue._type)!;
-    this.mapped[79] = abi.type_by_fqn.get(util.Buffer._type)!;
-    this.mapped[80] = abi.type_by_fqn.get(util.Random._type)!;
-    this.mapped[80].resolveGeneratedOffsets('seed','v');
-    this.mapped[81] = abi.type_by_fqn.get(util.BoxPlotFloat._type)!;
-    this.mapped[81].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
-    this.mapped[82] = abi.type_by_fqn.get(util.Crypto._type)!;
-    this.mapped[83] = abi.type_by_fqn.get(util.Assert._type)!;
-    this.mapped[84] = abi.type_by_fqn.get(util.GaussianProfile._type)!;
-    this.mapped[84].static_values = [0,1,2,3,4,5,6];
-    this.mapped[85] = abi.type_by_fqn.get(util.Gaussian._type)!;
-    this.mapped[85].resolveGeneratedOffsets('sum','sum_sq','count','min','max');
-    this.mapped[86] = abi.type_by_fqn.get(util.Iban._type)!;
-    this.mapped[87] = abi.type_by_fqn.get(util.BoxPlotInt._type)!;
-    this.mapped[87].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
-    this.mapped[88] = abi.type_by_fqn.get(util.HistogramInt._type)!;
-    this.mapped[88].static_values = [0,1,2,3];
-    this.mapped[89] = abi.type_by_fqn.get(util.Quantizer._type)!;
-    this.mapped[90] = abi.type_by_fqn.get(util.HistogramFloat._type)!;
-    this.mapped[90].static_values = [0,1,2,3];
-    this.mapped[91] = abi.type_by_fqn.get(util.ProgressTracker._type)!;
-    this.mapped[91].resolveGeneratedOffsets('start','total','counter','duration','progress','speed','remaining');
-    this.mapped[92] = abi.type_by_fqn.get(util.SlidingWindow._type)!;
+    this.mapped[0] = abi.type_by_fqn.get(core.Error._type);
+    if (this.mapped[0] !== undefined) {
+    }
+    this.mapped[1] = abi.type_by_fqn.get(core.Table._type);
+    if (this.mapped[1] !== undefined) {
+    }
+    this.mapped[2] = abi.type_by_fqn.get(core.String._type);
+    if (this.mapped[2] !== undefined) {
+    }
+    this.mapped[3] = abi.type_by_fqn.get(core.nodeList._type);
+    if (this.mapped[3] !== undefined) {
+    }
+    this.mapped[4] = abi.type_by_fqn.get(core.geo._type);
+    if (this.mapped[4] !== undefined) {
+      this.mapped[4].static_values = [abi.createGeo(-85.0511287602,-179.9999999581),abi.createGeo(85.0511287602,179.9999999581)];
+    }
+    this.mapped[5] = abi.type_by_fqn.get(core.ti5d._type);
+    if (this.mapped[5] !== undefined) {
+    }
+    this.mapped[6] = abi.type_by_fqn.get(core.tf4d._type);
+    if (this.mapped[6] !== undefined) {
+    }
+    this.mapped[7] = abi.type_by_fqn.get(core.SamplingMode._type);
+    if (this.mapped[7] !== undefined) {
+      this.mapped[7].resolveGeneratedOffsetWithValues('fixed', 0,'fixed_reg', 1,'adaptative', 2,'dense', 3);
+    }
+    this.mapped[8] = abi.type_by_fqn.get(core.node._type);
+    if (this.mapped[8] !== undefined) {
+    }
+    this.mapped[9] = abi.type_by_fqn.get(core.nodeTimeSingleton._type);
+    if (this.mapped[9] !== undefined) {
+      this.mapped[9].resolveGeneratedOffsets('t','v');
+    }
+    this.mapped[10] = abi.type_by_fqn.get(core.ti2d._type);
+    if (this.mapped[10] !== undefined) {
+    }
+    this.mapped[11] = abi.type_by_fqn.get(core.Array._type);
+    if (this.mapped[11] !== undefined) {
+    }
+    this.mapped[12] = abi.type_by_fqn.get(core.ti10d._type);
+    if (this.mapped[12] !== undefined) {
+    }
+    this.mapped[13] = abi.type_by_fqn.get(core.tf3d._type);
+    if (this.mapped[13] !== undefined) {
+    }
+    this.mapped[14] = abi.type_by_fqn.get(core.Map._type);
+    if (this.mapped[14] !== undefined) {
+    }
+    this.mapped[15] = abi.type_by_fqn.get(core.TimeZone._type);
+    if (this.mapped[15] !== undefined) {
+      this.mapped[15].resolveGeneratedOffsetWithValues('Africa_Accra', "Africa/Accra",'Africa_Bamako', "Africa/Bamako",'Africa_Banjul', "Africa/Banjul",'Africa_Conakry', "Africa/Conakry",'Africa_Dakar', "Africa/Dakar",'Africa_Freetown', "Africa/Freetown",'Africa_Lome', "Africa/Lome",'Africa_Nouakchott', "Africa/Nouakchott",'Africa_Ouagadougou', "Africa/Ouagadougou",'Africa_Timbuktu', "Africa/Timbuktu",'Atlantic_Reykjavik', "Atlantic/Reykjavik",'Atlantic_St_Helena', "Atlantic/St_Helena",'Iceland', "Iceland",'Egypt', "Egypt",'Africa_Maseru', "Africa/Maseru",'Africa_Mbabane', "Africa/Mbabane",'Africa_Bangui', "Africa/Bangui",'Africa_Brazzaville', "Africa/Brazzaville",'Africa_Douala', "Africa/Douala",'Africa_Kinshasa', "Africa/Kinshasa",'Africa_Libreville', "Africa/Libreville",'Africa_Luanda', "Africa/Luanda",'Africa_Malabo', "Africa/Malabo",'Africa_Niamey', "Africa/Niamey",'Africa_Porto_Novo', "Africa/Porto-Novo",'Africa_Blantyre', "Africa/Blantyre",'Africa_Bujumbura', "Africa/Bujumbura",'Africa_Gaborone', "Africa/Gaborone",'Africa_Harare', "Africa/Harare",'Africa_Kigali', "Africa/Kigali",'Africa_Lubumbashi', "Africa/Lubumbashi",'Africa_Lusaka', "Africa/Lusaka",'Africa_Addis_Ababa', "Africa/Addis_Ababa",'Africa_Asmara', "Africa/Asmara",'Africa_Asmera', "Africa/Asmera",'Africa_Dar_es_Salaam', "Africa/Dar_es_Salaam",'Africa_Djibouti', "Africa/Djibouti",'Africa_Kampala', "Africa/Kampala",'Africa_Mogadishu', "Africa/Mogadishu",'Indian_Antananarivo', "Indian/Antananarivo",'Indian_Comoro', "Indian/Comoro",'Indian_Mayotte', "Indian/Mayotte",'Libya', "Libya",'America_Atka', "America/Atka",'US_Aleutian', "US/Aleutian",'US_Alaska', "US/Alaska",'America_Buenos_Aires', "America/Buenos_Aires",'America_Argentina_ComodRivadavia', "America/Argentina/ComodRivadavia",'America_Catamarca', "America/Catamarca",'America_Cordoba', "America/Cordoba",'America_Rosario', "America/Rosario",'America_Jujuy', "America/Jujuy",'America_Mendoza', "America/Mendoza",'US_Central', "US/Central",'America_Shiprock', "America/Shiprock",'Navajo', "Navajo",'US_Mountain', "US/Mountain",'US_Michigan', "US/Michigan",'America_Yellowknife', "America/Yellowknife",'Canada_Mountain', "Canada/Mountain",'Canada_Atlantic', "Canada/Atlantic",'Cuba', "Cuba",'America_Fort_Wayne', "America/Fort_Wayne",'America_Indianapolis', "America/Indianapolis",'US_East_Indiana', "US/East-Indiana",'America_Knox_IN', "America/Knox_IN",'US_Indiana_Starke', "US/Indiana-Starke",'America_Pangnirtung', "America/Pangnirtung",'Jamaica', "Jamaica",'America_Louisville', "America/Louisville",'US_Pacific', "US/Pacific",'Brazil_West', "Brazil/West",'Mexico_BajaSur', "Mexico/BajaSur",'Mexico_General', "Mexico/General",'US_Eastern', "US/Eastern",'Brazil_DeNoronha', "Brazil/DeNoronha",'America_Godthab', "America/Godthab",'America_Atikokan', "America/Atikokan",'America_Cayman', "America/Cayman",'America_Coral_Harbour', "America/Coral_Harbour",'America_Creston', "America/Creston",'US_Arizona', "US/Arizona",'America_Anguilla', "America/Anguilla",'America_Antigua', "America/Antigua",'America_Aruba', "America/Aruba",'America_Blanc_Sablon', "America/Blanc-Sablon",'America_Curacao', "America/Curacao",'America_Dominica', "America/Dominica",'America_Grenada', "America/Grenada",'America_Guadeloupe', "America/Guadeloupe",'America_Kralendijk', "America/Kralendijk",'America_Lower_Princes', "America/Lower_Princes",'America_Marigot', "America/Marigot",'America_Montserrat', "America/Montserrat",'America_Port_of_Spain', "America/Port_of_Spain",'America_St_Barthelemy', "America/St_Barthelemy",'America_St_Kitts', "America/St_Kitts",'America_St_Lucia', "America/St_Lucia",'America_St_Thomas', "America/St_Thomas",'America_St_Vincent', "America/St_Vincent",'America_Tortola', "America/Tortola",'America_Virgin', "America/Virgin",'Canada_Saskatchewan', "Canada/Saskatchewan",'America_Porto_Acre', "America/Porto_Acre",'Brazil_Acre', "Brazil/Acre",'Chile_Continental', "Chile/Continental",'Brazil_East', "Brazil/East",'Canada_Newfoundland', "Canada/Newfoundland",'America_Ensenada', "America/Ensenada",'America_Santa_Isabel', "America/Santa_Isabel",'Mexico_BajaNorte', "Mexico/BajaNorte",'America_Montreal', "America/Montreal",'America_Nassau', "America/Nassau",'America_Nipigon', "America/Nipigon",'America_Thunder_Bay', "America/Thunder_Bay",'Canada_Eastern', "Canada/Eastern",'Canada_Pacific', "Canada/Pacific",'Canada_Yukon', "Canada/Yukon",'America_Rainy_River', "America/Rainy_River",'Canada_Central', "Canada/Central",'Asia_Ashkhabad', "Asia/Ashkhabad",'Asia_Phnom_Penh', "Asia/Phnom_Penh",'Asia_Vientiane', "Asia/Vientiane",'Indian_Christmas', "Indian/Christmas",'Asia_Dacca', "Asia/Dacca",'Asia_Muscat', "Asia/Muscat",'Indian_Mahe', "Indian/Mahe",'Indian_Reunion', "Indian/Reunion",'Asia_Saigon', "Asia/Saigon",'Hongkong', "Hongkong",'Asia_Tel_Aviv', "Asia/Tel_Aviv",'Israel', "Israel",'Asia_Katmandu', "Asia/Katmandu",'Asia_Calcutta', "Asia/Calcutta",'Asia_Brunei', "Asia/Brunei",'Asia_Macao', "Asia/Macao",'Asia_Ujung_Pandang', "Asia/Ujung_Pandang",'Europe_Nicosia', "Europe/Nicosia",'Asia_Bahrain', "Asia/Bahrain",'Antarctica_Syowa', "Antarctica/Syowa",'Asia_Aden', "Asia/Aden",'Asia_Kuwait', "Asia/Kuwait",'ROK', "ROK",'Asia_Chongqing', "Asia/Chongqing",'Asia_Chungking', "Asia/Chungking",'Asia_Harbin', "Asia/Harbin",'PRC', "PRC",'Asia_Kuala_Lumpur', "Asia/Kuala_Lumpur",'Singapore', "Singapore",'ROC', "ROC",'Iran', "Iran",'Asia_Thimbu', "Asia/Thimbu",'Japan', "Japan",'Asia_Ulan_Bator', "Asia/Ulan_Bator",'Antarctica_Vostok', "Antarctica/Vostok",'Asia_Kashgar', "Asia/Kashgar",'Asia_Rangoon', "Asia/Rangoon",'Indian_Cocos', "Indian/Cocos",'Atlantic_Faeroe', "Atlantic/Faeroe",'Australia_South', "Australia/South",'Australia_Queensland', "Australia/Queensland",'Australia_Yancowinna', "Australia/Yancowinna",'Australia_North', "Australia/North",'Australia_Currie', "Australia/Currie",'Australia_Tasmania', "Australia/Tasmania",'Australia_LHI', "Australia/LHI",'Australia_Victoria', "Australia/Victoria",'Australia_West', "Australia/West",'Australia_ACT', "Australia/ACT",'Australia_Canberra', "Australia/Canberra",'Australia_NSW', "Australia/NSW",'GMT', "GMT",'GMTx0', "GMT+0",'GMT_0', "GMT-0",'GMT0', "GMT0",'Greenwich', "Greenwich",'UCT', "UCT",'UTC', "UTC",'Universal', "Universal",'Zulu', "Zulu",'Europe_Ljubljana', "Europe/Ljubljana",'Europe_Podgorica', "Europe/Podgorica",'Europe_Sarajevo', "Europe/Sarajevo",'Europe_Skopje', "Europe/Skopje",'Europe_Zagreb', "Europe/Zagreb",'Arctic_Longyearbyen', "Arctic/Longyearbyen",'Atlantic_Jan_Mayen', "Atlantic/Jan_Mayen",'Europe_Copenhagen', "Europe/Copenhagen",'Europe_Oslo', "Europe/Oslo",'Europe_Stockholm', "Europe/Stockholm",'Europe_Amsterdam', "Europe/Amsterdam",'Europe_Luxembourg', "Europe/Luxembourg",'Europe_Tiraspol', "Europe/Tiraspol",'Eire', "Eire",'Europe_Mariehamn', "Europe/Mariehamn",'Asia_Istanbul', "Asia/Istanbul",'Turkey', "Turkey",'Europe_Kiev', "Europe/Kiev",'Europe_Uzhgorod', "Europe/Uzhgorod",'Europe_Zaporozhye', "Europe/Zaporozhye",'Portugal', "Portugal",'Europe_Belfast', "Europe/Belfast",'Europe_Guernsey', "Europe/Guernsey",'Europe_Isle_of_Man', "Europe/Isle_of_Man",'Europe_Jersey', "Europe/Jersey",'GB', "GB",'GB_Eire', "GB-Eire",'W_SU', "W-SU",'Europe_Monaco', "Europe/Monaco",'Europe_Bratislava', "Europe/Bratislava",'Europe_San_Marino', "Europe/San_Marino",'Europe_Vatican', "Europe/Vatican",'Poland', "Poland",'Europe_Busingen', "Europe/Busingen",'Europe_Vaduz', "Europe/Vaduz",'Indian_Kerguelen', "Indian/Kerguelen",'Antarctica_McMurdo', "Antarctica/McMurdo",'Antarctica_South_Pole', "Antarctica/South_Pole",'NZ', "NZ",'NZ_CHAT', "NZ-CHAT",'Chile_EasterIsland', "Chile/EasterIsland",'Pacific_Pohnpei', "Pacific/Pohnpei",'Pacific_Ponape', "Pacific/Ponape",'Pacific_Saipan', "Pacific/Saipan",'Pacific_Johnston', "Pacific/Johnston",'US_Hawaii', "US/Hawaii",'Pacific_Enderbury', "Pacific/Enderbury",'Kwajalein', "Kwajalein",'Pacific_Midway', "Pacific/Midway",'Pacific_Samoa', "Pacific/Samoa",'US_Samoa', "US/Samoa",'Antarctica_DumontDUrville', "Antarctica/DumontDUrville",'Pacific_Chuuk', "Pacific/Chuuk",'Pacific_Truk', "Pacific/Truk",'Pacific_Yap', "Pacific/Yap",'Pacific_Funafuti', "Pacific/Funafuti",'Pacific_Majuro', "Pacific/Majuro",'Pacific_Wake', "Pacific/Wake",'Pacific_Wallis', "Pacific/Wallis",'Africa_Abidjan', "Africa/Abidjan",'Africa_Algiers', "Africa/Algiers",'Africa_Bissau', "Africa/Bissau",'Africa_Cairo', "Africa/Cairo",'Africa_Casablanca', "Africa/Casablanca",'Africa_Ceuta', "Africa/Ceuta",'Africa_El_Aaiun', "Africa/El_Aaiun",'Africa_Johannesburg', "Africa/Johannesburg",'Africa_Juba', "Africa/Juba",'Africa_Khartoum', "Africa/Khartoum",'Africa_Lagos', "Africa/Lagos",'Africa_Maputo', "Africa/Maputo",'Africa_Monrovia', "Africa/Monrovia",'Africa_Nairobi', "Africa/Nairobi",'Africa_Ndjamena', "Africa/Ndjamena",'Africa_Sao_Tome', "Africa/Sao_Tome",'Africa_Tripoli', "Africa/Tripoli",'Africa_Tunis', "Africa/Tunis",'Africa_Windhoek', "Africa/Windhoek",'America_Adak', "America/Adak",'America_Anchorage', "America/Anchorage",'America_Araguaina', "America/Araguaina",'America_Argentina_Buenos_Aires', "America/Argentina/Buenos_Aires",'America_Argentina_Catamarca', "America/Argentina/Catamarca",'America_Argentina_Cordoba', "America/Argentina/Cordoba",'America_Argentina_Jujuy', "America/Argentina/Jujuy",'America_Argentina_La_Rioja', "America/Argentina/La_Rioja",'America_Argentina_Mendoza', "America/Argentina/Mendoza",'America_Argentina_Rio_Gallegos', "America/Argentina/Rio_Gallegos",'America_Argentina_Salta', "America/Argentina/Salta",'America_Argentina_San_Juan', "America/Argentina/San_Juan",'America_Argentina_San_Luis', "America/Argentina/San_Luis",'America_Argentina_Tucuman', "America/Argentina/Tucuman",'America_Argentina_Ushuaia', "America/Argentina/Ushuaia",'America_Asuncion', "America/Asuncion",'America_Bahia', "America/Bahia",'America_Bahia_Banderas', "America/Bahia_Banderas",'America_Barbados', "America/Barbados",'America_Belem', "America/Belem",'America_Belize', "America/Belize",'America_Boa_Vista', "America/Boa_Vista",'America_Bogota', "America/Bogota",'America_Boise', "America/Boise",'America_Cambridge_Bay', "America/Cambridge_Bay",'America_Campo_Grande', "America/Campo_Grande",'America_Cancun', "America/Cancun",'America_Caracas', "America/Caracas",'America_Cayenne', "America/Cayenne",'America_Chicago', "America/Chicago",'America_Chihuahua', "America/Chihuahua",'America_Ciudad_Juarez', "America/Ciudad_Juarez",'America_Costa_Rica', "America/Costa_Rica",'America_Cuiaba', "America/Cuiaba",'America_Danmarkshavn', "America/Danmarkshavn",'America_Dawson', "America/Dawson",'America_Dawson_Creek', "America/Dawson_Creek",'America_Denver', "America/Denver",'America_Detroit', "America/Detroit",'America_Edmonton', "America/Edmonton",'America_Eirunepe', "America/Eirunepe",'America_El_Salvador', "America/El_Salvador",'America_Fort_Nelson', "America/Fort_Nelson",'America_Fortaleza', "America/Fortaleza",'America_Glace_Bay', "America/Glace_Bay",'America_Goose_Bay', "America/Goose_Bay",'America_Grand_Turk', "America/Grand_Turk",'America_Guatemala', "America/Guatemala",'America_Guayaquil', "America/Guayaquil",'America_Guyana', "America/Guyana",'America_Halifax', "America/Halifax",'America_Havana', "America/Havana",'America_Hermosillo', "America/Hermosillo",'America_Indiana_Indianapolis', "America/Indiana/Indianapolis",'America_Indiana_Knox', "America/Indiana/Knox",'America_Indiana_Marengo', "America/Indiana/Marengo",'America_Indiana_Petersburg', "America/Indiana/Petersburg",'America_Indiana_Tell_City', "America/Indiana/Tell_City",'America_Indiana_Vevay', "America/Indiana/Vevay",'America_Indiana_Vincennes', "America/Indiana/Vincennes",'America_Indiana_Winamac', "America/Indiana/Winamac",'America_Inuvik', "America/Inuvik",'America_Iqaluit', "America/Iqaluit",'America_Jamaica', "America/Jamaica",'America_Juneau', "America/Juneau",'America_Kentucky_Louisville', "America/Kentucky/Louisville",'America_Kentucky_Monticello', "America/Kentucky/Monticello",'America_La_Paz', "America/La_Paz",'America_Lima', "America/Lima",'America_Los_Angeles', "America/Los_Angeles",'America_Maceio', "America/Maceio",'America_Managua', "America/Managua",'America_Manaus', "America/Manaus",'America_Martinique', "America/Martinique",'America_Matamoros', "America/Matamoros",'America_Mazatlan', "America/Mazatlan",'America_Menominee', "America/Menominee",'America_Merida', "America/Merida",'America_Metlakatla', "America/Metlakatla",'America_Mexico_City', "America/Mexico_City",'America_Miquelon', "America/Miquelon",'America_Moncton', "America/Moncton",'America_Monterrey', "America/Monterrey",'America_Montevideo', "America/Montevideo",'America_New_York', "America/New_York",'America_Nome', "America/Nome",'America_Noronha', "America/Noronha",'America_North_Dakota_Beulah', "America/North_Dakota/Beulah",'America_North_Dakota_Center', "America/North_Dakota/Center",'America_North_Dakota_New_Salem', "America/North_Dakota/New_Salem",'America_Nuuk', "America/Nuuk",'America_Ojinaga', "America/Ojinaga",'America_Panama', "America/Panama",'America_Paramaribo', "America/Paramaribo",'America_Phoenix', "America/Phoenix",'America_Port_au_Prince', "America/Port-au-Prince",'America_Porto_Velho', "America/Porto_Velho",'America_Puerto_Rico', "America/Puerto_Rico",'America_Punta_Arenas', "America/Punta_Arenas",'America_Rankin_Inlet', "America/Rankin_Inlet",'America_Recife', "America/Recife",'America_Regina', "America/Regina",'America_Resolute', "America/Resolute",'America_Rio_Branco', "America/Rio_Branco",'America_Santarem', "America/Santarem",'America_Santiago', "America/Santiago",'America_Santo_Domingo', "America/Santo_Domingo",'America_Sao_Paulo', "America/Sao_Paulo",'America_Scoresbysund', "America/Scoresbysund",'America_Sitka', "America/Sitka",'America_St_Johns', "America/St_Johns",'America_Swift_Current', "America/Swift_Current",'America_Tegucigalpa', "America/Tegucigalpa",'America_Thule', "America/Thule",'America_Tijuana', "America/Tijuana",'America_Toronto', "America/Toronto",'America_Vancouver', "America/Vancouver",'America_Whitehorse', "America/Whitehorse",'America_Winnipeg', "America/Winnipeg",'America_Yakutat', "America/Yakutat",'Antarctica_Casey', "Antarctica/Casey",'Antarctica_Davis', "Antarctica/Davis",'Antarctica_Macquarie', "Antarctica/Macquarie",'Antarctica_Mawson', "Antarctica/Mawson",'Antarctica_Palmer', "Antarctica/Palmer",'Antarctica_Rothera', "Antarctica/Rothera",'Antarctica_Troll', "Antarctica/Troll",'Asia_Almaty', "Asia/Almaty",'Asia_Amman', "Asia/Amman",'Asia_Anadyr', "Asia/Anadyr",'Asia_Aqtau', "Asia/Aqtau",'Asia_Aqtobe', "Asia/Aqtobe",'Asia_Ashgabat', "Asia/Ashgabat",'Asia_Atyrau', "Asia/Atyrau",'Asia_Baghdad', "Asia/Baghdad",'Asia_Baku', "Asia/Baku",'Asia_Bangkok', "Asia/Bangkok",'Asia_Barnaul', "Asia/Barnaul",'Asia_Beirut', "Asia/Beirut",'Asia_Bishkek', "Asia/Bishkek",'Asia_Chita', "Asia/Chita",'Asia_Choibalsan', "Asia/Choibalsan",'Asia_Colombo', "Asia/Colombo",'Asia_Damascus', "Asia/Damascus",'Asia_Dhaka', "Asia/Dhaka",'Asia_Dili', "Asia/Dili",'Asia_Dubai', "Asia/Dubai",'Asia_Dushanbe', "Asia/Dushanbe",'Asia_Famagusta', "Asia/Famagusta",'Asia_Gaza', "Asia/Gaza",'Asia_Hebron', "Asia/Hebron",'Asia_Ho_Chi_Minh', "Asia/Ho_Chi_Minh",'Asia_Hong_Kong', "Asia/Hong_Kong",'Asia_Hovd', "Asia/Hovd",'Asia_Irkutsk', "Asia/Irkutsk",'Asia_Jakarta', "Asia/Jakarta",'Asia_Jayapura', "Asia/Jayapura",'Asia_Jerusalem', "Asia/Jerusalem",'Asia_Kabul', "Asia/Kabul",'Asia_Kamchatka', "Asia/Kamchatka",'Asia_Karachi', "Asia/Karachi",'Asia_Kathmandu', "Asia/Kathmandu",'Asia_Khandyga', "Asia/Khandyga",'Asia_Kolkata', "Asia/Kolkata",'Asia_Krasnoyarsk', "Asia/Krasnoyarsk",'Asia_Kuching', "Asia/Kuching",'Asia_Macau', "Asia/Macau",'Asia_Magadan', "Asia/Magadan",'Asia_Makassar', "Asia/Makassar",'Asia_Manila', "Asia/Manila",'Asia_Nicosia', "Asia/Nicosia",'Asia_Novokuznetsk', "Asia/Novokuznetsk",'Asia_Novosibirsk', "Asia/Novosibirsk",'Asia_Omsk', "Asia/Omsk",'Asia_Oral', "Asia/Oral",'Asia_Pontianak', "Asia/Pontianak",'Asia_Pyongyang', "Asia/Pyongyang",'Asia_Qatar', "Asia/Qatar",'Asia_Qostanay', "Asia/Qostanay",'Asia_Qyzylorda', "Asia/Qyzylorda",'Asia_Riyadh', "Asia/Riyadh",'Asia_Sakhalin', "Asia/Sakhalin",'Asia_Samarkand', "Asia/Samarkand",'Asia_Seoul', "Asia/Seoul",'Asia_Shanghai', "Asia/Shanghai",'Asia_Singapore', "Asia/Singapore",'Asia_Srednekolymsk', "Asia/Srednekolymsk",'Asia_Taipei', "Asia/Taipei",'Asia_Tashkent', "Asia/Tashkent",'Asia_Tbilisi', "Asia/Tbilisi",'Asia_Tehran', "Asia/Tehran",'Asia_Thimphu', "Asia/Thimphu",'Asia_Tokyo', "Asia/Tokyo",'Asia_Tomsk', "Asia/Tomsk",'Asia_Ulaanbaatar', "Asia/Ulaanbaatar",'Asia_Urumqi', "Asia/Urumqi",'Asia_Ust_Nera', "Asia/Ust-Nera",'Asia_Vladivostok', "Asia/Vladivostok",'Asia_Yakutsk', "Asia/Yakutsk",'Asia_Yangon', "Asia/Yangon",'Asia_Yekaterinburg', "Asia/Yekaterinburg",'Asia_Yerevan', "Asia/Yerevan",'Atlantic_Azores', "Atlantic/Azores",'Atlantic_Bermuda', "Atlantic/Bermuda",'Atlantic_Canary', "Atlantic/Canary",'Atlantic_Cape_Verde', "Atlantic/Cape_Verde",'Atlantic_Faroe', "Atlantic/Faroe",'Atlantic_Madeira', "Atlantic/Madeira",'Atlantic_South_Georgia', "Atlantic/South_Georgia",'Atlantic_Stanley', "Atlantic/Stanley",'Australia_Adelaide', "Australia/Adelaide",'Australia_Brisbane', "Australia/Brisbane",'Australia_Broken_Hill', "Australia/Broken_Hill",'Australia_Darwin', "Australia/Darwin",'Australia_Eucla', "Australia/Eucla",'Australia_Hobart', "Australia/Hobart",'Australia_Lindeman', "Australia/Lindeman",'Australia_Lord_Howe', "Australia/Lord_Howe",'Australia_Melbourne', "Australia/Melbourne",'Australia_Perth', "Australia/Perth",'Australia_Sydney', "Australia/Sydney",'CET', "CET",'CST6CDT', "CST6CDT",'EET', "EET",'EST', "EST",'EST5EDT', "EST5EDT",'Europe_Andorra', "Europe/Andorra",'Europe_Astrakhan', "Europe/Astrakhan",'Europe_Athens', "Europe/Athens",'Europe_Belgrade', "Europe/Belgrade",'Europe_Berlin', "Europe/Berlin",'Europe_Brussels', "Europe/Brussels",'Europe_Bucharest', "Europe/Bucharest",'Europe_Budapest', "Europe/Budapest",'Europe_Chisinau', "Europe/Chisinau",'Europe_Dublin', "Europe/Dublin",'Europe_Gibraltar', "Europe/Gibraltar",'Europe_Helsinki', "Europe/Helsinki",'Europe_Istanbul', "Europe/Istanbul",'Europe_Kaliningrad', "Europe/Kaliningrad",'Europe_Kirov', "Europe/Kirov",'Europe_Kyiv', "Europe/Kyiv",'Europe_Lisbon', "Europe/Lisbon",'Europe_London', "Europe/London",'Europe_Madrid', "Europe/Madrid",'Europe_Malta', "Europe/Malta",'Europe_Minsk', "Europe/Minsk",'Europe_Moscow', "Europe/Moscow",'Europe_Paris', "Europe/Paris",'Europe_Prague', "Europe/Prague",'Europe_Riga', "Europe/Riga",'Europe_Rome', "Europe/Rome",'Europe_Samara', "Europe/Samara",'Europe_Saratov', "Europe/Saratov",'Europe_Simferopol', "Europe/Simferopol",'Europe_Sofia', "Europe/Sofia",'Europe_Tallinn', "Europe/Tallinn",'Europe_Tirane', "Europe/Tirane",'Europe_Ulyanovsk', "Europe/Ulyanovsk",'Europe_Vienna', "Europe/Vienna",'Europe_Vilnius', "Europe/Vilnius",'Europe_Volgograd', "Europe/Volgograd",'Europe_Warsaw', "Europe/Warsaw",'Europe_Zurich', "Europe/Zurich",'Factory', "Factory",'HST', "HST",'Indian_Chagos', "Indian/Chagos",'Indian_Maldives', "Indian/Maldives",'Indian_Mauritius', "Indian/Mauritius",'MET', "MET",'MST', "MST",'MST7MDT', "MST7MDT",'PST8PDT', "PST8PDT",'Pacific_Apia', "Pacific/Apia",'Pacific_Auckland', "Pacific/Auckland",'Pacific_Bougainville', "Pacific/Bougainville",'Pacific_Chatham', "Pacific/Chatham",'Pacific_Easter', "Pacific/Easter",'Pacific_Efate', "Pacific/Efate",'Pacific_Fakaofo', "Pacific/Fakaofo",'Pacific_Fiji', "Pacific/Fiji",'Pacific_Galapagos', "Pacific/Galapagos",'Pacific_Gambier', "Pacific/Gambier",'Pacific_Guadalcanal', "Pacific/Guadalcanal",'Pacific_Guam', "Pacific/Guam",'Pacific_Honolulu', "Pacific/Honolulu",'Pacific_Kanton', "Pacific/Kanton",'Pacific_Kiritimati', "Pacific/Kiritimati",'Pacific_Kosrae', "Pacific/Kosrae",'Pacific_Kwajalein', "Pacific/Kwajalein",'Pacific_Marquesas', "Pacific/Marquesas",'Pacific_Nauru', "Pacific/Nauru",'Pacific_Niue', "Pacific/Niue",'Pacific_Norfolk', "Pacific/Norfolk",'Pacific_Noumea', "Pacific/Noumea",'Pacific_Pago_Pago', "Pacific/Pago_Pago",'Pacific_Palau', "Pacific/Palau",'Pacific_Pitcairn', "Pacific/Pitcairn",'Pacific_Port_Moresby', "Pacific/Port_Moresby",'Pacific_Rarotonga', "Pacific/Rarotonga",'Pacific_Tahiti', "Pacific/Tahiti",'Pacific_Tarawa', "Pacific/Tarawa",'Pacific_Tongatapu', "Pacific/Tongatapu",'WET', "WET");
+    }
+    this.mapped[16] = abi.type_by_fqn.get(core.Date._type);
+    if (this.mapped[16] !== undefined) {
+    }
+    this.mapped[17] = abi.type_by_fqn.get(core.nodeIndex._type);
+    if (this.mapped[17] !== undefined) {
+    }
+    this.mapped[18] = abi.type_by_fqn.get(core.DurationUnit._type);
+    if (this.mapped[18] !== undefined) {
+      this.mapped[18].resolveGeneratedOffsetWithValues('microseconds', 1,'milliseconds', 1000,'seconds', 1000000,'minutes', 60000000,'hours', 3600000000,'days', 86400000000,'weeks', 604800000000,'months', 2628000000000,'years', 31536000000000);
+    }
+    this.mapped[19] = abi.type_by_fqn.get(core.Tensor._type);
+    if (this.mapped[19] !== undefined) {
+    }
+    this.mapped[20] = abi.type_by_fqn.get(core.nodeIndexBucket._type);
+    if (this.mapped[20] !== undefined) {
+    }
+    this.mapped[21] = abi.type_by_fqn.get(core.duration._type);
+    if (this.mapped[21] !== undefined) {
+    }
+    this.mapped[22] = abi.type_by_fqn.get(core.TensorType._type);
+    if (this.mapped[22] !== undefined) {
+      this.mapped[22].resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
+    }
+    this.mapped[23] = abi.type_by_fqn.get(core.ti3d._type);
+    if (this.mapped[23] !== undefined) {
+    }
+    this.mapped[24] = abi.type_by_fqn.get(core.nodeTime._type);
+    if (this.mapped[24] !== undefined) {
+    }
+    this.mapped[25] = abi.type_by_fqn.get(core.ti4d._type);
+    if (this.mapped[25] !== undefined) {
+    }
+    this.mapped[26] = abi.type_by_fqn.get(core.ErrorCode._type);
+    if (this.mapped[26] !== undefined) {
+      this.mapped[26].resolveGeneratedOffsetWithValues('none', 0,'too_deep_workspace', 1,'too_deep_iterator', 2,'wrong_operand', 3,'wrong_params', 4,'wrong_param_type', 5,'wrong_numeric', 6,'wrong_state', 7,'wrong_null', 8,'unresolved_ref', 9,'assign_error', 10,'interrupted', 11,'throw', 12,'wrong_type', 13,'wrong_dimension', 14,'unsupported_operation', 15,'unsupported_type', 16,'dimensions_mismatch', 17,'timeout', 18,'forbidden', 19,'runtime_error', 20);
+    }
+    this.mapped[27] = abi.type_by_fqn.get(core.Tuple._type);
+    if (this.mapped[27] !== undefined) {
+      this.mapped[27].resolveGeneratedOffsets('x','y');
+    }
+    this.mapped[28] = abi.type_by_fqn.get(core.nodeGeo._type);
+    if (this.mapped[28] !== undefined) {
+    }
+    this.mapped[29] = abi.type_by_fqn.get(core.GeoPoly._type);
+    if (this.mapped[29] !== undefined) {
+      this.mapped[29].resolveGeneratedOffsets('points');
+    }
+    this.mapped[30] = abi.type_by_fqn.get(core.NodeInfo._type);
+    if (this.mapped[30] !== undefined) {
+      this.mapped[30].resolveGeneratedOffsets('size','from','to');
+    }
+    this.mapped[31] = abi.type_by_fqn.get(core.time._type);
+    if (this.mapped[31] !== undefined) {
+      this.mapped[31].static_values = [abi.createTime(-9223372036854775808n),abi.createTime(9223372036854775807n)];
+    }
+    this.mapped[32] = abi.type_by_fqn.get(core.DatePart._type);
+    if (this.mapped[32] !== undefined) {
+      this.mapped[32].resolveGeneratedOffsetWithValues('years', 0,'months', 1,'days', 2,'hours', 3,'minutes', 4,'seconds', 5,'microseconds', 6);
+    }
+    this.mapped[33] = abi.type_by_fqn.get(core.ti6d._type);
+    if (this.mapped[33] !== undefined) {
+    }
+    this.mapped[34] = abi.type_by_fqn.get(core.GeoBox._type);
+    if (this.mapped[34] !== undefined) {
+      this.mapped[34].resolveGeneratedOffsets('sw','ne');
+    }
+    this.mapped[35] = abi.type_by_fqn.get(core.TableColumnMeta._type);
+    if (this.mapped[35] !== undefined) {
+      this.mapped[35].resolveGeneratedOffsets('type','size','index','min','max','avg','std');
+    }
+    this.mapped[36] = abi.type_by_fqn.get(core.GeoCircle._type);
+    if (this.mapped[36] !== undefined) {
+      this.mapped[36].resolveGeneratedOffsets('center','radius');
+    }
+    this.mapped[37] = abi.type_by_fqn.get(core.tf2d._type);
+    if (this.mapped[37] !== undefined) {
+    }
+    this.mapped[38] = abi.type_by_fqn.get(runtime.UserRole._type);
+    if (this.mapped[38] !== undefined) {
+      this.mapped[38].resolveGeneratedOffsets('name','permissions');
+    }
+    this.mapped[39] = abi.type_by_fqn.get(runtime.RuntimeInfo._type);
+    if (this.mapped[39] !== undefined) {
+      this.mapped[39].resolveGeneratedOffsets('version','arch','timezone','license','io_threads','bg_threads','fg_threads','mem_total','mem_worker','nb_ctx','store_stats');
+    }
+    this.mapped[40] = abi.type_by_fqn.get(runtime.SecurityPolicy._type);
+    if (this.mapped[40] !== undefined) {
+      this.mapped[40].resolveGeneratedOffsets('entities','credentials','roles','fields');
+    }
+    this.mapped[41] = abi.type_by_fqn.get(runtime.StoreStat._type);
+    if (this.mapped[41] !== undefined) {
+      this.mapped[41].resolveGeneratedOffsets('capacity_bytes','allocated_bytes','allocated_ratio','remained_bytes','remained_ratio','used_bytes','used_ratio','available_bytes','available_ratio');
+    }
+    this.mapped[42] = abi.type_by_fqn.get(runtime.System._type);
+    if (this.mapped[42] !== undefined) {
+    }
+    this.mapped[43] = abi.type_by_fqn.get(runtime.Task._type);
+    if (this.mapped[43] !== undefined) {
+      this.mapped[43].resolveGeneratedOffsets('user_id','task_id','mod','type','fun','creation','status');
+    }
+    this.mapped[44] = abi.type_by_fqn.get(runtime.OpenIDConnect._type);
+    if (this.mapped[44] !== undefined) {
+      this.mapped[44].resolveGeneratedOffsets('url','clientId');
+    }
+    this.mapped[45] = abi.type_by_fqn.get(runtime.PeriodicTask._type);
+    if (this.mapped[45] !== undefined) {
+      this.mapped[45].resolveGeneratedOffsets('name','user_id','args','start','every');
+    }
+    this.mapped[46] = abi.type_by_fqn.get(runtime.UserGroupPolicy._type);
+    if (this.mapped[46] !== undefined) {
+      this.mapped[46].resolveGeneratedOffsets('group_id','type');
+    }
+    this.mapped[47] = abi.type_by_fqn.get(runtime.UserGroupPolicyType._type);
+    if (this.mapped[47] !== undefined) {
+      this.mapped[47].resolveGeneratedOffsetWithValues('read', 0,'write', 1,'execute', 2);
+    }
+    this.mapped[48] = abi.type_by_fqn.get(runtime.TaskInfo._type);
+    if (this.mapped[48] !== undefined) {
+      this.mapped[48].resolveGeneratedOffsets('user_id','task_id','mod','type','fun','creation','status','start','progress','remaining','duration','sub_waiting','sub_tasks_all');
+    }
+    this.mapped[49] = abi.type_by_fqn.get(runtime.UserGroup._type);
+    if (this.mapped[49] !== undefined) {
+      this.mapped[49].resolveGeneratedOffsets('id','name','activated');
+    }
+    this.mapped[50] = abi.type_by_fqn.get(runtime.SecurityFields._type);
+    if (this.mapped[50] !== undefined) {
+      this.mapped[50].resolveGeneratedOffsets('email','name','first_name','last_name','roles','groups');
+    }
+    this.mapped[51] = abi.type_by_fqn.get(runtime.SecurityEntity._type);
+    if (this.mapped[51] !== undefined) {
+      this.mapped[51].resolveGeneratedOffsets('id','name','activated');
+    }
+    this.mapped[52] = abi.type_by_fqn.get(runtime.Runtime._type);
+    if (this.mapped[52] !== undefined) {
+    }
+    this.mapped[53] = abi.type_by_fqn.get(runtime.TaskStatus._type);
+    if (this.mapped[53] !== undefined) {
+      this.mapped[53].resolveGeneratedOffsetWithValues('empty', 0,'waiting', 1,'running', 2,'cancelled', 3,'error', 4,'ended', 5);
+    }
+    this.mapped[54] = abi.type_by_fqn.get(runtime.User._type);
+    if (this.mapped[54] !== undefined) {
+      this.mapped[54].resolveGeneratedOffsets('id','name','activated','full_name','email','role','permissions_flags','groups','groups_flags','external');
+    }
+    this.mapped[55] = abi.type_by_fqn.get(runtime.License._type);
+    if (this.mapped[55] !== undefined) {
+      this.mapped[55].resolveGeneratedOffsets('name','start','end','company','max_workers','max_memory','extra_1','extra_2','extra_3','extra_4');
+    }
+    this.mapped[56] = abi.type_by_fqn.get(runtime.UserCredential._type);
+    if (this.mapped[56] !== undefined) {
+      this.mapped[56].resolveGeneratedOffsets('offset','pass');
+    }
+    this.mapped[57] = abi.type_by_fqn.get(io.CsvColumnDuration._type);
+    if (this.mapped[57] !== undefined) {
+      this.mapped[57].resolveGeneratedOffsets('name','mandatory','offset','unit');
+    }
+    this.mapped[58] = abi.type_by_fqn.get(io.File._type);
+    if (this.mapped[58] !== undefined) {
+      this.mapped[58].resolveGeneratedOffsets('path','size','last_modification');
+    }
+    this.mapped[59] = abi.type_by_fqn.get(io.CsvColumnBoolean._type);
+    if (this.mapped[59] !== undefined) {
+      this.mapped[59].resolveGeneratedOffsets('name','mandatory','offset');
+    }
+    this.mapped[60] = abi.type_by_fqn.get(io.Smtp._type);
+    if (this.mapped[60] !== undefined) {
+      this.mapped[60].resolveGeneratedOffsets('host','port','mode','authenticate','user','pass');
+    }
+    this.mapped[61] = abi.type_by_fqn.get(io.Url._type);
+    if (this.mapped[61] !== undefined) {
+      this.mapped[61].resolveGeneratedOffsets('protocol','host','port','path','params','hash');
+    }
+    this.mapped[62] = abi.type_by_fqn.get(io.CsvColumnIgnored._type);
+    if (this.mapped[62] !== undefined) {
+      this.mapped[62].resolveGeneratedOffsets('name','mandatory','offset');
+    }
+    this.mapped[63] = abi.type_by_fqn.get(io.HttpHeader._type);
+    if (this.mapped[63] !== undefined) {
+      this.mapped[63].resolveGeneratedOffsets('name','value');
+    }
+    this.mapped[64] = abi.type_by_fqn.get(io.CsvFormat._type);
+    if (this.mapped[64] !== undefined) {
+      this.mapped[64].resolveGeneratedOffsets('header_lines','infer','separator','string_delimiter','decimal_separator','thousands_separator','columns_size','columns');
+    }
+    this.mapped[65] = abi.type_by_fqn.get(io.SmtpAuth._type);
+    if (this.mapped[65] !== undefined) {
+      this.mapped[65].resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
+    }
+    this.mapped[66] = abi.type_by_fqn.get(io.CsvColumnString._type);
+    if (this.mapped[66] !== undefined) {
+      this.mapped[66].resolveGeneratedOffsets('name','mandatory','offset','trim','try_number','try_json','values','encoder');
+    }
+    this.mapped[67] = abi.type_by_fqn.get(io.Email._type);
+    if (this.mapped[67] !== undefined) {
+      this.mapped[67].resolveGeneratedOffsets('from','subject','body','body_is_html','to','cc','bcc');
+    }
+    this.mapped[68] = abi.type_by_fqn.get(io.CsvColumnFloat._type);
+    if (this.mapped[68] !== undefined) {
+      this.mapped[68].resolveGeneratedOffsets('name','mandatory','offset');
+    }
+    this.mapped[69] = abi.type_by_fqn.get(io.SmtpMode._type);
+    if (this.mapped[69] !== undefined) {
+      this.mapped[69].resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
+    }
+    this.mapped[70] = abi.type_by_fqn.get(io.CsvColumnTime._type);
+    if (this.mapped[70] !== undefined) {
+      this.mapped[70].resolveGeneratedOffsets('name','mandatory','offset','unit');
+    }
+    this.mapped[71] = abi.type_by_fqn.get(io.CsvColumn._type);
+    if (this.mapped[71] !== undefined) {
+      this.mapped[71].resolveGeneratedOffsets('name','mandatory','offset');
+    }
+    this.mapped[72] = abi.type_by_fqn.get(io.CsvColumnInteger._type);
+    if (this.mapped[72] !== undefined) {
+      this.mapped[72].resolveGeneratedOffsets('name','mandatory','offset');
+    }
+    this.mapped[73] = abi.type_by_fqn.get(io.CsvColumnDate._type);
+    if (this.mapped[73] !== undefined) {
+      this.mapped[73].resolveGeneratedOffsets('name','mandatory','offset','format','tz','as_time');
+    }
+    this.mapped[74] = abi.type_by_fqn.get(io.Http._type);
+    if (this.mapped[74] !== undefined) {
+    }
+    this.mapped[75] = abi.type_by_fqn.get(io.TextEncoder._type);
+    if (this.mapped[75] !== undefined) {
+      this.mapped[75].resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
+    }
+    this.mapped[76] = abi.type_by_fqn.get(math.MathConstants._type);
+    if (this.mapped[76] !== undefined) {
+      this.mapped[76].static_values = [2.7182818285,1.4426950409,0.4342944819,0.6931471806,2.302585093,3.1415926536,1.5707963268,0.7853981634,0.3183098862,0.6366197724,1.1283791671,1.4142135624,0.7071067812];
+    }
+    this.mapped[77] = abi.type_by_fqn.get(util.SlidingWindow._type);
+    if (this.mapped[77] !== undefined) {
+    }
+    this.mapped[78] = abi.type_by_fqn.get(util.Gaussian._type);
+    if (this.mapped[78] !== undefined) {
+      this.mapped[78].resolveGeneratedOffsets('sum','sum_sq','count','min','max');
+    }
+    this.mapped[79] = abi.type_by_fqn.get(util.HistogramFloat._type);
+    if (this.mapped[79] !== undefined) {
+      this.mapped[79].static_values = [0,1,2,3];
+    }
+    this.mapped[80] = abi.type_by_fqn.get(util.Buffer._type);
+    if (this.mapped[80] !== undefined) {
+    }
+    this.mapped[81] = abi.type_by_fqn.get(util.BoxPlotInt._type);
+    if (this.mapped[81] !== undefined) {
+      this.mapped[81].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
+    }
+    this.mapped[82] = abi.type_by_fqn.get(util.Quantizer._type);
+    if (this.mapped[82] !== undefined) {
+    }
+    this.mapped[83] = abi.type_by_fqn.get(util.Queue._type);
+    if (this.mapped[83] !== undefined) {
+    }
+    this.mapped[84] = abi.type_by_fqn.get(util.HistogramInt._type);
+    if (this.mapped[84] !== undefined) {
+      this.mapped[84].static_values = [0,1,2,3];
+    }
+    this.mapped[85] = abi.type_by_fqn.get(util.Random._type);
+    if (this.mapped[85] !== undefined) {
+      this.mapped[85].resolveGeneratedOffsets('seed','v');
+    }
+    this.mapped[86] = abi.type_by_fqn.get(util.Iban._type);
+    if (this.mapped[86] !== undefined) {
+    }
+    this.mapped[87] = abi.type_by_fqn.get(util.GaussianProfile._type);
+    if (this.mapped[87] !== undefined) {
+      this.mapped[87].static_values = [0,1,2,3,4,5,6];
+    }
+    this.mapped[88] = abi.type_by_fqn.get(util.ProgressTracker._type);
+    if (this.mapped[88] !== undefined) {
+      this.mapped[88].resolveGeneratedOffsets('start','total','counter','duration','progress','speed','remaining');
+    }
+    this.mapped[89] = abi.type_by_fqn.get(util.BoxPlotFloat._type);
+    if (this.mapped[89] !== undefined) {
+      this.mapped[89].resolveGeneratedOffsets('min','max','whiskerLow','whiskerHigh','percentile1','percentile5','percentile25','percentile50','percentile75','percentile95','percentile99','countOutliersLow','countOutliersHigh','percentageOutliersLow','percentageOutliersHigh','sum','avg','std','size');
+    }
+    this.mapped[90] = abi.type_by_fqn.get(util.Assert._type);
+    if (this.mapped[90] !== undefined) {
+    }
+    this.mapped[91] = abi.type_by_fqn.get(util.TimeWindow._type);
+    if (this.mapped[91] !== undefined) {
+    }
+    this.mapped[92] = abi.type_by_fqn.get(util.Crypto._type);
+    if (this.mapped[92] !== undefined) {
+    }
   },
 };

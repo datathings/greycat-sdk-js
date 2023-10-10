@@ -6,23 +6,36 @@ const LOWER_ALPHA = 'abcdefghijklmnopqrstuvwxyz';
 const UPPER_ALPHA = LOWER_ALPHA.toUpperCase();
 const CHARS = NUM + LOWER_ALPHA + UPPER_ALPHA;
 const HUMAN_SIZE = ' KMGTPEZY';
-const GREYCAT_NUMBER_TYPES = ['core.float', 'core.int'];
+const GREYCAT_NUMBER_TYPES = ['core::float', 'core::int'];
 
 export function isGreycatNumber(type: string): boolean {
   return GREYCAT_NUMBER_TYPES.includes(type);
 }
 
+/**
+ * Considered scalar:
+ *  - string
+ *  - number
+ *  - bigint
+ *  - boolean
+ *  - null
+ *  - undefined
+ * 
+ * @param val 
+ * @returns 
+ */
 export function isScalar(
   val: unknown,
 ): val is string | number | boolean | bigint | null | undefined {
-  return (
-    typeof val === 'boolean' ||
-    typeof val === 'bigint' ||
-    typeof val === 'number' ||
-    typeof val === 'string' ||
-    typeof val === 'undefined' ||
-    val == null
-  );
+  const type = typeof val;
+  switch (type) {
+    default: {
+      return true;
+    }
+    case 'function':
+    case 'object':
+      return val === null;
+  }
 }
 
 export function generateId(length = 5): string {

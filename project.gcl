@@ -81,12 +81,15 @@ fn write_std_core(out: GcbWriter) {
   out.write([42, true, "hello", DatePart::months]);
   out.write(42_geo);
   out.write(Map::new());
+
   var map = Map::new();
   map.set(42, 42);
   map.set(true, true);
   map.set("hello", "hello");
   map.set(DatePart::months, DatePart::months);
   out.write(map);
+
+  out.write({ string: "hello", int: 42, float: 3.14, bool: true, char: 'c', enum: TimeZone::Europe_Luxembourg });
   out.write(GeoBox::new(13_geo, 37_geo));
   out.write(nodeList<int>::new());
   out.write(TimeZone::Europe_Luxembourg);
@@ -142,6 +145,7 @@ fn write_std_io(out: GcbWriter) {
       decimal_separator: '.',
       thousands_separator: '_',
       columns: [],
+      // columns_size: null,
     });
   // out.write(File::open("project.gcl")); // unsupported
   // out.write(Directory::open(".")); // unsupported
@@ -448,4 +452,11 @@ fn float(f: float) {}
 fn blockingFn() {
   // this should trigger a timeout as rpc are maxed at 30s by default
   Runtime::sleep(40s);
+}
+
+@expose
+fn enumValue() {
+  return {
+    enum: TimeZone::Europe_Luxembourg,
+  };
 }

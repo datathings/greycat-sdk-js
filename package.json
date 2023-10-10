@@ -18,9 +18,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "gen": "pnpm gen:std && pnpm gen:algebra && pnpm gen:patterns",
-    "gen:std": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=std src/std",
-    "gen:algebra": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=algebra src/algebra",
-    "gen:patterns": "GREYCAT_INTERNAL_SDK=true greycat codegen --lib=patterns src/patterns",
+    "gen:std": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=std src/std",
+    "gen:algebra": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=algebra src/algebra",
+    "gen:patterns": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=patterns src/patterns",
     "build": "pnpm build:types && pnpm build:esm && pnpm build:esm-min",
     "build:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite",
     "build:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite",

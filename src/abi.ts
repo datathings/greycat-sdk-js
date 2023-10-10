@@ -390,7 +390,14 @@ export class AbiType {
       const attType = type.abi.types[att.abi_type];
       switch (loadType) {
         case PrimitiveType.enum: {
-          value = this.enum_loader(r, attType);
+          if (att.sbi_type === PrimitiveType.undefined) {
+            // full read
+            const enum_id = r.read_vu32();
+            const enum_type = type.abi.types[enum_id];
+            value = this.enum_loader(r, enum_type);
+          } else {
+            value = this.enum_loader(r, attType);
+          }
           break;
         }
         case PrimitiveType.object: {

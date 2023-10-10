@@ -64,6 +64,15 @@ describe('project', () => {
       'core::DatePart::months': { _type: 'core::DatePart', field: 'months' },
     },
     {
+      _type: '::<string,int,float,bool,char,enum>',
+      string: 'hello',
+      int: 42,
+      float: 3.14,
+      bool: true,
+      char: 'c',
+      enum: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
+    },
+    {
       _type: 'core::GeoBox',
       sw: {
         _type: 'core::geo',
@@ -87,7 +96,7 @@ describe('project', () => {
       stack: [
         { module: 'project', fn: 'main', line: 14, column: 17 },
         { module: 'project', fn: 'write_std', line: 19, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 94, column: 36 },
+        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -195,11 +204,12 @@ describe('project', () => {
       try_json: null,
       try_number: null,
       values: null,
+      offset: null,
     },
-    { _type: 'io::CsvColumnInteger', mandatory: null, name: null },
-    { _type: 'io::CsvColumnFloat', mandatory: null, name: null },
-    { _type: 'io::CsvColumnBoolean', mandatory: null, name: null },
-    { _type: 'io::CsvColumnTime', mandatory: null, name: null, unit: null },
+    { _type: 'io::CsvColumnInteger', mandatory: null, name: null, offset: null },
+    { _type: 'io::CsvColumnFloat', mandatory: null, name: null, offset: null },
+    { _type: 'io::CsvColumnBoolean', mandatory: null, name: null, offset: null },
+    { _type: 'io::CsvColumnTime', mandatory: null, name: null, unit: null, offset: null },
     {
       _type: 'io::CsvColumnDate',
       mandatory: null,
@@ -207,8 +217,9 @@ describe('project', () => {
       as_time: null,
       format: null,
       tz: null,
+      offset: null,
     },
-    { _type: 'io::CsvColumnIgnored', mandatory: null, name: null },
+    { _type: 'io::CsvColumnIgnored', mandatory: null, name: null, offset: null },
     {
       _type: 'io::CsvFormat',
       header_lines: 12,
@@ -218,6 +229,7 @@ describe('project', () => {
       decimal_separator: '.',
       thousands_separator: '_',
       columns: [],
+      columns_size: null,
     },
 
     // std::math

@@ -30,7 +30,11 @@ export class nodeGeo extends GCObject {
    * Hexedecimal representation of the nodeGeo's reference
    */
   get ref(): string {
-    return this.value.toString(16).padStart(16, '0');
+    return this.value.toString(16);
+  }
+
+  override toString(): string {
+    return `nodeGeo:${this.ref}`;
   }
 
   override toJSON() {

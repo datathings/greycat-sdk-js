@@ -76,9 +76,9 @@ describe('project', () => {
         lng: -179.99999962281436,
       },
     },
-    { _type: 'core::nodeList', ref: '0000000000001000' },
+    { _type: 'core::nodeList', ref: '1000' },
     { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
-    { _type: 'core::node', ref: '0000000000002000' },
+    { _type: 'core::node', ref: '2000' },
     {
       _type: 'core::Error',
       code: 0,
@@ -135,11 +135,11 @@ describe('project', () => {
       iso: '2012-12-12T11:12:12.000Z',
       timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     }, // TODO this is not what we actually expect
-    { _type: 'core::nodeTime', ref: '0000000000003000' },
+    { _type: 'core::nodeTime', ref: '3000' },
     [],
     { _type: 'core::Tuple', x: [], y: {} },
     { _type: 'core::Tuple', x: 42, y: 'hello' },
-    { _type: 'core::nodeIndex', ref: '0000000000004000' },
+    { _type: 'core::nodeIndex', ref: '4000' },
     {
       _type: 'core::GeoPoly',
       points: [
@@ -161,7 +161,7 @@ describe('project', () => {
       ],
     },
     { _type: 'core::DatePart', field: 'days' },
-    { _type: 'core::nodeGeo', ref: '0000000000005000' },
+    { _type: 'core::nodeGeo', ref: '5000' },
     { _type: 'core::ti2d', x0: 13, x1: 37 },
     { _type: 'core::ti3d', x0: 13, x1: 37, x2: 42 },
     { _type: 'core::ti4d', x0: 13, x1: 37, x2: 42, x3: 12 },

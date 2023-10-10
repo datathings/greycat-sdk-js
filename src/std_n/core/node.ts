@@ -25,7 +25,11 @@ export class node extends GCObject {
    * Hexedecimal representation of the node's reference
    */
   get ref(): string {
-    return this.value.toString(16).padStart(16, '0');
+    return this.value.toString(16);
+  }
+
+  override toString() {
+    return `node:${this.ref}`;
   }
 
   override toJSON() {

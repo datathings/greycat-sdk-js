@@ -154,13 +154,11 @@ export function stringify(props: StringifyProps): string {
     const y = stringify(props);
     return `(${x}, ${y})`;
   } else if (isNode(value)) {
-    let type: string = Object.getPrototypeOf(value).constructor._type;
-    type = type.slice(type.lastIndexOf('.') + 1);
     if (name) {
+      const type = Object.getPrototypeOf(value).constructor._type.split('::')[1];
       return `gc://${type}/${slugify(name)}`;
-    } else {
-      return `gc://${type}/${value.ref}`;
     }
+    return value.toString();
   } else if (typeof value === 'string') {
     if (tiny) {
       return toStrTiny(value);

@@ -767,6 +767,10 @@ export class AbiWriter extends Writer {
     throw new Error(`Javascript 'undefined' is not serializable`);
   }
 
+  null(): void {
+    this.write_u8(PrimitiveType.null);
+  }
+
   char(c: string): void {
     this.write_u8(PrimitiveType.char);
     this.raw_char(c);

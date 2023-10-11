@@ -193,10 +193,18 @@ export class GreyCat {
         if (param) {
           switch (param.type.offset) {
             case this.abi.core_float_offset:
-              writer.float(arg as number);
+              if (arg === null) {
+                writer.serialize(arg);
+              } else {
+                writer.float(arg as number);
+              }
               break;
             case this.abi.core_char_offset:
-              writer.char(arg as string);
+              if (arg === null) {
+                writer.serialize(arg);
+              } else {
+                writer.char(arg as string);
+              }
               break;
             default:
               writer.serialize(arg);

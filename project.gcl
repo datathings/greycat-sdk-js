@@ -446,7 +446,9 @@ fn errorError() {
 }
 
 @expose
-fn float(f: float) {}
+fn float(f: float?) {
+  return f;
+}
 
 @expose
 fn blockingFn() {

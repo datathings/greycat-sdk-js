@@ -13,13 +13,37 @@ const g = (global.greycat.default = await GreyCat.init({
 }));
 
 try {
-  // [204,59,127,102,158,160,246,63]
-  // [205,59,127,102,158,160,256,63]
-  const value = await g.call(args[0]);
+  const fnArgs = args[1] === '-d' ? JSON.parse(await stdin()) : undefined;
+  const value = await g.call(args[0], fnArgs);
   displayValue(value);
 } catch (err) {
   console.error(`Error: ${err.stack}`);
   process.exit(1);
+}
+
+function stdin() {
+  return new Promise((resolve, reject) => {
+    let data = '';
+
+    process.stdin.setEncoding('utf-8');
+
+    const id = setTimeout(() => {
+      resolve('null');
+    }, 1000);
+
+    process.stdin.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    process.stdin.on('end', () => {
+      clearTimeout(id);
+      resolve(data);
+    });
+    process.stdin.on('error', (err) => {
+      clearTimeout(id);
+      reject(err);
+    });
+  });
 }
 
 function displayValue(value) {

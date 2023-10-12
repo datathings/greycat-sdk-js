@@ -263,6 +263,7 @@ describe('project', () => {
     {
       _type: 'runtime::RuntimeInfo',
       version: '',
+      program_version: null,
       arch: '',
       timezone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
       license: {

@@ -121,10 +121,7 @@ export interface Options {
   unauthorizedHandler?: () => void;
 }
 
-export type CacheKey = {
-  method: string;
-  params?: ArrayBuffer;
-}
+export type CacheKey = readonly [method: string, params?: ArrayBuffer];
 
 export type CacheData = {
   etag: string;

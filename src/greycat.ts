@@ -82,7 +82,7 @@ export async function downloadAbi(
   }
 
   const method = 'runtime::Runtime::abi';
-  const key: CacheKey = { method };
+  const key: CacheKey = [method];
   const cachedRes = await cache?.read(key);
   if (cachedRes) {
     headers['If-None-Match'] = cachedRes.etag;
@@ -100,8 +100,6 @@ export async function downloadAbi(
     // call handler if any
     unauthorizedHandler?.();
     throw new Error(`you need to be logged-in to access '${method}'`);
-  } else if (!res.ok) {
-    throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
   } else if (res.status === 304) {
     if (cachedRes) {
       return [cachedRes.data, token];
@@ -117,6 +115,8 @@ export async function downloadAbi(
         url,
       });
     }
+  } else if (!res.ok) {
+    throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
   }
   const data = await res.arrayBuffer();
   const etag = res.headers.get('etag');
@@ -256,7 +256,7 @@ export class GreyCat {
     if (this.token) {
       headers['Authorization'] = this.token;
     }
-    const key: CacheKey = { method, params: args ? writer.buffer : undefined };
+    const key: CacheKey = [method, writer.buffer];
     const cachedRes = await this.cache.read(key);
     if (cachedRes) {
       headers['If-None-Match'] = cachedRes.etag;

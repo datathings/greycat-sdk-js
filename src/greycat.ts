@@ -1,6 +1,6 @@
 import { Abi } from './abi.js';
 import * as std from './std/index.js';
-import { Auth, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
+import { Auth, Cache, CacheData, CacheKey, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
@@ -66,7 +66,7 @@ export async function downloadAbiHeaders(
  * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI data and optionally the token if a login has occured
  */
 export async function downloadAbi(
-  { url = DEFAULT_URL, auth, signal, unauthorizedHandler }: WithoutAbiOptions = {
+  { url = DEFAULT_URL, auth, signal, cache, capacity, libraries, unauthorizedHandler }: WithoutAbiOptions = {
     url: DEFAULT_URL,
   },
 ): Promise<[ArrayBuffer, string | undefined]> {
@@ -81,8 +81,14 @@ export async function downloadAbi(
     headers['Authorization'] = token;
   }
 
-  const cleanUrl = normalizeUrl(url);
   const method = 'runtime::Runtime::abi';
+  const key: CacheKey = { method };
+  const cachedRes = await cache?.read(key);
+  if (cachedRes) {
+    headers['If-None-Match'] = cachedRes.etag;
+  }
+
+  const cleanUrl = normalizeUrl(url);
   const res = await fetch(`${cleanUrl}/${method}`, {
     method: 'POST',
     headers,
@@ -96,8 +102,28 @@ export async function downloadAbi(
     throw new Error(`you need to be logged-in to access '${method}'`);
   } else if (!res.ok) {
     throw new Error(`unable to fetch ABI (${res.status} ${res.statusText})`);
+  } else if (res.status === 304) {
+    if (cachedRes) {
+      return [cachedRes.data, token];
+    } else {
+      // re-attempt
+      return downloadAbi({
+        auth,
+        cache,
+        capacity,
+        libraries,
+        signal,
+        unauthorizedHandler,
+        url,
+      });
+    }
   }
-  return [await res.arrayBuffer(), token];
+  const data = await res.arrayBuffer();
+  const etag = res.headers.get('etag');
+  if (etag && cache) {
+    await cache.write(key, { etag, data });
+  }
+  return [data, token];
 }
 
 export class GreyCat {
@@ -107,21 +133,25 @@ export class GreyCat {
   readonly abi: Abi;
   /** used by `WriteBuffer` to initialize its capacity */
   readonly capacity: number;
+  /** cache layer for request/response. Defaults to the `NoopCache`. */
+  readonly cache: Cache;
   /** used when making authenticated requests */
   token: string | undefined;
   /** called when a request returns a status code 401 */
   unauthorizedHandler: (() => void) | undefined;
 
-  constructor(
+  private constructor(
     api: string,
     abi: Abi,
     capacity = 4096,
+    cache: Cache = new NoopCache(),
     token?: string,
     unauthorizedHandler?: () => void,
   ) {
     this.api = api;
     this.abi = abi;
     this.capacity = capacity;
+    this.cache = cache;
     this.token = token;
     this.unauthorizedHandler = unauthorizedHandler;
   }
@@ -144,6 +174,7 @@ export class GreyCat {
       url = DEFAULT_URL,
       libraries,
       capacity,
+      cache,
       signal,
       auth,
       unauthorizedHandler,
@@ -152,22 +183,25 @@ export class GreyCat {
     const [data, token] = await downloadAbi({
       url,
       auth,
+      capacity,
+      cache,
       unauthorizedHandler,
       signal,
     });
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
-    return new GreyCat(cleanUrl, abi, capacity, token, unauthorizedHandler);
+    return new GreyCat(cleanUrl, abi, capacity, cache, token, unauthorizedHandler);
   }
 
   static initWithAbi({
     url = DEFAULT_URL,
     capacity,
+    cache,
     abi,
     token,
     unauthorizedHandler,
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(normalizeUrl(url), abi, capacity, token, unauthorizedHandler);
+    return new GreyCat(normalizeUrl(url), abi, capacity, cache, token, unauthorizedHandler);
   }
 
   /**
@@ -175,7 +209,7 @@ export class GreyCat {
    * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
    *
    * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
-   *
+   * 
    * @param method the exposed endpoint to call, without leading slash
    * (eg. `'runtime/User/me'`)
    * @param args a list of parameters to send for the call
@@ -222,6 +256,11 @@ export class GreyCat {
     if (this.token) {
       headers['Authorization'] = this.token;
     }
+    const key: CacheKey = { method, params: args ? writer.buffer : undefined };
+    const cachedRes = await this.cache.read(key);
+    if (cachedRes) {
+      headers['If-None-Match'] = cachedRes.etag;
+    }
     const res = await fetch(url, {
       method: 'POST',
       body: writer.buffer,
@@ -234,6 +273,18 @@ export class GreyCat {
         return null as T;
       }
       const value = this.deserializeWithHeader(data);
+      const etag = res.headers.get('etag');
+      if (etag) {
+        await this.cache.write(key, { etag, data });
+      }
+      debugLogger(res.status, method, args, value);
+      return value as T;
+    } else if (res.status === 304) {
+      if (cachedRes === null) {
+        // try again
+        return this.call(method, args, signal);
+      }
+      const value = this.deserializeWithHeader(cachedRes.data);
       debugLogger(res.status, method, args, value);
       return value as T;
     } else if (res.status === 401) {
@@ -454,6 +505,20 @@ export async function logout({ url = DEFAULT_URL, signal }: LogoutOptions = {}):
     return;
   }
   throw new Error(`unable to logout (${res.status} ${res.statusText})`);
+}
+
+/**
+ * A cache impl that does nothing.
+ */
+class NoopCache implements Cache {
+  async write(_key: CacheKey, _data: CacheData): Promise<void> {
+    // noop
+  }
+  async read(_key: CacheKey): Promise<CacheData | null> {
+    // noop
+    return null;
+  }
+
 }
 
 function normalizeUrl(url: URL): string {

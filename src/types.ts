@@ -107,12 +107,37 @@ export interface Options {
    */
   capacity?: number;
   /**
+   * A cache layer to use for requests/responses caching.
+   * 
+   * Defaults to a `NoopCache`.
+   */
+  cache?: Cache;
+  /**
    * Called when a request (from `greycat.call(...)`) returns a status code 401.
    * 
    * *You can also set this handler directly on the `GreyCat` instance after creating it*
    * 
    */
   unauthorizedHandler?: () => void;
+}
+
+export type CacheKey = {
+  method: string;
+  params?: ArrayBuffer;
+}
+
+export type CacheData = {
+  etag: string;
+  data: ArrayBuffer;
+}
+
+export interface Cache {
+  write(key: CacheKey, data: CacheData): Promise<void>;
+  /**
+   * @param key 
+   * @returns `CacheData` on success, `null` on cache miss
+   */
+  read(key: CacheKey): Promise<CacheData | null>;
 }
 
 export interface Auth {

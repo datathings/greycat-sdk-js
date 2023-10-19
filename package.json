@@ -2,18 +2,16 @@
   "name": "@greycat/sdk",
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/greycat.js",
-  "typings": "dist/types/index.d.ts",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/greycat.js"
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
     }
   },
   "files": [
-    "dist/greycat.js",
-    "dist/greycat.min.js",
-    "dist/types"
+    "dist/esm"
   ],
   "scripts": {
     "clean": "rm -rf dist",
@@ -21,10 +19,10 @@
     "gen:std": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=std src/std",
     "gen:algebra": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=algebra src/algebra",
     "gen:patterns": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=patterns src/patterns",
-    "build": "pnpm build:types && pnpm build:esm && pnpm build:esm-min",
-    "build:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite",
-    "build:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite",
-    "build:types": "tsc -b tsconfig.json",
+    "build": "pnpm build:esm && pnpm build:bundle:esm && pnpm build:bundle:esm-min",
+    "build:bundle:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite --define:process.env.NODE_ENV=\"'production'\"",
+    "build:bundle:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite --define:process.env.NODE_ENV=\"'production'\"",
+    "build:esm": "tsc -b tsconfig.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/store/abi project.test.abi",
@@ -32,15 +30,14 @@
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "Apache-2.0",
-  "dependencies": {},
   "devDependencies": {
-    "slugify": "1.6.6",
     "@types/node": "18.17.7",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "esbuild": "0.17.11",
     "eslint": "8.35.0",
     "eslint-plugin-require-extensions": "0.1.2",
     "prettier": "2.8.4",
+    "slugify": "1.6.6",
     "typescript": "5.1.6"
   },
   "engines": {

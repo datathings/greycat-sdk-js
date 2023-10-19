@@ -1,4 +1,4 @@
-import { GreyCat, runtime } from '@greycat/sdk';
+import { GreyCat, runtime } from './dist/esm/index.js';
 
 // var g = await sdk.GreyCat.init({url:new URL("http://localhost:8080")});
 // // const newRole = sdk.std.runtime.UserRole.create(

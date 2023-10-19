@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat, algebralib, patternslib, stdlib } from './dist/greycat.js';
+import { GreyCat, algebralib, patternslib, stdlib } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
 if (args.length < 1) {

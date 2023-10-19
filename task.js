@@ -1,4 +1,4 @@
-import { GreyCat, TaskHandler } from './dist/greycat.js';
+import { GreyCat, TaskHandler } from './dist/esm/index.js';
 
 const greycat = (global.greycat.default = await GreyCat.init());
 

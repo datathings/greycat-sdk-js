@@ -306,8 +306,11 @@ export class GreyCat {
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);
-    const err = value as std.core.Error;
-    debugLogger(res.status, method, args, data);
+    const err = value as std.core.Error | null;
+    debugLogger(res.status, method, args, value);
+    if (err === null) {
+      throw new Error(`calling ${method} failed`);
+    }
     throw new Error(
       `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,

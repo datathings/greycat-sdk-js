@@ -481,6 +481,10 @@ export class GreyCat {
     return this.abi.createNodeGeo(hex);
   }
 
+  createNodeTime(hex: string) {
+    return this.abi.createNodeTime(hex);
+  }
+
   createTime(value: bigint | number) {
     return this.abi.createTime(typeof value === 'bigint' ? value : BigInt(value));
   }

@@ -344,6 +344,11 @@ export class Abi {
     return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeGeo;
   }
 
+  createNodeTime(hex: string) {
+    const ty = this.types[this.core_node_time_offset];
+    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeTime;
+  }
+
   createGeo(lat: number, lng: number) {
     const t = this.types[this.core_geo_offset];
     return new t.factory(t, lat, lng) as std.core.geo;

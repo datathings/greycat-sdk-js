@@ -2,7 +2,7 @@ import { GCObject, gc_object__is_not_null } from './GCObject.js';
 import { GCEnum } from './GCEnum.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
-import { stdlib } from './exports.js';
+import { stdlib, std } from './exports.js';
 
 export class Abi {
   static readonly protocol_version = 1;
@@ -81,7 +81,9 @@ export class Abi {
     const major = cursor.read_u16();
 
     if (major !== Abi.protocol_version) {
-      throw new Error(`ABI protocol version mismatch (expected=${Abi.protocol_version}, actual=${major})`);
+      throw new Error(
+        `ABI protocol version mismatch (expected=${Abi.protocol_version}, actual=${major})`,
+      );
     }
 
     this.magic = cursor.read_u16();
@@ -171,34 +173,90 @@ export class Abi {
 
       if (this.symbols[module] === 'core') {
         switch (this.symbols[name]) {
-          case 'String': this.core_string_offset = i; break;
-          case 'Array': this.core_array_offset = i; break;
-          case 'Map': this.core_map_offset = i; break;
-          case 'geo': this.core_geo_offset = i; break;
-          case 'duration': this.core_duration_offset = i; break;
-          case 'time': this.core_time_offset = i; break;
-          case 'node': this.core_node_offset = i; break;
-          case 'nodeTime': this.core_node_time_offset = i; break;
-          case 'nodeList': this.core_node_list_offset = i; break;
-          case 'nodeGeo': this.core_node_geo_offset = i; break;
-          case 'nodeIndex': this.core_node_index_offset = i; break;
-          case 'cubic': this.core_cubic_offset = i; break;
-          case 'ti2d': this.core_ti2d_offset = i; break;
-          case 'ti3d': this.core_ti3d_offset = i; break;
-          case 'ti4d': this.core_ti4d_offset = i; break;
-          case 'ti5d': this.core_ti5d_offset = i; break;
-          case 'ti6d': this.core_ti6d_offset = i; break;
-          case 'ti10d': this.core_ti10d_offset = i; break;
-          case 'tf2d': this.core_tf2d_offset = i; break;
-          case 'tf3d': this.core_tf3d_offset = i; break;
-          case 'tf4d': this.core_tf4d_offset = i; break;
-          case 'function': this.core_function_offset = i; break;
-          case 'TimeZone': this.core_timezone_offset = i; break;
-          case 'Date': this.core_date_offset = i; break;
-          case 'Table': this.core_table_offset = i; break;
-          case 'TensorType': this.core_tensortype_offset = i; break;
-          case 'float': this.core_float_offset = i; break;
-          case 'char': this.core_char_offset = i; break;
+          case 'String':
+            this.core_string_offset = i;
+            break;
+          case 'Array':
+            this.core_array_offset = i;
+            break;
+          case 'Map':
+            this.core_map_offset = i;
+            break;
+          case 'geo':
+            this.core_geo_offset = i;
+            break;
+          case 'duration':
+            this.core_duration_offset = i;
+            break;
+          case 'time':
+            this.core_time_offset = i;
+            break;
+          case 'node':
+            this.core_node_offset = i;
+            break;
+          case 'nodeTime':
+            this.core_node_time_offset = i;
+            break;
+          case 'nodeList':
+            this.core_node_list_offset = i;
+            break;
+          case 'nodeGeo':
+            this.core_node_geo_offset = i;
+            break;
+          case 'nodeIndex':
+            this.core_node_index_offset = i;
+            break;
+          case 'cubic':
+            this.core_cubic_offset = i;
+            break;
+          case 'ti2d':
+            this.core_ti2d_offset = i;
+            break;
+          case 'ti3d':
+            this.core_ti3d_offset = i;
+            break;
+          case 'ti4d':
+            this.core_ti4d_offset = i;
+            break;
+          case 'ti5d':
+            this.core_ti5d_offset = i;
+            break;
+          case 'ti6d':
+            this.core_ti6d_offset = i;
+            break;
+          case 'ti10d':
+            this.core_ti10d_offset = i;
+            break;
+          case 'tf2d':
+            this.core_tf2d_offset = i;
+            break;
+          case 'tf3d':
+            this.core_tf3d_offset = i;
+            break;
+          case 'tf4d':
+            this.core_tf4d_offset = i;
+            break;
+          case 'function':
+            this.core_function_offset = i;
+            break;
+          case 'TimeZone':
+            this.core_timezone_offset = i;
+            break;
+          case 'Date':
+            this.core_date_offset = i;
+            break;
+          case 'Table':
+            this.core_table_offset = i;
+            break;
+          case 'TensorType':
+            this.core_tensortype_offset = i;
+            break;
+          case 'float':
+            this.core_float_offset = i;
+            break;
+          case 'char':
+            this.core_char_offset = i;
+            break;
           default:
             // noop
             break;
@@ -266,34 +324,54 @@ export class Abi {
     return new ty.factory(ty, ...attributes) as T;
   }
 
+  createNode(hex: string) {
+    const ty = this.types[this.core_node_offset];
+    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.node;
+  }
+
+  createNodeList(hex: string) {
+    const ty = this.types[this.core_node_list_offset];
+    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeList;
+  }
+
+  createNodeIndex(hex: string) {
+    const ty = this.types[this.core_node_index_offset];
+    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeIndex;
+  }
+
+  createNodeGeo(hex: string) {
+    const ty = this.types[this.core_node_geo_offset];
+    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeGeo;
+  }
+
   createGeo(lat: number, lng: number) {
     const t = this.types[this.core_geo_offset];
-    return new t.factory(t, lat, lng);
+    return new t.factory(t, lat, lng) as std.core.geo;
   }
 
   createTime(value: bigint) {
     const t = this.types[this.core_time_offset];
-    return new t.factory(t, value);
+    return new t.factory(t, value) as std.core.time;
   }
 
   createDuration(value: bigint) {
     const t = this.types[this.core_duration_offset];
-    return new t.factory(t, value);
+    return new t.factory(t, value) as std.core.duration;
   }
 
   createTu2d(x0: bigint | number, x1: bigint | number) {
     const t = this.types[this.core_ti2d_offset];
-    return new t.factory(t, x0, x1);
+    return new t.factory(t, x0, x1) as std.core.ti2d;
   }
 
   createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
     const t = this.types[this.core_ti3d_offset];
-    return new t.factory(t, x0, x1, x2);
+    return new t.factory(t, x0, x1, x2) as std.core.ti3d;
   }
 
   createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
     const t = this.types[this.core_ti4d_offset];
-    return new t.factory(t, x0, x1, x2, x3);
+    return new t.factory(t, x0, x1, x2, x3) as std.core.ti4d;
   }
 
   // prettier-ignore
@@ -305,7 +383,7 @@ export class Abi {
     x4: bigint | number,
   ) {
     const t = this.types[this.core_ti5d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4);
+    return new t.factory(t, x0, x1, x2, x3, x4) as std.core.ti5d;
   }
 
   createTu6d(
@@ -317,7 +395,7 @@ export class Abi {
     x5: bigint | number,
   ) {
     const t = this.types[this.core_ti6d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4, x5);
+    return new t.factory(t, x0, x1, x2, x3, x4, x5) as std.core.ti6d;
   }
 
   createTu10d(
@@ -333,22 +411,22 @@ export class Abi {
     x9: bigint | number,
   ) {
     const t = this.types[this.core_ti10d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+    return new t.factory(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as std.core.ti10d;
   }
 
   createTuf2d(x0: number, x1: number) {
     const t = this.types[this.core_tf2d_offset];
-    return new t.factory(t, x0, x1);
+    return new t.factory(t, x0, x1) as std.core.tf2d;
   }
 
   createTuf3d(x0: number, x1: number, x2: number) {
     const t = this.types[this.core_tf3d_offset];
-    return new t.factory(t, x0, x1, x2);
+    return new t.factory(t, x0, x1, x2) as std.core.tf3d;
   }
 
   createTuf4d(x0: number, x1: number, x2: number, x3: number) {
     const t = this.types[this.core_tf4d_offset];
-    return new t.factory(t, x0, x1, x2, x3);
+    return new t.factory(t, x0, x1, x2, x3) as std.core.tf4d;
   }
 }
 
@@ -468,7 +546,12 @@ export class AbiType {
         // initialize all enum fields
         this.enum_values = new Array(attrs.length);
         for (let offset = 0; offset < attrs.length; offset++) {
-          this.enum_values[offset] = new this.factory(this, offset, attrs[offset].name, null) as GCEnum;
+          this.enum_values[offset] = new this.factory(
+            this,
+            offset,
+            attrs[offset].name,
+            null,
+          ) as GCEnum;
         }
       }
     } else {

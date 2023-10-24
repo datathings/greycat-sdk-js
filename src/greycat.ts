@@ -1,6 +1,14 @@
 import { Abi } from './abi.js';
 import * as std from './std/index.js';
-import { Auth, Cache, CacheData, CacheKey, Value, WithAbiOptions, WithoutAbiOptions } from './types.js';
+import {
+  Auth,
+  Cache,
+  CacheData,
+  CacheKey,
+  Value,
+  WithAbiOptions,
+  WithoutAbiOptions,
+} from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
 
@@ -66,9 +74,17 @@ export async function downloadAbiHeaders(
  * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI data and optionally the token if a login has occured
  */
 export async function downloadAbi(
-  { url = DEFAULT_URL, auth, signal, cache, capacity, libraries, unauthorizedHandler }: WithoutAbiOptions = {
-    url: DEFAULT_URL,
-  },
+  {
+    url = DEFAULT_URL,
+    auth,
+    signal,
+    cache,
+    capacity,
+    libraries,
+    unauthorizedHandler,
+  }: WithoutAbiOptions = {
+      url: DEFAULT_URL,
+    },
 ): Promise<[ArrayBuffer, string | undefined]> {
   let token: string | undefined;
 
@@ -209,7 +225,7 @@ export class GreyCat {
    * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
    *
    * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
-   * 
+   *
    * @param method the exposed endpoint to call, without leading slash
    * (eg. `'runtime/User/me'`)
    * @param args a list of parameters to send for the call
@@ -449,12 +465,89 @@ export class GreyCat {
     return this.abi.createGeo(lat, lng);
   }
 
+  createNode(hex: string) {
+    return this.abi.createNode(hex);
+  }
+
+  createNodeList(hex: string) {
+    return this.abi.createNodeList(hex);
+  }
+
+  createNodeIndex(hex: string) {
+    return this.abi.createNodeIndex(hex);
+  }
+
+  createNodeGeo(hex: string) {
+    return this.abi.createNodeGeo(hex);
+  }
+
   createTime(value: bigint | number) {
     return this.abi.createTime(typeof value === 'bigint' ? value : BigInt(value));
   }
 
   createDuration(value: bigint | number) {
     return this.abi.createDuration(typeof value === 'bigint' ? value : BigInt(value));
+  }
+
+  createTu2d(x0: bigint | number, x1: bigint | number) {
+    return this.abi.createTu2d(x0, x1);
+  }
+
+  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
+    return this.abi.createTu3d(x0, x1, x2);
+  }
+
+  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
+    return this.abi.createTu4d(x0, x1, x2, x3);
+  }
+
+  // prettier-ignore
+  createTu5d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+  ) {
+    return this.abi.createTu5d(x0, x1, x2, x3, x4);
+  }
+
+  createTu6d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+    x5: bigint | number,
+  ) {
+    return this.abi.createTu6d(x0, x1, x2, x3, x4, x5);
+  }
+
+  createTu10d(
+    x0: bigint | number,
+    x1: bigint | number,
+    x2: bigint | number,
+    x3: bigint | number,
+    x4: bigint | number,
+    x5: bigint | number,
+    x6: bigint | number,
+    x7: bigint | number,
+    x8: bigint | number,
+    x9: bigint | number,
+  ) {
+    return this.abi.createTu10d(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+  }
+
+  createTuf2d(x0: number, x1: number) {
+    return this.abi.createTuf2d(x0, x1);
+  }
+
+  createTuf3d(x0: number, x1: number, x2: number) {
+    return this.abi.createTuf3d(x0, x1, x2);
+  }
+
+  createTuf4d(x0: number, x1: number, x2: number, x3: number) {
+    return this.abi.createTuf4d(x0, x1, x2, x3);
   }
 }
 
@@ -521,7 +614,6 @@ class NoopCache implements Cache {
     // noop
     return null;
   }
-
 }
 
 function normalizeUrl(url: URL): string {

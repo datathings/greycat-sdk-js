@@ -8,30 +8,8 @@ export class GCObject {
   readonly $attrs?: Value[];
 
   constructor(readonly $type: AbiType, ...attributes: Value[]) {
-    Object.defineProperty(this, '$type', { value: $type, enumerable: false });
-    Object.defineProperty(this, '$attrs', { value: attributes, enumerable: false });
-  }
-
-  getByName(name: string): Value | undefined {
-    const offset = this.$type.attrs_by_name.get(name);
-    if (offset === undefined) {
-      return;
-    }
-    // we actually want this to throw if the attributes array is not initialized
-    // so lets quiet down TypeScript here, and non-null-assert the array access
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.$attrs![offset];
-  }
-
-  setByName(name: string, value: Value): void {
-    const offset = this.$type.attrs_by_name.get(name);
-    if (offset === undefined) {
-      return;
-    }
-    // we actually want this to throw if the attributes array is not initialized
-    // so lets quiet down TypeScript here, and non-null-assert the array access
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.$attrs![offset] = value;
+    this.$attrs = attributes;
+    Object.defineProperties(this, $type.properties);
   }
 
   saveHeader(w: AbiWriter): void {

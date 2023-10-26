@@ -399,8 +399,10 @@ export class AbiReader extends Reader {
     if (type === undefined) {
       throw new Error(`unknown enum id '${id}'`);
     }
-    if (type.enum_values && type.enum_values.length > off) {
-      return type.enum_values[off];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if (type.enum_values!.length > off) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return type.enum_values![off];
     }
     throw new Error(`no value registered for enum '${id}' at field offset '${off}'`);
   }

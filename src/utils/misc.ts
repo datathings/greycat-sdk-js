@@ -8,6 +8,18 @@ const CHARS = NUM + LOWER_ALPHA + UPPER_ALPHA;
 const HUMAN_SIZE = ' KMGTPEZY';
 const GREYCAT_NUMBER_TYPES = ['core::float', 'core::int'];
 
+const hexLEtoBEbuf = new Uint8Array(8);
+const hexLEtoBEdv = new DataView(hexLEtoBEbuf.buffer);
+/**
+ * Converts little-endian hexedecimal to there big-endian `BigInt`
+ */
+export function hexLEtoBE(hex: string): bigint {
+  const le = BigInt(hex.startsWith('0x') ? hex : `0x${hex}`);
+  hexLEtoBEdv.setBigUint64(0, le, true);
+  const be = hexLEtoBEdv.getBigUint64(0, false);
+  return be;
+}
+
 export function isGreycatNumber(type: string): boolean {
   return GREYCAT_NUMBER_TYPES.includes(type);
 }

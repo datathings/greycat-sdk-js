@@ -22,6 +22,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "useDefineForClassFields": false,
     // "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
     "noEmitOnError": true,

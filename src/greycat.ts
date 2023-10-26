@@ -22,8 +22,9 @@ try {
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
 
-export const debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
-  if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== 'production') {
+export let debugLogger: (status: number, method: string, params?: Value[], value?: unknown) => void;
+if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== 'production') {
+  debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
     const bg =
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       status >= 400 ? '#e8590c' : '#1983c1';
@@ -32,8 +33,10 @@ export const debugLogger = (status: number, method: string, params?: Value[], va
       params,
       response: value,
     });
-  }
-};
+  };
+} else {
+  debugLogger = () => void 0;
+}
 
 export async function downloadAbiHeaders(
   { url = DEFAULT_URL, auth, signal, unauthorizedHandler }: WithoutAbiOptions = {
@@ -465,24 +468,24 @@ export class GreyCat {
     return this.abi.createGeo(lat, lng);
   }
 
-  createNode(hex: string) {
-    return this.abi.createNode(hex);
+  createNode(value: bigint) {
+    return this.abi.createNode(value);
   }
 
-  createNodeList(hex: string) {
-    return this.abi.createNodeList(hex);
+  createNodeList(value: bigint) {
+    return this.abi.createNodeList(value);
   }
 
-  createNodeIndex(hex: string) {
-    return this.abi.createNodeIndex(hex);
+  createNodeIndex(value: bigint) {
+    return this.abi.createNodeIndex(value);
   }
 
-  createNodeGeo(hex: string) {
-    return this.abi.createNodeGeo(hex);
+  createNodeGeo(value: bigint) {
+    return this.abi.createNodeGeo(value);
   }
 
-  createNodeTime(hex: string) {
-    return this.abi.createNodeTime(hex);
+  createNodeTime(value: bigint) {
+    return this.abi.createNodeTime(value);
   }
 
   createTime(value: bigint | number) {

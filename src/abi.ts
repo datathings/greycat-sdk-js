@@ -324,29 +324,29 @@ export class Abi {
     return new ty.factory(ty, ...attributes) as T;
   }
 
-  createNode(hex: string) {
+  createNode(value: bigint) {
     const ty = this.types[this.core_node_offset];
-    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.node;
+    return new ty.factory(ty, value) as std.core.node;
   }
 
-  createNodeList(hex: string) {
+  createNodeList(value: bigint) {
     const ty = this.types[this.core_node_list_offset];
-    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeList;
+    return new ty.factory(ty, value) as std.core.nodeList;
   }
 
-  createNodeIndex(hex: string) {
+  createNodeIndex(value: bigint) {
     const ty = this.types[this.core_node_index_offset];
-    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeIndex;
+    return new ty.factory(ty, value) as std.core.nodeIndex;
   }
 
-  createNodeGeo(hex: string) {
+  createNodeGeo(value: bigint) {
     const ty = this.types[this.core_node_geo_offset];
-    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeGeo;
+    return new ty.factory(ty, value) as std.core.nodeGeo;
   }
 
-  createNodeTime(hex: string) {
+  createNodeTime(value: bigint) {
     const ty = this.types[this.core_node_time_offset];
-    return new ty.factory(ty, BigInt(`0x${hex}`)) as std.core.nodeTime;
+    return new ty.factory(ty, value) as std.core.nodeTime;
   }
 
   createGeo(lat: number, lng: number) {
@@ -445,7 +445,7 @@ export class AbiType {
     const abiTypeAtt = type.attrs[valueOffset];
     // this is an enum, so we know `enum_values` is gonna be initialized
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return programType.enum_values![abiTypeAtt.mapped_att_offset];
+    return programType.static_values![abiTypeAtt.name];
   };
   static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
@@ -508,12 +508,13 @@ export class AbiType {
     return new programType.factory(programType, ...attrs);
   };
 
-  readonly attrs_by_name: Map<string, number>;
-  readonly enum_values: GCEnum[] | null;
-  static_values: Value[];
+  // can either be GCEnum in case of enum or Value in case of GCObject
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly static_values: Record<string, any> = {};
+  readonly enum_values: GCEnum[] | null = null;
   readonly loader: ILoader;
   readonly factory: IFactory;
-  generated_offsets: number[] = [];
+  readonly properties: Record<PropertyKey, PropertyDescriptor & ThisType<{ $attrs: Value[] }>> = {};
 
   constructor(
     /**
@@ -535,15 +536,6 @@ export class AbiType {
     factory: IFactory | undefined,
     readonly abi: Abi,
   ) {
-    this.attrs_by_name = new Map();
-    this.enum_values = null;
-    this.static_values = [];
-
-    for (let i = 0; i < attrs.length; i++) {
-      // registers attribute offset by name
-      this.attrs_by_name.set(attrs[i].name, i);
-    }
-
     if (is_enum) {
       this.factory = factory ?? GCEnum;
 
@@ -551,15 +543,30 @@ export class AbiType {
         // initialize all enum fields
         this.enum_values = new Array(attrs.length);
         for (let offset = 0; offset < attrs.length; offset++) {
-          this.enum_values[offset] = new this.factory(
+          const en = new this.factory(
             this,
             offset,
             attrs[offset].name,
             null,
           ) as GCEnum;
+          this.static_values[attrs[offset].name] = en;
+          this.enum_values[offset] = en;
         }
       }
     } else {
+      this.properties['$type'] = { value: this, enumerable: false };
+      for (let i = 0; i < this.attrs.length; i++) {
+        const attr = this.attrs[i];
+        this.properties[attr.name] = {
+          enumerable: true,
+          get() {
+            return this.$attrs[i];
+          },
+          set(v) {
+            this.$attrs[i] = v;
+          }
+        };
+      }
       this.factory = factory ?? GCObject;
     }
 
@@ -571,17 +578,6 @@ export class AbiType {
       this.loader = AbiType.enum_loader;
     } else {
       this.loader = AbiType.object_loader;
-    }
-  }
-
-  resolveGeneratedOffsets(...attributeNames: string[]) {
-    this.generated_offsets = new Array(attributeNames.length);
-    for (let i = 0; i < attributeNames.length; i++) {
-      const resolved = this.attrs_by_name.get(attributeNames[i]);
-      if (resolved == undefined) {
-        continue;
-      }
-      this.generated_offsets[i] = resolved;
     }
   }
 
@@ -601,15 +597,14 @@ export class AbiType {
    * ```
    */
   resolveGeneratedOffsetWithValues(...values: unknown[]) {
-    this.generated_offsets = new Array(values.length / 2);
     for (let i = 0; i < values.length; i += 2) {
-      const resolved = this.attrs_by_name.get(values[i] as string);
-      if (resolved == undefined) {
-        continue;
+      for (let a = 0; a < this.attrs.length; a++) {
+        const attr = this.attrs[a];
+        if (attr.name === values[i] as string) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          this.static_values![attr.name].value = values[i + 1] as Value;
+        }
       }
-      this.generated_offsets[i / 2] = resolved;
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.enum_values![resolved].value = values[i + 1] as Value;
     }
   }
 }

@@ -375,20 +375,22 @@ export const patternslib: $sdk.Library = {
     this.mapped[5] = abi.type_by_fqn.get(pattern_detectors.RandomPatternDetectionEngine._type);
     this.mapped[6] = abi.type_by_fqn.get(pattern_detectors.PatternDetector._type);
     this.mapped[7] = abi.type_by_fqn.get(pattern_detectors.MatchingNormalisation._type);
-      this.mapped[7].resolveGeneratedOffsetWithValues('as_is', "As-is",'shift', "Vertical shift",'scaling', "Vertical scaling",'shift_and_scaling', "Vertical shift and scaling");
+    this.mapped[7]?.resolveGeneratedOffsetWithValues('as_is', "As-is",'shift', "Vertical shift",'scaling', "Vertical scaling",'shift_and_scaling', "Vertical shift and scaling");
     this.mapped[8] = abi.type_by_fqn.get(pattern_detectors.OverlappingDetection._type);
     this.mapped[9] = abi.type_by_fqn.get(pattern_detectors.PatternDetectors._type);
-      this.mapped[9].resolveGeneratedOffsetWithValues('none', "None",'euclidean', "Euclidean",'random', "Random",'sax', "SAX");
+    this.mapped[9]?.resolveGeneratedOffsetWithValues('none', "None",'euclidean', "Euclidean",'random', "Random",'sax', "SAX");
     this.mapped[10] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionEngineState._type);
     this.mapped[11] = abi.type_by_fqn.get(pattern_detectors.SamplingPolicy._type);
-      this.mapped[11].resolveGeneratedOffsetWithValues('as_is', "As-is",'average_frequency', "Average frequency",'highest_frequency', "Highest frequency");
+    this.mapped[11]?.resolveGeneratedOffsetWithValues('as_is', "As-is",'average_frequency', "Average frequency",'highest_frequency', "Highest frequency");
     this.mapped[12] = abi.type_by_fqn.get(pattern_detectors.RandomPatternDetector._type);
     this.mapped[13] = abi.type_by_fqn.get(pattern_detectors.PatternDetectionEngine._type);
     this.mapped[14] = abi.type_by_fqn.get(pattern_detectors.SaxPatternDetectionEngine._type);
+    if (this.mapped[14]) {
       this.mapped[14].static_values = {['alphabet']: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz",};
+    }
     this.mapped[15] = abi.type_by_fqn.get(pattern_detectors.Detection._type);
     this.mapped[16] = abi.type_by_fqn.get(pattern_detectors.PatternNullStrategy._type);
-      this.mapped[16].resolveGeneratedOffsetWithValues('replace', "Replace",'interpolate', "Interpolate",'previous', "Previous",'next', "Next",'none', "None");
+    this.mapped[16]?.resolveGeneratedOffsetWithValues('replace', "Replace",'interpolate', "Interpolate",'previous', "Previous",'next', "Next",'none', "None");
     this.mapped[17] = abi.type_by_fqn.get(pattern_detectors.SaxPatternDetector._type);
   },
 };

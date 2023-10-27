@@ -4061,12 +4061,16 @@ export const algebralib: $sdk.Library = {
     this.mapped[2] = abi.type_by_fqn.get(compute.ComputeOperationCosh._type);
     this.mapped[3] = abi.type_by_fqn.get(compute.ComputeOperationEuclidean._type);
     this.mapped[4] = abi.type_by_fqn.get(compute.ComputeOperationElu._type);
+    if (this.mapped[4]) {
       this.mapped[4].static_values = {['alpha_def']: 1.0,};
+    }
     this.mapped[5] = abi.type_by_fqn.get(compute.ComputeOperationArgMax._type);
     this.mapped[6] = abi.type_by_fqn.get(compute.ComputeVarInOut._type);
     this.mapped[7] = abi.type_by_fqn.get(compute.ComputeOperationDiv._type);
     this.mapped[8] = abi.type_by_fqn.get(compute.ComputeOperationLeakyRelu._type);
+    if (this.mapped[8]) {
       this.mapped[8].static_values = {['alpha_def']: 0.3,['max_value_def']: 1.7976931349E308,['threshold_def']: 0.0,};
+    }
     this.mapped[9] = abi.type_by_fqn.get(compute.ComputeEngine._type);
     this.mapped[10] = abi.type_by_fqn.get(compute.ComputeOperationAdd._type);
     this.mapped[11] = abi.type_by_fqn.get(compute.ComputeOperationExp._type);
@@ -4075,20 +4079,24 @@ export const algebralib: $sdk.Library = {
     this.mapped[14] = abi.type_by_fqn.get(compute.ComputeOperationSum._type);
     this.mapped[15] = abi.type_by_fqn.get(compute.ComputeOperationAsin._type);
     this.mapped[16] = abi.type_by_fqn.get(compute.ComputeClassificationLoss._type);
-      this.mapped[16].resolveGeneratedOffsetWithValues('categorical_cross_entropy', "Categorical Cross Entropy",'sparse_categorical_cross_entropy', "Sparse Categorical Cross Entropy");
+    this.mapped[16]?.resolveGeneratedOffsetWithValues('categorical_cross_entropy', "Categorical Cross Entropy",'sparse_categorical_cross_entropy', "Sparse Categorical Cross Entropy");
     this.mapped[17] = abi.type_by_fqn.get(compute.ComputeReduction._type);
-      this.mapped[17].resolveGeneratedOffsetWithValues('auto', "auto",'none', "none",'sum', "sum",'mean', "mean",'disabled', "disabled");
+    this.mapped[17]?.resolveGeneratedOffsetWithValues('auto', "auto",'none', "none",'sum', "sum",'mean', "mean",'disabled', "disabled");
     this.mapped[18] = abi.type_by_fqn.get(compute.ComputeInitializerNone._type);
     this.mapped[19] = abi.type_by_fqn.get(compute.ComputeOperationSoftSign._type);
     this.mapped[20] = abi.type_by_fqn.get(compute.ComputeInitializerIdentity._type);
     this.mapped[21] = abi.type_by_fqn.get(compute.ComputeInitializerLSTM._type);
     this.mapped[22] = abi.type_by_fqn.get(compute.ComputeLayerLoss._type);
+    if (this.mapped[22]) {
       this.mapped[22].static_values = {['var_computed_name']: "computed",['var_expected_name']: "expected",['var_loss_name']: "loss",};
+    }
     this.mapped[23] = abi.type_by_fqn.get(compute.ComputeActivation._type);
     this.mapped[24] = abi.type_by_fqn.get(compute.ComputeVarOptimize._type);
     this.mapped[25] = abi.type_by_fqn.get(compute.ComputeOperationSigmoid._type);
     this.mapped[26] = abi.type_by_fqn.get(compute.ComputeActivationCelu._type);
+    if (this.mapped[26]) {
       this.mapped[26].static_values = {['alpha_def']: 1.0,};
+    }
     this.mapped[27] = abi.type_by_fqn.get(compute.ComputeInitializerRelu._type);
     this.mapped[28] = abi.type_by_fqn.get(compute.ComputeOperation._type);
     this.mapped[29] = abi.type_by_fqn.get(compute.ComputeInitializerLeCunUniform._type);
@@ -4099,27 +4107,41 @@ export const algebralib: $sdk.Library = {
     this.mapped[34] = abi.type_by_fqn.get(compute.ComputeInitializerSigmoidUniform._type);
     this.mapped[35] = abi.type_by_fqn.get(compute.ComputeVarProxy._type);
     this.mapped[36] = abi.type_by_fqn.get(compute.ComputeRegressionLoss._type);
-      this.mapped[36].resolveGeneratedOffsetWithValues('square', "Square",'abs', "Abs");
+    this.mapped[36]?.resolveGeneratedOffsetWithValues('square', "Square",'abs', "Abs");
     this.mapped[37] = abi.type_by_fqn.get(compute.ComputeOperationCelu._type);
+    if (this.mapped[37]) {
       this.mapped[37].static_values = {['alpha_def']: 1.0,};
+    }
     this.mapped[38] = abi.type_by_fqn.get(compute.ComputeOperationHardSigmoid._type);
+    if (this.mapped[38]) {
       this.mapped[38].static_values = {['slope_def']: 0.2,['shift_def']: 0.5,};
+    }
     this.mapped[39] = abi.type_by_fqn.get(compute.ComputeBinding._type);
     this.mapped[40] = abi.type_by_fqn.get(compute.ComputeActivationTanh._type);
     this.mapped[41] = abi.type_by_fqn.get(compute.ComputeLayerFilter._type);
+    if (this.mapped[41]) {
       this.mapped[41].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_mask_name']: "mask",};
+    }
     this.mapped[42] = abi.type_by_fqn.get(compute.ComputeInitializerNormalIn._type);
     this.mapped[43] = abi.type_by_fqn.get(compute.ComputeLayerLSTM._type);
+    if (this.mapped[43]) {
       this.mapped[43].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_hx_name']: "hx",['var_cx_name']: "cx",['var_hy_name']: "hy",['var_cy_name']: "cy",['var_weight_name']: "weight",['var_bias_name']: "bias",['var_internal_i_name']: "internal_i",['var_internal_f_name']: "internal_f",['var_internal_cp_name']: "internal_cp",['var_internal_o_name']: "internal_o",['var_internal_h_name']: "internal_h",['var_internal_c_name']: "internal_c",['var_internal_mult_name']: "internal_mult",['var_internal_output_name']: "internal_output",};
+    }
     this.mapped[44] = abi.type_by_fqn.get(compute.ComputeOperationAddBias._type);
     this.mapped[45] = abi.type_by_fqn.get(compute.ComputeOperationAcosh._type);
     this.mapped[46] = abi.type_by_fqn.get(compute.ComputeOperationTanh._type);
     this.mapped[47] = abi.type_by_fqn.get(compute.ComputeActivationRelu._type);
+    if (this.mapped[47]) {
       this.mapped[47].static_values = {['threshold_def']: 0.0,};
+    }
     this.mapped[48] = abi.type_by_fqn.get(compute.ComputeLayerConfusion._type);
+    if (this.mapped[48]) {
       this.mapped[48].static_values = {['var_computed_name']: "computed",['var_expected_name']: "expected",['var_confusion_name']: "confusion",};
+    }
     this.mapped[49] = abi.type_by_fqn.get(compute.ComputeActivationHardSigmoid._type);
+    if (this.mapped[49]) {
       this.mapped[49].static_values = {['slope_def']: 0.2,['shift_def']: 0.5,};
+    }
     this.mapped[50] = abi.type_by_fqn.get(compute.ComputeInitializerUniformIn._type);
     this.mapped[51] = abi.type_by_fqn.get(compute.ComputeActivationSelu._type);
     this.mapped[52] = abi.type_by_fqn.get(compute.ComputeActivationExp._type);
@@ -4132,40 +4154,64 @@ export const algebralib: $sdk.Library = {
     this.mapped[59] = abi.type_by_fqn.get(compute.ComputeCounter._type);
     this.mapped[60] = abi.type_by_fqn.get(compute.ComputeInitializerPytorch._type);
     this.mapped[61] = abi.type_by_fqn.get(compute.ComputeOptimizerSgd._type);
+    if (this.mapped[61]) {
       this.mapped[61].static_values = {['learning_rate_def']: 0.01,};
+    }
     this.mapped[62] = abi.type_by_fqn.get(compute.ComputeOperationScale._type);
     this.mapped[63] = abi.type_by_fqn.get(compute.ComputeOperationRaiseToPower._type);
     this.mapped[64] = abi.type_by_fqn.get(compute.ComputeOptimizerAdaMax._type);
+    if (this.mapped[64]) {
       this.mapped[64].static_values = {['learning_rate_def']: 0.001,['beta1_def']: 0.9,['beta2_def']: 0.999,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[65] = abi.type_by_fqn.get(compute.ComputeOperationMul._type);
     this.mapped[66] = abi.type_by_fqn.get(compute.ComputeOperationLog._type);
     this.mapped[67] = abi.type_by_fqn.get(compute.ComputeLayerDense._type);
+    if (this.mapped[67]) {
       this.mapped[67].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_weight_name']: "weight",['var_bias_name']: "bias",['var_mult_name']: "mult",['var_pre_activation_name']: "pre_activation",};
+    }
     this.mapped[68] = abi.type_by_fqn.get(compute.ComputeOperationSelu._type);
     this.mapped[69] = abi.type_by_fqn.get(compute.ComputeLayerClassification._type);
+    if (this.mapped[69]) {
       this.mapped[69].static_values = {['var_input_name']: "input",['var_predicted_classes_name']: "predicted_classes",['var_probabilities_name']: "probabilities",};
+    }
     this.mapped[70] = abi.type_by_fqn.get(compute.ComputeLayerActivation._type);
+    if (this.mapped[70]) {
       this.mapped[70].static_values = {['var_input_name']: "input",['var_output_name']: "output",};
+    }
     this.mapped[71] = abi.type_by_fqn.get(compute.ComputeOptimizerFtrl._type);
+    if (this.mapped[71]) {
       this.mapped[71].static_values = {['learning_rate_def']: 0.001,['beta_def']: 0.0,['lambda1_def']: 0.0,['lambda2_def']: 0.0,};
+    }
     this.mapped[72] = abi.type_by_fqn.get(compute.ComputeOptimizerAdam._type);
+    if (this.mapped[72]) {
       this.mapped[72].static_values = {['learning_rate_def']: 0.001,['beta1_def']: 0.9,['beta2_def']: 0.999,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[73] = abi.type_by_fqn.get(compute.ComputeOptimizerNadam._type);
+    if (this.mapped[73]) {
       this.mapped[73].static_values = {['learning_rate_def']: 0.001,['beta1_def']: 0.9,['beta2_def']: 0.999,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[74] = abi.type_by_fqn.get(compute.ComputeInitializerXavier._type);
     this.mapped[75] = abi.type_by_fqn.get(compute.ComputeOperationSoftplus._type);
     this.mapped[76] = abi.type_by_fqn.get(compute.ComputeLayerStandardScaler._type);
+    if (this.mapped[76]) {
       this.mapped[76].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_avg_name']: "avg",['var_std_name']: "std",};
+    }
     this.mapped[77] = abi.type_by_fqn.get(compute.ComputeVariable._type);
     this.mapped[78] = abi.type_by_fqn.get(compute.ComputeLayerLossClassification._type);
+    if (this.mapped[78]) {
       this.mapped[78].static_values = {['var_class_weights_name']: "class_weights",['var_predicted_classes_name']: "predicted_classes",['var_probabilities_name']: "probabilities",['var_sum_reduce_name']: "sum_reduce",};
+    }
     this.mapped[79] = abi.type_by_fqn.get(compute.ComputeInitializerUniform._type);
     this.mapped[80] = abi.type_by_fqn.get(compute.ComputeOperationClip._type);
     this.mapped[81] = abi.type_by_fqn.get(compute.ComputeModel._type);
     this.mapped[82] = abi.type_by_fqn.get(compute.ComputeOptimizerMomentum._type);
+    if (this.mapped[82]) {
       this.mapped[82].static_values = {['learning_rate_def']: 0.001,['decay_rate_def']: 0.9,};
+    }
     this.mapped[83] = abi.type_by_fqn.get(compute.ComputeOptimizerAdaDelta._type);
+    if (this.mapped[83]) {
       this.mapped[83].static_values = {['learning_rate_def']: 0.001,['decay_rate_def']: 0.95,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[84] = abi.type_by_fqn.get(compute.ComputeOperationLeCunTanh._type);
     this.mapped[85] = abi.type_by_fqn.get(compute.ComputeLayer._type);
     this.mapped[86] = abi.type_by_fqn.get(compute.ComputeRegularizer._type);
@@ -4174,24 +4220,38 @@ export const algebralib: $sdk.Library = {
     this.mapped[89] = abi.type_by_fqn.get(compute.ComputeOperationSin._type);
     this.mapped[90] = abi.type_by_fqn.get(compute.ComputeInitializer._type);
     this.mapped[91] = abi.type_by_fqn.get(compute.ComputeLayerMinMaxScaler._type);
+    if (this.mapped[91]) {
       this.mapped[91].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_min_name']: "min",['var_max_name']: "max",};
+    }
     this.mapped[92] = abi.type_by_fqn.get(compute.ComputeOptimizerAdaGrad._type);
+    if (this.mapped[92]) {
       this.mapped[92].static_values = {['learning_rate_def']: 0.001,['initial_accumulator_def']: 0.1,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[93] = abi.type_by_fqn.get(compute.ComputeOperationArg._type);
     this.mapped[94] = abi.type_by_fqn.get(compute.ComputeOperationRelu._type);
+    if (this.mapped[94]) {
       this.mapped[94].static_values = {['threshold_def']: 0.0,};
+    }
     this.mapped[95] = abi.type_by_fqn.get(compute.ComputeLayerPCAScaler._type);
+    if (this.mapped[95]) {
       this.mapped[95].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_avg_name']: "avg",['var_std_name']: "std",['var_space_name']: "space",};
+    }
     this.mapped[96] = abi.type_by_fqn.get(compute.ComputeOperationAcos._type);
     this.mapped[97] = abi.type_by_fqn.get(compute.ComputeOperationSub._type);
     this.mapped[98] = abi.type_by_fqn.get(compute.ComputeOptimizerRmsProp._type);
+    if (this.mapped[98]) {
       this.mapped[98].static_values = {['learning_rate_def']: 0.001,['decay_rate_def']: 0.9,['smooth_epsilon_def']: 0.0000001,};
+    }
     this.mapped[99] = abi.type_by_fqn.get(compute.ComputeOperationFill._type);
     this.mapped[100] = abi.type_by_fqn.get(compute.ComputeOptimizer._type);
     this.mapped[101] = abi.type_by_fqn.get(compute.ComputeOperationMatMul._type);
+    if (this.mapped[101]) {
       this.mapped[101].static_values = {['transpose_def']: false,['alpha_def']: 1.0,['beta_def']: 0.0,};
+    }
     this.mapped[102] = abi.type_by_fqn.get(compute.ComputeActivationElu._type);
+    if (this.mapped[102]) {
       this.mapped[102].static_values = {['alpha_def']: 1.0,};
+    }
     this.mapped[103] = abi.type_by_fqn.get(compute.ComputeActivationSoftmax._type);
     this.mapped[104] = abi.type_by_fqn.get(compute.ComputeOperationLogSoftmax._type);
     this.mapped[105] = abi.type_by_fqn.get(compute.ComputeInitializerGlorotUniform._type);
@@ -4200,7 +4260,9 @@ export const algebralib: $sdk.Library = {
     this.mapped[108] = abi.type_by_fqn.get(compute.ComputeOperationAvg._type);
     this.mapped[109] = abi.type_by_fqn.get(compute.ComputeInitializerUniformOut._type);
     this.mapped[110] = abi.type_by_fqn.get(compute.ComputeActivationLeakyRelu._type);
+    if (this.mapped[110]) {
       this.mapped[110].static_values = {['alpha_def']: 0.3,['threshold_def']: 0.0,};
+    }
     this.mapped[111] = abi.type_by_fqn.get(compute.ComputeOperationSumIf._type);
     this.mapped[112] = abi.type_by_fqn.get(compute.ComputeInitializerReluUniform._type);
     this.mapped[113] = abi.type_by_fqn.get(compute.ComputeOperationNeg._type);
@@ -4210,7 +4272,9 @@ export const algebralib: $sdk.Library = {
     this.mapped[117] = abi.type_by_fqn.get(compute.ComputeOperationSoftmax._type);
     this.mapped[118] = abi.type_by_fqn.get(compute.ComputeLayerCall._type);
     this.mapped[119] = abi.type_by_fqn.get(compute.ComputeLayerLinear._type);
+    if (this.mapped[119]) {
       this.mapped[119].static_values = {['var_input_name']: "input",['var_output_name']: "output",['var_weight_name']: "weight",['var_bias_name']: "bias",['var_mult_name']: "mult",};
+    }
     this.mapped[120] = abi.type_by_fqn.get(compute.ComputeInitializerXavierUniform._type);
     this.mapped[121] = abi.type_by_fqn.get(compute.ComputeOperationTan._type);
     this.mapped[122] = abi.type_by_fqn.get(compute.ComputeOperationSinh._type);
@@ -4220,33 +4284,41 @@ export const algebralib: $sdk.Library = {
     this.mapped[126] = abi.type_by_fqn.get(compute.ComputeActivationSoftSign._type);
     this.mapped[127] = abi.type_by_fqn.get(compute.ComputeInitializerConstant._type);
     this.mapped[128] = abi.type_by_fqn.get(compute.ComputeOptimizerNesterov._type);
+    if (this.mapped[128]) {
       this.mapped[128].static_values = {['learning_rate_def']: 0.001,['decay_rate_def']: 0.9,};
+    }
     this.mapped[129] = abi.type_by_fqn.get(nn_layers_names.NNLayersNames._type);
-      this.mapped[129].resolveGeneratedOffsetWithValues('layer_0', "layer_0",'layer_1', "layer_1",'layer_2', "layer_2",'layer_3', "layer_3",'layer_4', "layer_4",'layer_5', "layer_5",'layer_6', "layer_6",'layer_7', "layer_7",'layer_8', "layer_8",'layer_9', "layer_9",'layer_10', "layer_10",'layer_11', "layer_11",'layer_12', "layer_12",'layer_13', "layer_13",'layer_14', "layer_14",'layer_15', "layer_15",'layer_16', "layer_16",'layer_17', "layer_17",'layer_18', "layer_18",'layer_19', "layer_19",'layer_20', "layer_20",'layer_21', "layer_21",'layer_22', "layer_22",'layer_23', "layer_23",'layer_24', "layer_24",'layer_25', "layer_25",'layer_26', "layer_26",'layer_27', "layer_27",'layer_28', "layer_28",'layer_29', "layer_29",'layer_30', "layer_30",'layer_31', "layer_31",'layer_32', "layer_32",'layer_33', "layer_33",'layer_34', "layer_34",'layer_35', "layer_35",'layer_36', "layer_36",'layer_37', "layer_37",'layer_38', "layer_38",'layer_39', "layer_39",'layer_40', "layer_40",'layer_41', "layer_41",'layer_42', "layer_42",'layer_43', "layer_43",'layer_44', "layer_44",'layer_45', "layer_45",'layer_46', "layer_46",'layer_47', "layer_47",'layer_48', "layer_48",'layer_49', "layer_49",'layer_50', "layer_50",'layer_51', "layer_51",'layer_52', "layer_52",'layer_53', "layer_53",'layer_54', "layer_54",'layer_55', "layer_55",'layer_56', "layer_56",'layer_57', "layer_57",'layer_58', "layer_58",'layer_59', "layer_59",'layer_60', "layer_60",'layer_61', "layer_61",'layer_62', "layer_62",'layer_63', "layer_63",'layer_64', "layer_64",'layer_65', "layer_65",'layer_66', "layer_66",'layer_67', "layer_67",'layer_68', "layer_68",'layer_69', "layer_69",'layer_70', "layer_70",'layer_71', "layer_71",'layer_72', "layer_72",'layer_73', "layer_73",'layer_74', "layer_74",'layer_75', "layer_75",'layer_76', "layer_76",'layer_77', "layer_77",'layer_78', "layer_78",'layer_79', "layer_79",'layer_80', "layer_80",'layer_81', "layer_81",'layer_82', "layer_82",'layer_83', "layer_83",'layer_84', "layer_84",'layer_85', "layer_85",'layer_86', "layer_86",'layer_87', "layer_87",'layer_88', "layer_88",'layer_89', "layer_89",'layer_90', "layer_90",'layer_91', "layer_91",'layer_92', "layer_92",'layer_93', "layer_93",'layer_94', "layer_94",'layer_95', "layer_95",'layer_96', "layer_96",'layer_97', "layer_97",'layer_98', "layer_98",'layer_99', "layer_99",'layer_100', "layer_100",'layer_101', "layer_101",'layer_102', "layer_102",'layer_103', "layer_103",'layer_104', "layer_104",'layer_105', "layer_105",'layer_106', "layer_106",'layer_107', "layer_107",'layer_108', "layer_108",'layer_109', "layer_109",'layer_110', "layer_110",'layer_111', "layer_111",'layer_112', "layer_112",'layer_113', "layer_113",'layer_114', "layer_114",'layer_115', "layer_115",'layer_116', "layer_116",'layer_117', "layer_117",'layer_118', "layer_118",'layer_119', "layer_119",'layer_120', "layer_120",'layer_121', "layer_121",'layer_122', "layer_122",'layer_123', "layer_123",'layer_124', "layer_124",'layer_125', "layer_125",'layer_126', "layer_126",'layer_127', "layer_127",'layer_128', "layer_128",'layer_129', "layer_129",'layer_130', "layer_130",'layer_131', "layer_131",'layer_132', "layer_132",'layer_133', "layer_133",'layer_134', "layer_134",'layer_135', "layer_135",'layer_136', "layer_136",'layer_137', "layer_137",'layer_138', "layer_138",'layer_139', "layer_139",'layer_140', "layer_140",'layer_141', "layer_141",'layer_142', "layer_142",'layer_143', "layer_143",'layer_144', "layer_144",'layer_145', "layer_145",'layer_146', "layer_146",'layer_147', "layer_147",'layer_148', "layer_148",'layer_149', "layer_149",'layer_150', "layer_150",'layer_151', "layer_151",'layer_152', "layer_152",'layer_153', "layer_153",'layer_154', "layer_154",'layer_155', "layer_155",'layer_156', "layer_156",'layer_157', "layer_157",'layer_158', "layer_158",'layer_159', "layer_159",'layer_160', "layer_160",'layer_161', "layer_161",'layer_162', "layer_162",'layer_163', "layer_163",'layer_164', "layer_164",'layer_165', "layer_165",'layer_166', "layer_166",'layer_167', "layer_167",'layer_168', "layer_168",'layer_169', "layer_169",'layer_170', "layer_170",'layer_171', "layer_171",'layer_172', "layer_172",'layer_173', "layer_173",'layer_174', "layer_174",'layer_175', "layer_175",'layer_176', "layer_176",'layer_177', "layer_177",'layer_178', "layer_178",'layer_179', "layer_179",'layer_180', "layer_180",'layer_181', "layer_181",'layer_182', "layer_182",'layer_183', "layer_183",'layer_184', "layer_184",'layer_185', "layer_185",'layer_186', "layer_186",'layer_187', "layer_187",'layer_188', "layer_188",'layer_189', "layer_189",'layer_190', "layer_190",'layer_191', "layer_191",'layer_192', "layer_192",'layer_193', "layer_193",'layer_194', "layer_194",'layer_195', "layer_195",'layer_196', "layer_196",'layer_197', "layer_197",'layer_198', "layer_198",'layer_199', "layer_199");
+    this.mapped[129]?.resolveGeneratedOffsetWithValues('layer_0', "layer_0",'layer_1', "layer_1",'layer_2', "layer_2",'layer_3', "layer_3",'layer_4', "layer_4",'layer_5', "layer_5",'layer_6', "layer_6",'layer_7', "layer_7",'layer_8', "layer_8",'layer_9', "layer_9",'layer_10', "layer_10",'layer_11', "layer_11",'layer_12', "layer_12",'layer_13', "layer_13",'layer_14', "layer_14",'layer_15', "layer_15",'layer_16', "layer_16",'layer_17', "layer_17",'layer_18', "layer_18",'layer_19', "layer_19",'layer_20', "layer_20",'layer_21', "layer_21",'layer_22', "layer_22",'layer_23', "layer_23",'layer_24', "layer_24",'layer_25', "layer_25",'layer_26', "layer_26",'layer_27', "layer_27",'layer_28', "layer_28",'layer_29', "layer_29",'layer_30', "layer_30",'layer_31', "layer_31",'layer_32', "layer_32",'layer_33', "layer_33",'layer_34', "layer_34",'layer_35', "layer_35",'layer_36', "layer_36",'layer_37', "layer_37",'layer_38', "layer_38",'layer_39', "layer_39",'layer_40', "layer_40",'layer_41', "layer_41",'layer_42', "layer_42",'layer_43', "layer_43",'layer_44', "layer_44",'layer_45', "layer_45",'layer_46', "layer_46",'layer_47', "layer_47",'layer_48', "layer_48",'layer_49', "layer_49",'layer_50', "layer_50",'layer_51', "layer_51",'layer_52', "layer_52",'layer_53', "layer_53",'layer_54', "layer_54",'layer_55', "layer_55",'layer_56', "layer_56",'layer_57', "layer_57",'layer_58', "layer_58",'layer_59', "layer_59",'layer_60', "layer_60",'layer_61', "layer_61",'layer_62', "layer_62",'layer_63', "layer_63",'layer_64', "layer_64",'layer_65', "layer_65",'layer_66', "layer_66",'layer_67', "layer_67",'layer_68', "layer_68",'layer_69', "layer_69",'layer_70', "layer_70",'layer_71', "layer_71",'layer_72', "layer_72",'layer_73', "layer_73",'layer_74', "layer_74",'layer_75', "layer_75",'layer_76', "layer_76",'layer_77', "layer_77",'layer_78', "layer_78",'layer_79', "layer_79",'layer_80', "layer_80",'layer_81', "layer_81",'layer_82', "layer_82",'layer_83', "layer_83",'layer_84', "layer_84",'layer_85', "layer_85",'layer_86', "layer_86",'layer_87', "layer_87",'layer_88', "layer_88",'layer_89', "layer_89",'layer_90', "layer_90",'layer_91', "layer_91",'layer_92', "layer_92",'layer_93', "layer_93",'layer_94', "layer_94",'layer_95', "layer_95",'layer_96', "layer_96",'layer_97', "layer_97",'layer_98', "layer_98",'layer_99', "layer_99",'layer_100', "layer_100",'layer_101', "layer_101",'layer_102', "layer_102",'layer_103', "layer_103",'layer_104', "layer_104",'layer_105', "layer_105",'layer_106', "layer_106",'layer_107', "layer_107",'layer_108', "layer_108",'layer_109', "layer_109",'layer_110', "layer_110",'layer_111', "layer_111",'layer_112', "layer_112",'layer_113', "layer_113",'layer_114', "layer_114",'layer_115', "layer_115",'layer_116', "layer_116",'layer_117', "layer_117",'layer_118', "layer_118",'layer_119', "layer_119",'layer_120', "layer_120",'layer_121', "layer_121",'layer_122', "layer_122",'layer_123', "layer_123",'layer_124', "layer_124",'layer_125', "layer_125",'layer_126', "layer_126",'layer_127', "layer_127",'layer_128', "layer_128",'layer_129', "layer_129",'layer_130', "layer_130",'layer_131', "layer_131",'layer_132', "layer_132",'layer_133', "layer_133",'layer_134', "layer_134",'layer_135', "layer_135",'layer_136', "layer_136",'layer_137', "layer_137",'layer_138', "layer_138",'layer_139', "layer_139",'layer_140', "layer_140",'layer_141', "layer_141",'layer_142', "layer_142",'layer_143', "layer_143",'layer_144', "layer_144",'layer_145', "layer_145",'layer_146', "layer_146",'layer_147', "layer_147",'layer_148', "layer_148",'layer_149', "layer_149",'layer_150', "layer_150",'layer_151', "layer_151",'layer_152', "layer_152",'layer_153', "layer_153",'layer_154', "layer_154",'layer_155', "layer_155",'layer_156', "layer_156",'layer_157', "layer_157",'layer_158', "layer_158",'layer_159', "layer_159",'layer_160', "layer_160",'layer_161', "layer_161",'layer_162', "layer_162",'layer_163', "layer_163",'layer_164', "layer_164",'layer_165', "layer_165",'layer_166', "layer_166",'layer_167', "layer_167",'layer_168', "layer_168",'layer_169', "layer_169",'layer_170', "layer_170",'layer_171', "layer_171",'layer_172', "layer_172",'layer_173', "layer_173",'layer_174', "layer_174",'layer_175', "layer_175",'layer_176', "layer_176",'layer_177', "layer_177",'layer_178', "layer_178",'layer_179', "layer_179",'layer_180', "layer_180",'layer_181', "layer_181",'layer_182', "layer_182",'layer_183', "layer_183",'layer_184', "layer_184",'layer_185', "layer_185",'layer_186', "layer_186",'layer_187', "layer_187",'layer_188', "layer_188",'layer_189', "layer_189",'layer_190', "layer_190",'layer_191', "layer_191",'layer_192', "layer_192",'layer_193', "layer_193",'layer_194', "layer_194",'layer_195', "layer_195",'layer_196', "layer_196",'layer_197', "layer_197",'layer_198', "layer_198",'layer_199', "layer_199");
     this.mapped[130] = abi.type_by_fqn.get(nn.InitializerConfig._type);
     this.mapped[131] = abi.type_by_fqn.get(nn.BindingsResult._type);
     this.mapped[132] = abi.type_by_fqn.get(nn.PostProcessType._type);
-      this.mapped[132].resolveGeneratedOffsetWithValues('none', "None",'min_max_scaling', "Min/Max Scaling",'standard_scaling', "Standard Scaling");
+    this.mapped[132]?.resolveGeneratedOffsetWithValues('none', "None",'min_max_scaling', "Min/Max Scaling",'standard_scaling', "Standard Scaling");
     this.mapped[133] = abi.type_by_fqn.get(nn.NeuralNetwork._type);
+    if (this.mapped[133]) {
       this.mapped[133].static_values = {['err_negative_in_out']: "Inputs or outputs can't be negative",['err_last_layer_wrong']: "Last layer has different number of outputs than declared",['err_incompatible_loss']: "Incompatible loss function",['err_layer_not_supported']: "Some NN layers are not currently supported",['err_tensor_type_not_supported']: "Tensor Type not currently supported",['err_minimum_layers']: "NN should contain at least 1 layer",['layer_placeholders_name']: "layer placeholders",['layer_classification_name']: "layer classification",['layer_preprocess_name']: "layer preprocess",['layer_postprocess_learn_name']: "layer postprocess learn",['layer_main_layers_name']: "layer main",['layer_loss_learn_name']: "layer loss learn",['layer_loss_display_name']: "layer loss display",['layer_postprocess_display_name']: "layer postprocess display",['layer_confusion_name']: "layer confusion",['seq_predict']: "seq predict",['seq_post_process']: "seq postprocess",['seq_learn']: "seq learn",['seq_loss_display']: "seq loss display",['seq_encode']: "seq encode",['seq_decode']: "seq decode",['seq_confusion']: "seq confusion",['var_inputs_name']: "var input",['var_enc_inputs_name']: "var enc input",['var_targets_name']: "var targets",['var_classifier_classes']: "var Classifier classes",['var_classifier_probabilities']: "var Classifier probabilities",['var_classifier_class_weights']: "var Classifier class weights",['var_classifier_confusion']: "var Classifier confusion",['var_input_avg']: "var input avg",['var_input_min']: "var input min",['var_input_max']: "var input max",['var_input_std']: "var input std",['var_input_space']: "var input space",['var_output_avg']: "var output avg",['var_output_min']: "var output min",['var_output_max']: "var output max",['var_output_std']: "var output std",};
+    }
     this.mapped[134] = abi.type_by_fqn.get(nn.RegressionNetwork._type);
     this.mapped[135] = abi.type_by_fqn.get(nn.ComputeLayerTypes._type);
-      this.mapped[135].resolveGeneratedOffsetWithValues('linear', "Linear",'dense', "Dense",'activation', "Activation",'lstm', "LSTM",'loss', "Loss",'filter', "Filter");
+    this.mapped[135]?.resolveGeneratedOffsetWithValues('linear', "Linear",'dense', "Dense",'activation', "Activation",'lstm', "LSTM",'loss', "Loss",'filter', "Filter");
     this.mapped[136] = abi.type_by_fqn.get(nn.AutoEncoderNetwork._type);
     this.mapped[137] = abi.type_by_fqn.get(nn.PreProcessType._type);
-      this.mapped[137].resolveGeneratedOffsetWithValues('none', "None",'min_max_scaling', "Min/Max Scaling",'standard_scaling', "Standard Scaling",'pca_scaling', "PCA Scaling");
+    this.mapped[137]?.resolveGeneratedOffsetWithValues('none', "None",'min_max_scaling', "Min/Max Scaling",'standard_scaling', "Standard Scaling",'pca_scaling', "PCA Scaling");
     this.mapped[138] = abi.type_by_fqn.get(nn.ComputeActivations._type);
-      this.mapped[138].resolveGeneratedOffsetWithValues('relu', "Relu",'leaky_relu', "Leaky Relu",'sigmoid', "Sigmoid",'hard_sigmoid', "Hard Sigmoid",'exp', "Exp",'soft_max', "Soft Max",'soft_plus', "Soft Plus",'soft_sign', "Soft Sign",'tanh', "Tanh",'selu', "Selu",'elu', "Elu",'celu', "Celu");
+    this.mapped[138]?.resolveGeneratedOffsetWithValues('relu', "Relu",'leaky_relu', "Leaky Relu",'sigmoid', "Sigmoid",'hard_sigmoid', "Hard Sigmoid",'exp', "Exp",'soft_max', "Soft Max",'soft_plus', "Soft Plus",'soft_sign', "Soft Sign",'tanh', "Tanh",'selu', "Selu",'elu', "Elu",'celu', "Celu");
     this.mapped[139] = abi.type_by_fqn.get(nn.ComputeOptimizers._type);
-      this.mapped[139].resolveGeneratedOffsetWithValues('ada_delta', "Ada Delta",'ada_grad', "Ada Grad",'adam', "Adam",'ada_max', "Ada Max",'nadam', "NAdam",'ftrl', "Ftrl",'sgd', "Stochastic Gradient Descent",'rms_prop', "RMS Prop",'momentum', "Momentum",'nesterov', "Nesterov");
+    this.mapped[139]?.resolveGeneratedOffsetWithValues('ada_delta', "Ada Delta",'ada_grad', "Ada Grad",'adam', "Adam",'ada_max', "Ada Max",'nadam', "NAdam",'ftrl', "Ftrl",'sgd', "Stochastic Gradient Descent",'rms_prop', "RMS Prop",'momentum', "Momentum",'nesterov', "Nesterov");
     this.mapped[140] = abi.type_by_fqn.get(nn.ComputeInitializers._type);
-      this.mapped[140].resolveGeneratedOffsetWithValues('none', "None",'constant', "Constant",'sigmoid_uniform', "SigmoidUniform",'lecun_uniform', "LeCunUniform",'xavier', "Xavier",'xavier_uniform', "XavierUniform",'relu', "Relu",'relu_uniform', "ReluUniform",'normal', "Normal",'normal_in', "NormalIn",'normal_out', "NormalOut",'normal_avg', "NormalAvg",'uniform', "Uniform",'uniform_in', "UniformIn",'uniform_out', "UniformOut",'uniform_avg', "UniformAvg",'identity', "Identity",'pytorch', "Pytorch");
+    this.mapped[140]?.resolveGeneratedOffsetWithValues('none', "None",'constant', "Constant",'sigmoid_uniform', "SigmoidUniform",'lecun_uniform', "LeCunUniform",'xavier', "Xavier",'xavier_uniform', "XavierUniform",'relu', "Relu",'relu_uniform', "ReluUniform",'normal', "Normal",'normal_in', "NormalIn",'normal_out', "NormalOut",'normal_avg', "NormalAvg",'uniform', "Uniform",'uniform_in', "UniformIn",'uniform_out', "UniformOut",'uniform_avg', "UniformAvg",'identity', "Identity",'pytorch', "Pytorch");
     this.mapped[141] = abi.type_by_fqn.get(nn.ClassificationNetwork._type);
     this.mapped[142] = abi.type_by_fqn.get(nn.ClassificationMetrics._type);
     this.mapped[143] = abi.type_by_fqn.get(kmeans.Kmeans._type);
+    if (this.mapped[143]) {
       this.mapped[143].static_values = {['var_input']: "input",['var_assignement']: "assignement",['var_min_distance']: "min_distance",['varo_centroids']: "centroids",['var_distance']: "distance",['var_sum_centroids']: "sum_centroids",['var_sum_min_distance']: "sum_min_distance",['var_count_centroids']: "count_centroids",['var_centroid_distances']: "centroid_distances",['var_sum_cluster_distances']: "sum_cluster_distances",['var_avg_cluster_distances']: "avg_cluster_distances",['var_count_cluster_distances']: "count_cluster_distances",['layer_placeholders']: "placeholders",['layer_forward']: "kmeans_forward",['layer_backward']: "kmeans_backward",['layer_init_round']: "kmeans_init_round",['layer_end_round']: "kmeans_end_round",['layer_stats']: "kmeans_stats_layer",['seq_init_round']: "kmeans_init_round_seq",['seq_forward']: "kmeans_forward_seq",['seq_backward']: "kmeans_backward_seq",['seq_end_round']: "kmeans_end_round_seq",['seq_stats']: "kmeans_stats_seq",};
+    }
     this.mapped[144] = abi.type_by_fqn.get(ml.PCA._type);
+    if (this.mapped[144]) {
       this.mapped[144].static_values = {['threshold_def']: 0.95,};
+    }
     this.mapped[145] = abi.type_by_fqn.get(ml.TimeSeriesDecomposition._type);
     this.mapped[146] = abi.type_by_fqn.get(ml.GaussianND._type);
     this.mapped[147] = abi.type_by_fqn.get(ml.Solver._type);

@@ -155,7 +155,7 @@ export class GreyCat {
   /** cache layer for request/response. Defaults to the `NoopCache`. */
   readonly cache: Cache;
   /** currently connected user permissions */
-  readonly permissions: string[];
+  permissions: string[];
   /** used when making authenticated requests */
   token: string | undefined;
   /** called when a request returns a status code 401 */
@@ -214,9 +214,11 @@ export class GreyCat {
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
 
-    const permissions = await std.runtime.User.permissions();
+    const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler);
+    const permissions = await std.runtime.User.permissions(greycat);
+    greycat.permissions = permissions;
 
-    return new GreyCat(cleanUrl, abi, capacity, cache, permissions, token, unauthorizedHandler);
+    return greycat;
   }
 
   static initWithAbi({

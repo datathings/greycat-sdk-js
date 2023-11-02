@@ -215,8 +215,14 @@ export class GreyCat {
     const cleanUrl = normalizeUrl(url);
 
     const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler);
-    const permissions = await std.runtime.User.permissions(greycat);
-    greycat.permissions = permissions;
+
+    try {
+      const permissions = await std.runtime.User.permissions(greycat);
+      greycat.permissions = permissions;
+    } catch (err) {
+      // in case we cannot process the permissions, let's just warn about it and go on
+      console.warn('unable to fetch User::permissions()', err);
+    }
 
     return greycat;
   }

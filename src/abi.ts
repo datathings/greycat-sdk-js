@@ -484,16 +484,11 @@ export class AbiType {
           break;
         }
         case PrimitiveType.object: {
-          if (attType.is_native) {
-            value = attType.loader(r, attType);
-          } else {
-            let xAttType = attType;
-            if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
-              const id = r.read_vu32();
-              xAttType = type.abi.types[id];
-            }
-            value = xAttType.loader(r, xAttType);
+          let attObjectType = attType;
+          if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
+            attObjectType = type.abi.types[r.read_vu32()];
           }
+          value = attObjectType.loader(r, attObjectType);
           break;
         }
         default: {

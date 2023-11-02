@@ -154,6 +154,8 @@ export class GreyCat {
   readonly capacity: number;
   /** cache layer for request/response. Defaults to the `NoopCache`. */
   readonly cache: Cache;
+  /** currently connected user permissions */
+  readonly permissions: string[];
   /** used when making authenticated requests */
   token: string | undefined;
   /** called when a request returns a status code 401 */
@@ -164,6 +166,7 @@ export class GreyCat {
     abi: Abi,
     capacity = 4096,
     cache: Cache = new NoopCache(),
+    permissions: string[],
     token?: string,
     unauthorizedHandler?: () => void,
   ) {
@@ -173,6 +176,7 @@ export class GreyCat {
     this.cache = cache;
     this.token = token;
     this.unauthorizedHandler = unauthorizedHandler;
+    this.permissions = permissions;
   }
 
   /**
@@ -209,7 +213,10 @@ export class GreyCat {
     });
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
-    return new GreyCat(cleanUrl, abi, capacity, cache, token, unauthorizedHandler);
+
+    const permissions = await std.runtime.User.permissions();
+
+    return new GreyCat(cleanUrl, abi, capacity, cache, permissions, token, unauthorizedHandler);
   }
 
   static initWithAbi({
@@ -219,8 +226,13 @@ export class GreyCat {
     abi,
     token,
     unauthorizedHandler,
+    permissions = [],
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(normalizeUrl(url), abi, capacity, cache, token, unauthorizedHandler);
+    return new GreyCat(normalizeUrl(url), abi, capacity, cache, permissions, token, unauthorizedHandler);
+  }
+
+  hasPermission(permission: string): boolean {
+    return this.permissions.indexOf(permission) !== -1;
   }
 
   /**

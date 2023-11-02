@@ -157,4 +157,5 @@ export interface WithAbiOptions extends Options {
   abi: Abi;
   /** Optional auth token */
   token?: string;
+  permissions?: string[];
 }

@@ -453,7 +453,7 @@ fn float(f: float?) {
 @expose
 fn blockingFn() {
   // this should trigger a timeout as rpc are maxed at 30s by default
-  Runtime::sleep(40s);
+  Runtime::sleep(40_s);
 }
 
 @expose
@@ -486,4 +486,26 @@ fn foobar() {
     },
     values: ["hello world", 42],
   };
+}
+
+@expose
+fn vtable_test(): Table {
+  var table = Table::new(2);
+  var start = time::now();
+
+  table.set(0, 0, start);
+  table.set(0, 1, node::new({ value: 42 }));
+  table.set(1, 0, start + 5_min);
+  table.set(1, 1, node::new({ value: 50 }));
+  table.set(2, 0, start + 10_min);
+  table.set(2, 1, node::new({ value: 13.37 }));
+  table.set(3, 0, start + 15_min);
+  table.set(3, 1, node::new({ value: 68.99 }));
+
+  return table;
+}
+
+@expose
+fn print_table(table: Table) {
+  println(table);
 }

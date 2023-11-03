@@ -321,7 +321,6 @@ export class AbiReader extends Reader {
     [PrimitiveType.block_ref]: deserialize_error,
     [PrimitiveType.function]: (r) => {
       const ty = r.abi.types[r.abi.core_function_offset];
-      // TODO function type does not exist, shall we use AbiFunction or a specific Function type that only contains the resolved u32 of the function?
       return ty.loader(r, ty);
     },
     [PrimitiveType.undefined]: () => undefined,

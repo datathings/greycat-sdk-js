@@ -57,6 +57,7 @@ describe('project', () => {
     [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
     { _type: 'core::geo', lat: -85.05112876019749, lng: -179.99999937135726 },
     {},
+    { _type: 'core::function', fqn: 'project::table' },
     {
       42: 42,
       true: true,
@@ -96,7 +97,7 @@ describe('project', () => {
       stack: [
         { module: 'project', fn: 'main', line: 14, column: 17 },
         { module: 'project', fn: 'write_std', line: 19, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
+        { module: 'project', fn: 'write_std_core', line: 98, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

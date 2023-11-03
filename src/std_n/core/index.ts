@@ -24,3 +24,4 @@ export * from './ti10d.js';
 export * from './tf2d.js';
 export * from './tf3d.js';
 export * from './tf4d.js';
+export * from './fn.js';

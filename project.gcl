@@ -81,6 +81,7 @@ fn write_std_core(out: GcbWriter) {
   out.write([42, true, "hello", DatePart::months]);
   out.write(42_geo);
   out.write(Map::new());
+  out.write(project::table);
 
   var map = Map::new();
   map.set(42, 42);
@@ -508,4 +509,9 @@ fn vtable_test(): Table {
 @expose
 fn print_table(table: Table) {
   println(table);
+}
+
+@expose
+fn fn_pointer() {
+  return project::table;
 }

@@ -674,7 +674,7 @@ export class Writer {
   /**
    * Encodes the given string as UTF-8.
    *
-   * This method writes the string's length before the actual UTF-8 bytes.
+   * This method writes the string's length as a vu32 before the actual UTF-8 bytes.
    */
   write_string(v: string) {
     const bytes = this.txt.encode(v);

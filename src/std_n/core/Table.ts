@@ -179,7 +179,7 @@ export class Table<_ extends Value = any> extends GCObject {
 export class NativeTableColumnMeta {
   min: Value = null;
   max: Value = null;
-  constructor(readonly abi: Abi, public col_type: PrimitiveType, public type: number, public index: boolean) { }
+  constructor(readonly abi: Abi, public col_type: PrimitiveType, public type: number, public index: boolean, public header: string | null = null) { }
 
   static load(r: AbiReader): NativeTableColumnMeta {
     const col_type = r.read_u8() as PrimitiveType;
@@ -188,8 +188,12 @@ export class NativeTableColumnMeta {
     if (col_type == PrimitiveType.object || col_type == PrimitiveType.enum) {
       type = r.read_vu32();
     }
-
-    return new NativeTableColumnMeta(r.abi, col_type, type, index);
+    const header_len = r.read_vu32();
+    let header: string | null = null;
+    if (header_len > 0) {
+      header = r.read_string(header_len);
+    }
+    return new NativeTableColumnMeta(r.abi, col_type, type, index, header);
   }
 
   saveContent(w: AbiWriter) {
@@ -197,6 +201,11 @@ export class NativeTableColumnMeta {
     w.write_bool(this.index);
     if (this.col_type == PrimitiveType.object || this.col_type == PrimitiveType.enum) {
       w.write_vu32(this.type);
+    }
+    if (this.header === null) {
+      w.write_vu32(0);
+    } else {
+      w.write_string(this.header);
     }
   }
 

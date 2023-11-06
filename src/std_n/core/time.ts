@@ -2,7 +2,7 @@ import { AbiType } from '../../abi.js';
 import { AbiReader, AbiWriter } from '../../io.js';
 import { PrimitiveType } from '../../types.js';
 import { GCObject } from '../../GCObject.js';
-import { GreyCat } from '../../greycat.js';
+import type { GreyCat } from '../../greycat.js';
 import type { core } from '../../std/index.js';
 
 export class time extends GCObject {

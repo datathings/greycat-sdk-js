@@ -488,6 +488,14 @@ export class GreyCat {
     return this.abi.createGeo(lat, lng);
   }
 
+  createFunctionByFqn(fqn: string) {
+    return this.abi.createFunctionByFqn(fqn);
+  }
+
+  createFunction(mod: string, type: string | undefined, name: string) {
+    return this.abi.createFunction(mod, type, name);
+  }
+
   createNode(value: bigint) {
     return this.abi.createNode(value);
   }

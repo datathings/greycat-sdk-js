@@ -1,11 +1,33 @@
-import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import type { AbiReader, AbiWriter, AbiType } from '../../index.js';
 import { GCObject, PrimitiveType } from '../../index.js';
+import type { GreyCat } from '../../greycat.js';
+import type { core } from '../../std/index.js';
 
 export class function_ extends GCObject {
   static readonly _type = 'core::function' as const;
 
-  constructor(type: AbiType, public mod_off: number, public ty_off: number, public name_off: number) {
+  constructor(
+    type: AbiType,
+    public mod_off: number,
+    public ty_off: number,
+    public name_off: number,
+  ) {
     super(type);
+  }
+
+  static create(
+    mod: string,
+    type: string | undefined,
+    name: string,
+    g: GreyCat = globalThis.greycat.default,
+  ): core.function_ {
+    const ty = g.abi.types[g.abi.core_function_offset];
+    return new ty.factory(
+      ty,
+      g.abi.off_by_symbol.get(mod) ?? 0,
+      type ? g.abi.off_by_symbol.get(type) ?? 0 : 0,
+      g.abi.off_by_symbol.get(name) ?? 0,
+    ) as core.function_;
   }
 
   static load(r: AbiReader, ty: AbiType): core.function_ {
@@ -32,7 +54,9 @@ export class function_ extends GCObject {
     if (this.ty_off === 0) {
       return `${this.$type.abi.symbols[this.mod_off]}::${this.$type.abi.symbols[this.name_off]}`;
     }
-    return `${this.$type.abi.symbols[this.mod_off]}::${this.$type.abi.symbols[this.ty_off]}::${this.$type.abi.symbols[this.name_off]}`;
+    return `${this.$type.abi.symbols[this.mod_off]}::${this.$type.abi.symbols[this.ty_off]}::${
+      this.$type.abi.symbols[this.name_off]
+    }`;
   }
 
   override toString() {

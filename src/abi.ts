@@ -324,6 +324,24 @@ export class Abi {
     return new ty.factory(ty, ...attributes) as T;
   }
 
+  createFunctionByFqn(fqn: string) {
+    const split = fqn.split('::');
+    if (split.length === 2) {
+      return this.createFunction(split[0], undefined, split[1]);
+    } else if (split.length === 3) {
+      return this.createFunction(split[0], split[1], split[2]);
+    }
+    throw new Error(`invalid function fqn '${fqn}' (expecting '<module>::<name>' or '<module>::<type>::<name>')`);
+  }
+
+  createFunction(mod: string, type: string | undefined, name: string) {
+    const modOff = this.off_by_symbol.get(mod) ?? 0;
+    const typeOff = type ? this.off_by_symbol.get(type) : 0;
+    const nameOff = this.off_by_symbol.get(name) ?? 0;
+    const ty = this.types[this.core_function_offset];
+    return new ty.factory(ty, modOff, typeOff, nameOff) as std.core.function_;
+  }
+
   createNode(value: bigint) {
     const ty = this.types[this.core_node_offset];
     return new ty.factory(ty, value) as std.core.node;

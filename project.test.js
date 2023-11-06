@@ -302,11 +302,11 @@ describe('project', () => {
     { _type: 'runtime::UserRole', name: '', permissions: [] },
     {
       _type: 'runtime::PeriodicTask',
-      name: '',
+      function: { _type: 'core::function', fqn: 'project::float' },
+      arguments: [3.14],
       user_id: 12,
       start: { _type: 'core::time', epoch: 0, us: 13 },
       every: { _type: 'core::duration', s: 0, us: 37 },
-      args: null,
     },
     {
       _type: 'runtime::User',
@@ -403,7 +403,7 @@ describe('project', () => {
           ? expected._type
           : expected.constructor.name
         : expected;
-    it(`${testName}`, () => {
+    it(testName, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();
       // create a temporary serializer

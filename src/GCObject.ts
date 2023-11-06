@@ -64,26 +64,6 @@ export class GCObject {
           case PrimitiveType.float:
             w.write_f64(value as number);
             break;
-          case PrimitiveType.node:
-          case PrimitiveType.node_time:
-          case PrimitiveType.node_index:
-          case PrimitiveType.node_list:
-          case PrimitiveType.node_geo:
-          case PrimitiveType.geo:
-          case PrimitiveType.time:
-          case PrimitiveType.duration:
-          case PrimitiveType.tu2d:
-          case PrimitiveType.tu3d:
-          case PrimitiveType.tu4d:
-          case PrimitiveType.tu5d:
-          case PrimitiveType.tu6d:
-          case PrimitiveType.tu10d:
-          case PrimitiveType.tuf2d:
-          case PrimitiveType.tuf3d:
-          case PrimitiveType.tuf4d:
-          case PrimitiveType.enum:
-            (value as GCObject).saveContent(w);
-            break;
           case PrimitiveType.object:
             if (Array.isArray(value)) {
               w.write_vu32(value.length);
@@ -113,6 +93,10 @@ export class GCObject {
 
           case PrimitiveType.null:
             // noop
+            break;
+
+          default:
+            (value as GCObject).saveContent(w);
             break;
         }
       }

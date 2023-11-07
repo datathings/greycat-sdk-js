@@ -48,7 +48,7 @@ export class function_ extends GCObject {
   }
 
   /**
-   * Hexedecimal representation of the node's reference
+   * Function's fully qualified name (eg. `<module>::<type>::<name>`, `<type>` being optional)
    */
   get fqn(): string {
     if (this.ty_off === 0) {

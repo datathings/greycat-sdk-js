@@ -205,7 +205,9 @@ export class NativeTableColumnMeta {
     if (this.header === null) {
       w.write_vu32(0);
     } else {
-      w.write_string(this.header);
+      w.write_vu32(this.header.length);
+      w.write_all(w.txt.encode(this.header));
+      // w.write_string(this.header);
     }
   }
 

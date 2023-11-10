@@ -8,7 +8,7 @@ export class GCObject {
   readonly $attrs?: Value[];
 
   constructor(readonly $type: AbiType, ...attributes: Value[]) {
-    this.$attrs = attributes;
+    Object.defineProperty(this, '$attrs', { value: attributes, enumerable: false });
     Object.defineProperties(this, $type.properties);
   }
 

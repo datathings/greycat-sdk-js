@@ -1,5 +1,4 @@
 @library("algebra");
-@library("patterns");
 
 use io;
 use math;

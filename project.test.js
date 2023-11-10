@@ -95,9 +95,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 14, column: 17 },
-        { module: 'project', fn: 'write_std', line: 19, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 98, column: 36 },
+        { module: 'project', fn: 'main', line: 13, column: 17 },
+        { module: 'project', fn: 'write_std', line: 18, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

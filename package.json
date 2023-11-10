@@ -15,10 +15,9 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "gen": "pnpm gen:std && pnpm gen:algebra && pnpm gen:patterns",
+    "gen": "pnpm gen:std && pnpm gen:algebra",
     "gen:std": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=std src/std",
     "gen:algebra": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=algebra src/algebra",
-    "gen:patterns": "GREYCAT_CODEGEN_TS_SDK='../index.js' greycat codegen --lib=patterns src/patterns",
     "build": "pnpm build:esm && pnpm build:bundle:esm && pnpm build:bundle:esm-min",
     "build:bundle:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite --define:process.env.NODE_ENV=\"'production'\"",
     "build:bundle:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite --define:process.env.NODE_ENV=\"'production'\"",

@@ -30,11 +30,6 @@ export class ti6d extends GCObject {
     return new ty.factory(ty, x0, x1, x2, x3, x4, x5) as ti6d;
   }
 
-  static fromJSON(o: unknown): ti6d {
-    Object.setPrototypeOf(o, ti6d.prototype);
-    return o as ti6d;
-  }
-
   override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.tu6d);
   }

@@ -22,11 +22,6 @@ export class ti4d extends GCObject {
     return new ty.factory(ty, x0, x1, x2, x3) as ti4d;
   }
 
-  static fromJSON(o: unknown): ti4d {
-    Object.setPrototypeOf(o, ti4d.prototype);
-    return o as ti4d;
-  }
-
   override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.tu4d);
   }

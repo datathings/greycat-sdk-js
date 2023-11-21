@@ -22,11 +22,6 @@ export class tf2d extends GCObject {
     return new ty.factory(ty, x0, x1) as tf2d;
   }
 
-  static fromJSON(o: unknown): tf2d {
-    Object.setPrototypeOf(o, tf2d.prototype);
-    return o as tf2d;
-  }
-
   override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.tuf2d);
   }

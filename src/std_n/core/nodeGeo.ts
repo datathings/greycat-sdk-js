@@ -1,4 +1,4 @@
-import type { core, AbiType, AbiReader, AbiWriter } from '../../index.js';
+import type { core, AbiType, AbiReader, AbiWriter, GreyCat } from '../../index.js';
 import { GCObject, PrimitiveType } from '../../index.js';
 
 export class nodeGeo extends GCObject {
@@ -7,15 +7,19 @@ export class nodeGeo extends GCObject {
   constructor(type: AbiType, public value: bigint) {
     super(type);
   }
+  
+  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeGeo {
+    const ty = g.abi.types[g.abi.core_node_geo_offset];
+    return new ty.factory(ty, value) as core.nodeGeo;
+  }
+
+  static fromRef(ref: string, g: GreyCat = globalThis.greycat.default): core.nodeGeo {
+    return nodeGeo.create(BigInt(`0x${ref}`), g);
+  }
 
   static load(r: AbiReader, ty: AbiType): core.nodeGeo {
     const value = r.read_vu64_bigint();
     return new ty.factory(ty, value) as core.nodeGeo;
-  }
-
-  static fromJSON(o: unknown): nodeGeo {
-    Object.setPrototypeOf(o, nodeGeo.prototype);
-    return o as nodeGeo;
   }
 
   override saveHeader(w: AbiWriter): void {

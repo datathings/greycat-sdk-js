@@ -29,11 +29,6 @@ export class ti5d extends GCObject {
     return new ty.factory(ty, x0, x1, x2, x3, x4) as ti5d;
   }
 
-  static fromJSON(o: unknown): ti5d {
-    Object.setPrototypeOf(o, ti5d.prototype);
-    return o as ti5d;
-  }
-
   override saveHeader(w: AbiWriter): void {
     w.write_u8(PrimitiveType.tu5d);
   }

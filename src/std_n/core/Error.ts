@@ -28,11 +28,6 @@ export class Error extends GCObject {
     return new type.factory(type, code, msg, value, frames) as core.Error;
   }
 
-  static fromJSON(o: unknown): Error {
-    Object.setPrototypeOf(o, Error.prototype);
-    return o as Error;
-  }
-
   override saveContent(w: AbiWriter) {
     w.write_vu32(this.code);
     w.write_vu32(this.frames.length);

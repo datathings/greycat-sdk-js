@@ -162,11 +162,6 @@ export class Table<_ extends Value = any> extends GCObject {
     }
   }
 
-  static fromJSON(o: unknown) {
-    Object.setPrototypeOf(o, Table.prototype);
-    return o;
-  }
-
   override toJSON() {
     return {
       _type: Table._type,

@@ -1,4 +1,4 @@
-import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import type { AbiReader, AbiWriter, AbiType, GreyCat, core } from '../../index.js';
 import { GCObject, PrimitiveType } from '../../index.js';
 
 export class nodeList extends GCObject {
@@ -6,6 +6,15 @@ export class nodeList extends GCObject {
 
   constructor(type: AbiType, public value: bigint) {
     super(type);
+  }
+  
+  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeList {
+    const ty = g.abi.types[g.abi.core_node_list_offset];
+    return new ty.factory(ty, value) as core.nodeList;
+  }
+
+  static fromRef(ref: string, g: GreyCat = globalThis.greycat.default): core.nodeList {
+    return nodeList.create(BigInt(`0x${ref}`), g);
   }
 
   static load(r: AbiReader, ty: AbiType): core.nodeList {

@@ -472,10 +472,10 @@ export class AbiType {
     for (let i = 0; i < attrs.length; i++) {
       attrs[i] = null;
     }
-    const previous_nullable = r.take(type.nullable_nb_bytes);
+    const previous_nullable = r.take(programType.nullable_nb_bytes);
     let nullable_offset = -1;
-    for (let attOffset = 0; attOffset < type.attrs.length; attOffset++) {
-      const att = type.attrs[attOffset];
+    for (let attOffset = 0; attOffset < programType.attrs.length; attOffset++) {
+      const att = programType.attrs[attOffset];
       let value: Value;
       if (att.nullable) {
         nullable_offset++;
@@ -488,13 +488,13 @@ export class AbiType {
         loadType = r.read_u8() as PrimitiveType;
       }
 
-      const attType = type.abi.types[att.abi_type];
+      const attType = programType.abi.types[att.abi_type];
       switch (loadType) {
         case PrimitiveType.enum: {
           if (att.sbi_type === PrimitiveType.undefined) {
             // full read
             const enum_id = r.read_vu32();
-            const enum_type = type.abi.types[enum_id];
+            const enum_type = programType.abi.types[enum_id];
             value = this.enum_loader(r, enum_type);
           } else {
             value = this.enum_loader(r, attType);
@@ -504,7 +504,7 @@ export class AbiType {
         case PrimitiveType.object: {
           let attObjectType = attType;
           if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
-            attObjectType = type.abi.types[r.read_vu32()];
+            attObjectType = programType.abi.types[r.read_vu32()];
           }
           value = attObjectType.loader(r, attObjectType);
           break;

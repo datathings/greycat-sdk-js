@@ -3155,7 +3155,7 @@ export namespace runtime {
   export class PeriodicTask extends $sdk.GCObject {
     static readonly _type = 'runtime::PeriodicTask';
 
-    function: core.function_;
+    function: core.function_ | null;
     user_id: bigint | number;
     arguments: globalThis.Array<any> | null;
     start: $sdk.std.core.time;
@@ -3167,10 +3167,10 @@ export namespace runtime {
     static set(tasks: globalThis.Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
       return $g.call('runtime::PeriodicTask::set', [tasks], $signal);
     }
-    static createFrom({function_, user_id, arguments_, start, every}: {function_: core.function_, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration}, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
+    static createFrom({function_, user_id, arguments_, start, every}: {function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration}, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
       return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], function_, user_id, arguments_, start, every);
     }
-    static create(function_: core.function_, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
+    static create(function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
       return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], function_, user_id, arguments_, start, every);
     }
   }
@@ -3556,7 +3556,7 @@ export namespace io {
   export class CsvColumnStatistics extends $sdk.GCObject {
     static readonly _type = 'io::CsvColumnStatistics';
 
-    name: string;
+    name: string | null;
     example: any;
     null_count: bigint | number;
     bool_count: bigint | number;
@@ -3568,10 +3568,10 @@ export namespace io {
     word_list: globalThis.Map<string, bigint | number>;
     profile: util.Gaussian;
 
-    static createFrom({name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, word_list, profile}: {name: string, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, word_list: globalThis.Map<string, bigint | number>, profile: util.Gaussian}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
+    static createFrom({name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, word_list, profile}: {name: string | null, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, word_list: globalThis.Map<string, bigint | number>, profile: util.Gaussian}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
       return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[77], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, word_list, profile);
     }
-    static create(name: string, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, word_list: globalThis.Map<string, bigint | number>, profile: util.Gaussian, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
+    static create(name: string | null, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, word_list: globalThis.Map<string, bigint | number>, profile: util.Gaussian, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
       return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[77], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, word_list, profile);
     }
   }

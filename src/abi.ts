@@ -549,6 +549,8 @@ export class AbiType {
     factory: IFactory | undefined,
     readonly abi: Abi,
   ) {
+    this.properties['$type'] = { value: this, enumerable: false };
+
     if (is_enum) {
       this.factory = factory ?? GCEnum;
 
@@ -567,7 +569,6 @@ export class AbiType {
         }
       }
     } else {
-      this.properties['$type'] = { value: this, enumerable: false };
       for (let i = 0; i < this.attrs.length; i++) {
         const attr = this.attrs[i];
         this.properties[attr.name] = {

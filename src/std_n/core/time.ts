@@ -93,6 +93,20 @@ export class time extends GCObject {
     return 1;
   }
 
+  add(duration: core.duration, g = greycat.default): core.time {
+    const ty = g.abi.types[g.abi.core_time_offset];
+    const sum = BigInt(this.value) + BigInt(duration.value);
+    const boxedSum = sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
+    return new ty.factory(ty, boxedSum) as core.time;
+  }
+
+  sub(duration: core.duration, g = greycat.default): core.time {
+    const ty = g.abi.types[g.abi.core_time_offset];
+    const sub = BigInt(this.value) - BigInt(duration.value);
+    const boxedSub = sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
+    return new ty.factory(ty, boxedSub) as core.time;
+  }
+
   format(tz: core.TimeZone, options: Intl.DateTimeFormatOptions = {}): string {
     // this is for Node.js compat (no `navigator` in Node.js)
     const locales = globalThis.navigator ? globalThis.navigator.language : undefined;

@@ -2,7 +2,16 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, GCEnum, algebralib, stdlib } from './dist/esm/index.js';
+import {
+  Abi,
+  AbiReader,
+  AbiWriter,
+  GCEnum,
+  algebralib,
+  stdlib,
+  core,
+  GreyCat,
+} from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -422,6 +431,23 @@ describe('project', () => {
       assert.deepStrictEqual(actual, expected);
     });
   }
+});
+
+describe('std', () => {
+  before(async () => {
+    const buffer = (await readFile('project.test.abi')).buffer;
+    global.greycat.default = GreyCat.initWithAbi({
+      abi: new Abi(buffer, [stdlib, algebralib]),
+    });
+  });
+
+  it('time + duration', () => {
+    assert.deepStrictEqual(core.time.create(40).add(core.duration.create(2)), core.time.create(42));
+  });
+
+  it('time - duration', () => {
+    assert.deepStrictEqual(core.time.create(45).sub(core.duration.create(3)), core.time.create(42));
+  });
 });
 
 function fromJson(value) {

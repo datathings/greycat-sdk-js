@@ -441,12 +441,16 @@ describe('std', () => {
     });
   });
 
-  it('time + duration', () => {
+  it('time + duration => time', () => {
     assert.deepStrictEqual(core.time.create(40).add(core.duration.create(2)), core.time.create(42));
   });
 
-  it('time - duration', () => {
+  it('time - duration => time', () => {
     assert.deepStrictEqual(core.time.create(45).sub(core.duration.create(3)), core.time.create(42));
+  });
+
+  it('time - time => duration', () => {
+    assert.deepStrictEqual(core.time.create(42).sub(core.time.create(40)), core.duration.create(2));
   });
 });
 

@@ -5,6 +5,11 @@ import { GCObject } from '../../GCObject.js';
 import type { GreyCat } from '../../greycat.js';
 import type { core } from '../../std/index.js';
 
+export interface time {
+  sub(duration: core.duration): core.time;
+  sub(time: core.time): core.duration;
+}
+
 export class time extends GCObject {
   static readonly _type = 'core::time' as const;
 
@@ -94,17 +99,21 @@ export class time extends GCObject {
   }
 
   add(duration: core.duration, g = greycat.default): core.time {
-    const ty = g.abi.types[g.abi.core_time_offset];
     const sum = BigInt(this.value) + BigInt(duration.value);
     const boxedSum = sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
+    const ty = g.abi.types[g.abi.core_time_offset];
     return new ty.factory(ty, boxedSum) as core.time;
   }
 
-  sub(duration: core.duration, g = greycat.default): core.time {
-    const ty = g.abi.types[g.abi.core_time_offset];
+  sub(duration: core.duration | core.time, g = greycat.default): core.time | core.duration {
     const sub = BigInt(this.value) - BigInt(duration.value);
     const boxedSub = sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
-    return new ty.factory(ty, boxedSub) as core.time;
+    if (duration.$type.offset === g.abi.core_duration_offset) {
+      const ty = g.abi.types[g.abi.core_time_offset];
+      return new ty.factory(ty, boxedSub) as core.time;  
+    }
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    return new ty.factory(ty, boxedSub) as core.duration;
   }
 
   format(tz: core.TimeZone, options: Intl.DateTimeFormatOptions = {}): string {

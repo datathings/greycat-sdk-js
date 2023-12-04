@@ -8,6 +8,11 @@ use util;
 use ml;
 use compute;
 
+@test
+fn test() {
+  Assert::equals(40_time + 2_time, 42_time);
+}
+
 fn main() {
   var out = GcbWriter::new("project.test.gcb");
   write_std(out);

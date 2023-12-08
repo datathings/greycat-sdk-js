@@ -449,29 +449,22 @@ export class GreyCat {
    */
   async putFile(filepath: string, file: File, signal?: AbortSignal): Promise<void> {
     const route = `files/${filepath}`;
-    const res = await fetch(`${this.api}/${route}`, {
-      method: 'PUT',
-      body: file,
-      signal,
-    });
+    const res = await fetch(`${this.api}/${route}`, { method: 'PUT', body: file, signal });
     if (res.ok) {
       return;
     }
-    if (res.status === 404) {
-      debugLogger(res.status, route);
-      throw new Error(`file '${filepath}' not found`);
-    } else if (res.status === 403) {
+    if (res.status === 403) {
       // forbidden
       debugLogger(res.status, route);
-      throw new Error(`file '${filepath}' access forbidden`);
+      throw new Error('forbidden');
     } else if (res.status === 401) {
       // unauthorized
       debugLogger(res.status, route);
       this.token = undefined;
       this.unauthorizedHandler?.();
-      throw new Error(`you must be logged-in to access files`);
+      throw new Error(`you must be logged-in to upload files`);
     }
-    throw new Error(`unexpected error while getting file '${filepath}'`);
+    throw new Error(`unexpected error while uploading file '${filepath}'`);
   }
 
   /**

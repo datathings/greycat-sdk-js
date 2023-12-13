@@ -233,7 +233,6 @@ describe('project', () => {
     {
       _type: 'io::CsvFormat',
       header_lines: 12,
-      infer: true,
       separator: ',',
       string_delimiter: '"',
       decimal_separator: '.',

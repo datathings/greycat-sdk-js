@@ -139,7 +139,6 @@ fn write_std_io(out: GcbWriter) {
   out.write(CsvColumnIgnored {});
   out.write(CsvFormat {
       header_lines: 12,
-      infer: true,
       separator: ',',
       string_delimiter: '"',
       decimal_separator: '.',

@@ -20,6 +20,16 @@ export function hexLEtoBE(hex: string): bigint {
   return be;
 }
 
+/**
+  * Converts big-endian hexedecimal to there little-endian `BigInt`
+ */
+export function hexBEtoLE(hex: string): bigint {
+  const le = BigInt(hex.startsWith('0x') ? hex : `0x${hex}`);
+  hexLEtoBEdv.setBigUint64(0, le, false);
+  const be = hexLEtoBEdv.getBigUint64(0, true);
+  return be;
+}
+
 export function isGreycatNumber(type: string): boolean {
   return GREYCAT_NUMBER_TYPES.includes(type);
 }

@@ -10,6 +10,7 @@ const GREYCAT_NUMBER_TYPES = ['core::float', 'core::int'];
 
 const hexLEtoBEbuf = new Uint8Array(8);
 const hexLEtoBEdv = new DataView(hexLEtoBEbuf.buffer);
+
 /**
  * Converts little-endian hexedecimal to there big-endian `BigInt`
  */
@@ -21,13 +22,13 @@ export function hexLEtoBE(hex: string): bigint {
 }
 
 /**
-  * Converts big-endian hexedecimal to there little-endian `BigInt`
+ * Converts big-endian hexedecimal to there little-endian `BigInt`
  */
 export function hexBEtoLE(hex: string): bigint {
-  const le = BigInt(hex.startsWith('0x') ? hex : `0x${hex}`);
-  hexLEtoBEdv.setBigUint64(0, le, false);
-  const be = hexLEtoBEdv.getBigUint64(0, true);
-  return be;
+  const be = BigInt(hex.startsWith('0x') ? hex : `0x${hex}`);
+  hexLEtoBEdv.setBigUint64(0, be, false);
+  const le = hexLEtoBEdv.getBigUint64(0, true);
+  return le;
 }
 
 export function isGreycatNumber(type: string): boolean {

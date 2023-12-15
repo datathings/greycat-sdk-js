@@ -314,6 +314,10 @@ export class Abi {
     for (let i = 0; i < libraries.length; i++) {
       libraries[i].init(this);
     }
+
+    for (let i = 0; i < this.types.length; i++) {
+      Object.freeze(this.types[i]);
+    }
   }
 
   create<T = GCObject>(name: string, attributes: Value[]): T | undefined {

@@ -105,9 +105,14 @@ export interface Options {
    * Called when a request (from `greycat.call(...)`) returns a status code 401.
    * 
    * *You can also set this handler directly on the `GreyCat` instance after creating it*
-   * 
    */
   unauthorizedHandler?: () => void;
+  /**
+   * Called when a request has been sent with mismatched ABI headers and the response status code is 422.
+   * 
+   * *You can also set this handler directly on the `GreyCat` instance after creating it*
+   */
+  abiMismatchHandler?: () => void;
 }
 
 export type CacheKey = [method: string] | [method: string, params: ArrayBuffer];

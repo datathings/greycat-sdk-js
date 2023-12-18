@@ -1,4 +1,4 @@
-import type { GCEnum, GCObject, AbiReader, Abi, AbiType } from './index.js';
+import type { GCObject, AbiReader, Abi, AbiType } from './index.js';
 
 type ExtractValues<T> = T[keyof T];
 
@@ -73,18 +73,7 @@ export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 export type IFactory = { new(type: AbiType, ...attributes: any[]): GCObject };
 export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
-export type Value =
-  | GCObject
-  | GCEnum
-  | string
-  | number
-  | bigint
-  | boolean
-  | symbol
-  | null
-  | undefined
-  | Array<Value>
-  | Map<Value, Value>;
+export type Value = unknown;
 
 export interface Library {
   name: string;

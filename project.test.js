@@ -61,7 +61,7 @@ describe('project', () => {
     'Hello world',
     'Hello world',
     { _type: 'core::duration', s: 0, us: 12 },
-    { _type: 'core::time', epoch: 0, us: 12 },
+    { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
     [],
     [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
     { _type: 'core::geo', lat: -85.05112876019749, lng: -179.99999937135726 },
@@ -151,7 +151,7 @@ describe('project', () => {
     },
     {
       _type: 'core::Date',
-      iso: '2012-12-12T11:12:12.000Z',
+      iso: '12/12/12 12:12:12 UTC+01:00',
       timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '3000' },
@@ -264,7 +264,7 @@ describe('project', () => {
       mod: '',
       type: '',
       fun: '',
-      creation: { _type: 'core::time', epoch: 0, us: 42 },
+      creation: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       status: { _type: 'runtime::TaskStatus', field: 'empty' },
     },
     { _type: 'runtime::TaskStatus', field: 'cancelled' },
@@ -277,8 +277,8 @@ describe('project', () => {
       timezone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
       license: {
         _type: 'runtime::License',
-        start: { _type: 'core::time', epoch: 0, us: 13 },
-        end: { _type: 'core::time', epoch: 0, us: 37 },
+        start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
+        end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
         max_workers: 12,
         max_memory: 42,
         company: null,
@@ -313,7 +313,7 @@ describe('project', () => {
       function: { _type: 'core::function', fqn: 'project::float' },
       arguments: [3.14],
       user_id: 12,
-      start: { _type: 'core::time', epoch: 0, us: 13 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       every: { _type: 'core::duration', s: 0, us: 37 },
     },
     {
@@ -337,8 +337,8 @@ describe('project', () => {
     { _type: 'runtime::UserGroupPolicyType', field: 'read' },
     {
       _type: 'runtime::License',
-      start: { _type: 'core::time', epoch: 0, us: 13 },
-      end: { _type: 'core::time', epoch: 0, us: 37 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
+      end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       max_workers: 12,
       max_memory: 42,
       company: null,
@@ -369,7 +369,7 @@ describe('project', () => {
     { _type: 'util::Assert' },
     {
       _type: 'util::ProgressTracker',
-      start: { _type: 'core::time', epoch: 0, us: 0 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       counter: null,
       duration: null,
       progress: null,
@@ -405,12 +405,14 @@ describe('project', () => {
 
   // test ser/de
   for (const expected of expected_values) {
-    const testName =
-      typeof expected === 'object'
-        ? expected._type
-          ? expected._type
-          : expected.constructor.name
-        : expected;
+    let testName = `${expected} (${typeof expected})`;
+    if (typeof expected === 'object') {
+      if ('_type' in expected) {
+        testName = expected._type;
+      } else if (expected.constructor.name) {
+        testName = expected.constructor.name;
+      }
+    }
     it(testName, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();

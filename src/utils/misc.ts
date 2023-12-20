@@ -151,10 +151,10 @@ export interface StringifyProps {
    */
   text?: string;
   tiny?: boolean;
-  /** @deprecated string values are now always displayed as-is without doublequotes */
-  raw?: boolean;
-  dateFmt: Intl.DateTimeFormat;
-  numFmt: Intl.NumberFormat;
+  /** optional Date formatter used for: `core.time`, `core.Date` and `Date` */
+  dateFmt?: Intl.DateTimeFormat;
+  /** optional number formatter used for: `number` */
+  numFmt?: Intl.NumberFormat;
   /**
    * pretty-print content if possible
    */
@@ -170,19 +170,22 @@ export function stringify(props: StringifyProps): string {
     return text;
   }
   if (value instanceof core.time) {
-    const ms = typeof value.value === 'bigint' ? Number(value.value / 1_000n) : Math.round(value.value / 1_000);
-    const date = new Date(ms);
-    if (isNaN(+date)) {
-      // this Date is not "representable" as per the ECMA specs: https://tc39.es/ecma402/#sec-datetime-format-functions
-      return `${ms}`;
-    }
-    return dateFmt.format(date);
+    return dateFmt ? value.format(dateFmt) : value.toString();
   } else if (value instanceof core.duration) {
     return value.toString();
+  } else if (typeof value === 'string') {
+    if (tiny) {
+      return toStrTiny(value);
+    }
+    return value;
+  } else if (typeof value === 'number') {
+    return numFmt ? numFmt.format(value) : `${value}`;
+  } else if (isScalar(value)) {
+    return String(value);
   } else if (value instanceof Date) {
-    return dateFmt.format(value);
+    return dateFmt ? dateFmt.format(value) : value.toISOString();
   } else if (value instanceof core.Date) {
-    return dateFmt.format(value.toDate());
+    return dateFmt ? value.format(dateFmt) : value.toString();
   } else if (value instanceof core.Tuple) {
     props.value = value.x;
     const x = stringify(props);
@@ -195,15 +198,6 @@ export function stringify(props: StringifyProps): string {
       return `${type}/${slugify(name)}`;
     }
     return value.toString();
-  } else if (typeof value === 'string') {
-    if (tiny) {
-      return toStrTiny(value);
-    }
-    return value;
-  } else if (typeof value === 'number') {
-    return numFmt.format(value);
-  } else if (isScalar(value)) {
-    return String(value);
   } else if (value instanceof core.geo) {
     if (tiny) {
       return `${value.lat.toFixed(2)}, ${value.lng.toFixed(2)}`;

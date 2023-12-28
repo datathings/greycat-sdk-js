@@ -454,12 +454,12 @@ describe('std', () => {
     assert.deepStrictEqual(core.time.create(42).sub(core.time.create(40)), core.duration.create(2));
   });
 
-  it('duration.toString() => 16min_40', () => {
-    assert.deepStrictEqual(core.duration.create(1000_000_000n).toString(), "16min_40s");
+  it('duration.toString() => 16min 40', () => {
+    assert.deepStrictEqual(core.duration.create(1000_000_000n).toString(), "16min 40s");
   })
 
-  it('duration.toString() => 316year_1month_5day_30min_23s_322ms_343us', () => {
-    assert.deepStrictEqual(core.duration.create(9_968_439_839_322_343n).toString(), "316year_1month_5day_30min_23s_322ms_343us");
+  it('duration.toString() => 316year 1month 5day 30min 23s 322ms 343us', () => {
+    assert.deepStrictEqual(core.duration.create(9_968_439_839_322_343n).toString(), "316year 1month 5day 30min 23s 322ms 343us");
   })
 });
 

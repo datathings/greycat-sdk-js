@@ -4,6 +4,13 @@ import type { core, GreyCat, AbiType, AbiWriter, AbiReader } from '../../index.j
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
+  static readonly YEAR = 31_536_000_000_000n as const;
+  static readonly MONTH = 2_630_016_000_000n as const;
+  static readonly DAY = 86_400_000_000n as const;
+  static readonly HOUR = 3_600_000_000n as const;
+  static readonly MINUTE = 60_000_000n as const;
+  static readonly SECOND = 1_000_000n as const;
+  static readonly MILLISECOND = 1_000n as const;
 
   constructor(type: AbiType, public value: bigint | number) {
     super(type);
@@ -156,13 +163,13 @@ export class duration extends GCObject {
   override toString(): string {
     const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
 
-    const year = 31_536_000_000_000n;
-    const month = 2_630_016_000_000n;
-    const day = 86_400_000_000n;
-    const hour = 3_600_000_000n;
-    const minute = 60_000_000n;
-    const second = 1_000_000n;
-    const millisecond = 1_000n;
+    const year = duration.YEAR;
+    const month = duration.MONTH;
+    const day = duration.DAY;
+    const hour = duration.HOUR;
+    const minute = duration.MINUTE;
+    const second = duration.SECOND;
+    const millisecond = duration.MILLISECOND;
 
     let result = "";
     let remainder = us;

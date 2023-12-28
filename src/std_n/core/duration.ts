@@ -6,6 +6,7 @@ export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
   static readonly YEAR = 31_536_000_000_000n as const;
   static readonly MONTH = 2_630_016_000_000n as const;
+  static readonly WEEK = 604_800_000_000n as const;
   static readonly DAY = 86_400_000_000n as const;
   static readonly HOUR = 3_600_000_000n as const;
   static readonly MINUTE = 60_000_000n as const;
@@ -23,42 +24,42 @@ export class duration extends GCObject {
 
   static from_ms(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 1_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MILLISECOND)) as core.duration;
   }
 
   static from_secs(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 1_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.SECOND)) as core.duration;
   }
 
   static from_mins(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 60_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MINUTE)) as core.duration;
   }
 
   static from_hours(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 3_600_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.HOUR)) as core.duration;
   }
 
   static from_days(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 86_400_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.DAY)) as core.duration;
   }
 
   static from_weeks(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 604_800_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.WEEK)) as core.duration;
   }
 
   static from_months(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 2_630_016_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MONTH)) as core.duration;
   }
 
   static from_years(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * 31_536_000_000_000) as core.duration;
+    return new ty.factory(ty, value * Number(duration.YEAR)) as core.duration;
   }
 
   /**
@@ -104,63 +105,63 @@ export class duration extends GCObject {
    * Returns the duration in milliseconds
    */
   get ms(): number {
-    return Number(this.value) / 1_000;
+    return Number(this.value) / Number(duration.MILLISECOND);
   }
 
   /**
    * Returns the duration in seconds
    */
   get s(): number {
-    return Number(this.value) / 1_000_000;
+    return Number(this.value) / Number(duration.SECOND);
   }
 
   /**
    * Returns the duration in minutes
    */
   get min(): number {
-    return Number(this.value) / 60_000_000;
+    return Number(this.value) / Number(duration.MINUTE);
   }
 
   /**
    * Returns the duration in hours
    */
   get hour(): number {
-    return Number(this.value) / 3_600_000_000;
+    return Number(this.value) / Number(duration.HOUR);
   }
 
   /**
    * Returns the duration in days
    */
   get day(): number {
-    return Number(this.value) / 86_400_000_000;
+    return Number(this.value) / Number(duration.DAY);
   }
 
   /**
    * Returns the duration in weeks
    */
   get week(): number {
-    return Number(this.value) / 604_800_000_000;
+    return Number(this.value) / Number(duration.WEEK);
   }
 
   /**
    * Returns the duration in months
    */
   get month(): number {
-    return Number(this.value) / 2_630_016_000_000;
+    return Number(this.value) / Number(duration.MONTH)
   }
 
   /**
    * Returns the duration in years
    */
   get year(): number {
-    return Number(this.value) / 31_536_000_000_000;
+    return Number(this.value) / Number(duration.YEAR);
   }
 
   equals(other: duration): boolean {
     return BigInt(this.value) === BigInt(other.value);
   }
 
-  override toString(): string {
+  override toString(separator = ' '): string {
     const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
 
     const year = duration.YEAR;
@@ -180,49 +181,49 @@ export class duration extends GCObject {
     }
     if (remainder >= month) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / month}month`;
       remainder %= month;
     }
     if (remainder >= day) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / day}day`;
       remainder %= day;
     }
     if (remainder >= hour) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / hour}hour`;
       remainder %= hour;
     }
     if (remainder >= minute) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / minute}min`;
       remainder %= minute;
     }
     if (remainder >= second) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / second}s`;
       remainder %= second;
     }
     if (remainder >= millisecond) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder / millisecond}ms`;
       remainder %= millisecond;
     }
     if (remainder > 0) {
       if (result.length) {
-        result += '_';
+        result += separator;
       }
       result += `${remainder}us`;
     }
@@ -233,9 +234,9 @@ export class duration extends GCObject {
   override toJSON() {
     let us: number;
     if (typeof this.value === 'bigint') {
-      us = Number(this.value % 1_000_000n);
+      us = Number(this.value % duration.SECOND);
     } else {
-      us = this.value % 1_000_000;
+      us = this.value % Number(duration.SECOND);
     }
 
     return {

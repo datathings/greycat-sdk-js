@@ -168,40 +168,35 @@ export class duration extends GCObject {
     let remainder = us;
 
     if (remainder >= year) {
-      const cnt = remainder / year;
-      result += `${cnt}year`;
+      result += `${remainder / year}year`;
       remainder %= year;
     }
     if (remainder >= month) {
       if (result.length) {
         result += '_';
       }
-      const cnt = remainder / month;
-      result += `${cnt}month`;
+      result += `${remainder / month}month`;
       remainder %= month;
     }
     if (remainder >= day) {
       if (result.length) {
         result += '_';
       }
-      const cnt = remainder / day;
-      result += `${cnt}day`;
+      result += `${remainder / day}day`;
       remainder %= day;
     }
     if (remainder >= hour) {
       if (result.length) {
         result += '_';
       }
-      const cnt = remainder / hour;
-      result += `${cnt}hour`;
+      result += `${remainder / hour}hour`;
       remainder %= hour;
     }
     if (remainder >= minute) {
       if (result.length) {
         result += '_';
       }
-      const cnt = remainder / minute;
-      result += `${cnt}min`;
+      result += `${remainder / minute}min`;
       remainder %= minute;
     }
     if (remainder >= second) {

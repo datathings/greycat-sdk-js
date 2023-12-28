@@ -169,80 +169,60 @@ export class duration extends GCObject {
 
     if (remainder >= year) {
       const cnt = remainder / year;
-      if (cnt > 1) {
-        result += `${cnt} years`;
-      } else {
-        result += `${cnt} year`;
-      }
+      result += `${cnt}year`;
       remainder %= year;
     }
     if (remainder >= month) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
       const cnt = remainder / month;
-      if (cnt > 1) {
-        result += `${cnt} months`;
-      } else {
-        result += `${cnt} month`;
-      }
+      result += `${cnt}month`;
       remainder %= month;
     }
     if (remainder >= day) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
       const cnt = remainder / day;
-      if (cnt > 1) {
-        result += `${cnt} days`;
-      } else {
-        result += `${cnt} day`;
-      }
+      result += `${cnt}day`;
       remainder %= day;
     }
     if (remainder >= hour) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
       const cnt = remainder / hour;
-      if (cnt > 1) {
-        result += `${cnt} hours`;
-      } else {
-        result += `${cnt} hour`;
-      }
+      result += `${cnt}hour`;
       remainder %= hour;
     }
     if (remainder >= minute) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
       const cnt = remainder / minute;
-      if (cnt > 1) {
-        result += `${cnt} mins`;
-      } else {
-        result += `${cnt} min`;
-      }
+      result += `${cnt}min`;
       remainder %= minute;
     }
     if (remainder >= second) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
-      result += `${remainder / second} s`;
+      result += `${remainder / second}s`;
       remainder %= second;
     }
     if (remainder >= millisecond) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
-      result += `${remainder / millisecond} ms`;
+      result += `${remainder / millisecond}ms`;
       remainder %= millisecond;
     }
     if (remainder > 0) {
       if (result.length) {
-        result += ' ';
+        result += '_';
       }
-      result += `${remainder} μs`;
+      result += `${remainder}us`;
     }
 
     return result.trim();

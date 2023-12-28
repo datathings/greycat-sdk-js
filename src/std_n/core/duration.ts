@@ -239,6 +239,9 @@ export class duration extends GCObject {
       remainder %= millisecond;
     }
     if (remainder > 0) {
+      if (result.length) {
+        result += ' ';
+      }
       result += `${remainder} μs`;
     }
 

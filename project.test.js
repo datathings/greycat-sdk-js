@@ -458,8 +458,8 @@ describe('std', () => {
     assert.deepStrictEqual(core.duration.create(1000_000_000n).toString(), "16 mins 40 s");
   })
 
-  it('duration.toString() => 316 years 1 month 5 days 30 mins 23 s 322 ms343 μs', () => {
-    assert.deepStrictEqual(core.duration.create(9_968_439_839_322_343n).toString(), "316 years 1 month 5 days 30 mins 23 s 322 ms343 μs");
+  it('duration.toString() => 316 years 1 month 5 days 30 mins 23 s 322 ms 343 μs', () => {
+    assert.deepStrictEqual(core.duration.create(9_968_439_839_322_343n).toString(), "316 years 1 month 5 days 30 mins 23 s 322 ms 343 μs");
   })
 });
 

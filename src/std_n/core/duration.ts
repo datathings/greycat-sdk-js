@@ -155,31 +155,94 @@ export class duration extends GCObject {
 
   override toString(): string {
     const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
-    if (us < 1_000n) {
-      return `${us} μs`;
+
+    const year = 31_536_000_000_000n;
+    const month = 2_630_016_000_000n;
+    const day = 86_400_000_000n;
+    const hour = 3_600_000_000n;
+    const minute = 60_000_000n;
+    const second = 1_000_000n;
+    const millisecond = 1_000n;
+
+    let result = "";
+    let remainder = us;
+
+    if (remainder >= year) {
+      const cnt = remainder / year;
+      if (cnt > 1) {
+        result += `${cnt} years`;
+      } else {
+        result += `${cnt} year`;
+      }
+      remainder %= year;
     }
-    if (us < 1_000_000n) {
-      return `${us / 1_000n}ms`;
+    if (remainder >= month) {
+      if (result.length) {
+        result += ' ';
+      }
+      const cnt = remainder / month;
+      if (cnt > 1) {
+        result += `${cnt} months`;
+      } else {
+        result += `${cnt} month`;
+      }
+      remainder %= month;
     }
-    if (us < 60_000_000n) {
-      return `${us / 1_000_000n}s`;
+    if (remainder >= day) {
+      if (result.length) {
+        result += ' ';
+      }
+      const cnt = remainder / day;
+      if (cnt > 1) {
+        result += `${cnt} days`;
+      } else {
+        result += `${cnt} day`;
+      }
+      remainder %= day;
     }
-    if (us < 3_600_000_000n) {
-      return `${us / 60_000_000n}min`;
+    if (remainder >= hour) {
+      if (result.length) {
+        result += ' ';
+      }
+      const cnt = remainder / hour;
+      if (cnt > 1) {
+        result += `${cnt} hours`;
+      } else {
+        result += `${cnt} hour`;
+      }
+      remainder %= hour;
     }
-    if (us < 86_400_000_000n) {
-      return `${us / 3_600_000_000n}hour`;
+    if (remainder >= minute) {
+      if (result.length) {
+        result += ' ';
+      }
+      const cnt = remainder / minute;
+      if (cnt > 1) {
+        result += `${cnt} mins`;
+      } else {
+        result += `${cnt} min`;
+      }
+      remainder %= minute;
     }
-    if (us < 604_800_000_000n) {
-      return `${us / 86_400_000_000n}day`;
+    if (remainder >= second) {
+      if (result.length) {
+        result += ' ';
+      }
+      result += `${remainder / second} s`;
+      remainder %= second;
     }
-    if (us < 2_630_016_000_000n) {
-      return `${us / 604_800_000_000n}week`;
+    if (remainder >= millisecond) {
+      if (result.length) {
+        result += ' ';
+      }
+      result += `${remainder / millisecond} ms`;
+      remainder %= millisecond;
     }
-    if (us < 31_536_000_000_000n) {
-      return `${us / 2_630_016_000_000n}month`;
+    if (remainder > 0) {
+      result += `${remainder} μs`;
     }
-    return `${us / 31_536_000_000_000n}year`;
+
+    return result.trim();
   }
 
   override toJSON() {

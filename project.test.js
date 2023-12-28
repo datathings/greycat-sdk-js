@@ -453,6 +453,14 @@ describe('std', () => {
   it('time - time => duration', () => {
     assert.deepStrictEqual(core.time.create(42).sub(core.time.create(40)), core.duration.create(2));
   });
+
+  it('duration.toString() => 16 mins 40 s', () => {
+    assert.deepStrictEqual(core.duration.create(1000_000_000n).toString(), "16 mins 40 s");
+  })
+
+  it('duration.toString() => 316 years 1 month 5 days 30 mins 23 s 322 ms343 μs', () => {
+    assert.deepStrictEqual(core.duration.create(9_968_439_839_322_343n).toString(), "316 years 1 month 5 days 30 mins 23 s 322 ms343 μs");
+  })
 });
 
 function fromJson(value) {

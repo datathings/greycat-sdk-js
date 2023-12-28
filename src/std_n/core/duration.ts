@@ -220,7 +220,7 @@ export class duration extends GCObject {
       result += `${remainder}us`;
     }
 
-    return result.trim();
+    return result;
   }
 
   override toJSON() {

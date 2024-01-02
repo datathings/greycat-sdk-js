@@ -119,6 +119,7 @@ describe('project', () => {
       meta: [
         {
           _type: 'core::NativeTableColumnMeta',
+          header: 'Column 0',
           index: false,
           typeName: 'core::float',
           min: 0,
@@ -417,7 +418,7 @@ describe('project', () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();
       // create a temporary serializer
-      const writer = new AbiWriter(abi, 4);
+      const writer = new AbiWriter(abi);
       // serialize the value again
       writer.serialize(actual);
       // create a temporary deserializer

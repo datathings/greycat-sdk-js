@@ -448,7 +448,7 @@ export class GreyCat {
       debugLogger(res.status, route);
       this.token = undefined;
       this.unauthorizedHandler?.();
-      throw new Error(`you must be logged-in to access files`);
+      throw new Error('unauthorized');
     }
     throw new Error(`unexpected error while getting file '${filepath}'`);
   }
@@ -475,9 +475,35 @@ export class GreyCat {
       debugLogger(res.status, route);
       this.token = undefined;
       this.unauthorizedHandler?.();
-      throw new Error(`you must be logged-in to upload files`);
+      throw new Error('unauthorized');
     }
     throw new Error(`unexpected error while uploading file '${filepath}'`);
+  }
+
+  /**
+   * Deletes a file from GreyCat.
+   *
+   * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
+   * @param signal optional `AbortSignal` to cancel the request prematurely
+   */
+  async deleteFile(filepath: string, signal?: AbortSignal): Promise<void> {
+    const route = `files/${filepath}`;
+    const res = await fetch(`${this.api}/${route}`, { method: 'DELETE', signal });
+    if (res.ok) {
+      return;
+    }
+    if (res.status === 403) {
+      // forbidden
+      debugLogger(res.status, route);
+      throw new Error('forbidden');
+    } else if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, route);
+      this.token = undefined;
+      this.unauthorizedHandler?.();
+      throw new Error('unauthorized');
+    }
+    throw new Error(`unexpected error while deleting file '${filepath}'`);
   }
 
   /**

@@ -154,6 +154,7 @@ export class duration extends GCObject {
   }
 
   override toString(): string {
+    // TODO add more info divide better!
     const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
     if (us < 1_000n) {
       return `${us} μs`;

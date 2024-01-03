@@ -156,7 +156,11 @@ export class time extends GCObject {
   }
 
   override toString(): string {
-    return new Date(this.epochMs).toISOString();
+    const date = new Date(this.epochMs);
+    if (isNaN(date.getTime())) {
+      return `${this.value}_time`;
+    }
+    return date.toISOString();
   }
 
   override toJSON() {

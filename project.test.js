@@ -456,6 +456,10 @@ describe('std', () => {
   });
 
   describe('duration', () => {
+    it('0n => 0us', () => {
+      assert.deepStrictEqual(core.duration.create(0n).toString(), '0us');
+    });
+
     it('1_000_000_000n => 16min 40', () => {
       assert.deepStrictEqual(core.duration.create(1_000_000_000n).toString(), '16min 40s');
     });

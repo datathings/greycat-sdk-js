@@ -164,6 +164,10 @@ export class duration extends GCObject {
   override toString(separator = ' '): string {
     const us = typeof this.value === 'bigint' ? this.value : BigInt(this.value);
 
+    if (us === 0n) {
+      return `0us`;
+    }
+
     const year = duration.YEAR;
     const month = duration.MONTH;
     const day = duration.DAY;

@@ -139,7 +139,6 @@ fn write_std_io(out: GcbWriter) {
   out.write(CsvColumnIgnored {});
   out.write(CsvFormat {
       header_lines: 12,
-      infer: true,
       separator: ',',
       string_delimiter: '"',
       decimal_separator: '.',
@@ -319,6 +318,7 @@ fn write_algebra_compute(out: GcbWriter) {
 fn table() {
   var nbRows = 4;
   var table = Table::new(1);
+  table.setHeader(0, "Column ${0}");
 
   for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
     table.set(rowIdx, 0, 0.5 * rowIdx);

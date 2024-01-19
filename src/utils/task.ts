@@ -69,6 +69,49 @@ export class TaskHandler {
     return;
   }
 
+  /**
+   * Convenience method to download and deserialize this task's "result.gcb".
+   *
+   * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/result.gcb')`*
+   */
+  result<T = unknown>(g = greycat.default): Promise<T> {
+    return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/result.gcb`);
+  }
+
+  /**
+ * Convenience method to download and deserialize this task's "arguments.gcb".
+ *
+ * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/arguments.gcb')`*
+ */
+  arguments<T = unknown>(g = greycat.default): Promise<T[]> {
+    return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/arguments.gcb`);
+  }
+
+  /**
+   * This will delete all the files related to the task and cannot be undone.
+   * 
+   * *This is wrapper around `greycat.deleteFile('<user_id>/tasks/<task_id>/')`*
+   */
+  delete(g = greycat.default): Promise<void> {
+    return g.deleteFile(`${this.task.user_id}/tasks/${this.task.task_id}/`);
+  }
+
+  /**
+   * Convenience method to download and deserialize a file from the task's directory.
+   *
+   * Calling:
+   * ```ts
+   * handler.getFile('some-file.txt')
+   * ```
+   * is equivalent to:
+   * ```ts
+   * greycat.default.getFile(`${handler.task.user_id}/tasks/${handler.task.task_id}/some-file.txt`)
+   * ```
+   */
+  getFile<T = unknown>(filepath: string, g = greycat.default): Promise<T> {
+    return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/${filepath}`);
+  }
+
   private _poll(delay: number, callback: (info: runtime.TaskInfo) => void = () => void 0): CancellableTaskPromise {
     const cancelCtrl = new AbortController();
     const stopCtrl = new AbortController();

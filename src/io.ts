@@ -70,6 +70,12 @@ export class Reader {
     return v >= Number.MIN_SAFE_INTEGER && v <= Number.MAX_SAFE_INTEGER ? Number(v) : v;
   }
 
+  read_vi64_bigint(): bigint {
+    const v = this._read_varint_u64();
+    // unsigned -> signed
+    return (v >> 1n) ^ -(v & 1n);
+  }
+
   read_vu64(): bigint | number {
     const v = this._read_varint_u64();
     // lets try to keep it simple if the value is within JavaScript's number range

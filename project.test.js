@@ -2,7 +2,16 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, GCEnum, algebralib, stdlib } from './dist/esm/index.js';
+import {
+  Abi,
+  AbiReader,
+  AbiWriter,
+  GCEnum,
+  algebralib,
+  stdlib,
+  core,
+  GreyCat,
+} from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -52,7 +61,7 @@ describe('project', () => {
     'Hello world',
     'Hello world',
     { _type: 'core::duration', s: 0, us: 12 },
-    { _type: 'core::time', epoch: 0, us: 12 },
+    { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
     [],
     [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
     { _type: 'core::geo', lat: -85.05112876019749, lng: -179.99999937135726 },
@@ -110,6 +119,7 @@ describe('project', () => {
       meta: [
         {
           _type: 'core::NativeTableColumnMeta',
+          header: 'Column 0',
           index: false,
           typeName: 'core::float',
           min: 0,
@@ -142,7 +152,7 @@ describe('project', () => {
     },
     {
       _type: 'core::Date',
-      iso: '2012-12-12T11:12:12.000Z',
+      iso: '12/12/12 12:12:12 UTC+01:00',
       timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '3000' },
@@ -224,7 +234,6 @@ describe('project', () => {
     {
       _type: 'io::CsvFormat',
       header_lines: 12,
-      infer: true,
       separator: ',',
       string_delimiter: '"',
       decimal_separator: '.',
@@ -256,7 +265,7 @@ describe('project', () => {
       mod: '',
       type: '',
       fun: '',
-      creation: { _type: 'core::time', epoch: 0, us: 42 },
+      creation: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       status: { _type: 'runtime::TaskStatus', field: 'empty' },
     },
     { _type: 'runtime::TaskStatus', field: 'cancelled' },
@@ -269,8 +278,8 @@ describe('project', () => {
       timezone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
       license: {
         _type: 'runtime::License',
-        start: { _type: 'core::time', epoch: 0, us: 13 },
-        end: { _type: 'core::time', epoch: 0, us: 37 },
+        start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
+        end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
         max_workers: 12,
         max_memory: 42,
         company: null,
@@ -305,7 +314,7 @@ describe('project', () => {
       function: { _type: 'core::function', fqn: 'project::float' },
       arguments: [3.14],
       user_id: 12,
-      start: { _type: 'core::time', epoch: 0, us: 13 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       every: { _type: 'core::duration', s: 0, us: 37 },
     },
     {
@@ -329,8 +338,8 @@ describe('project', () => {
     { _type: 'runtime::UserGroupPolicyType', field: 'read' },
     {
       _type: 'runtime::License',
-      start: { _type: 'core::time', epoch: 0, us: 13 },
-      end: { _type: 'core::time', epoch: 0, us: 37 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
+      end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       max_workers: 12,
       max_memory: 42,
       company: null,
@@ -361,7 +370,7 @@ describe('project', () => {
     { _type: 'util::Assert' },
     {
       _type: 'util::ProgressTracker',
-      start: { _type: 'core::time', epoch: 0, us: 0 },
+      start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       counter: null,
       duration: null,
       progress: null,
@@ -397,17 +406,19 @@ describe('project', () => {
 
   // test ser/de
   for (const expected of expected_values) {
-    const testName =
-      typeof expected === 'object'
-        ? expected._type
-          ? expected._type
-          : expected.constructor.name
-        : expected;
+    let testName = `${expected} (${typeof expected})`;
+    if (typeof expected === 'object') {
+      if ('_type' in expected) {
+        testName = expected._type;
+      } else if (expected.constructor.name) {
+        testName = expected.constructor.name;
+      }
+    }
     it(testName, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();
       // create a temporary serializer
-      const writer = new AbiWriter(abi, 4);
+      const writer = new AbiWriter(abi);
       // serialize the value again
       writer.serialize(actual);
       // create a temporary deserializer
@@ -422,6 +433,44 @@ describe('project', () => {
       assert.deepStrictEqual(actual, expected);
     });
   }
+});
+
+describe('std', () => {
+  before(async () => {
+    const buffer = (await readFile('project.test.abi')).buffer;
+    global.greycat.default = GreyCat.initWithAbi({
+      abi: new Abi(buffer, [stdlib, algebralib]),
+    });
+  });
+
+  it('time + duration => time', () => {
+    assert.deepStrictEqual(core.time.create(40).add(core.duration.create(2)), core.time.create(42));
+  });
+
+  it('time - duration => time', () => {
+    assert.deepStrictEqual(core.time.create(45).sub(core.duration.create(3)), core.time.create(42));
+  });
+
+  it('time - time => duration', () => {
+    assert.deepStrictEqual(core.time.create(42).sub(core.time.create(40)), core.duration.create(2));
+  });
+
+  describe('duration', () => {
+    it('0n => 0us', () => {
+      assert.deepStrictEqual(core.duration.create(0n).toString(), '0us');
+    });
+
+    it('1_000_000_000n => 16min 40', () => {
+      assert.deepStrictEqual(core.duration.create(1_000_000_000n).toString(), '16min 40s');
+    });
+
+    it('9_968_439_839_322_343n => 316year 1month 5day 30min 23s 322ms 343us', () => {
+      assert.deepStrictEqual(
+        core.duration.create(9_968_439_839_322_343n).toString(),
+        '316year 1month 5day 30min 23s 322ms 343us',
+      );
+    });
+  });
 });
 
 function fromJson(value) {

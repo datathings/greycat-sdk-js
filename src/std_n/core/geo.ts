@@ -64,6 +64,11 @@ export class geo extends GCObject {
     return this.value === other.value;
   }
 
+  override toString() {
+    const [lat, lng] = this.latlng;
+    return `${lat},${lng}`;
+  }
+
   override toJSON() {
     const [lat, lng] = geoDecode(this.value);
     return {

@@ -5,11 +5,11 @@ import { PrimitiveType } from './types.js';
 export class GCEnum extends GCObject {
   constructor(
     type: AbiType,
-    /** the field offset of the current instance */
+    /** offset of the field */
     public offset: number,
-    /** the field name of the current instance */
+    /** name of the field */
     public key: string,
-    /** the field value of the current instance */
+    /** optional value of the field */
     public value: Value,
   ) {
     super(type);

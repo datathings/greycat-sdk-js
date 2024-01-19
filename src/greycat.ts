@@ -160,6 +160,8 @@ export class GreyCat {
   token: string | undefined;
   /** called when a request returns a status code 401 */
   unauthorizedHandler: (() => void) | undefined;
+  /** called when a request has been sent with wrong ABI headers and therefore the response as status 422 */
+  abiMismatchHandler: (() => void) | undefined;
 
   private constructor(
     api: string,
@@ -169,6 +171,7 @@ export class GreyCat {
     permissions: string[],
     token?: string,
     unauthorizedHandler?: () => void,
+    abiMismatchHandler?: () => void,
   ) {
     this.api = api;
     this.abi = abi;
@@ -176,6 +179,7 @@ export class GreyCat {
     this.cache = cache;
     this.token = token;
     this.unauthorizedHandler = unauthorizedHandler;
+    this.abiMismatchHandler = abiMismatchHandler;
     this.permissions = permissions;
   }
 
@@ -201,6 +205,7 @@ export class GreyCat {
       signal,
       auth,
       unauthorizedHandler,
+      abiMismatchHandler,
     }: WithoutAbiOptions = { url: DEFAULT_URL },
   ): Promise<GreyCat> {
     const [data, token] = await downloadAbi({
@@ -209,12 +214,13 @@ export class GreyCat {
       capacity,
       cache,
       unauthorizedHandler,
+      abiMismatchHandler,
       signal,
     });
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
 
-    const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler);
+    const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler, abiMismatchHandler);
 
     try {
       const permissions = await std.runtime.User.permissions(greycat);
@@ -234,9 +240,10 @@ export class GreyCat {
     abi,
     token,
     unauthorizedHandler,
+    abiMismatchHandler,
     permissions = [],
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(normalizeUrl(url), abi, capacity, cache, permissions, token, unauthorizedHandler);
+    return new GreyCat(normalizeUrl(url), abi, capacity, cache, permissions, token, unauthorizedHandler, abiMismatchHandler);
   }
 
   hasPermission(permission: string): boolean {
@@ -342,6 +349,12 @@ export class GreyCat {
       // not found
       debugLogger(res.status, method, args, null);
       throw new Error(`unknown method '${method}'`);
+    } else if (res.status === 422) {
+      // unprocessable content (abi mismatch)
+      debugLogger(res.status, method, args);
+      // call handler if any
+      this.abiMismatchHandler?.();
+      throw new Error('ABI mismatch error');
     }
     const data = await res.arrayBuffer();
     const value = this.deserializeWithHeader(data);
@@ -435,7 +448,7 @@ export class GreyCat {
       debugLogger(res.status, route);
       this.token = undefined;
       this.unauthorizedHandler?.();
-      throw new Error(`you must be logged-in to access files`);
+      throw new Error('unauthorized');
     }
     throw new Error(`unexpected error while getting file '${filepath}'`);
   }
@@ -449,29 +462,48 @@ export class GreyCat {
    */
   async putFile(filepath: string, file: File, signal?: AbortSignal): Promise<void> {
     const route = `files/${filepath}`;
-    const res = await fetch(`${this.api}/${route}`, {
-      method: 'PUT',
-      body: file,
-      signal,
-    });
+    const res = await fetch(`${this.api}/${route}`, { method: 'PUT', body: file, signal });
     if (res.ok) {
       return;
     }
-    if (res.status === 404) {
-      debugLogger(res.status, route);
-      throw new Error(`file '${filepath}' not found`);
-    } else if (res.status === 403) {
+    if (res.status === 403) {
       // forbidden
       debugLogger(res.status, route);
-      throw new Error(`file '${filepath}' access forbidden`);
+      throw new Error('forbidden');
     } else if (res.status === 401) {
       // unauthorized
       debugLogger(res.status, route);
       this.token = undefined;
       this.unauthorizedHandler?.();
-      throw new Error(`you must be logged-in to access files`);
+      throw new Error('unauthorized');
     }
-    throw new Error(`unexpected error while getting file '${filepath}'`);
+    throw new Error(`unexpected error while uploading file '${filepath}'`);
+  }
+
+  /**
+   * Deletes a file from GreyCat.
+   *
+   * @param filepath eg. `path/to/file` *(do not include `/files/` in the path)*
+   * @param signal optional `AbortSignal` to cancel the request prematurely
+   */
+  async deleteFile(filepath: string, signal?: AbortSignal): Promise<void> {
+    const route = `files/${filepath}`;
+    const res = await fetch(`${this.api}/${route}`, { method: 'DELETE', signal });
+    if (res.ok) {
+      return;
+    }
+    if (res.status === 403) {
+      // forbidden
+      debugLogger(res.status, route);
+      throw new Error('forbidden');
+    } else if (res.status === 401) {
+      // unauthorized
+      debugLogger(res.status, route);
+      this.token = undefined;
+      this.unauthorizedHandler?.();
+      throw new Error('unauthorized');
+    }
+    throw new Error(`unexpected error while deleting file '${filepath}'`);
   }
 
   /**

@@ -152,7 +152,7 @@ describe('project', () => {
     },
     {
       _type: 'core::Date',
-      iso: '12/12/12 12:12:12 UTC+01:00',
+      iso: '2012-12-12T12:12:12.120012+01:00',
       timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     }, // TODO this is not what we actually expect
     { _type: 'core::nodeTime', ref: '3000' },

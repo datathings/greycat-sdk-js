@@ -23,4 +23,3 @@ globalThis.greycat.default = greycat;
 const info = await runtime.Runtime.info();
 console.log(info.toJSON());
 ```
-

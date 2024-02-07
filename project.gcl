@@ -187,7 +187,6 @@ fn write_std_runtime(out: GcbWriter) {
         start: 13_time,
         end: 37_time,
         max_workers: 12,
-        max_memory: 42,
       },
       io_threads: 13,
       bg_threads: 37,
@@ -232,7 +231,6 @@ fn write_std_runtime(out: GcbWriter) {
       start: 13_time,
       end: 37_time,
       max_workers: 12,
-      max_memory: 42,
     });
   out.write(StoreStat {
       capacity_bytes: 13,

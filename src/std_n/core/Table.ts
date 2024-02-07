@@ -28,6 +28,9 @@ export class Table<_ extends Value = any> extends GCObject {
       cols[col] = values;
       switch (meta[col].col_type) {
         case PrimitiveType.null:
+          for (let row = 0; row < rows; row++) {
+            values[row] = null;
+          }
           break;
         case PrimitiveType.int:
           for (let row = 0; row < rows; row++) {

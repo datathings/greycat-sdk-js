@@ -317,11 +317,16 @@ fn write_algebra_compute(out: GcbWriter) {
 @expose
 fn table() {
   var nbRows = 4;
-  var table = Table::new(1);
+  var table = Table::new(2);
   table.setHeader(0, "Column ${0}");
 
   for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
     table.set(rowIdx, 0, 0.5 * rowIdx);
+    if (rowIdx == 2) {
+      table.set(rowIdx, 1, null);
+    } else {
+      table.set(rowIdx, 1, null);
+    }
   }
 
   return table;

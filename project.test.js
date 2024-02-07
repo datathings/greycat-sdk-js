@@ -115,7 +115,7 @@ describe('project', () => {
     { _type: 'core::TensorType', field: 'c128' },
     {
       _type: 'core::Table',
-      cols: [[0, 0.5, 1, 1.5]],
+      cols: [[0, 0.5, 1, 1.5], [null, null, null, null]],
       meta: [
         {
           _type: 'core::NativeTableColumnMeta',
@@ -124,6 +124,14 @@ describe('project', () => {
           typeName: 'core::float',
           min: 0,
           max: 1.5,
+        },
+        {
+          _type: 'core::NativeTableColumnMeta',
+          header: null,
+          index: false,
+          typeName: 'core::null',
+          min: null,
+          max: null,
         },
       ],
     },
@@ -417,6 +425,9 @@ describe('project', () => {
     it(testName, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();
+      if (expected?._type === 'core::Table') {
+        console.log(JSON.parse(JSON.stringify(actual)));
+      }
       // create a temporary serializer
       const writer = new AbiWriter(abi);
       // serialize the value again

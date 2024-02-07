@@ -106,7 +106,7 @@ fn write_std_core(out: GcbWriter) {
   tensor.add([0, 0], 3.14);
   out.write(tensor);
   out.write(GeoCircle::new(42_geo, 13.37));
-  out.write(Date::new(2012, 12, 12, 12, 12, 12, 12, TimeZone::Europe_Luxembourg));
+  out.write(Date::new(2012, 12, 12, 12, 12, 12, 120012, TimeZone::Europe_Luxembourg));
   out.write(nodeTime<nodeGeo>::new());
   out.write(Array<nodeTime>::new(0));
   out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));
@@ -139,7 +139,6 @@ fn write_std_io(out: GcbWriter) {
   out.write(CsvColumnIgnored {});
   out.write(CsvFormat {
       header_lines: 12,
-      infer: true,
       separator: ',',
       string_delimiter: '"',
       decimal_separator: '.',
@@ -188,7 +187,6 @@ fn write_std_runtime(out: GcbWriter) {
         start: 13_time,
         end: 37_time,
         max_workers: 12,
-        max_memory: 42,
       },
       io_threads: 13,
       bg_threads: 37,
@@ -233,7 +231,6 @@ fn write_std_runtime(out: GcbWriter) {
       start: 13_time,
       end: 37_time,
       max_workers: 12,
-      max_memory: 42,
     });
   out.write(StoreStat {
       capacity_bytes: 13,
@@ -318,10 +315,16 @@ fn write_algebra_compute(out: GcbWriter) {
 @expose
 fn table() {
   var nbRows = 4;
-  var table = Table::new(1);
+  var table = Table::new(2);
+  table.setHeader(0, "Column ${0}");
 
   for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
     table.set(rowIdx, 0, 0.5 * rowIdx);
+    if (rowIdx == 2) {
+      table.set(rowIdx, 1, null);
+    } else {
+      table.set(rowIdx, 1, null);
+    }
   }
 
   return table;

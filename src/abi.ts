@@ -55,7 +55,7 @@ export class Abi {
   readonly core_float_offset: number = 0;
   readonly core_char_offset: number = 0;
 
-  constructor(buffer: ArrayBuffer, readonly libraries: Library[] = []) {
+  constructor(buffer: ArrayBuffer, libraries: Library[] = []) {
     this.off_by_symbol = new Map();
     this.type_by_fqn = new Map();
     this.loaders = new Map();
@@ -63,15 +63,16 @@ export class Abi {
     this.libs_by_name = new Map();
     this.fn_by_fqn = new Map();
 
-    const noStd = libraries.indexOf(stdlib) === -1;
+    const hasStd = libraries.find((lib) => lib.name === 'std');
     // always load 'stdlib'
-    if (noStd) {
-      stdlib.configure(this.loaders, this.factories);
-      this.libs_by_name.set(stdlib.name, stdlib);
+    if (!hasStd) {
+      const std = cloneLibrary(stdlib);
+      std.configure(this.loaders, this.factories);
+      this.libs_by_name.set(std.name, std);
     }
 
     for (let i = 0; i < libraries.length; i++) {
-      const lib = libraries[i];
+      const lib = cloneLibrary(libraries[i]);
       lib.configure(this.loaders, this.factories);
       this.libs_by_name.set(lib.name, lib);
     }
@@ -306,13 +307,11 @@ export class Abi {
       this.fn_by_fqn.set(fqn, this.functions[i]);
     }
 
-    // always init 'stdlib'
-    if (noStd) {
-      stdlib.init(this);
-    }
+    // initialize every library
+    this.libs_by_name.forEach((lib) => lib.init(this));
 
-    for (let i = 0; i < libraries.length; i++) {
-      libraries[i].init(this);
+    for (let i = 0; i < this.types.length; i++) {
+      Object.freeze(this.types[i]);
     }
   }
 
@@ -656,4 +655,18 @@ export class AbiFunction {
 
 export class AbiParam {
   constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) { }
+}
+
+/**
+ * When loading multiple instances of GreyCat the mapped type array cannot
+ * be shared between all instances, therefore we always clone the struct
+ * so that each Library in each Abi instance gets its own array of mapped type
+ */
+function cloneLibrary(lib: Library): Library {
+  return {
+    name: lib.name,
+    mapped: new Array(lib.mapped.length),
+    configure: lib.configure,
+    init: lib.init
+  };
 }

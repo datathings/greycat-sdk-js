@@ -28,6 +28,9 @@ export class Table<_ extends Value = any> extends GCObject {
       cols[col] = values;
       switch (meta[col].col_type) {
         case PrimitiveType.null:
+          for (let row = 0; row < rows; row++) {
+            values[row] = null;
+          }
           break;
         case PrimitiveType.int:
           for (let row = 0; row < rows; row++) {
@@ -105,7 +108,7 @@ export class Table<_ extends Value = any> extends GCObject {
           break;
         }
         default:
-          // gc_type_undefined
+          // gc_undefined
           for (let row = 0; row < rows; row++) {
             values[row] = r.deserialize();
           }
@@ -152,8 +155,14 @@ export class Table<_ extends Value = any> extends GCObject {
           }
           break;
         }
+        case PrimitiveType.object: {
+          for (let row = 0; row < nbRows; row++) {
+            w.serializeRaw(this.cols[col][row]);
+          }
+          break;
+        }
         default:
-          // gc_undefined, gc_object
+          // gc_undefined
           for (let row = 0; row < nbRows; row++) {
             w.serialize(this.cols[col][row]);
           }
@@ -202,7 +211,6 @@ export class NativeTableColumnMeta {
     } else {
       w.write_vu32(this.header.length);
       w.write_all(w.txt.encode(this.header));
-      // w.write_string(this.header);
     }
   }
 
@@ -220,6 +228,7 @@ export class NativeTableColumnMeta {
     return {
       _type: 'core::NativeTableColumnMeta',
       typeName: this.typeName,
+      header: this.header,
       index: this.index,
       min: this.min,
       max: this.max,

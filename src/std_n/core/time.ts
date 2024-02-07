@@ -5,7 +5,38 @@ import { GCObject } from '../../GCObject.js';
 import type { GreyCat } from '../../greycat.js';
 import type { core } from '../../std/index.js';
 
+export interface time {
+  sub(duration: core.duration): core.time;
+  sub(time: core.time): core.duration;
+
+  /**
+   * Formats the time using the given format
+   * 
+   * @param format the format to use
+   */
+  format(format: Intl.DateTimeFormat): string;
+
+  /**
+   * Formats the time using the given `options` and `locales` by creating a new `Intl.DateTimeFormat` for it.
+   *
+   * @param options options to use for formatting, default `timeZoneName` set to `'longOffset'`
+   * @param locales locale language to use, defaults to `fr-FR`
+   */
+  format(options: Intl.DateTimeFormatOptions, locales?: string): string;
+}
+
 export class time extends GCObject {
+  private static readonly LOCALE = 'fr-FR';
+  private static readonly FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'UTC',
+    timeZoneName: 'longOffset',
+  };
   static readonly _type = 'core::time' as const;
 
   constructor(type: AbiType, public value: bigint | number) {
@@ -93,22 +124,49 @@ export class time extends GCObject {
     return 1;
   }
 
-  format(tz: core.TimeZone, options: Intl.DateTimeFormatOptions = {}): string {
-    // this is for Node.js compat (no `navigator` in Node.js)
-    const locales = globalThis.navigator ? globalThis.navigator.language : undefined;
-    options.timeZone = tz.value as string;
-    return new Intl.DateTimeFormat(locales, options).format(this.epochMs);
+  add(duration: core.duration, g = greycat.default): core.time {
+    const sum = BigInt(this.value) + BigInt(duration.value);
+    const boxedSum = sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
+    const ty = g.abi.types[g.abi.core_time_offset];
+    return new ty.factory(ty, boxedSum) as core.time;
+  }
+
+  sub(duration: core.duration | core.time, g = greycat.default): core.time | core.duration {
+    const sub = BigInt(this.value) - BigInt(duration.value);
+    const boxedSub = sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
+    if (duration.$type.offset === g.abi.core_duration_offset) {
+      const ty = g.abi.types[g.abi.core_time_offset];
+      return new ty.factory(ty, boxedSub) as core.time;
+    }
+    const ty = g.abi.types[g.abi.core_duration_offset];
+    return new ty.factory(ty, boxedSub) as core.duration;
+  }
+
+  format(
+    formatOrOptions: Intl.DateTimeFormat | Intl.DateTimeFormatOptions = time.FORMAT_OPTIONS,
+    locales = globalThis.navigator ? globalThis.navigator.language : time.LOCALE,
+  ): string {
+    if (formatOrOptions instanceof Intl.DateTimeFormat) {
+      return formatOrOptions.format(this.toDate());
+    }
+    return new Intl.DateTimeFormat(locales, {
+      timeZoneName: 'longOffset',
+      ...formatOrOptions,
+    }).format(this.toDate());
   }
 
   override toString(): string {
-    return new Date(this.epochMs).toISOString();
+    const date = new Date(this.epochMs);
+    if (isNaN(date.getTime())) {
+      return `${this.value}_time`;
+    }
+    return date.toISOString();
   }
 
   override toJSON() {
     return {
       _type: this.$type.name,
-      epoch: this.epoch,
-      us: this.us,
+      iso: this.toString(),
     };
   }
 }

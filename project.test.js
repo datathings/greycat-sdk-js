@@ -288,7 +288,7 @@ describe('project', () => {
         _type: 'runtime::License',
         start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
         end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
-        max_workers: 12,
+        max_memory: 12,
         company: null,
         name: null,
         extra_1: null,
@@ -345,7 +345,7 @@ describe('project', () => {
       _type: 'runtime::License',
       start: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       end: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
-      max_workers: 12,
+      max_memory: 12,
       company: null,
       extra_1: null,
       extra_2: null,
@@ -419,9 +419,6 @@ describe('project', () => {
     it(testName, () => {
       // deserialize value from actual 'out.gcb' bytes
       let actual = reader.deserialize();
-      if (expected?._type === 'core::Table') {
-        console.log(JSON.parse(JSON.stringify(actual)));
-      }
       // create a temporary serializer
       const writer = new AbiWriter(abi);
       // serialize the value again

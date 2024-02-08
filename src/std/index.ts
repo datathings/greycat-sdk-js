@@ -3088,15 +3088,15 @@ export namespace runtime {
     start: $sdk.std.core.time;
     end: $sdk.std.core.time;
     company: string | null;
-    max_workers: bigint | number;
+    max_memory: bigint | number;
     extra_1: bigint | number | null;
     extra_2: bigint | number | null;
 
-    static createFrom({name, start, end, company, max_workers, extra_1, extra_2}: {name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): License {
-      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, start, end, company, max_workers, extra_1, extra_2);
+    static createFrom({name, start, end, company, max_memory, extra_1, extra_2}: {name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): License {
+      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, start, end, company, max_memory, extra_1, extra_2);
     }
-    static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_workers: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
-      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, start, end, company, max_workers, extra_1, extra_2);
+    static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
+      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[53], name, start, end, company, max_memory, extra_1, extra_2);
     }
   }
 

@@ -293,6 +293,7 @@ describe('project', () => {
         name: null,
         extra_1: null,
         extra_2: null,
+        type: null,
       },
       io_threads: 13,
       bg_threads: 37,
@@ -350,6 +351,7 @@ describe('project', () => {
       extra_1: null,
       extra_2: null,
       name: null,
+      type: null
     },
     {
       _type: 'runtime::StoreStat',
@@ -364,7 +366,7 @@ describe('project', () => {
       available_ratio: 0.2,
     },
     { _type: 'runtime::System' },
-    { _type: 'runtime::SecurityPolicy', entities: [], credentials: {}, roles: {}, fields: null },
+    { _type: 'runtime::SecurityPolicy', entities: [], credentials: {}, roles: {}, fields: null, keys: null, keys_last_refresh: null },
 
     // std::util
     { _type: 'util::Random', seed: 42, v: 13.37 },

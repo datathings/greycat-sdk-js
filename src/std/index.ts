@@ -4176,7 +4176,7 @@ export const stdlib: $sdk.Library = {
     this.mapped[41] = abi.type_by_fqn.get(runtime.PeriodicTask._type);
     this.mapped[42] = abi.type_by_fqn.get(runtime.SecurityFields._type);
     this.mapped[43] = abi.type_by_fqn.get(runtime.LicenseType._type);
-    this.mapped[43]?.resolveGeneratedOffsetWithValues('community', null,'enterprise', null,'testing', null);
+    this.mapped[43]?.resolveGeneratedOffsetWithValues('community', 0,'enterprise', 1,'testing', 2);
     this.mapped[44] = abi.type_by_fqn.get(runtime.UserGroup._type);
     this.mapped[45] = abi.type_by_fqn.get(runtime.UserGroupPolicyType._type);
     this.mapped[45]?.resolveGeneratedOffsetWithValues('read', 0,'write', 1,'execute', 2);

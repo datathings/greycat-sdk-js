@@ -78,7 +78,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(12_time);
   out.write([]);
   out.write([42, true, "hello", DatePart::months]);
-  out.write(42_geo);
+  out.write(49.59634473860023lat_6.128470332224678lng);
   out.write(Map::new());
   out.write(project::table);
 
@@ -90,7 +90,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(map);
 
   out.write({ string: "hello", int: 42, float: 3.14, bool: true, char: 'c', enum: TimeZone::Europe_Luxembourg });
-  out.write(GeoBox::new(13_geo, 37_geo));
+  out.write(GeoBox::new(1lat_2lng, 1.5lat_-0.5lng));
   out.write(nodeList<int>::new());
   out.write(TimeZone::Europe_Luxembourg);
   out.write(node<float>::new(13.37));
@@ -105,14 +105,14 @@ fn write_std_core(out: GcbWriter) {
   tensor.init(TensorType::f64, [1, 1]);
   tensor.add([0, 0], 3.14);
   out.write(tensor);
-  out.write(GeoCircle::new(42_geo, 13.37));
+  out.write(GeoCircle::new(49.59634473860023lat_6.128470332224678lng, 13.37));
   out.write(Date::new(2012, 12, 12, 12, 12, 12, 120012, TimeZone::Europe_Luxembourg));
   out.write(nodeTime<nodeGeo>::new());
   out.write(Array<nodeTime>::new(0));
   out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));
   out.write(Tuple::new(42, "hello"));
   out.write(nodeIndex<Tuple>::new());
-  out.write(GeoPoly { points: [13_geo, 37_geo, 13_geo] });
+  out.write(GeoPoly { points: [1lat_2lng, 1.5lat_2.01lng, 1lat_2lng] });
   out.write(DatePart::days);
   out.write(nodeGeo<DatePart>::new());
   out.write(ti2d::new(13, 37));
@@ -331,14 +331,14 @@ fn table() {
 }
 
 @expose
-task longTask() {
-  println("long task ${Task::id()}: start");
+fn longTask() {
+  println("long fn ${Task::id()}: start");
   Runtime::sleep(15_s);
-  println("long task ${Task::id()}: done");
+  println("long fn ${Task::id()}: done");
 }
 
 @expose
-task computeTask() {
+fn computeTask() {
   var writer = TextWriter::new("${File::taskDir()}/foo.txt");
   writer.write(42);
 }
@@ -394,7 +394,7 @@ fn foo(): Foo {
 }
 
 @expose
-task task_with_params(different: String, age: int) {
+fn task_with_params(different: String, age: int) {
   return different;
 }
 
@@ -435,7 +435,7 @@ fn time() {
 }
 
 @expose
-task errorTask() {
+fn errorTask() {
   throw "error message";
 }
 

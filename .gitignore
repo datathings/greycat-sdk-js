@@ -2,4 +2,10 @@
 /node_modules
 /xp
 
-gcdata
+/gcdata
+/data
+/files
+
+/record/gcdata
+/record/data
+/record/files

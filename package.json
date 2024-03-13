@@ -24,7 +24,7 @@
     "build:esm": "tsc -b tsconfig.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
-    "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/store/abi project.test.abi",
+    "prepare:test": "rm -rf data && greycat run && cp data/abi project.test.abi",
     "test": "pnpm build:esm && node --test"
   },
   "author": "DataThings s.a <contact@datathings.com>",

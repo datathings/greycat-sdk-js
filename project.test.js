@@ -64,7 +64,7 @@ describe('project', () => {
     { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
     [],
     [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
-    { _type: 'core::geo', lat: -85.05112876019749, lng: -179.99999937135726 },
+    { _type: 'core::geo', lat: 49.596344732033856, lng: 6.128470371477306 },
     {},
     { _type: 'core::function', fqn: 'project::table' },
     {
@@ -84,20 +84,20 @@ describe('project', () => {
     },
     {
       _type: 'core::GeoBox',
-      sw: {
-        _type: 'core::geo',
-        lat: -85.05112864138243,
-        lng: -179.99999979045242,
-      },
       ne: {
         _type: 'core::geo',
-        lat: -85.05112864138243,
-        lng: -179.99999962281436,
+        lat: 1.500000000617348,
+        lng: -0.5000000121071935,
+      },
+      sw: {
+        _type: 'core::geo',
+        lat: 0.9999999938107322,
+        lng: 2.000000006519258,
       },
     },
-    { _type: 'core::nodeList', ref: '1000' },
+    { _type: 'core::nodeList', ref: '400000' },
     { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
-    { _type: 'core::node', ref: '2000' },
+    { _type: 'core::node', ref: '800000' },
     {
       _type: 'core::Error',
       code: 0,
@@ -115,7 +115,10 @@ describe('project', () => {
     { _type: 'core::TensorType', field: 'c128' },
     {
       _type: 'core::Table',
-      cols: [[0, 0.5, 1, 1.5], [null, null, null, null]],
+      cols: [
+        [0, 0.5, 1, 1.5],
+        [null, null, null, null],
+      ],
       meta: [
         {
           _type: 'core::NativeTableColumnMeta',
@@ -153,8 +156,8 @@ describe('project', () => {
       _type: 'core::GeoCircle',
       center: {
         _type: 'core::geo',
-        lat: -85.05112876019749,
-        lng: -179.99999937135726,
+        lat: 49.596344732033856,
+        lng: 6.128470371477306,
       },
       radius: 13.37,
     },
@@ -163,33 +166,33 @@ describe('project', () => {
       iso: '2012-12-12T12:12:12.120012+01:00',
       timeZone: { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     }, // TODO this is not what we actually expect
-    { _type: 'core::nodeTime', ref: '3000' },
+    { _type: 'core::nodeTime', ref: 'c00000' },
     [],
     { _type: 'core::Tuple', x: [], y: {} },
     { _type: 'core::Tuple', x: 42, y: 'hello' },
-    { _type: 'core::nodeIndex', ref: '4000' },
+    { _type: 'core::nodeIndex', ref: '1000000' },
     {
       _type: 'core::GeoPoly',
       points: [
         {
           _type: 'core::geo',
-          lat: -85.05112864138243,
-          lng: -179.99999979045242,
+          lat: 0.9999999938107322,
+          lng: 2.000000006519258,
         },
         {
           _type: 'core::geo',
-          lat: -85.05112864138243,
-          lng: -179.99999962281436,
+          lat: 1.500000000617348,
+          lng: 2.010000036098063,
         },
         {
           _type: 'core::geo',
-          lat: -85.05112864138243,
-          lng: -179.99999979045242,
+          lat: 0.9999999938107322,
+          lng: 2.000000006519258,
         },
       ],
     },
     { _type: 'core::DatePart', field: 'days' },
-    { _type: 'core::nodeGeo', ref: '5000' },
+    { _type: 'core::nodeGeo', ref: '1400000' },
     { _type: 'core::ti2d', x0: 13, x1: 37 },
     { _type: 'core::ti3d', x0: 13, x1: 37, x2: 42 },
     { _type: 'core::ti4d', x0: 13, x1: 37, x2: 42, x3: 12 },
@@ -273,6 +276,8 @@ describe('project', () => {
       mod: '',
       type: '',
       fun: '',
+      start: null,
+      duration: null,
       creation: { _type: 'core::time', iso: '1970-01-01T00:00:00.000Z' },
       status: { _type: 'runtime::TaskStatus', field: 'empty' },
     },
@@ -351,7 +356,7 @@ describe('project', () => {
       extra_1: null,
       extra_2: null,
       name: null,
-      type: null
+      type: null,
     },
     {
       _type: 'runtime::StoreStat',
@@ -366,7 +371,15 @@ describe('project', () => {
       available_ratio: 0.2,
     },
     { _type: 'runtime::System' },
-    { _type: 'runtime::SecurityPolicy', entities: [], credentials: {}, roles: {}, fields: null, keys: null, keys_last_refresh: null },
+    {
+      _type: 'runtime::SecurityPolicy',
+      entities: [],
+      credentials: {},
+      roles: {},
+      fields: null,
+      keys: null,
+      keys_last_refresh: null,
+    },
 
     // std::util
     { _type: 'util::Random', seed: 42, v: 13.37 },

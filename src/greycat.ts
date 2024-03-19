@@ -1,4 +1,4 @@
-import { Abi } from './abi.js';
+import { Abi, AbiFunction, AbiType } from './abi.js';
 import * as std from './std/index.js';
 import {
   Auth,
@@ -615,6 +615,14 @@ export class GreyCat {
 
   createTuf4d(x0: number, x1: number, x2: number, x3: number) {
     return this.abi.createTuf4d(x0, x1, x2, x3);
+  }
+
+  findType(fqn: string): AbiType | undefined {
+    return this.abi.type_by_fqn.get(fqn);
+  }
+
+  findFn(fqn: string): AbiFunction | undefined {
+    return this.abi.fn_by_fqn.get(fqn);
   }
 }
 

@@ -104,9 +104,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 13, column: 17 },
-        { module: 'project', fn: 'write_std', line: 18, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
+        { module: 'project', fn: 'main', line: 12, column: 17 },
+        { module: 'project', fn: 'write_std', line: 17, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 95, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -214,6 +214,20 @@ describe('project', () => {
     { _type: 'core::tf2d', x0: 13.369999885559082, x1: 12.420000076293945 },
     { _type: 'core::tf3d', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
     { _type: 'core::tf4d', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
+    // std::core::MathConstants
+    2.718281828459045, // MathConstants::e
+    1.4426950408889634, // MathConstants::log_2e
+    0.4342944819032518, // MathConstants::log_10e
+    0.6931471805599453, // MathConstants::ln2
+    2.302585092994046, // MathConstants::ln10
+    3.141592653589793, // MathConstants::pi
+    1.5707963267948966, // MathConstants::pi_2
+    0.7853981633974483, // MathConstants::pi_4
+    0.3183098861837907, // MathConstants::m1_pi
+    0.6366197723675814, // MathConstants::m2_pi
+    1.1283791670955126, // MathConstants::m2_sqrt_pi
+    1.4142135623730951, // MathConstants::sqrt2
+    0.7071067811865476, // MathConstants::sqrt1_2
 
     // std::io
     { _type: 'io::TextEncoder', field: 'plain' },
@@ -252,21 +266,6 @@ describe('project', () => {
       columns: [],
       columns_size: null,
     },
-
-    // std::math
-    2.718281828459045, // MathConstants::e
-    1.4426950408889634, // MathConstants::log_2e
-    0.4342944819032518, // MathConstants::log_10e
-    0.6931471805599453, // MathConstants::ln2
-    2.302585092994046, // MathConstants::ln10
-    3.141592653589793, // MathConstants::pi
-    1.5707963267948966, // MathConstants::pi_2
-    0.7853981633974483, // MathConstants::pi_4
-    0.3183098861837907, // MathConstants::m1_pi
-    0.6366197723675814, // MathConstants::m2_pi
-    1.1283791670955126, // MathConstants::m2_sqrt_pi
-    1.4142135623730951, // MathConstants::sqrt2
-    0.7071067811865476, // MathConstants::sqrt1_2
 
     // std::runtime
     {

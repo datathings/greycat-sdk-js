@@ -2511,6 +2511,70 @@ export namespace core {
   export class Map<K extends $sdk.Value = any, V extends $sdk.Value = any> extends std_n.core.Map<K, V> {
   }
 
+  export class MathConstants extends $sdk.GCObject {
+    static readonly _type = 'core::MathConstants';
+
+
+    static e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['e'] as number;
+    }
+    static log_2e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['log_2e'] as number;
+    }
+    static log_10e($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['log_10e'] as number;
+    }
+    static ln2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['ln2'] as number;
+    }
+    static ln10($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['ln10'] as number;
+    }
+    static pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['pi'] as number;
+    }
+    static pi_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['pi_2'] as number;
+    }
+    static pi_4($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['pi_4'] as number;
+    }
+    static m1_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['m1_pi'] as number;
+    }
+    static m2_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['m2_pi'] as number;
+    }
+    static m2_sqrt_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['m2_sqrt_pi'] as number;
+    }
+    static sqrt2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['sqrt2'] as number;
+    }
+    static sqrt1_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[20];
+      return  t.static_values['sqrt1_2'] as number;
+    }
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
+      return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[20]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
+      return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[20]);
+    }
+  }
+
   export class nodeIndex extends std_n.core.nodeIndex {
     static sample(refs: globalThis.Array<$sdk.std.core.nodeIndex>, from: any | null, maxRows: bigint | number, mode: core.SamplingMode, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<core.Table> {
       return $g.call('core::nodeIndex::sample', [refs, from, maxRows, mode], $signal);
@@ -2530,10 +2594,10 @@ export namespace core {
     extractors: globalThis.Array<any>;
 
     static createFrom({column, extractors}: {column: bigint | number, extractors: globalThis.Array<any>}, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMapping {
-      return new TableColumnMapping($g.abi.libs_by_name.get(stdlib.name)!.mapped[22], column, extractors);
+      return new TableColumnMapping($g.abi.libs_by_name.get(stdlib.name)!.mapped[23], column, extractors);
     }
     static create(column: bigint | number, extractors: globalThis.Array<any>, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMapping {
-      return new TableColumnMapping($g.abi.libs_by_name.get(stdlib.name)!.mapped[22], column, extractors);
+      return new TableColumnMapping($g.abi.libs_by_name.get(stdlib.name)!.mapped[23], column, extractors);
     }
   }
 
@@ -2554,31 +2618,31 @@ export namespace core {
     }
 
     static i32($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['i32'];
     }
     static i64($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['i64'];
     }
     static f32($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['f32'];
     }
     static f64($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['f64'];
     }
     static c64($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['c64'];
     }
     static c128($g: $sdk.GreyCat = globalThis.greycat.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.static_values['c128'];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TensorType[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[24];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[25];
       return t.enum_values!;
     }
   }
@@ -2593,10 +2657,10 @@ export namespace core {
     y: U;
 
     static createFrom({x, y}: {x: any, y: any}, $g: $sdk.GreyCat = globalThis.greycat.default): Tuple {
-      return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[25], x, y);
+      return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[26], x, y);
     }
     static create(x: any, y: any, $g: $sdk.GreyCat = globalThis.greycat.default): Tuple {
-      return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[25], x, y);
+      return new Tuple($g.abi.libs_by_name.get(stdlib.name)!.mapped[26], x, y);
     }
   }
 
@@ -2619,10 +2683,10 @@ export namespace core {
     std: any;
 
     static createFrom({type, size, index, header, min, max, avg, std}: {type: string | null, size: bigint | number, index: boolean, header: string | null, min: any | null, max: any | null, avg: any | null, std: any | null}, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMeta {
-      return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[28], type, size, index, header, min, max, avg, std);
+      return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[29], type, size, index, header, min, max, avg, std);
     }
     static create(type: string | null, size: bigint | number, index: boolean, header: string | null, min: any | null, max: any | null, avg: any | null, std: any | null, $g: $sdk.GreyCat = globalThis.greycat.default): TableColumnMeta {
-      return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[28], type, size, index, header, min, max, avg, std);
+      return new TableColumnMeta($g.abi.libs_by_name.get(stdlib.name)!.mapped[29], type, size, index, header, min, max, avg, std);
     }
   }
 
@@ -2633,10 +2697,10 @@ export namespace core {
     ne: $sdk.std.core.geo;
 
     static createFrom({sw, ne}: {sw: $sdk.std.core.geo, ne: $sdk.std.core.geo}, $g: $sdk.GreyCat = globalThis.greycat.default): GeoBox {
-      return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[29], sw, ne);
+      return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[30], sw, ne);
     }
     static create(sw: $sdk.std.core.geo, ne: $sdk.std.core.geo, $g: $sdk.GreyCat = globalThis.greycat.default): GeoBox {
-      return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[29], sw, ne);
+      return new GeoBox($g.abi.libs_by_name.get(stdlib.name)!.mapped[30], sw, ne);
     }
   }
 
@@ -2652,10 +2716,10 @@ export namespace core {
     points: globalThis.Array<$sdk.std.core.geo>;
 
     static createFrom({points}: {points: globalThis.Array<$sdk.std.core.geo>}, $g: $sdk.GreyCat = globalThis.greycat.default): GeoPoly {
-      return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[31], points);
+      return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[32], points);
     }
     static create(points: globalThis.Array<$sdk.std.core.geo>, $g: $sdk.GreyCat = globalThis.greycat.default): GeoPoly {
-      return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[31], points);
+      return new GeoPoly($g.abi.libs_by_name.get(stdlib.name)!.mapped[32], points);
     }
   }
 
@@ -2676,23 +2740,23 @@ export namespace core {
     }
 
     static fixed($g: $sdk.GreyCat = globalThis.greycat.default): SamplingMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[35];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[36];
       return t.static_values['fixed'];
     }
     static fixed_reg($g: $sdk.GreyCat = globalThis.greycat.default): SamplingMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[35];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[36];
       return t.static_values['fixed_reg'];
     }
     static adaptative($g: $sdk.GreyCat = globalThis.greycat.default): SamplingMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[35];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[36];
       return t.static_values['adaptative'];
     }
     static dense($g: $sdk.GreyCat = globalThis.greycat.default): SamplingMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[35];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[36];
       return t.static_values['dense'];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SamplingMode[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[35];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[36];
       return t.enum_values!;
     }
   }
@@ -2711,35 +2775,35 @@ export namespace core {
     }
 
     static years($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['years'];
     }
     static months($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['months'];
     }
     static days($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['days'];
     }
     static hours($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['hours'];
     }
     static minutes($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['minutes'];
     }
     static seconds($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['seconds'];
     }
     static microseconds($g: $sdk.GreyCat = globalThis.greycat.default): DatePart {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['microseconds'];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): DatePart[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[37];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.enum_values!;
     }
   }
@@ -2757,10 +2821,10 @@ export namespace core {
     v: any;
 
     static createFrom({t, v}: {t: $sdk.std.core.time, v: any}, $g: $sdk.GreyCat = globalThis.greycat.default): nodeTimeSingleton {
-      return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[39], t, v);
+      return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], t, v);
     }
     static create(t: $sdk.std.core.time, v: any, $g: $sdk.GreyCat = globalThis.greycat.default): nodeTimeSingleton {
-      return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[39], t, v);
+      return new nodeTimeSingleton($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], t, v);
     }
   }
 
@@ -2772,362 +2836,16 @@ export namespace core {
     to: T;
 
     static createFrom({size, from, to}: {size: bigint | number, from: any | null, to: any | null}, $g: $sdk.GreyCat = globalThis.greycat.default): NodeInfo {
-      return new NodeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], size, from, to);
+      return new NodeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], size, from, to);
     }
     static create(size: bigint | number, from: any | null, to: any | null, $g: $sdk.GreyCat = globalThis.greycat.default): NodeInfo {
-      return new NodeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[40], size, from, to);
+      return new NodeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], size, from, to);
     }
   }
 
 }
 
 export namespace runtime {
-  export class TaskRequest extends $sdk.GCObject {
-    static readonly _type = 'runtime::TaskRequest';
-
-    function: core.function_;
-    arguments: globalThis.Array<any> | null;
-    mode: runtime.TaskMode | null;
-
-    static createFrom({function_, arguments_, mode}: {function_: core.function_, arguments_: globalThis.Array<any> | null, mode: runtime.TaskMode | null}, $g: $sdk.GreyCat = globalThis.greycat.default): TaskRequest {
-      return new TaskRequest($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], function_, arguments_, mode);
-    }
-    static create(function_: core.function_, arguments_: globalThis.Array<any> | null, mode: runtime.TaskMode | null, $g: $sdk.GreyCat = globalThis.greycat.default): TaskRequest {
-      return new TaskRequest($g.abi.libs_by_name.get(stdlib.name)!.mapped[41], function_, arguments_, mode);
-    }
-  }
-
-  export class System extends $sdk.GCObject {
-    static readonly _type = 'runtime::System';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): System {
-      return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[42]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): System {
-      return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[42]);
-    }
-  }
-
-  export class License extends $sdk.GCObject {
-    static readonly _type = 'runtime::License';
-
-    name: string | null;
-    start: $sdk.std.core.time;
-    end: $sdk.std.core.time;
-    company: string | null;
-    max_memory: bigint | number;
-    extra_1: bigint | number | null;
-    extra_2: bigint | number | null;
-    type: runtime.LicenseType | null;
-
-    static createFrom({name, start, end, company, max_memory, extra_1, extra_2, type}: {name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, type: runtime.LicenseType | null}, $g: $sdk.GreyCat = globalThis.greycat.default): License {
-      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], name, start, end, company, max_memory, extra_1, extra_2, type);
-    }
-    static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, type: runtime.LicenseType | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
-      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], name, start, end, company, max_memory, extra_1, extra_2, type);
-    }
-  }
-
-  export class Task extends $sdk.GCObject {
-    static readonly _type = 'runtime::Task';
-
-    user_id: bigint | number;
-    task_id: bigint | number;
-    mod: string | null;
-    type: string | null;
-    fun: string | null;
-    creation: $sdk.std.core.time;
-    start: $sdk.std.core.time | null;
-    duration: $sdk.std.core.duration | null;
-    status: runtime.TaskStatus;
-
-    static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.TaskInfo>> {
-      return $g.call('runtime::Task::running', undefined, $signal);
-    }
-    static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.Task>> {
-      return $g.call('runtime::Task::history', [offset, max], $signal);
-    }
-    static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
-      return $g.call('runtime::Task::cancel', [task_id], $signal);
-    }
-    static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
-      return $g.call('runtime::Task::info', [user_id, task_id], $signal);
-    }
-    static createFrom({user_id, task_id, mod, type, fun, creation, start, duration, status}: {user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus}, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
-      return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], user_id, task_id, mod, type, fun, creation, start, duration, status);
-    }
-    static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
-      return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], user_id, task_id, mod, type, fun, creation, start, duration, status);
-    }
-  }
-
-  export class DebugInfo extends $sdk.GCObject {
-    static readonly _type = 'runtime::DebugInfo';
-
-    scopes: globalThis.Array<runtime.DebugFrame>;
-    root: any;
-
-    static createFrom({scopes, root}: {scopes: globalThis.Array<runtime.DebugFrame>, root: any}, $g: $sdk.GreyCat = globalThis.greycat.default): DebugInfo {
-      return new DebugInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], scopes, root);
-    }
-    static create(scopes: globalThis.Array<runtime.DebugFrame>, root: any, $g: $sdk.GreyCat = globalThis.greycat.default): DebugInfo {
-      return new DebugInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], scopes, root);
-    }
-  }
-
-  export class Runtime extends $sdk.GCObject {
-    static readonly _type = 'runtime::Runtime';
-
-
-    static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
-      return $g.call('runtime::Runtime::info', undefined, $signal);
-    }
-    static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::Runtime::abi', undefined, $signal);
-    }
-    static readModVar(mod_var: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
-      return $g.call('runtime::Runtime::readModVar', [mod_var], $signal);
-    }
-    static root($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
-      return $g.call('runtime::Runtime::root', undefined, $signal);
-    }
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
-      return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[46]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
-      return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[46]);
-    }
-  }
-
-  export class StoreStat extends $sdk.GCObject {
-    static readonly _type = 'runtime::StoreStat';
-
-    capacity_bytes: bigint | number;
-    allocated_bytes: bigint | number;
-    allocated_ratio: number;
-    remained_bytes: bigint | number;
-    remained_ratio: number;
-    used_bytes: bigint | number;
-    used_ratio: number;
-    available_bytes: bigint | number;
-    available_ratio: number;
-
-    static createFrom({capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio}: {capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number}, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
-      return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
-    }
-    static create(capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
-      return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
-    }
-  }
-
-  export class UserGroupPolicy extends $sdk.GCObject {
-    static readonly _type = 'runtime::UserGroupPolicy';
-
-    group_id: bigint | number;
-    type: runtime.UserGroupPolicyType;
-
-    static createFrom({group_id, type}: {group_id: bigint | number, type: runtime.UserGroupPolicyType}, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
-      return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], group_id, type);
-    }
-    static create(group_id: bigint | number, type: runtime.UserGroupPolicyType, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
-      return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], group_id, type);
-    }
-  }
-
-  export class LicenseType extends $sdk.GCEnum {
-    static readonly _type = 'runtime::LicenseType';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: LicenseType.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static community($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[49];
-      return t.static_values['community'];
-    }
-    static enterprise($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[49];
-      return t.static_values['enterprise'];
-    }
-    static testing($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[49];
-      return t.static_values['testing'];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[49];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace LicenseType  {
-    export type Field = 'community'|'enterprise'|'testing';
-  }
-  export class TaskStatus extends $sdk.GCEnum {
-    static readonly _type = 'runtime::TaskStatus';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: TaskStatus.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static empty($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['empty'];
-    }
-    static waiting($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['waiting'];
-    }
-    static running($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['running'];
-    }
-    static cancelled($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['cancelled'];
-    }
-    static error($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['error'];
-    }
-    static ended($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['ended'];
-    }
-    static ended_with_errors($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.static_values['ended_with_errors'];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[50];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace TaskStatus  {
-    export type Field = 'empty'|'waiting'|'running'|'cancelled'|'error'|'ended'|'ended_with_errors';
-  }
-  export class SecurityFields extends $sdk.GCObject {
-    static readonly _type = 'runtime::SecurityFields';
-
-    email: string | null;
-    name: string | null;
-    first_name: string | null;
-    last_name: string | null;
-    roles: globalThis.Map<string, string> | null;
-    groups: globalThis.Map<string, string> | null;
-
-    static set(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::SecurityFields::set', [f], $signal);
-    }
-    static get($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
-      return $g.call('runtime::SecurityFields::get', undefined, $signal);
-    }
-    static createFrom({email, name, first_name, last_name, roles, groups}: {email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: globalThis.Map<string, string> | null, groups: globalThis.Map<string, string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
-      return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], email, name, first_name, last_name, roles, groups);
-    }
-    static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: globalThis.Map<string, string> | null, groups: globalThis.Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
-      return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], email, name, first_name, last_name, roles, groups);
-    }
-  }
-
-  export class OpenIDConnect extends $sdk.GCObject {
-    static readonly _type = 'runtime::OpenIDConnect';
-
-    url: string;
-    clientId: string;
-
-    static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
-      return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
-    }
-    static createFrom({url, clientId}: {url: string, clientId: string}, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
-      return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[52], url, clientId);
-    }
-    static create(url: string, clientId: string, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
-      return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[52], url, clientId);
-    }
-  }
-
-  export class SecurityEntity extends $sdk.GCObject {
-    static readonly _type = 'runtime::SecurityEntity';
-
-    id: bigint | number;
-    name: string;
-    activated: boolean;
-
-    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
-      return $g.call('runtime::SecurityEntity::all', undefined, $signal);
-    }
-    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
-      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
-    }
-  }
-
-  export class Debug extends $sdk.GCObject {
-    static readonly _type = 'runtime::Debug';
-
-
-    static add(bps: globalThis.Array<runtime.DebugBreakpoint>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::Debug::add', [bps], $signal);
-    }
-    static remove(bps: globalThis.Array<runtime.DebugBreakpoint>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::Debug::remove', [bps], $signal);
-    }
-    static workers($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<bigint | number>> {
-      return $g.call('runtime::Debug::workers', undefined, $signal);
-    }
-    static pause(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::Debug::pause', [worker], $signal);
-    }
-    static resume(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::Debug::resume', [worker], $signal);
-    }
-    static info(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.DebugInfo> {
-      return $g.call('runtime::Debug::info', [worker], $signal);
-    }
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Debug {
-      return new Debug($g.abi.libs_by_name.get(stdlib.name)!.mapped[54]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Debug {
-      return new Debug($g.abi.libs_by_name.get(stdlib.name)!.mapped[54]);
-    }
-  }
-
-  export class SecurityPolicy extends $sdk.GCObject {
-    static readonly _type = 'runtime::SecurityPolicy';
-
-    entities: globalThis.Array<runtime.SecurityEntity>;
-    credentials: globalThis.Map<string, runtime.UserCredential>;
-    roles: globalThis.Map<string, runtime.UserRole>;
-    fields: runtime.SecurityFields | null;
-    keys: globalThis.Map<string, string> | null;
-    keys_last_refresh: $sdk.std.core.time | null;
-
-    static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
-      return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
-    }
-    static createFrom({entities, credentials, roles, fields, keys, keys_last_refresh}: {entities: globalThis.Array<runtime.SecurityEntity>, credentials: globalThis.Map<string, runtime.UserCredential>, roles: globalThis.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, keys: globalThis.Map<string, string> | null, keys_last_refresh: $sdk.std.core.time | null}, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
-      return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[55], entities, credentials, roles, fields, keys, keys_last_refresh);
-    }
-    static create(entities: globalThis.Array<runtime.SecurityEntity>, credentials: globalThis.Map<string, runtime.UserCredential>, roles: globalThis.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, keys: globalThis.Map<string, string> | null, keys_last_refresh: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
-      return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[55], entities, credentials, roles, fields, keys, keys_last_refresh);
-    }
-  }
-
-  export class UserCredential extends $sdk.GCObject {
-    static readonly _type = 'runtime::UserCredential';
-
-    offset: bigint | number;
-    pass: string | null;
-
-    static createFrom({offset, pass}: {offset: bigint | number, pass: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
-      return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], offset, pass);
-    }
-    static create(offset: bigint | number, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
-      return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], offset, pass);
-    }
-  }
-
   export class RuntimeInfo extends $sdk.GCObject {
     static readonly _type = 'runtime::RuntimeInfo';
 
@@ -3145,10 +2863,47 @@ export namespace runtime {
     store_stats: runtime.StoreStat | null;
 
     static createFrom({version, program_version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats}: {version: string, program_version: string | null, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null}, $g: $sdk.GreyCat = globalThis.greycat.default): RuntimeInfo {
-      return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], version, program_version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
+      return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[42], version, program_version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
     }
     static create(version: string, program_version: string | null, arch: string, timezone: core.TimeZone, license: runtime.License, io_threads: bigint | number, bg_threads: bigint | number, fg_threads: bigint | number, mem_total: bigint | number, mem_worker: bigint | number, nb_ctx: bigint | number, store_stats: runtime.StoreStat | null, $g: $sdk.GreyCat = globalThis.greycat.default): RuntimeInfo {
-      return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[57], version, program_version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
+      return new RuntimeInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[42], version, program_version, arch, timezone, license, io_threads, bg_threads, fg_threads, mem_total, mem_worker, nb_ctx, store_stats);
+    }
+  }
+
+  export class PeriodicTask extends $sdk.GCObject {
+    static readonly _type = 'runtime::PeriodicTask';
+
+    function: core.function_ | null;
+    user_id: bigint | number;
+    arguments: globalThis.Array<any> | null;
+    start: $sdk.std.core.time;
+    every: $sdk.std.core.duration;
+
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.PeriodicTask>> {
+      return $g.call('runtime::PeriodicTask::all', undefined, $signal);
+    }
+    static set(tasks: globalThis.Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::PeriodicTask::set', [tasks], $signal);
+    }
+    static createFrom({function_, user_id, arguments_, start, every}: {function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration}, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
+      return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], function_, user_id, arguments_, start, every);
+    }
+    static create(function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
+      return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[43], function_, user_id, arguments_, start, every);
+    }
+  }
+
+  export class UserGroupPolicy extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserGroupPolicy';
+
+    group_id: bigint | number;
+    type: runtime.UserGroupPolicyType;
+
+    static createFrom({group_id, type}: {group_id: bigint | number, type: runtime.UserGroupPolicyType}, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
+      return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], group_id, type);
+    }
+    static create(group_id: bigint | number, type: runtime.UserGroupPolicyType, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicy {
+      return new UserGroupPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[44], group_id, type);
     }
   }
 
@@ -3200,76 +2955,26 @@ export namespace runtime {
       return $g.call('runtime::User::getToken', [id], $signal);
     }
     static createFrom({id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external}: {id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: globalThis.Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean}, $g: $sdk.GreyCat = globalThis.greycat.default): User {
-      return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+      return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
     }
     static create(id: bigint | number, name: string, activated: boolean, full_name: string | null, email: string | null, role: string | null, permissions_flags: bigint | number | null, groups: globalThis.Array<runtime.UserGroupPolicy> | null, groups_flags: bigint | number | null, external: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): User {
-      return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
+      return new User($g.abi.libs_by_name.get(stdlib.name)!.mapped[45], id, name, activated, full_name, email, role, permissions_flags, groups, groups_flags, external);
     }
   }
 
-  export class DebugBreakpoint extends $sdk.GCObject {
-    static readonly _type = 'runtime::DebugBreakpoint';
+  export class TaskRequest extends $sdk.GCObject {
+    static readonly _type = 'runtime::TaskRequest';
 
-    module: string;
-    line: bigint | number;
-    column: bigint | number;
+    function: core.function_;
+    arguments: globalThis.Array<any> | null;
+    mode: runtime.TaskMode | null;
 
-    static createFrom({module, line, column}: {module: string, line: bigint | number, column: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): DebugBreakpoint {
-      return new DebugBreakpoint($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], module, line, column);
+    static createFrom({function_, arguments_, mode}: {function_: core.function_, arguments_: globalThis.Array<any> | null, mode: runtime.TaskMode | null}, $g: $sdk.GreyCat = globalThis.greycat.default): TaskRequest {
+      return new TaskRequest($g.abi.libs_by_name.get(stdlib.name)!.mapped[46], function_, arguments_, mode);
     }
-    static create(module: string, line: bigint | number, column: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): DebugBreakpoint {
-      return new DebugBreakpoint($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], module, line, column);
+    static create(function_: core.function_, arguments_: globalThis.Array<any> | null, mode: runtime.TaskMode | null, $g: $sdk.GreyCat = globalThis.greycat.default): TaskRequest {
+      return new TaskRequest($g.abi.libs_by_name.get(stdlib.name)!.mapped[46], function_, arguments_, mode);
     }
-  }
-
-  export class UserGroup extends $sdk.GCObject {
-    static readonly _type = 'runtime::UserGroup';
-
-    id: bigint | number;
-    name: string;
-    activated: boolean;
-
-    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
-      return $g.call('runtime::SecurityEntity::all', undefined, $signal);
-    }
-    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
-      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
-    }
-    static createFrom({id, name, activated}: {id: bigint | number, name: string, activated: boolean}, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
-      return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], id, name, activated);
-    }
-    static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
-      return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], id, name, activated);
-    }
-  }
-
-  export class TaskResult extends $sdk.GCObject {
-    static readonly _type = 'runtime::TaskResult';
-
-    values: globalThis.Array;
-    errors: bigint | number;
-
-    static createFrom({values, errors}: {values: globalThis.Array, errors: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): TaskResult {
-      return new TaskResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], values, errors);
-    }
-    static create(values: globalThis.Array, errors: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): TaskResult {
-      return new TaskResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], values, errors);
-    }
-  }
-
-  export class TaskBase extends $sdk.GCObject {
-    static readonly _type = 'runtime::TaskBase';
-
-    user_id: bigint | number;
-    task_id: bigint | number;
-    mod: string | null;
-    type: string | null;
-    fun: string | null;
-    creation: $sdk.std.core.time;
-    start: $sdk.std.core.time | null;
-    duration: $sdk.std.core.duration | null;
-    status: runtime.TaskStatus;
-
   }
 
   export class UserRole extends $sdk.GCObject {
@@ -3288,10 +2993,67 @@ export namespace runtime {
       return $g.call('runtime::UserRole::set', [value], $signal);
     }
     static createFrom({name, permissions}: {name: string, permissions: globalThis.Array<string>}, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
-      return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, permissions);
+      return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], name, permissions);
     }
     static create(name: string, permissions: globalThis.Array<string>, $g: $sdk.GreyCat = globalThis.greycat.default): UserRole {
-      return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[63], name, permissions);
+      return new UserRole($g.abi.libs_by_name.get(stdlib.name)!.mapped[47], name, permissions);
+    }
+  }
+
+  export class StoreStat extends $sdk.GCObject {
+    static readonly _type = 'runtime::StoreStat';
+
+    capacity_bytes: bigint | number;
+    allocated_bytes: bigint | number;
+    allocated_ratio: number;
+    remained_bytes: bigint | number;
+    remained_ratio: number;
+    used_bytes: bigint | number;
+    used_ratio: number;
+    available_bytes: bigint | number;
+    available_ratio: number;
+
+    static createFrom({capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio}: {capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number}, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
+      return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
+    }
+    static create(capacity_bytes: bigint | number, allocated_bytes: bigint | number, allocated_ratio: number, remained_bytes: bigint | number, remained_ratio: number, used_bytes: bigint | number, used_ratio: number, available_bytes: bigint | number, available_ratio: number, $g: $sdk.GreyCat = globalThis.greycat.default): StoreStat {
+      return new StoreStat($g.abi.libs_by_name.get(stdlib.name)!.mapped[48], capacity_bytes, allocated_bytes, allocated_ratio, remained_bytes, remained_ratio, used_bytes, used_ratio, available_bytes, available_ratio);
+    }
+  }
+
+  export class System extends $sdk.GCObject {
+    static readonly _type = 'runtime::System';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): System {
+      return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[49]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): System {
+      return new System($g.abi.libs_by_name.get(stdlib.name)!.mapped[49]);
+    }
+  }
+
+  export class Runtime extends $sdk.GCObject {
+    static readonly _type = 'runtime::Runtime';
+
+
+    static info($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.RuntimeInfo> {
+      return $g.call('runtime::Runtime::info', undefined, $signal);
+    }
+    static abi($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::Runtime::abi', undefined, $signal);
+    }
+    static readModVar(mod_var: string, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
+      return $g.call('runtime::Runtime::readModVar', [mod_var], $signal);
+    }
+    static root($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<any | null> {
+      return $g.call('runtime::Runtime::root', undefined, $signal);
+    }
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
+      return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[50]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Runtime {
+      return new Runtime($g.abi.libs_by_name.get(stdlib.name)!.mapped[50]);
     }
   }
 
@@ -3313,33 +3075,119 @@ export namespace runtime {
     sub_tasks_all: bigint | number | null;
 
     static createFrom({user_id, task_id, mod, type, fun, creation, start, duration, status, progress, remaining, sub_waiting, sub_tasks_all}: {user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus, progress: number | null, remaining: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): TaskInfo {
-      return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], user_id, task_id, mod, type, fun, creation, start, duration, status, progress, remaining, sub_waiting, sub_tasks_all);
+      return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], user_id, task_id, mod, type, fun, creation, start, duration, status, progress, remaining, sub_waiting, sub_tasks_all);
     }
     static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus, progress: number | null, remaining: $sdk.std.core.duration | null, sub_waiting: bigint | number | null, sub_tasks_all: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): TaskInfo {
-      return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], user_id, task_id, mod, type, fun, creation, start, duration, status, progress, remaining, sub_waiting, sub_tasks_all);
+      return new TaskInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[51], user_id, task_id, mod, type, fun, creation, start, duration, status, progress, remaining, sub_waiting, sub_tasks_all);
     }
   }
 
-  export class PeriodicTask extends $sdk.GCObject {
-    static readonly _type = 'runtime::PeriodicTask';
+  export class TaskStatus extends $sdk.GCEnum {
+    static readonly _type = 'runtime::TaskStatus';
 
-    function: core.function_ | null;
-    user_id: bigint | number;
-    arguments: globalThis.Array<any> | null;
-    start: $sdk.std.core.time;
-    every: $sdk.std.core.duration;
+    constructor(type: $sdk.AbiType, offset: number, public key: TaskStatus.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
 
-    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.PeriodicTask>> {
-      return $g.call('runtime::PeriodicTask::all', undefined, $signal);
+    static empty($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['empty'];
     }
-    static set(tasks: globalThis.Array<runtime.PeriodicTask>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
-      return $g.call('runtime::PeriodicTask::set', [tasks], $signal);
+    static waiting($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['waiting'];
     }
-    static createFrom({function_, user_id, arguments_, start, every}: {function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration}, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
-      return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], function_, user_id, arguments_, start, every);
+    static running($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['running'];
     }
-    static create(function_: core.function_ | null, user_id: bigint | number, arguments_: globalThis.Array<any> | null, start: $sdk.std.core.time, every: $sdk.std.core.duration, $g: $sdk.GreyCat = globalThis.greycat.default): PeriodicTask {
-      return new PeriodicTask($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], function_, user_id, arguments_, start, every);
+    static cancelled($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['cancelled'];
+    }
+    static error($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['error'];
+    }
+    static ended($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['ended'];
+    }
+    static ended_with_errors($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.static_values['ended_with_errors'];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TaskStatus[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[52];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace TaskStatus  {
+    export type Field = 'empty'|'waiting'|'running'|'cancelled'|'error'|'ended'|'ended_with_errors';
+  }
+  export class Debug extends $sdk.GCObject {
+    static readonly _type = 'runtime::Debug';
+
+
+    static add(bps: globalThis.Array<runtime.DebugBreakpoint>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::Debug::add', [bps], $signal);
+    }
+    static remove(bps: globalThis.Array<runtime.DebugBreakpoint>, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::Debug::remove', [bps], $signal);
+    }
+    static workers($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<bigint | number>> {
+      return $g.call('runtime::Debug::workers', undefined, $signal);
+    }
+    static pause(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::Debug::pause', [worker], $signal);
+    }
+    static resume(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::Debug::resume', [worker], $signal);
+    }
+    static info(worker: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.DebugInfo> {
+      return $g.call('runtime::Debug::info', [worker], $signal);
+    }
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Debug {
+      return new Debug($g.abi.libs_by_name.get(stdlib.name)!.mapped[53]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Debug {
+      return new Debug($g.abi.libs_by_name.get(stdlib.name)!.mapped[53]);
+    }
+  }
+
+  export class TaskResult extends $sdk.GCObject {
+    static readonly _type = 'runtime::TaskResult';
+
+    values: globalThis.Array;
+    errors: bigint | number;
+
+    static createFrom({values, errors}: {values: globalThis.Array, errors: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): TaskResult {
+      return new TaskResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[54], values, errors);
+    }
+    static create(values: globalThis.Array, errors: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): TaskResult {
+      return new TaskResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[54], values, errors);
+    }
+  }
+
+  export class SecurityPolicy extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityPolicy';
+
+    entities: globalThis.Array<runtime.SecurityEntity>;
+    credentials: globalThis.Map<string, runtime.UserCredential>;
+    roles: globalThis.Map<string, runtime.UserRole>;
+    fields: runtime.SecurityFields | null;
+    keys: globalThis.Map<string, string> | null;
+    keys_last_refresh: $sdk.std.core.time | null;
+
+    static permissions($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<string>> {
+      return $g.call('runtime::SecurityPolicy::permissions', undefined, $signal);
+    }
+    static createFrom({entities, credentials, roles, fields, keys, keys_last_refresh}: {entities: globalThis.Array<runtime.SecurityEntity>, credentials: globalThis.Map<string, runtime.UserCredential>, roles: globalThis.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, keys: globalThis.Map<string, string> | null, keys_last_refresh: $sdk.std.core.time | null}, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
+      return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[55], entities, credentials, roles, fields, keys, keys_last_refresh);
+    }
+    static create(entities: globalThis.Array<runtime.SecurityEntity>, credentials: globalThis.Map<string, runtime.UserCredential>, roles: globalThis.Map<string, runtime.UserRole>, fields: runtime.SecurityFields | null, keys: globalThis.Map<string, string> | null, keys_last_refresh: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityPolicy {
+      return new SecurityPolicy($g.abi.libs_by_name.get(stdlib.name)!.mapped[55], entities, credentials, roles, fields, keys, keys_last_refresh);
     }
   }
 
@@ -3352,10 +3200,94 @@ export namespace runtime {
     scope: globalThis.Map<string, any>;
 
     static createFrom({module, line, column, scope}: {module: string, line: bigint | number, column: bigint | number, scope: globalThis.Map<string, any>}, $g: $sdk.GreyCat = globalThis.greycat.default): DebugFrame {
-      return new DebugFrame($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], module, line, column, scope);
+      return new DebugFrame($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], module, line, column, scope);
     }
     static create(module: string, line: bigint | number, column: bigint | number, scope: globalThis.Map<string, any>, $g: $sdk.GreyCat = globalThis.greycat.default): DebugFrame {
-      return new DebugFrame($g.abi.libs_by_name.get(stdlib.name)!.mapped[66], module, line, column, scope);
+      return new DebugFrame($g.abi.libs_by_name.get(stdlib.name)!.mapped[56], module, line, column, scope);
+    }
+  }
+
+  export class TaskBase extends $sdk.GCObject {
+    static readonly _type = 'runtime::TaskBase';
+
+    user_id: bigint | number;
+    task_id: bigint | number;
+    mod: string | null;
+    type: string | null;
+    fun: string | null;
+    creation: $sdk.std.core.time;
+    start: $sdk.std.core.time | null;
+    duration: $sdk.std.core.duration | null;
+    status: runtime.TaskStatus;
+
+  }
+
+  export class OpenIDConnect extends $sdk.GCObject {
+    static readonly _type = 'runtime::OpenIDConnect';
+
+    url: string;
+    clientId: string;
+
+    static config($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.OpenIDConnect | null> {
+      return $g.call('runtime::OpenIDConnect::config', undefined, $signal);
+    }
+    static createFrom({url, clientId}: {url: string, clientId: string}, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
+      return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], url, clientId);
+    }
+    static create(url: string, clientId: string, $g: $sdk.GreyCat = globalThis.greycat.default): OpenIDConnect {
+      return new OpenIDConnect($g.abi.libs_by_name.get(stdlib.name)!.mapped[58], url, clientId);
+    }
+  }
+
+  export class SecurityFields extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityFields';
+
+    email: string | null;
+    name: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    roles: globalThis.Map<string, string> | null;
+    groups: globalThis.Map<string, string> | null;
+
+    static set(f: runtime.SecurityFields, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<unknown> {
+      return $g.call('runtime::SecurityFields::set', [f], $signal);
+    }
+    static get($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.SecurityFields | null> {
+      return $g.call('runtime::SecurityFields::get', undefined, $signal);
+    }
+    static createFrom({email, name, first_name, last_name, roles, groups}: {email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: globalThis.Map<string, string> | null, groups: globalThis.Map<string, string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
+      return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], email, name, first_name, last_name, roles, groups);
+    }
+    static create(email: string | null, name: string | null, first_name: string | null, last_name: string | null, roles: globalThis.Map<string, string> | null, groups: globalThis.Map<string, string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): SecurityFields {
+      return new SecurityFields($g.abi.libs_by_name.get(stdlib.name)!.mapped[59], email, name, first_name, last_name, roles, groups);
+    }
+  }
+
+  export class UserCredential extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserCredential';
+
+    offset: bigint | number;
+    pass: string | null;
+
+    static createFrom({offset, pass}: {offset: bigint | number, pass: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
+      return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], offset, pass);
+    }
+    static create(offset: bigint | number, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): UserCredential {
+      return new UserCredential($g.abi.libs_by_name.get(stdlib.name)!.mapped[60], offset, pass);
+    }
+  }
+
+  export class DebugInfo extends $sdk.GCObject {
+    static readonly _type = 'runtime::DebugInfo';
+
+    scopes: globalThis.Array<runtime.DebugFrame>;
+    root: any;
+
+    static createFrom({scopes, root}: {scopes: globalThis.Array<runtime.DebugFrame>, root: any}, $g: $sdk.GreyCat = globalThis.greycat.default): DebugInfo {
+      return new DebugInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], scopes, root);
+    }
+    static create(scopes: globalThis.Array<runtime.DebugFrame>, root: any, $g: $sdk.GreyCat = globalThis.greycat.default): DebugInfo {
+      return new DebugInfo($g.abi.libs_by_name.get(stdlib.name)!.mapped[61], scopes, root);
     }
   }
 
@@ -3367,19 +3299,19 @@ export namespace runtime {
     }
 
     static commit($g: $sdk.GreyCat = globalThis.greycat.default): TaskMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[62];
       return t.static_values['commit'];
     }
     static volatile($g: $sdk.GreyCat = globalThis.greycat.default): TaskMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[62];
       return t.static_values['volatile'];
     }
     static exclusive($g: $sdk.GreyCat = globalThis.greycat.default): TaskMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[62];
       return t.static_values['exclusive'];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TaskMode[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[62];
       return t.enum_values!;
     }
   }
@@ -3387,6 +3319,56 @@ export namespace runtime {
   export namespace TaskMode  {
     export type Field = 'commit'|'volatile'|'exclusive';
   }
+  export class SecurityEntity extends $sdk.GCObject {
+    static readonly _type = 'runtime::SecurityEntity';
+
+    id: bigint | number;
+    name: string;
+    activated: boolean;
+
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
+      return $g.call('runtime::SecurityEntity::all', undefined, $signal);
+    }
+    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
+    }
+  }
+
+  export class License extends $sdk.GCObject {
+    static readonly _type = 'runtime::License';
+
+    name: string | null;
+    start: $sdk.std.core.time;
+    end: $sdk.std.core.time;
+    company: string | null;
+    max_memory: bigint | number;
+    extra_1: bigint | number | null;
+    extra_2: bigint | number | null;
+    type: runtime.LicenseType | null;
+
+    static createFrom({name, start, end, company, max_memory, extra_1, extra_2, type}: {name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, type: runtime.LicenseType | null}, $g: $sdk.GreyCat = globalThis.greycat.default): License {
+      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], name, start, end, company, max_memory, extra_1, extra_2, type);
+    }
+    static create(name: string | null, start: $sdk.std.core.time, end: $sdk.std.core.time, company: string | null, max_memory: bigint | number, extra_1: bigint | number | null, extra_2: bigint | number | null, type: runtime.LicenseType | null, $g: $sdk.GreyCat = globalThis.greycat.default): License {
+      return new License($g.abi.libs_by_name.get(stdlib.name)!.mapped[64], name, start, end, company, max_memory, extra_1, extra_2, type);
+    }
+  }
+
+  export class DebugBreakpoint extends $sdk.GCObject {
+    static readonly _type = 'runtime::DebugBreakpoint';
+
+    module: string;
+    line: bigint | number;
+    column: bigint | number;
+
+    static createFrom({module, line, column}: {module: string, line: bigint | number, column: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): DebugBreakpoint {
+      return new DebugBreakpoint($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], module, line, column);
+    }
+    static create(module: string, line: bigint | number, column: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): DebugBreakpoint {
+      return new DebugBreakpoint($g.abi.libs_by_name.get(stdlib.name)!.mapped[65], module, line, column);
+    }
+  }
+
   export class UserGroupPolicyType extends $sdk.GCEnum {
     static readonly _type = 'runtime::UserGroupPolicyType';
 
@@ -3395,19 +3377,19 @@ export namespace runtime {
     }
 
     static read($g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicyType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[68];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[66];
       return t.static_values['read'];
     }
     static write($g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicyType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[68];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[66];
       return t.static_values['write'];
     }
     static execute($g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicyType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[68];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[66];
       return t.static_values['execute'];
     }
     static $fields($g: $sdk.GreyCat = globalThis.greycat.default): UserGroupPolicyType[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[68];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[66];
       return t.enum_values!;
     }
   }
@@ -3415,6 +3397,88 @@ export namespace runtime {
   export namespace UserGroupPolicyType  {
     export type Field = 'read'|'write'|'execute';
   }
+  export class LicenseType extends $sdk.GCEnum {
+    static readonly _type = 'runtime::LicenseType';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: LicenseType.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static community($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      return t.static_values['community'];
+    }
+    static enterprise($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      return t.static_values['enterprise'];
+    }
+    static testing($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      return t.static_values['testing'];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): LicenseType[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[67];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace LicenseType  {
+    export type Field = 'community'|'enterprise'|'testing';
+  }
+  export class Task extends $sdk.GCObject {
+    static readonly _type = 'runtime::Task';
+
+    user_id: bigint | number;
+    task_id: bigint | number;
+    mod: string | null;
+    type: string | null;
+    fun: string | null;
+    creation: $sdk.std.core.time;
+    start: $sdk.std.core.time | null;
+    duration: $sdk.std.core.duration | null;
+    status: runtime.TaskStatus;
+
+    static running($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.TaskInfo>> {
+      return $g.call('runtime::Task::running', undefined, $signal);
+    }
+    static history(offset: bigint | number, max: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.Task>> {
+      return $g.call('runtime::Task::history', [offset, max], $signal);
+    }
+    static cancel(task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<boolean> {
+      return $g.call('runtime::Task::cancel', [task_id], $signal);
+    }
+    static info(user_id: bigint | number, task_id: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<runtime.TaskInfo | null> {
+      return $g.call('runtime::Task::info', [user_id, task_id], $signal);
+    }
+    static createFrom({user_id, task_id, mod, type, fun, creation, start, duration, status}: {user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus}, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
+      return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], user_id, task_id, mod, type, fun, creation, start, duration, status);
+    }
+    static create(user_id: bigint | number, task_id: bigint | number, mod: string | null, type: string | null, fun: string | null, creation: $sdk.std.core.time, start: $sdk.std.core.time | null, duration: $sdk.std.core.duration | null, status: runtime.TaskStatus, $g: $sdk.GreyCat = globalThis.greycat.default): Task {
+      return new Task($g.abi.libs_by_name.get(stdlib.name)!.mapped[68], user_id, task_id, mod, type, fun, creation, start, duration, status);
+    }
+  }
+
+  export class UserGroup extends $sdk.GCObject {
+    static readonly _type = 'runtime::UserGroup';
+
+    id: bigint | number;
+    name: string;
+    activated: boolean;
+
+    static all($g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<globalThis.Array<runtime.SecurityEntity>> {
+      return $g.call('runtime::SecurityEntity::all', undefined, $signal);
+    }
+    static set(entity: runtime.SecurityEntity, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<bigint | number | null> {
+      return $g.call('runtime::SecurityEntity::set', [entity], $signal);
+    }
+    static createFrom({id, name, activated}: {id: bigint | number, name: string, activated: boolean}, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
+      return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], id, name, activated);
+    }
+    static create(id: bigint | number, name: string, activated: boolean, $g: $sdk.GreyCat = globalThis.greycat.default): UserGroup {
+      return new UserGroup($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], id, name, activated);
+    }
+  }
+
 }
 
 export namespace io {
@@ -3429,10 +3493,195 @@ export namespace io {
     as_time: boolean | null;
 
     static createFrom({name, mandatory, offset, format, tz, as_time}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
-      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], name, mandatory, offset, format, tz, as_time);
+      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, offset, format, tz, as_time);
     }
     static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, format: string | null, tz: core.TimeZone | null, as_time: boolean | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDate {
-      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[69], name, mandatory, offset, format, tz, as_time);
+      return new CsvColumnDate($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, mandatory, offset, format, tz, as_time);
+    }
+  }
+
+  export class Email extends $sdk.GCObject {
+    static readonly _type = 'io::Email';
+
+    from: string;
+    subject: string;
+    body: string;
+    body_is_html: boolean;
+    to: globalThis.Array<string>;
+    cc: globalThis.Array<string> | null;
+    bcc: globalThis.Array<string> | null;
+
+    static createFrom({from, subject, body, body_is_html, to, cc, bcc}: {from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
+      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[71], from, subject, body, body_is_html, to, cc, bcc);
+    }
+    static create(from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
+      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[71], from, subject, body, body_is_html, to, cc, bcc);
+    }
+  }
+
+  export class Mqtt extends $sdk.GCObject {
+    static readonly _type = 'io::Mqtt';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Mqtt {
+      return new Mqtt($g.abi.libs_by_name.get(stdlib.name)!.mapped[72]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Mqtt {
+      return new Mqtt($g.abi.libs_by_name.get(stdlib.name)!.mapped[72]);
+    }
+  }
+
+  export class CsvValidateResult extends $sdk.GCObject {
+    static readonly _type = 'io::CsvValidateResult';
+
+    line_count: bigint | number;
+    fail_count: bigint | number;
+    invalid_count: globalThis.Array<bigint | number>;
+
+    static createFrom({line_count, fail_count, invalid_count}: {line_count: bigint | number, fail_count: bigint | number, invalid_count: globalThis.Array<bigint | number>}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvValidateResult {
+      return new CsvValidateResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], line_count, fail_count, invalid_count);
+    }
+    static create(line_count: bigint | number, fail_count: bigint | number, invalid_count: globalThis.Array<bigint | number>, $g: $sdk.GreyCat = globalThis.greycat.default): CsvValidateResult {
+      return new CsvValidateResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], line_count, fail_count, invalid_count);
+    }
+  }
+
+  export class File extends $sdk.GCObject {
+    static readonly _type = 'io::File';
+
+    path: string;
+    size: bigint | number | null;
+    last_modification: $sdk.std.core.time | null;
+
+    static createFrom({path, size, last_modification}: {path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null}, $g: $sdk.GreyCat = globalThis.greycat.default): File {
+      return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], path, size, last_modification);
+    }
+    static create(path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): File {
+      return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[74], path, size, last_modification);
+    }
+  }
+
+  export class TextEncoder extends $sdk.GCEnum {
+    static readonly _type = 'io::TextEncoder';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: TextEncoder.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[75];
+      return t.static_values['plain'];
+    }
+    static base64($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[75];
+      return t.static_values['base64'];
+    }
+    static base64url($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[75];
+      return t.static_values['base64url'];
+    }
+    static hexadecimal($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[75];
+      return t.static_values['hexadecimal'];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[75];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace TextEncoder  {
+    export type Field = 'plain'|'base64'|'base64url'|'hexadecimal';
+  }
+  export class Url extends $sdk.GCObject {
+    static readonly _type = 'io::Url';
+
+    protocol: string | null;
+    host: string | null;
+    port: bigint | number | null;
+    path: string | null;
+    params: globalThis.Map<string, string> | null;
+    hash: string | null;
+
+    static createFrom({protocol, host, port, path, params, hash}: {protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
+      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[76], protocol, host, port, path, params, hash);
+    }
+    static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
+      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[76], protocol, host, port, path, params, hash);
+    }
+  }
+
+  export class CsvColumnTime extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnTime';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    unit: core.DurationUnit | null;
+
+    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
+      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[77], name, mandatory, offset, unit);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
+      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[77], name, mandatory, offset, unit);
+    }
+  }
+
+  export class CsvAnalysisConfig extends $sdk.GCObject {
+    static readonly _type = 'io::CsvAnalysisConfig';
+
+    header_lines: bigint | number | null;
+    separator: string | null;
+    string_delimiter: string | null;
+    decimal_separator: string | null;
+    thousands_separator: string | null;
+    row_limit: bigint | number | null;
+    enumerable_limit: bigint | number | null;
+    date_check_limit: bigint | number | null;
+    date_formats: globalThis.Array<string> | null;
+
+    static enumerable_limit_default($g: $sdk.GreyCat = globalThis.greycat.default): bigint {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[78];
+      return  t.static_values['enumerable_limit_default'] as bigint;
+    }
+    static date_check_limit_default($g: $sdk.GreyCat = globalThis.greycat.default): bigint {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[78];
+      return  t.static_values['date_check_limit_default'] as bigint;
+    }
+    static createFrom({header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats}: {header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, row_limit: bigint | number | null, enumerable_limit: bigint | number | null, date_check_limit: bigint | number | null, date_formats: globalThis.Array<string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysisConfig {
+      return new CsvAnalysisConfig($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats);
+    }
+    static create(header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, row_limit: bigint | number | null, enumerable_limit: bigint | number | null, date_check_limit: bigint | number | null, date_formats: globalThis.Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysisConfig {
+      return new CsvAnalysisConfig($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats);
+    }
+  }
+
+  export class HttpHeader extends $sdk.GCObject {
+    static readonly _type = 'io::HttpHeader';
+
+    name: string;
+    value: string;
+
+    static createFrom({name, value}: {name: string, value: string}, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
+      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[79], name, value);
+    }
+    static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
+      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[79], name, value);
+    }
+  }
+
+  export class CsvColumnBoolean extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnBoolean';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
+      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[80], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
+      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[80], name, mandatory, offset);
     }
   }
 
@@ -3452,10 +3701,179 @@ export namespace io {
     profile: util.Gaussian;
 
     static createFrom({name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, enumerable_count, profile}: {name: string | null, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, enumerable_count: globalThis.Map<any, bigint | number>, profile: util.Gaussian}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
-      return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, enumerable_count, profile);
+      return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, enumerable_count, profile);
     }
     static create(name: string | null, example: any | null, null_count: bigint | number, bool_count: bigint | number, int_count: bigint | number, float_count: bigint | number, string_count: bigint | number, date_count: bigint | number, date_format_count: globalThis.Map<string, bigint | number>, enumerable_count: globalThis.Map<any, bigint | number>, profile: util.Gaussian, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnStatistics {
-      return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[70], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, enumerable_count, profile);
+      return new CsvColumnStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], name, example, null_count, bool_count, int_count, float_count, string_count, date_count, date_format_count, enumerable_count, profile);
+    }
+  }
+
+  export class Smtp extends $sdk.GCObject {
+    static readonly _type = 'io::Smtp';
+
+    host: string;
+    port: bigint | number;
+    mode: io.SmtpMode | null;
+    authenticate: io.SmtpAuth | null;
+    user: string | null;
+    pass: string | null;
+
+    static createFrom({host, port, mode, authenticate, user, pass}: {host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
+      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], host, port, mode, authenticate, user, pass);
+    }
+    static create(host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
+      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], host, port, mode, authenticate, user, pass);
+    }
+  }
+
+  export class CsvColumnInteger extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnInteger';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
+      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[83], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
+      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[83], name, mandatory, offset);
+    }
+  }
+
+  export class SmtpAuth extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpAuth';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpAuth.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static none($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
+      return t.static_values['none'];
+    }
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
+      return t.static_values['plain'];
+    }
+    static login($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
+      return t.static_values['login'];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace SmtpAuth  {
+    export type Field = 'none'|'plain'|'login';
+  }
+  export class CsvColumnFloat extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnFloat';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
+      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
+      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], name, mandatory, offset);
+    }
+  }
+
+  export class CsvColumnString extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnString';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    trim: boolean | null;
+    try_number: boolean | null;
+    try_json: boolean | null;
+    values: globalThis.Array<string> | null;
+    encoder: io.TextEncoder | null;
+
+    static createFrom({name, mandatory, offset, trim, try_number, try_json, values, encoder}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
+      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[86], name, mandatory, offset, trim, try_number, try_json, values, encoder);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
+      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[86], name, mandatory, offset, trim, try_number, try_json, values, encoder);
+    }
+  }
+
+  export class SmtpMode extends $sdk.GCEnum {
+    static readonly _type = 'io::SmtpMode';
+
+    constructor(type: $sdk.AbiType, offset: number, public key: SmtpMode.Field, value: $sdk.Value) {
+      super(type, offset, key, value);
+    }
+
+    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[87];
+      return t.static_values['plain'];
+    }
+    static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[87];
+      return t.static_values['ssl_tls'];
+    }
+    static starttls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[87];
+      return t.static_values['starttls'];
+    }
+    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode[] {
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[87];
+      return t.enum_values!;
+    }
+  }
+
+  export namespace SmtpMode  {
+    export type Field = 'plain'|'ssl_tls'|'starttls';
+  }
+  export class CsvColumnDuration extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnDuration';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+    unit: core.DurationUnit | null;
+
+    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
+      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], name, mandatory, offset, unit);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
+      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], name, mandatory, offset, unit);
+    }
+  }
+
+  export class Http extends $sdk.GCObject {
+    static readonly _type = 'io::Http';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Http {
+      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[89]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
+      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[89]);
+    }
+  }
+
+  export class CsvAnalysis extends $sdk.GCObject {
+    static readonly _type = 'io::CsvAnalysis';
+
+    config: io.CsvAnalysisConfig | null;
+    statistics: io.CsvStatistics | null;
+
+    static analyze(file_path: string, config: io.CsvAnalysisConfig | null, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<io.CsvStatistics> {
+      return $g.call('io::CsvAnalysis::analyze', [file_path, config], $signal);
+    }
+    static createFrom({config, statistics}: {config: io.CsvAnalysisConfig | null, statistics: io.CsvStatistics | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysis {
+      return new CsvAnalysis($g.abi.libs_by_name.get(stdlib.name)!.mapped[90], config, statistics);
+    }
+    static create(config: io.CsvAnalysisConfig | null, statistics: io.CsvStatistics | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysis {
+      return new CsvAnalysis($g.abi.libs_by_name.get(stdlib.name)!.mapped[90], config, statistics);
     }
   }
 
@@ -3483,11 +3901,35 @@ export namespace io {
       return $g.call('io::CsvFormat::infer', [analysis], $signal);
     }
     static createFrom({header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns}: {header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns_size: bigint | number | null, columns: globalThis.Array<io.CsvColumn> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
-      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[71], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
+      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
     }
     static create(header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns_size: bigint | number | null, columns: globalThis.Array<io.CsvColumn> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvFormat {
-      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[71], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
+      return new CsvFormat($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns_size, columns);
     }
+  }
+
+  export class CsvColumnIgnored extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumnIgnored';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+
+    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
+      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[92], name, mandatory, offset);
+    }
+    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
+      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[92], name, mandatory, offset);
+    }
+  }
+
+  export class CsvColumn extends $sdk.GCObject {
+    static readonly _type = 'io::CsvColumn';
+
+    name: string | null;
+    mandatory: boolean | null;
+    offset: bigint | number | null;
+
   }
 
   export class CsvStatistics extends $sdk.GCObject {
@@ -3504,551 +3946,16 @@ export namespace io {
     file_count: bigint | number;
 
     static createFrom({header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns, line_count, fail_count, file_count}: {header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: globalThis.Array<io.CsvColumnStatistics>, line_count: bigint | number, fail_count: bigint | number, file_count: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvStatistics {
-      return new CsvStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns, line_count, fail_count, file_count);
+      return new CsvStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[94], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns, line_count, fail_count, file_count);
     }
     static create(header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, columns: globalThis.Array<io.CsvColumnStatistics>, line_count: bigint | number, fail_count: bigint | number, file_count: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): CsvStatistics {
-      return new CsvStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[72], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns, line_count, fail_count, file_count);
-    }
-  }
-
-  export class Url extends $sdk.GCObject {
-    static readonly _type = 'io::Url';
-
-    protocol: string | null;
-    host: string | null;
-    port: bigint | number | null;
-    path: string | null;
-    params: globalThis.Map<string, string> | null;
-    hash: string | null;
-
-    static createFrom({protocol, host, port, path, params, hash}: {protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
-      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], protocol, host, port, path, params, hash);
-    }
-    static create(protocol: string | null, host: string | null, port: bigint | number | null, path: string | null, params: globalThis.Map<string, string> | null, hash: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Url {
-      return new Url($g.abi.libs_by_name.get(stdlib.name)!.mapped[73], protocol, host, port, path, params, hash);
-    }
-  }
-
-  export class SmtpAuth extends $sdk.GCEnum {
-    static readonly _type = 'io::SmtpAuth';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: SmtpAuth.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static none($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[74];
-      return t.static_values['none'];
-    }
-    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[74];
-      return t.static_values['plain'];
-    }
-    static login($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[74];
-      return t.static_values['login'];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpAuth[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[74];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace SmtpAuth  {
-    export type Field = 'none'|'plain'|'login';
-  }
-  export class Email extends $sdk.GCObject {
-    static readonly _type = 'io::Email';
-
-    from: string;
-    subject: string;
-    body: string;
-    body_is_html: boolean;
-    to: globalThis.Array<string>;
-    cc: globalThis.Array<string> | null;
-    bcc: globalThis.Array<string> | null;
-
-    static createFrom({from, subject, body, body_is_html, to, cc, bcc}: {from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
-      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[75], from, subject, body, body_is_html, to, cc, bcc);
-    }
-    static create(from: string, subject: string, body: string, body_is_html: boolean, to: globalThis.Array<string>, cc: globalThis.Array<string> | null, bcc: globalThis.Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): Email {
-      return new Email($g.abi.libs_by_name.get(stdlib.name)!.mapped[75], from, subject, body, body_is_html, to, cc, bcc);
-    }
-  }
-
-  export class CsvColumnTime extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnTime';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-    unit: core.DurationUnit | null;
-
-    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
-      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[76], name, mandatory, offset, unit);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnTime {
-      return new CsvColumnTime($g.abi.libs_by_name.get(stdlib.name)!.mapped[76], name, mandatory, offset, unit);
-    }
-  }
-
-  export class CsvColumn extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumn';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-
-  }
-
-  export class CsvAnalysis extends $sdk.GCObject {
-    static readonly _type = 'io::CsvAnalysis';
-
-    config: io.CsvAnalysisConfig | null;
-    statistics: io.CsvStatistics | null;
-
-    static analyze(file_path: string, config: io.CsvAnalysisConfig | null, $g: $sdk.GreyCat = globalThis.greycat.default, $signal?: AbortSignal): Promise<io.CsvStatistics> {
-      return $g.call('io::CsvAnalysis::analyze', [file_path, config], $signal);
-    }
-    static createFrom({config, statistics}: {config: io.CsvAnalysisConfig | null, statistics: io.CsvStatistics | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysis {
-      return new CsvAnalysis($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], config, statistics);
-    }
-    static create(config: io.CsvAnalysisConfig | null, statistics: io.CsvStatistics | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysis {
-      return new CsvAnalysis($g.abi.libs_by_name.get(stdlib.name)!.mapped[78], config, statistics);
-    }
-  }
-
-  export class HttpHeader extends $sdk.GCObject {
-    static readonly _type = 'io::HttpHeader';
-
-    name: string;
-    value: string;
-
-    static createFrom({name, value}: {name: string, value: string}, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
-      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[79], name, value);
-    }
-    static create(name: string, value: string, $g: $sdk.GreyCat = globalThis.greycat.default): HttpHeader {
-      return new HttpHeader($g.abi.libs_by_name.get(stdlib.name)!.mapped[79], name, value);
-    }
-  }
-
-  export class Mqtt extends $sdk.GCObject {
-    static readonly _type = 'io::Mqtt';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Mqtt {
-      return new Mqtt($g.abi.libs_by_name.get(stdlib.name)!.mapped[80]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Mqtt {
-      return new Mqtt($g.abi.libs_by_name.get(stdlib.name)!.mapped[80]);
-    }
-  }
-
-  export class CsvValidateResult extends $sdk.GCObject {
-    static readonly _type = 'io::CsvValidateResult';
-
-    line_count: bigint | number;
-    fail_count: bigint | number;
-    invalid_count: globalThis.Array<bigint | number>;
-
-    static createFrom({line_count, fail_count, invalid_count}: {line_count: bigint | number, fail_count: bigint | number, invalid_count: globalThis.Array<bigint | number>}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvValidateResult {
-      return new CsvValidateResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], line_count, fail_count, invalid_count);
-    }
-    static create(line_count: bigint | number, fail_count: bigint | number, invalid_count: globalThis.Array<bigint | number>, $g: $sdk.GreyCat = globalThis.greycat.default): CsvValidateResult {
-      return new CsvValidateResult($g.abi.libs_by_name.get(stdlib.name)!.mapped[81], line_count, fail_count, invalid_count);
-    }
-  }
-
-  export class CsvColumnString extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnString';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-    trim: boolean | null;
-    try_number: boolean | null;
-    try_json: boolean | null;
-    values: globalThis.Array<string> | null;
-    encoder: io.TextEncoder | null;
-
-    static createFrom({name, mandatory, offset, trim, try_number, try_json, values, encoder}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
-      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], name, mandatory, offset, trim, try_number, try_json, values, encoder);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, trim: boolean | null, try_number: boolean | null, try_json: boolean | null, values: globalThis.Array<string> | null, encoder: io.TextEncoder | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnString {
-      return new CsvColumnString($g.abi.libs_by_name.get(stdlib.name)!.mapped[82], name, mandatory, offset, trim, try_number, try_json, values, encoder);
-    }
-  }
-
-  export class Http extends $sdk.GCObject {
-    static readonly _type = 'io::Http';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Http {
-      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Http {
-      return new Http($g.abi.libs_by_name.get(stdlib.name)!.mapped[83]);
-    }
-  }
-
-  export class CsvAnalysisConfig extends $sdk.GCObject {
-    static readonly _type = 'io::CsvAnalysisConfig';
-
-    header_lines: bigint | number | null;
-    separator: string | null;
-    string_delimiter: string | null;
-    decimal_separator: string | null;
-    thousands_separator: string | null;
-    row_limit: bigint | number | null;
-    enumerable_limit: bigint | number | null;
-    date_check_limit: bigint | number | null;
-    date_formats: globalThis.Array<string> | null;
-
-    static enumerable_limit_default($g: $sdk.GreyCat = globalThis.greycat.default): bigint {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
-      return  t.static_values['enumerable_limit_default'] as bigint;
-    }
-    static date_check_limit_default($g: $sdk.GreyCat = globalThis.greycat.default): bigint {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[84];
-      return  t.static_values['date_check_limit_default'] as bigint;
-    }
-    static createFrom({header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats}: {header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, row_limit: bigint | number | null, enumerable_limit: bigint | number | null, date_check_limit: bigint | number | null, date_formats: globalThis.Array<string> | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysisConfig {
-      return new CsvAnalysisConfig($g.abi.libs_by_name.get(stdlib.name)!.mapped[84], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats);
-    }
-    static create(header_lines: bigint | number | null, separator: string | null, string_delimiter: string | null, decimal_separator: string | null, thousands_separator: string | null, row_limit: bigint | number | null, enumerable_limit: bigint | number | null, date_check_limit: bigint | number | null, date_formats: globalThis.Array<string> | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvAnalysisConfig {
-      return new CsvAnalysisConfig($g.abi.libs_by_name.get(stdlib.name)!.mapped[84], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, row_limit, enumerable_limit, date_check_limit, date_formats);
-    }
-  }
-
-  export class CsvColumnBoolean extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnBoolean';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-
-    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
-      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], name, mandatory, offset);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnBoolean {
-      return new CsvColumnBoolean($g.abi.libs_by_name.get(stdlib.name)!.mapped[85], name, mandatory, offset);
-    }
-  }
-
-  export class CsvColumnIgnored extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnIgnored';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-
-    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
-      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[86], name, mandatory, offset);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnIgnored {
-      return new CsvColumnIgnored($g.abi.libs_by_name.get(stdlib.name)!.mapped[86], name, mandatory, offset);
-    }
-  }
-
-  export class CsvColumnFloat extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnFloat';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-
-    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
-      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], name, mandatory, offset);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnFloat {
-      return new CsvColumnFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[87], name, mandatory, offset);
-    }
-  }
-
-  export class CsvColumnDuration extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnDuration';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-    unit: core.DurationUnit | null;
-
-    static createFrom({name, mandatory, offset, unit}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
-      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], name, mandatory, offset, unit);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, unit: core.DurationUnit | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnDuration {
-      return new CsvColumnDuration($g.abi.libs_by_name.get(stdlib.name)!.mapped[88], name, mandatory, offset, unit);
-    }
-  }
-
-  export class CsvColumnInteger extends $sdk.GCObject {
-    static readonly _type = 'io::CsvColumnInteger';
-
-    name: string | null;
-    mandatory: boolean | null;
-    offset: bigint | number | null;
-
-    static createFrom({name, mandatory, offset}: {name: string | null, mandatory: boolean | null, offset: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
-      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[89], name, mandatory, offset);
-    }
-    static create(name: string | null, mandatory: boolean | null, offset: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): CsvColumnInteger {
-      return new CsvColumnInteger($g.abi.libs_by_name.get(stdlib.name)!.mapped[89], name, mandatory, offset);
-    }
-  }
-
-  export class TextEncoder extends $sdk.GCEnum {
-    static readonly _type = 'io::TextEncoder';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: TextEncoder.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static plain($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[90];
-      return t.static_values['plain'];
-    }
-    static base64($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[90];
-      return t.static_values['base64'];
-    }
-    static base64url($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[90];
-      return t.static_values['base64url'];
-    }
-    static hexadecimal($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[90];
-      return t.static_values['hexadecimal'];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): TextEncoder[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[90];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace TextEncoder  {
-    export type Field = 'plain'|'base64'|'base64url'|'hexadecimal';
-  }
-  export class Smtp extends $sdk.GCObject {
-    static readonly _type = 'io::Smtp';
-
-    host: string;
-    port: bigint | number;
-    mode: io.SmtpMode | null;
-    authenticate: io.SmtpAuth | null;
-    user: string | null;
-    pass: string | null;
-
-    static createFrom({host, port, mode, authenticate, user, pass}: {host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
-      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], host, port, mode, authenticate, user, pass);
-    }
-    static create(host: string, port: bigint | number, mode: io.SmtpMode | null, authenticate: io.SmtpAuth | null, user: string | null, pass: string | null, $g: $sdk.GreyCat = globalThis.greycat.default): Smtp {
-      return new Smtp($g.abi.libs_by_name.get(stdlib.name)!.mapped[91], host, port, mode, authenticate, user, pass);
-    }
-  }
-
-  export class SmtpMode extends $sdk.GCEnum {
-    static readonly _type = 'io::SmtpMode';
-
-    constructor(type: $sdk.AbiType, offset: number, public key: SmtpMode.Field, value: $sdk.Value) {
-      super(type, offset, key, value);
-    }
-
-    static plain($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[92];
-      return t.static_values['plain'];
-    }
-    static ssl_tls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[92];
-      return t.static_values['ssl_tls'];
-    }
-    static starttls($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[92];
-      return t.static_values['starttls'];
-    }
-    static $fields($g: $sdk.GreyCat = globalThis.greycat.default): SmtpMode[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[92];
-      return t.enum_values!;
-    }
-  }
-
-  export namespace SmtpMode  {
-    export type Field = 'plain'|'ssl_tls'|'starttls';
-  }
-  export class File extends $sdk.GCObject {
-    static readonly _type = 'io::File';
-
-    path: string;
-    size: bigint | number | null;
-    last_modification: $sdk.std.core.time | null;
-
-    static createFrom({path, size, last_modification}: {path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null}, $g: $sdk.GreyCat = globalThis.greycat.default): File {
-      return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[93], path, size, last_modification);
-    }
-    static create(path: string, size: bigint | number | null, last_modification: $sdk.std.core.time | null, $g: $sdk.GreyCat = globalThis.greycat.default): File {
-      return new File($g.abi.libs_by_name.get(stdlib.name)!.mapped[93], path, size, last_modification);
-    }
-  }
-
-}
-
-export namespace math {
-  export class MathConstants extends $sdk.GCObject {
-    static readonly _type = 'math::MathConstants';
-
-
-    static e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['e'] as number;
-    }
-    static log_2e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['log_2e'] as number;
-    }
-    static log_10e($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['log_10e'] as number;
-    }
-    static ln2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['ln2'] as number;
-    }
-    static ln10($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['ln10'] as number;
-    }
-    static pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['pi'] as number;
-    }
-    static pi_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['pi_2'] as number;
-    }
-    static pi_4($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['pi_4'] as number;
-    }
-    static m1_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['m1_pi'] as number;
-    }
-    static m2_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['m2_pi'] as number;
-    }
-    static m2_sqrt_pi($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['m2_sqrt_pi'] as number;
-    }
-    static sqrt2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['sqrt2'] as number;
-    }
-    static sqrt1_2($g: $sdk.GreyCat = globalThis.greycat.default): number {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[94];
-      return  t.static_values['sqrt1_2'] as number;
-    }
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
-      return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[94]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): MathConstants {
-      return new MathConstants($g.abi.libs_by_name.get(stdlib.name)!.mapped[94]);
+      return new CsvStatistics($g.abi.libs_by_name.get(stdlib.name)!.mapped[94], header_lines, separator, string_delimiter, decimal_separator, thousands_separator, columns, line_count, fail_count, file_count);
     }
   }
 
 }
 
 export namespace util {
-  export class SlidingWindow extends std_n.util.SlidingWindow {
-  }
-
-  export class DenseDim extends $sdk.GCObject {
-    static readonly _type = 'util::DenseDim';
-
-    min: bigint | number;
-    max: bigint | number;
-    step: bigint | number;
-
-    static createFrom({min, max, step}: {min: bigint | number, max: bigint | number, step: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
-      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[96], min, max, step);
-    }
-    static create(min: bigint | number, max: bigint | number, step: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
-      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[96], min, max, step);
-    }
-  }
-
-  export class Random extends $sdk.GCObject {
-    static readonly _type = 'util::Random';
-
-    seed: bigint | number;
-    v: number;
-
-    static createFrom({seed, v}: {seed: bigint | number, v: number}, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[97], seed, v);
-    }
-    static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[97], seed, v);
-    }
-  }
-
-  export class Crypto extends $sdk.GCObject {
-    static readonly _type = 'util::Crypto';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[98]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[98]);
-    }
-  }
-
-  export class HistogramFloat extends std_n.util.HistogramFloat {
-  }
-
-  export class BoxPlotInt extends $sdk.GCObject {
-    static readonly _type = 'util::BoxPlotInt';
-
-    min: bigint | number;
-    max: bigint | number;
-    whiskerLow: bigint | number;
-    whiskerHigh: bigint | number;
-    percentile1: bigint | number;
-    percentile5: bigint | number;
-    percentile25: bigint | number;
-    percentile50: bigint | number;
-    percentile75: bigint | number;
-    percentile95: bigint | number;
-    percentile99: bigint | number;
-    countOutliersLow: bigint | number;
-    countOutliersHigh: bigint | number;
-    percentageOutliersLow: number;
-    percentageOutliersHigh: number;
-    sum: number;
-    avg: number;
-    std: number;
-    size: bigint | number;
-
-    static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[100], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-    static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[100], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-  }
-
-  export class Assert extends $sdk.GCObject {
-    static readonly _type = 'util::Assert';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
-      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[101]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
-      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[101]);
-    }
-  }
-
   export class ProgressTracker extends $sdk.GCObject {
     static readonly _type = 'util::ProgressTracker';
 
@@ -4061,10 +3968,51 @@ export namespace util {
     remaining: $sdk.std.core.duration | null;
 
     static createFrom({start, total, counter, duration, progress, speed, remaining}: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null}, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[102], start, total, counter, duration, progress, speed, remaining);
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[95], start, total, counter, duration, progress, speed, remaining);
     }
     static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[102], start, total, counter, duration, progress, speed, remaining);
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[95], start, total, counter, duration, progress, speed, remaining);
+    }
+  }
+
+  export class HistogramInt extends std_n.util.HistogramInt {
+  }
+
+  export class TimeWindow extends std_n.util.TimeWindow {
+  }
+
+  export class SlidingWindow extends std_n.util.SlidingWindow {
+  }
+
+  export class Assert extends $sdk.GCObject {
+    static readonly _type = 'util::Assert';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
+      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[99]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Assert {
+      return new Assert($g.abi.libs_by_name.get(stdlib.name)!.mapped[99]);
+    }
+  }
+
+  export class Buffer extends std_n.util.Buffer {
+  }
+
+  export class GaussianProfile extends std_n.util.GaussianProfile {
+  }
+
+  export class Random extends $sdk.GCObject {
+    static readonly _type = 'util::Random';
+
+    seed: bigint | number;
+    v: number;
+
+    static createFrom({seed, v}: {seed: bigint | number, v: number}, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[102], seed, v);
+    }
+    static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[102], seed, v);
     }
   }
 
@@ -4082,27 +4030,6 @@ export namespace util {
     }
     static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
       return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[103], sum, sum_sq, count, min, max);
-    }
-  }
-
-  export class GaussianProfile extends std_n.util.GaussianProfile {
-  }
-
-  export class TimeWindow extends std_n.util.TimeWindow {
-  }
-
-  export class Buffer extends std_n.util.Buffer {
-  }
-
-  export class Plot extends $sdk.GCObject {
-    static readonly _type = 'util::Plot';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
-      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[107]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
-      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[107]);
     }
   }
 
@@ -4136,14 +4063,84 @@ export namespace util {
     size: bigint | number;
 
     static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[110], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[106], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
     static create(min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[110], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[106], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
   }
 
-  export class HistogramInt extends std_n.util.HistogramInt {
+  export class HistogramFloat extends std_n.util.HistogramFloat {
+  }
+
+  export class DenseDim extends $sdk.GCObject {
+    static readonly _type = 'util::DenseDim';
+
+    min: bigint | number;
+    max: bigint | number;
+    step: bigint | number;
+
+    static createFrom({min, max, step}: {min: bigint | number, max: bigint | number, step: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
+      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[108], min, max, step);
+    }
+    static create(min: bigint | number, max: bigint | number, step: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
+      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[108], min, max, step);
+    }
+  }
+
+  export class BoxPlotInt extends $sdk.GCObject {
+    static readonly _type = 'util::BoxPlotInt';
+
+    min: bigint | number;
+    max: bigint | number;
+    whiskerLow: bigint | number;
+    whiskerHigh: bigint | number;
+    percentile1: bigint | number;
+    percentile5: bigint | number;
+    percentile25: bigint | number;
+    percentile50: bigint | number;
+    percentile75: bigint | number;
+    percentile95: bigint | number;
+    percentile99: bigint | number;
+    countOutliersLow: bigint | number;
+    countOutliersHigh: bigint | number;
+    percentageOutliersLow: number;
+    percentageOutliersHigh: number;
+    sum: number;
+    avg: number;
+    std: number;
+    size: bigint | number;
+
+    static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[109], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
+    static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[109], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+    }
+  }
+
+  export class Plot extends $sdk.GCObject {
+    static readonly _type = 'util::Plot';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
+      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[110]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
+      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[110]);
+    }
+  }
+
+  export class Crypto extends $sdk.GCObject {
+    static readonly _type = 'util::Crypto';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[111]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[111]);
+    }
   }
 
 }
@@ -4187,6 +4184,7 @@ export const stdlib: $sdk.Library = {
     loaders.set(core.ti2d._type, std_n.core.ti2d.load);
     factories.set(core.Map._type, core.Map);
     loaders.set(core.Map._type, std_n.core.Map.load);
+    factories.set(core.MathConstants._type, core.MathConstants);
     factories.set(core.nodeIndex._type, core.nodeIndex);
     loaders.set(core.nodeIndex._type, std_n.core.nodeIndex.load);
     factories.set(core.tf4d._type, core.tf4d);
@@ -4219,85 +4217,84 @@ export const stdlib: $sdk.Library = {
     loaders.set(core.ti3d._type, std_n.core.ti3d.load);
     factories.set(core.nodeTimeSingleton._type, core.nodeTimeSingleton);
     factories.set(core.NodeInfo._type, core.NodeInfo);
-    factories.set(runtime.TaskRequest._type, runtime.TaskRequest);
-    factories.set(runtime.System._type, runtime.System);
-    factories.set(runtime.License._type, runtime.License);
-    factories.set(runtime.Task._type, runtime.Task);
-    factories.set(runtime.DebugInfo._type, runtime.DebugInfo);
-    factories.set(runtime.Runtime._type, runtime.Runtime);
-    factories.set(runtime.StoreStat._type, runtime.StoreStat);
-    factories.set(runtime.UserGroupPolicy._type, runtime.UserGroupPolicy);
-    factories.set(runtime.LicenseType._type, runtime.LicenseType);
-    factories.set(runtime.TaskStatus._type, runtime.TaskStatus);
-    factories.set(runtime.SecurityFields._type, runtime.SecurityFields);
-    factories.set(runtime.OpenIDConnect._type, runtime.OpenIDConnect);
-    factories.set(runtime.SecurityEntity._type, runtime.SecurityEntity);
-    factories.set(runtime.Debug._type, runtime.Debug);
-    factories.set(runtime.SecurityPolicy._type, runtime.SecurityPolicy);
-    factories.set(runtime.UserCredential._type, runtime.UserCredential);
     factories.set(runtime.RuntimeInfo._type, runtime.RuntimeInfo);
-    factories.set(runtime.User._type, runtime.User);
-    factories.set(runtime.DebugBreakpoint._type, runtime.DebugBreakpoint);
-    factories.set(runtime.UserGroup._type, runtime.UserGroup);
-    factories.set(runtime.TaskResult._type, runtime.TaskResult);
-    factories.set(runtime.TaskBase._type, runtime.TaskBase);
-    factories.set(runtime.UserRole._type, runtime.UserRole);
-    factories.set(runtime.TaskInfo._type, runtime.TaskInfo);
     factories.set(runtime.PeriodicTask._type, runtime.PeriodicTask);
+    factories.set(runtime.UserGroupPolicy._type, runtime.UserGroupPolicy);
+    factories.set(runtime.User._type, runtime.User);
+    factories.set(runtime.TaskRequest._type, runtime.TaskRequest);
+    factories.set(runtime.UserRole._type, runtime.UserRole);
+    factories.set(runtime.StoreStat._type, runtime.StoreStat);
+    factories.set(runtime.System._type, runtime.System);
+    factories.set(runtime.Runtime._type, runtime.Runtime);
+    factories.set(runtime.TaskInfo._type, runtime.TaskInfo);
+    factories.set(runtime.TaskStatus._type, runtime.TaskStatus);
+    factories.set(runtime.Debug._type, runtime.Debug);
+    factories.set(runtime.TaskResult._type, runtime.TaskResult);
+    factories.set(runtime.SecurityPolicy._type, runtime.SecurityPolicy);
     factories.set(runtime.DebugFrame._type, runtime.DebugFrame);
+    factories.set(runtime.TaskBase._type, runtime.TaskBase);
+    factories.set(runtime.OpenIDConnect._type, runtime.OpenIDConnect);
+    factories.set(runtime.SecurityFields._type, runtime.SecurityFields);
+    factories.set(runtime.UserCredential._type, runtime.UserCredential);
+    factories.set(runtime.DebugInfo._type, runtime.DebugInfo);
     factories.set(runtime.TaskMode._type, runtime.TaskMode);
+    factories.set(runtime.SecurityEntity._type, runtime.SecurityEntity);
+    factories.set(runtime.License._type, runtime.License);
+    factories.set(runtime.DebugBreakpoint._type, runtime.DebugBreakpoint);
     factories.set(runtime.UserGroupPolicyType._type, runtime.UserGroupPolicyType);
+    factories.set(runtime.LicenseType._type, runtime.LicenseType);
+    factories.set(runtime.Task._type, runtime.Task);
+    factories.set(runtime.UserGroup._type, runtime.UserGroup);
     factories.set(io.CsvColumnDate._type, io.CsvColumnDate);
-    factories.set(io.CsvColumnStatistics._type, io.CsvColumnStatistics);
-    factories.set(io.CsvFormat._type, io.CsvFormat);
-    factories.set(io.CsvStatistics._type, io.CsvStatistics);
-    factories.set(io.Url._type, io.Url);
-    factories.set(io.SmtpAuth._type, io.SmtpAuth);
     factories.set(io.Email._type, io.Email);
-    factories.set(io.CsvColumnTime._type, io.CsvColumnTime);
-    factories.set(io.CsvColumn._type, io.CsvColumn);
-    factories.set(io.CsvAnalysis._type, io.CsvAnalysis);
-    factories.set(io.HttpHeader._type, io.HttpHeader);
     factories.set(io.Mqtt._type, io.Mqtt);
     factories.set(io.CsvValidateResult._type, io.CsvValidateResult);
-    factories.set(io.CsvColumnString._type, io.CsvColumnString);
-    factories.set(io.Http._type, io.Http);
-    factories.set(io.CsvAnalysisConfig._type, io.CsvAnalysisConfig);
-    factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
-    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
-    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
-    factories.set(io.CsvColumnDuration._type, io.CsvColumnDuration);
-    factories.set(io.CsvColumnInteger._type, io.CsvColumnInteger);
-    factories.set(io.TextEncoder._type, io.TextEncoder);
-    factories.set(io.Smtp._type, io.Smtp);
-    factories.set(io.SmtpMode._type, io.SmtpMode);
     factories.set(io.File._type, io.File);
-    factories.set(math.MathConstants._type, math.MathConstants);
-    factories.set(util.SlidingWindow._type, util.SlidingWindow);
-    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
-    factories.set(util.DenseDim._type, util.DenseDim);
-    factories.set(util.Random._type, util.Random);
-    factories.set(util.Crypto._type, util.Crypto);
-    factories.set(util.HistogramFloat._type, util.HistogramFloat);
-    loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
-    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
-    factories.set(util.Assert._type, util.Assert);
+    factories.set(io.TextEncoder._type, io.TextEncoder);
+    factories.set(io.Url._type, io.Url);
+    factories.set(io.CsvColumnTime._type, io.CsvColumnTime);
+    factories.set(io.CsvAnalysisConfig._type, io.CsvAnalysisConfig);
+    factories.set(io.HttpHeader._type, io.HttpHeader);
+    factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
+    factories.set(io.CsvColumnStatistics._type, io.CsvColumnStatistics);
+    factories.set(io.Smtp._type, io.Smtp);
+    factories.set(io.CsvColumnInteger._type, io.CsvColumnInteger);
+    factories.set(io.SmtpAuth._type, io.SmtpAuth);
+    factories.set(io.CsvColumnFloat._type, io.CsvColumnFloat);
+    factories.set(io.CsvColumnString._type, io.CsvColumnString);
+    factories.set(io.SmtpMode._type, io.SmtpMode);
+    factories.set(io.CsvColumnDuration._type, io.CsvColumnDuration);
+    factories.set(io.Http._type, io.Http);
+    factories.set(io.CsvAnalysis._type, io.CsvAnalysis);
+    factories.set(io.CsvFormat._type, io.CsvFormat);
+    factories.set(io.CsvColumnIgnored._type, io.CsvColumnIgnored);
+    factories.set(io.CsvColumn._type, io.CsvColumn);
+    factories.set(io.CsvStatistics._type, io.CsvStatistics);
     factories.set(util.ProgressTracker._type, util.ProgressTracker);
-    factories.set(util.Gaussian._type, util.Gaussian);
-    factories.set(util.GaussianProfile._type, util.GaussianProfile);
-    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.HistogramInt._type, util.HistogramInt);
+    loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
     factories.set(util.TimeWindow._type, util.TimeWindow);
     loaders.set(util.TimeWindow._type, std_n.util.TimeWindow.load);
+    factories.set(util.SlidingWindow._type, util.SlidingWindow);
+    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
+    factories.set(util.Assert._type, util.Assert);
     factories.set(util.Buffer._type, util.Buffer);
     loaders.set(util.Buffer._type, std_n.util.Buffer.load);
-    factories.set(util.Plot._type, util.Plot);
+    factories.set(util.GaussianProfile._type, util.GaussianProfile);
+    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.Random._type, util.Random);
+    factories.set(util.Gaussian._type, util.Gaussian);
     factories.set(util.Iban._type, util.Iban);
     loaders.set(util.Iban._type, std_n.util.Iban.load);
     factories.set(util.Queue._type, util.Queue);
     loaders.set(util.Queue._type, std_n.util.Queue.load);
     factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
-    factories.set(util.HistogramInt._type, util.HistogramInt);
-    loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
+    factories.set(util.HistogramFloat._type, util.HistogramFloat);
+    loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
+    factories.set(util.DenseDim._type, util.DenseDim);
+    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
+    factories.set(util.Plot._type, util.Plot);
+    factories.set(util.Crypto._type, util.Crypto);
   },
   init(abi) {
     this.mapped[0] = abi.type_by_fqn.get(core.String._type);
@@ -4326,125 +4323,125 @@ export const stdlib: $sdk.Library = {
     this.mapped[17] = abi.type_by_fqn.get(core.Tensor._type);
     this.mapped[18] = abi.type_by_fqn.get(core.ti2d._type);
     this.mapped[19] = abi.type_by_fqn.get(core.Map._type);
-    this.mapped[20] = abi.type_by_fqn.get(core.nodeIndex._type);
-    this.mapped[21] = abi.type_by_fqn.get(core.tf4d._type);
-    this.mapped[22] = abi.type_by_fqn.get(core.TableColumnMapping._type);
-    this.mapped[23] = abi.type_by_fqn.get(core.nodeList._type);
-    this.mapped[24] = abi.type_by_fqn.get(core.TensorType._type);
-    this.mapped[24]?.resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
-    this.mapped[25] = abi.type_by_fqn.get(core.Tuple._type);
-    this.mapped[26] = abi.type_by_fqn.get(core.tf2d._type);
-    this.mapped[27] = abi.type_by_fqn.get(core.function_._type);
-    this.mapped[28] = abi.type_by_fqn.get(core.TableColumnMeta._type);
-    this.mapped[29] = abi.type_by_fqn.get(core.GeoBox._type);
-    this.mapped[30] = abi.type_by_fqn.get(core.node._type);
-    this.mapped[31] = abi.type_by_fqn.get(core.GeoPoly._type);
-    this.mapped[32] = abi.type_by_fqn.get(core.nodeIndexBucket._type);
-    this.mapped[33] = abi.type_by_fqn.get(core.time._type);
-    if (this.mapped[33]) {
-      this.mapped[33].static_values = {['min']: abi.createTime(-9223372036854775808n),['max']: abi.createTime(9223372036854775807n),};
+    this.mapped[20] = abi.type_by_fqn.get(core.MathConstants._type);
+    if (this.mapped[20]) {
+      this.mapped[20].static_values = {['e']: 2.7182818285,['log_2e']: 1.4426950409,['log_10e']: 0.4342944819,['ln2']: 0.6931471806,['ln10']: 2.302585093,['pi']: 3.1415926536,['pi_2']: 1.5707963268,['pi_4']: 0.7853981634,['m1_pi']: 0.3183098862,['m2_pi']: 0.6366197724,['m2_sqrt_pi']: 1.1283791671,['sqrt2']: 1.4142135624,['sqrt1_2']: 0.7071067812,};
     }
-    this.mapped[34] = abi.type_by_fqn.get(core.ti10d._type);
-    this.mapped[35] = abi.type_by_fqn.get(core.SamplingMode._type);
-    this.mapped[35]?.resolveGeneratedOffsetWithValues('fixed', 0,'fixed_reg', 1,'adaptative', 2,'dense', 3);
-    this.mapped[36] = abi.type_by_fqn.get(core.ti5d._type);
-    this.mapped[37] = abi.type_by_fqn.get(core.DatePart._type);
-    this.mapped[37]?.resolveGeneratedOffsetWithValues('years', 0,'months', 1,'days', 2,'hours', 3,'minutes', 4,'seconds', 5,'microseconds', 6);
-    this.mapped[38] = abi.type_by_fqn.get(core.ti3d._type);
-    this.mapped[39] = abi.type_by_fqn.get(core.nodeTimeSingleton._type);
-    this.mapped[40] = abi.type_by_fqn.get(core.NodeInfo._type);
-    this.mapped[41] = abi.type_by_fqn.get(runtime.TaskRequest._type);
-    this.mapped[42] = abi.type_by_fqn.get(runtime.System._type);
-    this.mapped[43] = abi.type_by_fqn.get(runtime.License._type);
-    this.mapped[44] = abi.type_by_fqn.get(runtime.Task._type);
-    this.mapped[45] = abi.type_by_fqn.get(runtime.DebugInfo._type);
-    this.mapped[46] = abi.type_by_fqn.get(runtime.Runtime._type);
-    this.mapped[47] = abi.type_by_fqn.get(runtime.StoreStat._type);
-    this.mapped[48] = abi.type_by_fqn.get(runtime.UserGroupPolicy._type);
-    this.mapped[49] = abi.type_by_fqn.get(runtime.LicenseType._type);
-    this.mapped[49]?.resolveGeneratedOffsetWithValues('community', 0,'enterprise', 1,'testing', 2);
-    this.mapped[50] = abi.type_by_fqn.get(runtime.TaskStatus._type);
-    this.mapped[50]?.resolveGeneratedOffsetWithValues('empty', 0,'waiting', 1,'running', 2,'cancelled', 3,'error', 4,'ended', 5,'ended_with_errors', 6);
-    this.mapped[51] = abi.type_by_fqn.get(runtime.SecurityFields._type);
-    this.mapped[52] = abi.type_by_fqn.get(runtime.OpenIDConnect._type);
-    this.mapped[53] = abi.type_by_fqn.get(runtime.SecurityEntity._type);
-    this.mapped[54] = abi.type_by_fqn.get(runtime.Debug._type);
+    this.mapped[21] = abi.type_by_fqn.get(core.nodeIndex._type);
+    this.mapped[22] = abi.type_by_fqn.get(core.tf4d._type);
+    this.mapped[23] = abi.type_by_fqn.get(core.TableColumnMapping._type);
+    this.mapped[24] = abi.type_by_fqn.get(core.nodeList._type);
+    this.mapped[25] = abi.type_by_fqn.get(core.TensorType._type);
+    this.mapped[25]?.resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
+    this.mapped[26] = abi.type_by_fqn.get(core.Tuple._type);
+    this.mapped[27] = abi.type_by_fqn.get(core.tf2d._type);
+    this.mapped[28] = abi.type_by_fqn.get(core.function_._type);
+    this.mapped[29] = abi.type_by_fqn.get(core.TableColumnMeta._type);
+    this.mapped[30] = abi.type_by_fqn.get(core.GeoBox._type);
+    this.mapped[31] = abi.type_by_fqn.get(core.node._type);
+    this.mapped[32] = abi.type_by_fqn.get(core.GeoPoly._type);
+    this.mapped[33] = abi.type_by_fqn.get(core.nodeIndexBucket._type);
+    this.mapped[34] = abi.type_by_fqn.get(core.time._type);
+    if (this.mapped[34]) {
+      this.mapped[34].static_values = {['min']: abi.createTime(-9223372036854775808n),['max']: abi.createTime(9223372036854775807n),};
+    }
+    this.mapped[35] = abi.type_by_fqn.get(core.ti10d._type);
+    this.mapped[36] = abi.type_by_fqn.get(core.SamplingMode._type);
+    this.mapped[36]?.resolveGeneratedOffsetWithValues('fixed', 0,'fixed_reg', 1,'adaptative', 2,'dense', 3);
+    this.mapped[37] = abi.type_by_fqn.get(core.ti5d._type);
+    this.mapped[38] = abi.type_by_fqn.get(core.DatePart._type);
+    this.mapped[38]?.resolveGeneratedOffsetWithValues('years', 0,'months', 1,'days', 2,'hours', 3,'minutes', 4,'seconds', 5,'microseconds', 6);
+    this.mapped[39] = abi.type_by_fqn.get(core.ti3d._type);
+    this.mapped[40] = abi.type_by_fqn.get(core.nodeTimeSingleton._type);
+    this.mapped[41] = abi.type_by_fqn.get(core.NodeInfo._type);
+    this.mapped[42] = abi.type_by_fqn.get(runtime.RuntimeInfo._type);
+    this.mapped[43] = abi.type_by_fqn.get(runtime.PeriodicTask._type);
+    this.mapped[44] = abi.type_by_fqn.get(runtime.UserGroupPolicy._type);
+    this.mapped[45] = abi.type_by_fqn.get(runtime.User._type);
+    this.mapped[46] = abi.type_by_fqn.get(runtime.TaskRequest._type);
+    this.mapped[47] = abi.type_by_fqn.get(runtime.UserRole._type);
+    this.mapped[48] = abi.type_by_fqn.get(runtime.StoreStat._type);
+    this.mapped[49] = abi.type_by_fqn.get(runtime.System._type);
+    this.mapped[50] = abi.type_by_fqn.get(runtime.Runtime._type);
+    this.mapped[51] = abi.type_by_fqn.get(runtime.TaskInfo._type);
+    this.mapped[52] = abi.type_by_fqn.get(runtime.TaskStatus._type);
+    this.mapped[52]?.resolveGeneratedOffsetWithValues('empty', 0,'waiting', 1,'running', 2,'cancelled', 3,'error', 4,'ended', 5,'ended_with_errors', 6);
+    this.mapped[53] = abi.type_by_fqn.get(runtime.Debug._type);
+    this.mapped[54] = abi.type_by_fqn.get(runtime.TaskResult._type);
     this.mapped[55] = abi.type_by_fqn.get(runtime.SecurityPolicy._type);
-    this.mapped[56] = abi.type_by_fqn.get(runtime.UserCredential._type);
-    this.mapped[57] = abi.type_by_fqn.get(runtime.RuntimeInfo._type);
-    this.mapped[58] = abi.type_by_fqn.get(runtime.User._type);
-    this.mapped[59] = abi.type_by_fqn.get(runtime.DebugBreakpoint._type);
-    this.mapped[60] = abi.type_by_fqn.get(runtime.UserGroup._type);
-    this.mapped[61] = abi.type_by_fqn.get(runtime.TaskResult._type);
-    this.mapped[62] = abi.type_by_fqn.get(runtime.TaskBase._type);
-    this.mapped[63] = abi.type_by_fqn.get(runtime.UserRole._type);
-    this.mapped[64] = abi.type_by_fqn.get(runtime.TaskInfo._type);
-    this.mapped[65] = abi.type_by_fqn.get(runtime.PeriodicTask._type);
-    this.mapped[66] = abi.type_by_fqn.get(runtime.DebugFrame._type);
-    this.mapped[67] = abi.type_by_fqn.get(runtime.TaskMode._type);
-    this.mapped[67]?.resolveGeneratedOffsetWithValues('commit', null,'volatile', null,'exclusive', null);
-    this.mapped[68] = abi.type_by_fqn.get(runtime.UserGroupPolicyType._type);
-    this.mapped[68]?.resolveGeneratedOffsetWithValues('read', 0,'write', 1,'execute', 2);
-    this.mapped[69] = abi.type_by_fqn.get(io.CsvColumnDate._type);
-    this.mapped[70] = abi.type_by_fqn.get(io.CsvColumnStatistics._type);
-    this.mapped[71] = abi.type_by_fqn.get(io.CsvFormat._type);
-    this.mapped[72] = abi.type_by_fqn.get(io.CsvStatistics._type);
-    this.mapped[73] = abi.type_by_fqn.get(io.Url._type);
-    this.mapped[74] = abi.type_by_fqn.get(io.SmtpAuth._type);
-    this.mapped[74]?.resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
-    this.mapped[75] = abi.type_by_fqn.get(io.Email._type);
-    this.mapped[76] = abi.type_by_fqn.get(io.CsvColumnTime._type);
-    this.mapped[77] = abi.type_by_fqn.get(io.CsvColumn._type);
-    this.mapped[78] = abi.type_by_fqn.get(io.CsvAnalysis._type);
+    this.mapped[56] = abi.type_by_fqn.get(runtime.DebugFrame._type);
+    this.mapped[57] = abi.type_by_fqn.get(runtime.TaskBase._type);
+    this.mapped[58] = abi.type_by_fqn.get(runtime.OpenIDConnect._type);
+    this.mapped[59] = abi.type_by_fqn.get(runtime.SecurityFields._type);
+    this.mapped[60] = abi.type_by_fqn.get(runtime.UserCredential._type);
+    this.mapped[61] = abi.type_by_fqn.get(runtime.DebugInfo._type);
+    this.mapped[62] = abi.type_by_fqn.get(runtime.TaskMode._type);
+    this.mapped[62]?.resolveGeneratedOffsetWithValues('commit', null,'volatile', null,'exclusive', null);
+    this.mapped[63] = abi.type_by_fqn.get(runtime.SecurityEntity._type);
+    this.mapped[64] = abi.type_by_fqn.get(runtime.License._type);
+    this.mapped[65] = abi.type_by_fqn.get(runtime.DebugBreakpoint._type);
+    this.mapped[66] = abi.type_by_fqn.get(runtime.UserGroupPolicyType._type);
+    this.mapped[66]?.resolveGeneratedOffsetWithValues('read', 0,'write', 1,'execute', 2);
+    this.mapped[67] = abi.type_by_fqn.get(runtime.LicenseType._type);
+    this.mapped[67]?.resolveGeneratedOffsetWithValues('community', 0,'enterprise', 1,'testing', 2);
+    this.mapped[68] = abi.type_by_fqn.get(runtime.Task._type);
+    this.mapped[69] = abi.type_by_fqn.get(runtime.UserGroup._type);
+    this.mapped[70] = abi.type_by_fqn.get(io.CsvColumnDate._type);
+    this.mapped[71] = abi.type_by_fqn.get(io.Email._type);
+    this.mapped[72] = abi.type_by_fqn.get(io.Mqtt._type);
+    this.mapped[73] = abi.type_by_fqn.get(io.CsvValidateResult._type);
+    this.mapped[74] = abi.type_by_fqn.get(io.File._type);
+    this.mapped[75] = abi.type_by_fqn.get(io.TextEncoder._type);
+    this.mapped[75]?.resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
+    this.mapped[76] = abi.type_by_fqn.get(io.Url._type);
+    this.mapped[77] = abi.type_by_fqn.get(io.CsvColumnTime._type);
+    this.mapped[78] = abi.type_by_fqn.get(io.CsvAnalysisConfig._type);
+    if (this.mapped[78]) {
+      this.mapped[78].static_values = {['enumerable_limit_default']: 100,['date_check_limit_default']: 100,};
+    }
     this.mapped[79] = abi.type_by_fqn.get(io.HttpHeader._type);
-    this.mapped[80] = abi.type_by_fqn.get(io.Mqtt._type);
-    this.mapped[81] = abi.type_by_fqn.get(io.CsvValidateResult._type);
-    this.mapped[82] = abi.type_by_fqn.get(io.CsvColumnString._type);
-    this.mapped[83] = abi.type_by_fqn.get(io.Http._type);
-    this.mapped[84] = abi.type_by_fqn.get(io.CsvAnalysisConfig._type);
-    if (this.mapped[84]) {
-      this.mapped[84].static_values = {['enumerable_limit_default']: 100,['date_check_limit_default']: 100,};
-    }
-    this.mapped[85] = abi.type_by_fqn.get(io.CsvColumnBoolean._type);
-    this.mapped[86] = abi.type_by_fqn.get(io.CsvColumnIgnored._type);
-    this.mapped[87] = abi.type_by_fqn.get(io.CsvColumnFloat._type);
+    this.mapped[80] = abi.type_by_fqn.get(io.CsvColumnBoolean._type);
+    this.mapped[81] = abi.type_by_fqn.get(io.CsvColumnStatistics._type);
+    this.mapped[82] = abi.type_by_fqn.get(io.Smtp._type);
+    this.mapped[83] = abi.type_by_fqn.get(io.CsvColumnInteger._type);
+    this.mapped[84] = abi.type_by_fqn.get(io.SmtpAuth._type);
+    this.mapped[84]?.resolveGeneratedOffsetWithValues('none', 0,'plain', 1,'login', 2);
+    this.mapped[85] = abi.type_by_fqn.get(io.CsvColumnFloat._type);
+    this.mapped[86] = abi.type_by_fqn.get(io.CsvColumnString._type);
+    this.mapped[87] = abi.type_by_fqn.get(io.SmtpMode._type);
+    this.mapped[87]?.resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
     this.mapped[88] = abi.type_by_fqn.get(io.CsvColumnDuration._type);
-    this.mapped[89] = abi.type_by_fqn.get(io.CsvColumnInteger._type);
-    this.mapped[90] = abi.type_by_fqn.get(io.TextEncoder._type);
-    this.mapped[90]?.resolveGeneratedOffsetWithValues('plain', null,'base64', null,'base64url', null,'hexadecimal', null);
-    this.mapped[91] = abi.type_by_fqn.get(io.Smtp._type);
-    this.mapped[92] = abi.type_by_fqn.get(io.SmtpMode._type);
-    this.mapped[92]?.resolveGeneratedOffsetWithValues('plain', 0,'ssl_tls', 1,'starttls', 2);
-    this.mapped[93] = abi.type_by_fqn.get(io.File._type);
-    this.mapped[94] = abi.type_by_fqn.get(math.MathConstants._type);
-    if (this.mapped[94]) {
-      this.mapped[94].static_values = {['e']: 2.7182818285,['log_2e']: 1.4426950409,['log_10e']: 0.4342944819,['ln2']: 0.6931471806,['ln10']: 2.302585093,['pi']: 3.1415926536,['pi_2']: 1.5707963268,['pi_4']: 0.7853981634,['m1_pi']: 0.3183098862,['m2_pi']: 0.6366197724,['m2_sqrt_pi']: 1.1283791671,['sqrt2']: 1.4142135624,['sqrt1_2']: 0.7071067812,};
+    this.mapped[89] = abi.type_by_fqn.get(io.Http._type);
+    this.mapped[90] = abi.type_by_fqn.get(io.CsvAnalysis._type);
+    this.mapped[91] = abi.type_by_fqn.get(io.CsvFormat._type);
+    this.mapped[92] = abi.type_by_fqn.get(io.CsvColumnIgnored._type);
+    this.mapped[93] = abi.type_by_fqn.get(io.CsvColumn._type);
+    this.mapped[94] = abi.type_by_fqn.get(io.CsvStatistics._type);
+    this.mapped[95] = abi.type_by_fqn.get(util.ProgressTracker._type);
+    this.mapped[96] = abi.type_by_fqn.get(util.HistogramInt._type);
+    if (this.mapped[96]) {
+      this.mapped[96].static_values = {['table_off_from']: 0,['table_off_to']: 1,['table_off_count']: 2,['table_off_percentage']: 3,};
     }
-    this.mapped[95] = abi.type_by_fqn.get(util.SlidingWindow._type);
-    this.mapped[96] = abi.type_by_fqn.get(util.DenseDim._type);
-    this.mapped[97] = abi.type_by_fqn.get(util.Random._type);
-    this.mapped[98] = abi.type_by_fqn.get(util.Crypto._type);
-    this.mapped[99] = abi.type_by_fqn.get(util.HistogramFloat._type);
-    if (this.mapped[99]) {
-      this.mapped[99].static_values = {['table_off_from']: 0,['table_off_to']: 1,['table_off_count']: 2,['table_off_percentage']: 3,};
+    this.mapped[97] = abi.type_by_fqn.get(util.TimeWindow._type);
+    this.mapped[98] = abi.type_by_fqn.get(util.SlidingWindow._type);
+    this.mapped[99] = abi.type_by_fqn.get(util.Assert._type);
+    this.mapped[100] = abi.type_by_fqn.get(util.Buffer._type);
+    this.mapped[101] = abi.type_by_fqn.get(util.GaussianProfile._type);
+    if (this.mapped[101]) {
+      this.mapped[101].static_values = {['table_off_size']: 0,['table_off_min']: 1,['table_off_max']: 2,['table_off_avg']: 3,['table_off_std']: 4,['table_off_sum']: 5,['table_off_columns']: 6,};
     }
-    this.mapped[100] = abi.type_by_fqn.get(util.BoxPlotInt._type);
-    this.mapped[101] = abi.type_by_fqn.get(util.Assert._type);
-    this.mapped[102] = abi.type_by_fqn.get(util.ProgressTracker._type);
+    this.mapped[102] = abi.type_by_fqn.get(util.Random._type);
     this.mapped[103] = abi.type_by_fqn.get(util.Gaussian._type);
-    this.mapped[104] = abi.type_by_fqn.get(util.GaussianProfile._type);
-    if (this.mapped[104]) {
-      this.mapped[104].static_values = {['table_off_size']: 0,['table_off_min']: 1,['table_off_max']: 2,['table_off_avg']: 3,['table_off_std']: 4,['table_off_sum']: 5,['table_off_columns']: 6,};
+    this.mapped[104] = abi.type_by_fqn.get(util.Iban._type);
+    this.mapped[105] = abi.type_by_fqn.get(util.Queue._type);
+    this.mapped[106] = abi.type_by_fqn.get(util.BoxPlotFloat._type);
+    this.mapped[107] = abi.type_by_fqn.get(util.HistogramFloat._type);
+    if (this.mapped[107]) {
+      this.mapped[107].static_values = {['table_off_from']: 0,['table_off_to']: 1,['table_off_count']: 2,['table_off_percentage']: 3,};
     }
-    this.mapped[105] = abi.type_by_fqn.get(util.TimeWindow._type);
-    this.mapped[106] = abi.type_by_fqn.get(util.Buffer._type);
-    this.mapped[107] = abi.type_by_fqn.get(util.Plot._type);
-    this.mapped[108] = abi.type_by_fqn.get(util.Iban._type);
-    this.mapped[109] = abi.type_by_fqn.get(util.Queue._type);
-    this.mapped[110] = abi.type_by_fqn.get(util.BoxPlotFloat._type);
-    this.mapped[111] = abi.type_by_fqn.get(util.HistogramInt._type);
-    if (this.mapped[111]) {
-      this.mapped[111].static_values = {['table_off_from']: 0,['table_off_to']: 1,['table_off_count']: 2,['table_off_percentage']: 3,};
-    }
+    this.mapped[108] = abi.type_by_fqn.get(util.DenseDim._type);
+    this.mapped[109] = abi.type_by_fqn.get(util.BoxPlotInt._type);
+    this.mapped[110] = abi.type_by_fqn.get(util.Plot._type);
+    this.mapped[111] = abi.type_by_fqn.get(util.Crypto._type);
   },
 };

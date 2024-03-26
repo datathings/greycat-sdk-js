@@ -1,7 +1,6 @@
 @library("algebra");
 
 use io;
-use math;
 use runtime;
 use util;
 
@@ -17,7 +16,6 @@ fn main() {
 fn write_std(out: GcbWriter) {
   write_std_core(out);
   write_std_io(out);
-  write_std_math(out);
   write_std_runtime(out);
   write_std_util(out);
 }
@@ -124,6 +122,19 @@ fn write_std_core(out: GcbWriter) {
   out.write(tf2d::new(13.37, 12.42));
   out.write(tf3d::new(13.37, 12.42, -13.37));
   out.write(tf4d::new(13.37, 12.42, -13.37, -12.42));
+  out.write(MathConstants::e);
+  out.write(MathConstants::log_2e);
+  out.write(MathConstants::log_10e);
+  out.write(MathConstants::ln2);
+  out.write(MathConstants::ln10);
+  out.write(MathConstants::pi);
+  out.write(MathConstants::pi_2);
+  out.write(MathConstants::pi_4);
+  out.write(MathConstants::m1_pi);
+  out.write(MathConstants::m2_pi);
+  out.write(MathConstants::m2_sqrt_pi);
+  out.write(MathConstants::sqrt2);
+  out.write(MathConstants::sqrt1_2);
 }
 
 fn write_std_io(out: GcbWriter) {
@@ -149,22 +160,6 @@ fn write_std_io(out: GcbWriter) {
   // out.write(File::open("project.gcl")); // unsupported
   // out.write(Directory::open(".")); // unsupported
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
-}
-
-fn write_std_math(out: GcbWriter) {
-  out.write(MathConstants::e);
-  out.write(MathConstants::log_2e);
-  out.write(MathConstants::log_10e);
-  out.write(MathConstants::ln2);
-  out.write(MathConstants::ln10);
-  out.write(MathConstants::pi);
-  out.write(MathConstants::pi_2);
-  out.write(MathConstants::pi_4);
-  out.write(MathConstants::m1_pi);
-  out.write(MathConstants::m2_pi);
-  out.write(MathConstants::m2_sqrt_pi);
-  out.write(MathConstants::sqrt2);
-  out.write(MathConstants::sqrt1_2);
 }
 
 fn write_std_runtime(out: GcbWriter) {

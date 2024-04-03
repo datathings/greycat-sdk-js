@@ -120,6 +120,10 @@ export class GCObject {
     }
     return json;
   }
+
+  toString(): string {
+    return JSON.stringify(this);
+  }
 }
 
 // typescript trickery to prevent subclasses from overriding a method

@@ -3,6 +3,7 @@ import { GCEnum } from './GCEnum.js';
 import { Reader } from './io.js';
 import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
 import { stdlib, std } from './exports.js';
+import { geoEncode } from './std_n/core/geo.js';
 
 export class Abi {
   static readonly protocol_version = 1;
@@ -26,6 +27,7 @@ export class Abi {
   readonly types: AbiType[] = [];
   readonly functions: AbiFunction[] = [];
 
+  readonly core_int_offset: number = 0;
   readonly core_string_offset: number = 0;
   readonly core_duration_offset: number = 0;
   readonly core_time_offset: number = 0;
@@ -255,6 +257,9 @@ export class Abi {
           case 'float':
             this.core_float_offset = i;
             break;
+          case 'int':
+            this.core_int_offset = i;
+            break;
           case 'char':
             this.core_char_offset = i;
             break;
@@ -368,7 +373,8 @@ export class Abi {
 
   createGeo(lat: number, lng: number) {
     const t = this.types[this.core_geo_offset];
-    return new t.factory(t, lat, lng) as std.core.geo;
+    const value = geoEncode(lat, lng);
+    return new t.factory(t, value) as std.core.geo;
   }
 
   createTime(value: bigint) {
@@ -522,7 +528,7 @@ export class AbiType {
 
   // can either be GCEnum in case of enum or Value in case of GCObject
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly static_values: Record<string, any> = {};
+  static_values: Record<string, any> = {};
   readonly enum_values: GCEnum[] | null = null;
   readonly loader: ILoader;
   readonly factory: IFactory;
@@ -608,14 +614,20 @@ export class AbiType {
    * ```ts
    * .resolveGeneratedOffsetWithValues('Green', 0, 'Yellow', 1, 'Red', 2)
    * ```
+   * 
+   * NB:
+   *
+   * This should be named "defineEnumFieldValues(...)"
    */
   resolveGeneratedOffsetWithValues(...values: unknown[]) {
     for (let i = 0; i < values.length; i += 2) {
       for (let a = 0; a < this.attrs.length; a++) {
         const attr = this.attrs[a];
-        if (attr.name === values[i] as string) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          this.static_values![attr.name].value = values[i + 1] as Value;
+        const name = values[i] as string;
+        if (attr.name === name) {
+          // here 'this.static_values[name]' is an instance of GCEnum
+          // so we want to define its field value
+          this.static_values[name].value = values[i + 1] as Value;
         }
       }
     }

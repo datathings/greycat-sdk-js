@@ -1,3 +1,5 @@
+export * from './int.js';
+export * from './float.js';
 export * from './duration.js';
 export * from './Error.js';
 export * from './geo.js';

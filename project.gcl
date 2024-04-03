@@ -333,6 +333,15 @@ fn longTask() {
 }
 
 @expose
+fn slowTask() {
+  // slow
+  var start = time::now();
+  for (var i = 0; i < 1_000_000; i++) {}
+  var duration = time::now() - start;
+  return { hello: "world", took: duration };
+}
+
+@expose
 fn computeTask() {
   var writer = TextWriter::new("${File::taskDir()}/foo.txt");
   writer.write(42);
@@ -389,7 +398,7 @@ fn foo(): Foo {
 }
 
 @expose
-fn task_with_params(different: String, age: int) {
+fn task_with_params(different: String, age: int): String {
   return different;
 }
 
@@ -512,4 +521,8 @@ fn print_table(table: Table) {
 @expose
 fn fn_pointer() {
   return project::table;
+}
+
+type Bar<T> {
+  attr: T?;
 }

@@ -1,7 +1,8 @@
 import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
 import { GCObject } from '../../GCObject.js';
 
-export class Queue extends GCObject {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Queue<_ extends Value = any> extends GCObject {
   static readonly _type = 'util::Queue' as const;
 
   constructor(type: AbiType, readonly queue: LinkedList<Value> = new LinkedList()) {

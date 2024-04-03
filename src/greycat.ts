@@ -11,6 +11,7 @@ import {
 } from './types.js';
 import { AbiReader, AbiWriter } from './io.js';
 import { sha256hex } from './crypto/index.js';
+import { TaskLike } from './exports.js';
 
 let DEFAULT_URL: URL;
 try {
@@ -22,20 +23,35 @@ try {
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
 
-export let debugLogger: (status: number, method: string, params?: Value[], value?: unknown) => void;
-if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== 'production') {
-  debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
-    const bg =
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      status >= 400 ? '#e8590c' : '#1983c1';
-    console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
-      method,
-      params,
-      response: value,
-    });
-  };
-} else {
-  debugLogger = () => void 0;
+const NOOP = () => void 0;
+const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown) => {
+  const bg = status >= 400 ? '#e8590c' : '#1983c1';
+  console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
+    method,
+    params,
+    response: value,
+  });
+};
+let debugLogger: typeof DEFAULT_LOGGER = NOOP;
+
+/**
+ * Registers a global debug logger that will be called for every remote procedure call.
+ *
+ * If `customLogger` is `undefined` the default console logger will be used.
+ */
+export function registerDebugLogger(customLogger = DEFAULT_LOGGER) {
+  debugLogger = customLogger;
+}
+
+/**
+ * Unregisters the global debug logger by replacing it with a no-op function.
+ */
+export function unregisterDebugLogger() {
+  debugLogger = NOOP;
+}
+
+export function getDebuggerLogger() {
+  return debugLogger;
 }
 
 export async function downloadAbiHeaders(
@@ -220,7 +236,16 @@ export class GreyCat {
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
 
-    const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler, abiMismatchHandler);
+    const greycat = new GreyCat(
+      cleanUrl,
+      abi,
+      capacity,
+      cache,
+      [],
+      token,
+      unauthorizedHandler,
+      abiMismatchHandler,
+    );
 
     try {
       const permissions = await std.runtime.User.permissions(greycat);
@@ -243,7 +268,16 @@ export class GreyCat {
     abiMismatchHandler,
     permissions = [],
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(normalizeUrl(url), abi, capacity, cache, permissions, token, unauthorizedHandler, abiMismatchHandler);
+    return new GreyCat(
+      normalizeUrl(url),
+      abi,
+      capacity,
+      cache,
+      permissions,
+      token,
+      unauthorizedHandler,
+      abiMismatchHandler,
+    );
   }
 
   hasPermission(permission: string): boolean {
@@ -257,11 +291,85 @@ export class GreyCat {
    * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
    *
    * @param method the exposed endpoint to call, without leading slash
-   * (eg. `'runtime/User/me'`)
+   * (eg. `'runtime::User::me'`)
    * @param args a list of parameters to send for the call
    * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
   async call<T = unknown>(method: string, args?: Value[], signal?: AbortSignal): Promise<T> {
+    return this.rawCall(method, args, signal, false);
+  }
+
+  /**
+   * Spawns a GreyCat task.
+   */
+  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
+    return this.rawCall<std.runtime.Task>(method, args, signal, true);
+  }
+
+  /**
+   * Spawns a GreyCat task and actively awaits for its completion.
+   *
+   * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
+   */
+  async spawnAwait<T = unknown>(method: string, args?: Value[], pollEvery?: number, signal?: AbortSignal): Promise<T> {
+    const task = await this.rawCall<std.runtime.Task>(method, args, signal, true);
+    return this.await(task, pollEvery, signal);
+  }
+
+  /**
+   * Awaits the completion of the given GreyCat task.
+   */
+  async await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal) {
+    let info: std.runtime.TaskInfo | undefined;
+    info = await this.call<std.runtime.TaskInfo>(
+      `runtime::Task::info`,
+      [task.user_id, task.task_id],
+      signal,
+    );
+    let status = info.status;
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      switch (status.key) {
+        case 'cancelled':
+          throw new TaskCancelled(task);
+        case 'empty':
+        case 'waiting':
+        case 'await':
+        case 'running': {
+          // re-fetch task info, on first fetch we only wait 250ms
+          await sleep(pollEvery ?? 2000, signal);
+          info = await this.call<std.runtime.TaskInfo>(
+            `runtime::Task::info`,
+            [task.user_id, task.task_id],
+            signal,
+          );
+          status = info.status;
+          break;
+        }
+        case 'ended': {
+          return this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
+        }
+        case 'error':
+        case 'ended_with_errors': {
+          const err = await this.getFile<std.core.Error>(
+            `${task.user_id}/tasks/${task.task_id}/result.gcb`,
+            signal,
+          );
+          throw err;
+        }
+      }
+    }
+  }
+
+  /**
+   * This method is used internally by: `call(...)`, `spawn(...)` and `spawnAwait(...)`.
+   */
+  async rawCall<T = unknown>(
+    method: string,
+    args?: Value[],
+    signal?: AbortSignal,
+    task = false,
+  ): Promise<T> {
     const url = `${this.api}/${method}`;
     const writer = new AbiWriter(this.abi, this.capacity);
     writer.headers();
@@ -301,6 +409,9 @@ export class GreyCat {
     };
     if (this.token) {
       headers['Authorization'] = this.token;
+    }
+    if (task) {
+      headers['task'] = '';
     }
     const key: CacheKey = [method, writer.buffer];
     const cachedRes = await this.cache.read(key);
@@ -697,4 +808,34 @@ function normalizeUrl(url: URL): string {
     end -= 1;
   }
   return url.href.slice(0, end + 1);
+}
+
+// type Ok<T> = {
+//   ok: true;
+//   value: T;
+// };
+// type Err<E> = { ok: false; error: E };
+// type Result<T, E> = Ok<T> | Err<E>;
+// type SpawnResult<T> = Result<T, 'aborted' | 'cancelled' | std.core.Error>;
+
+export class TaskCancelled extends Error {
+  constructor(readonly task: TaskLike) {
+    super(`task ${task.task_id} from user ${task.user_id} cancelled`);
+  }
+}
+
+/**
+ * Sleeps for `delay` milliseconds. Returns `true` if aborted; `false` otherwise.
+ */
+function sleep(delay: number, signal?: AbortSignal): Promise<boolean> {
+  if (delay <= 0) {
+    return Promise.resolve(false);
+  }
+  return new Promise((resolve) => {
+    const timeoutId = setTimeout(() => resolve(false), delay);
+    signal?.addEventListener('abort', () => {
+      clearTimeout(timeoutId);
+      resolve(true);
+    });
+  });
 }

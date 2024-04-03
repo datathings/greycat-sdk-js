@@ -11,6 +11,7 @@ interface CancellableTaskPromise extends Promise<runtime.TaskInfo | null> {
   stop: () => void;
 }
 
+// using Pick<...> to catch bug earlier if `runtime.Task` changes
 export type TaskLike = Pick<runtime.Task, 'user_id' | 'task_id'>;
 
 export class TaskHandler {
@@ -22,18 +23,21 @@ export class TaskHandler {
    *  - `user_id: number | bigint`
    *  - `task_id: number | bigint`
    */
-  constructor(readonly task: TaskLike) { }
+  constructor(readonly task: TaskLike) {}
 
   /**
    * Starts to poll for task info periodically.
-   * 
+   *
    * *Does nothing if already started*
-   * 
+   *
    * @param delay delay in milliseconds between every poll (defaults to `2000` milliseconds)
    * @param callback an optional callback function that will be called every time the new info are polled
-   * @returns 
+   * @returns
    */
-  start(delay = 2000, callback?: (info: runtime.TaskInfo) => void): Promise<runtime.TaskInfo | null> {
+  start(
+    delay = 2000,
+    callback?: (info: runtime.TaskInfo) => void,
+  ): Promise<runtime.TaskInfo | null> {
     if (this._promise) {
       // already started
       return this._promise;
@@ -79,17 +83,17 @@ export class TaskHandler {
   }
 
   /**
- * Convenience method to download and deserialize this task's "arguments.gcb".
- *
- * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/arguments.gcb')`*
- */
+   * Convenience method to download and deserialize this task's "arguments.gcb".
+   *
+   * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/arguments.gcb')`*
+   */
   arguments<T = unknown>(g = greycat.default): Promise<T[]> {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/arguments.gcb`);
   }
 
   /**
    * This will delete all the files related to the task and cannot be undone.
-   * 
+   *
    * *This is wrapper around `greycat.deleteFile('<user_id>/tasks/<task_id>/')`*
    */
   delete(g = greycat.default): Promise<void> {
@@ -112,7 +116,10 @@ export class TaskHandler {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/${filepath}`);
   }
 
-  private _poll(delay: number, callback: (info: runtime.TaskInfo) => void = () => void 0): CancellableTaskPromise {
+  private _poll(
+    delay: number,
+    callback: (info: runtime.TaskInfo) => void = () => void 0,
+  ): CancellableTaskPromise {
     const cancelCtrl = new AbortController();
     const stopCtrl = new AbortController();
 
@@ -139,8 +146,7 @@ export class TaskHandler {
 
         while (
           this.info != null &&
-          (this.info.status === runtime.TaskStatus.running() ||
-            this.info.status === runtime.TaskStatus.waiting())
+          (this.info.status.key === 'running' || this.info.status.key === 'waiting')
         ) {
           callback(this.info);
           if (cancelCtrl.signal.aborted) {

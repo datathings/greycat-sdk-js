@@ -1,9 +1,10 @@
-import { GreyCat, TaskHandler } from './dist/esm/index.js';
+// @ts-check
+import { GreyCat } from './dist/esm/index.js';
 
-const greycat = (global.greycat.default = await GreyCat.init());
+const greycat = await GreyCat.init({ libraries: [] });
+global.greycat.default = greycat;
 
-const task = await global.greycat.default.call('project::errorTask');
-const handler = new TaskHandler(task);
-await handler.start();
-const result = await greycat.getFile(`${task.user_id}/tasks/${task.task_id}/result.gcb`);
-console.log({ result });
+await greycat.spawnAwait('project::task_with_params', ['briliant', 42]);
+
+// const res = await greycat.spawnAwait('project::task_with_params', ['Hello world', 42]);
+// console.log(structuredClone(res));

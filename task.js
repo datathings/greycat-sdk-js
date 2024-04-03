@@ -4,6 +4,7 @@ import { GreyCat } from './dist/esm/index.js';
 const greycat = await GreyCat.init({ libraries: [] });
 global.greycat.default = greycat;
 
-
-// const res = await greycat.spawnAwait('project::task_with_params', ['Hello world', 42]);
-// console.log(structuredClone(res));
+const task = await greycat.spawn('project::longTask');
+await task.await();
+const res = await task.result();
+console.log(structuredClone(res));

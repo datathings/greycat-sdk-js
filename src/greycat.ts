@@ -335,8 +335,14 @@ export class GreyCat {
   /**
    * Spawns a GreyCat task.
    */
-  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
-    return this.rawCall<std.runtime.Task>(method, args, signal, true);
+  async spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
+    const task = await this.rawCall<std.runtime.Task>(method, args, signal, true);
+    return Object.assign(task, {
+      getFile: <T = unknown>(filepath: string, signal?: AbortSignal) => this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/${filepath}`, signal),
+      await: (pollEvery?: number, signal?: AbortSignal) => this.await(task, pollEvery, signal),
+      info: (signal?: AbortSignal) => std.runtime.Task.info(task.user_id, task.task_id, this, signal),
+      result: <T = unknown>(signal?: AbortSignal) => this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal),
+    });
   }
 
   /**

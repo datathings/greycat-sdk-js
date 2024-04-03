@@ -11,6 +11,7 @@ export * as std_n from './std_n/index.js';
 export * as std from './std/index.js';
 // exports std's modules directly (shortcut)
 export * from './std/index.js';
+export * from './std.js';
 
 export * as algebra_n from './algebra_n/index.js';
 export * as algebra from './algebra/index.js';

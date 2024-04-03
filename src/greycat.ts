@@ -161,6 +161,39 @@ export async function downloadAbi(
   return [data, token];
 }
 
+export interface GreyCat {
+
+  /**
+   * Calls the specified `method` on the current GreyCat instance.
+   * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
+   *
+   * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
+   *
+   * @param method the exposed endpoint to call, without leading slash
+   * (eg. `'runtime::User::me'`)
+   * @param args a list of parameters to send for the call
+   * @param signal an optional `AbortSignal` to cancel the underlying fetch call
+   */
+  call<T = unknown>(method: string, args?: Value[], signal?: AbortSignal): Promise<T>;
+
+  /**
+   * Spawns a GreyCat task.
+   */
+  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task>;
+
+  /**
+   * Spawns a GreyCat task and actively awaits for its completion.
+   *
+   * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
+   */
+  spawnAwait<T = unknown>(method: string, args?: Value[], pollEvery?: number, signal?: AbortSignal): Promise<T>;
+
+  /**
+   * Awaits the completion of the given GreyCat task.
+   */
+  await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T>;
+}
+
 export class GreyCat {
   /** GreyCat's api endpoint normalized (does not contain a trailing slash) */
   readonly api: string;

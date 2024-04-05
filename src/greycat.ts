@@ -192,6 +192,9 @@ export interface GreyCat {
    * Awaits the completion of the given GreyCat task.
    */
   await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T>;
+
+  getFile<T = unknown>(filepath: `${string}.gcb`, signal?: AbortSignal): Promise<T[]>;
+  getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T>;
 }
 
 export class GreyCat {
@@ -335,14 +338,8 @@ export class GreyCat {
   /**
    * Spawns a GreyCat task.
    */
-  async spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
-    const task = await this.rawCall<std.runtime.Task>(method, args, signal, true);
-    return Object.assign(task, {
-      getFile: <T = unknown>(filepath: string, signal?: AbortSignal) => this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/${filepath}`, signal),
-      await: (pollEvery?: number, signal?: AbortSignal) => this.await(task, pollEvery, signal),
-      info: (signal?: AbortSignal) => std.runtime.Task.info(task.user_id, task.task_id, this, signal),
-      result: <T = unknown>(signal?: AbortSignal) => this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal),
-    });
+  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
+    return this.rawCall<std.runtime.Task>(method, args, signal, true);
   }
 
   /**
@@ -531,17 +528,38 @@ export class GreyCat {
   }
 
   /**
-   * Deserializes one value from the given `ArrayBuffer`.
+   * Deserializes **one** value from the given `ArrayBuffer`.
    */
   deserialize(data: ArrayBuffer): Value {
     return new AbiReader(this.abi, data).deserialize();
   }
 
   /**
-   * Deserializes ABI headers, then deserializes one value from the given `ArrayBuffer`.
+   * Deserializes all values from the given `ArrayBuffer`.
+   */
+  deserializeAll(data: ArrayBuffer): Value[] {
+    return Array.from(new AbiReader(this.abi, data));
+  }
+
+  /**
+   * Deserializes ABI headers, then deserializes **one** value from the given `ArrayBuffer`.
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
     return new AbiReader(this.abi, data).deserializeWithHeaders();
+  }
+
+  /**
+   * Deserializes the headers and all values from the given `ArrayBuffer`.
+   */
+  deserializeAllWithHeader(data: ArrayBuffer): [[number, number, number], Value[]] {
+    const reader = new AbiReader(this.abi, data);
+    const headers = reader.headers();
+    const values = Array.from(reader);
+    return [headers, values];
+  }
+
+  createReader(data: ArrayBuffer): AbiReader {
+    return new AbiReader(this.abi, data);
   }
 
   /**
@@ -549,8 +567,8 @@ export class GreyCat {
    *
    * Deserializes the content of the file based on the extension:
    *
+   *  - `.gcb`: deserializes the payload as an array of GreyCat values if `filepath` ends with `.gcb`, returns the `ArrayBuffer` otherwise
    *  - `.json`: deserializes the payload as JSON
-   *  - `.gcb`: deserializes the payload as GreyCat instance if `filepath` ends with `.gcb`, returns the `ArrayBuffer` otherwise
    *  - `others`: returns the payload as a string
    *
    * *This uses `getFileResponse(filepath, signal)` under-the-hood*.
@@ -565,7 +583,12 @@ export class GreyCat {
       return res.json();
     } else if (filepath.endsWith('.gcb')) {
       const data = await res.arrayBuffer();
-      return this.deserializeWithHeader(data) as T;
+      if (data.byteLength === 0) {
+        return undefined as T;
+      }
+      const reader = new AbiReader(this.abi, data);
+      reader.headers(); // TODO do not ignore headers
+      return Array.from(reader) as T;
     }
     return res.text() as T;
   }

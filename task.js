@@ -1,10 +1,22 @@
 // @ts-check
 import { GreyCat } from './dist/esm/index.js';
 
-const greycat = await GreyCat.init({ libraries: [] });
+const greycat = await GreyCat.init();
 global.greycat.default = greycat;
 
-const task = await greycat.spawn('project::longTask');
+// spawns a task
+const task = await greycat.spawn('project::task_with_params', ['Hello world', 42]);
+
+// retrieve task info
+const info = await task.info();
+console.log(structuredClone(info));
+
+// retrieve task arguments
+const args = await task.arguments();
+console.log(structuredClone(args));
+
+// await for completion
 await task.await();
-const res = await task.result();
-console.log(structuredClone(res));
+// retrieve the result
+const result = await task.result();
+console.log(structuredClone(result));

@@ -240,7 +240,7 @@ export class Reader {
 /**
  * Little-endian cursor over an array of bytes
  */
-export class AbiReader extends Reader {
+export class AbiReader extends Reader implements Iterable<unknown> {
   /**
    * Deserializes an ABI value to a JavaScript `Value`
    */
@@ -335,6 +335,12 @@ export class AbiReader extends Reader {
 
   constructor(readonly abi: Abi, buf: ArrayBuffer) {
     super(buf);
+  }
+
+  *[Symbol.iterator](): Iterator<unknown> {
+    while (!this.is_empty) {
+      yield this.deserialize();
+    }
   }
 
   /**

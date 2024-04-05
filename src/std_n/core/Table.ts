@@ -1,5 +1,5 @@
 import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject } from '../../index.js';
-import type { Abi, AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Table<_ extends Value = any> extends GCObject {
@@ -9,8 +9,79 @@ export class Table<_ extends Value = any> extends GCObject {
     super(type);
   }
 
-  static create(cols: Array<Value[]>, meta: NativeTableColumnMeta[], g: GreyCat = globalThis.greycat.default): core.Table {
+  static create(
+    cols: Array<Value[]>,
+    meta: NativeTableColumnMeta[],
+    g: GreyCat = globalThis.greycat.default,
+  ): core.Table {
     const ty = g.abi.types[g.abi.core_table_offset];
+    return new ty.factory(ty, cols, meta) as core.Table;
+  }
+
+  static fromRows(rows: Array<Value[]>, g: GreyCat = globalThis.greycat.default): core.Table {
+    const ty = g.abi.types[g.abi.core_table_offset];
+
+    let nbColumns = 0;
+    if (rows.length > 0) {
+      for (let i = 0; i < rows.length; i++) {
+        const len = rows[i].length;
+        if (nbColumns < len) {
+          nbColumns = len;
+        }
+      }
+    }
+    const cols: Array<Value[]> = Array.from({ length: nbColumns }, () => new Array(rows.length));
+    const meta: NativeTableColumnMeta[] = Array.from(
+      { length: nbColumns },
+      () => new NativeTableColumnMeta(),
+    );
+
+    for (let c = 0; c < cols.length; c++) {
+      for (let r = 0; r < rows.length; r++) {
+        const value = rows[r][c];
+        cols[c][r] = value;
+        switch (typeof value) {
+          case 'bigint':
+          case 'number': {
+            // min
+            if (meta[c].min === null) {
+              meta[c].min = value;
+            } else if (typeof meta[c].min === 'number' || typeof meta[c].min === 'bigint') {
+              if ((meta[c].min as number | bigint) > value) {
+                meta[c].min = value;
+              }
+            } else {
+              meta[c].min = undefined;
+            }
+            // max
+            if (meta[c].max === null) {
+              meta[c].max = value;
+            } else if (typeof meta[c].max === 'number' || typeof meta[c].max === 'bigint') {
+              if ((meta[c].max as number | bigint) < value) {
+                meta[c].max = value;
+              }
+            } else {
+              meta[c].max = undefined;
+            }
+            // // avg
+            // if (meta[c].avg === null) {
+            //   meta[c].avg = value;
+            // } else if (typeof meta[c].avg === 'number' || typeof meta[c].avg === 'bigint') {
+            //   if ((meta[c].avg as number | bigint) < value) {
+            //     meta[c].avg = value;
+            //   }
+            // } else {
+            //   meta[c].avg = undefined;
+            // }
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+    }
+
     return new ty.factory(ty, cols, meta) as core.Table;
   }
 
@@ -75,7 +146,9 @@ export class Table<_ extends Value = any> extends GCObject {
         case PrimitiveType.enum: {
           const type = r.abi.types[meta[col].type];
           if (type.enum_values === null) {
-            throw new Error(`no values registered for ${type.name}, core.Table cannot deserialize properly`);
+            throw new Error(
+              `no values registered for ${type.name}, core.Table cannot deserialize properly`,
+            );
           }
           for (let row = 0; row < rows; row++) {
             const enum_field = r.read_vu32();
@@ -183,7 +256,13 @@ export class Table<_ extends Value = any> extends GCObject {
 export class NativeTableColumnMeta {
   min: Value = null;
   max: Value = null;
-  constructor(readonly abi: Abi, public col_type: PrimitiveType, public type: number, public index: boolean, public header: string | null = null) { }
+  constructor(
+    public col_type: PrimitiveType = PrimitiveType.undefined,
+    public type = 0,
+    public typeName: string | undefined = undefined,
+    public index = false,
+    public header: string | null = null,
+  ) { }
 
   static load(r: AbiReader): NativeTableColumnMeta {
     const col_type = r.read_u8() as PrimitiveType;
@@ -197,7 +276,16 @@ export class NativeTableColumnMeta {
     if (header_len > 0) {
       header = r.read_string(header_len);
     }
-    return new NativeTableColumnMeta(r.abi, col_type, type, index, header);
+
+    let typeName: string | undefined;
+    if (type === 0) {
+      // primitive type
+      typeName = `core::${PrimitiveTypeName[col_type]}`;
+    } else {
+      // object type
+      typeName = r.abi.types[type].name;
+    }
+    return new NativeTableColumnMeta(col_type, type, typeName, index, header);
   }
 
   saveContent(w: AbiWriter) {
@@ -214,16 +302,6 @@ export class NativeTableColumnMeta {
     }
   }
 
-  get typeName(): string | undefined {
-    if (this.type === 0) {
-      // primitive type
-      return `core::${PrimitiveTypeName[this.col_type]}`;
-    } else {
-      // object type
-      return this.abi.types[this.type].name;
-    }
-  }
-
   toJSON() {
     return {
       _type: 'core::NativeTableColumnMeta',
@@ -232,6 +310,6 @@ export class NativeTableColumnMeta {
       index: this.index,
       min: this.min,
       max: this.max,
-    }
+    };
   }
 }

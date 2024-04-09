@@ -351,7 +351,7 @@ describe('project', () => {
       extra_1: null,
       extra_2: null,
       name: null,
-      type: null
+      type: null,
     },
     {
       _type: 'runtime::StoreStat',

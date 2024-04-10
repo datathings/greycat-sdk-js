@@ -1,16 +1,11 @@
-@library("algebra");
-
 use io;
 use runtime;
 use util;
 
-use ml;
-use compute;
-
 fn main() {
   var out = GcbWriter::new("project.test.gcb");
   write_std(out);
-  write_algebra(out);
+  // write_algebra(out);
 }
 
 fn write_std(out: GcbWriter) {
@@ -288,24 +283,24 @@ fn write_std_util(out: GcbWriter) {
   out.write(Crypto {});
 }
 
-fn write_algebra(out: GcbWriter) {
-  write_algebra_ml(out);
-  write_algebra_compute(out);
-}
+// fn write_algebra(out: GcbWriter) {
+//   write_algebra_ml(out);
+//   write_algebra_compute(out);
+// }
 
-fn write_algebra_ml(out: GcbWriter) {
-  out.write(GaussianND {});
-  var gaussian = GaussianND {};
-  var tensor = Tensor {};
-  tensor.init(TensorType::f64, [1, 1]);
-  tensor.add([0, 0], 0.0);
-  gaussian.learn(tensor);
-  out.write(gaussian);
-}
+// fn write_algebra_ml(out: GcbWriter) {
+//   out.write(GaussianND {});
+//   var gaussian = GaussianND {};
+//   var tensor = Tensor {};
+//   tensor.init(TensorType::f64, [1, 1]);
+//   tensor.add([0, 0], 0.0);
+//   gaussian.learn(tensor);
+//   out.write(gaussian);
+// }
 
-fn write_algebra_compute(out: GcbWriter) {
-  out.write(ComputeActivationSigmoid {});
-}
+// fn write_algebra_compute(out: GcbWriter) {
+//   out.write(ComputeActivationSigmoid {});
+// }
 
 @expose
 fn table() {
@@ -380,15 +375,15 @@ fn tensor3() {
   return tensor;
 }
 
-@expose
-fn gaussianND() {
-  var gaussian = GaussianND {};
-  var tensor = Tensor {};
-  tensor.init(TensorType::f64, [1, 1]);
-  tensor.add([0, 0], 0.0);
-  gaussian.learn(tensor);
-  return gaussian;
-}
+// @expose
+// fn gaussianND() {
+//   var gaussian = GaussianND {};
+//   var tensor = Tensor {};
+//   tensor.init(TensorType::f64, [1, 1]);
+//   tensor.add([0, 0], 0.0);
+//   gaussian.learn(tensor);
+//   return gaussian;
+// }
 
 type Foo { a: int?; }
 

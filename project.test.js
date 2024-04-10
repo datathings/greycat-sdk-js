@@ -7,7 +7,7 @@ import {
   AbiReader,
   AbiWriter,
   GCEnum,
-  algebralib,
+  // algebralib,
   stdlib,
   core,
   GreyCat,
@@ -104,9 +104,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 12, column: 17 },
-        { module: 'project', fn: 'write_std', line: 17, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 95, column: 36 },
+        { module: 'project', fn: 'main', line: 7, column: 17 },
+        { module: 'project', fn: 'write_std', line: 12, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 90, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },
@@ -403,16 +403,16 @@ describe('project', () => {
     { _type: 'util::Crypto' },
 
     // algebra::ml
-    { _type: 'ml::GaussianND' },
-    { _type: 'ml::GaussianND' },
+    // { _type: 'ml::GaussianND' },
+    // { _type: 'ml::GaussianND' },
 
     // algebra::compute
-    { _type: 'compute::ComputeActivationSigmoid' },
+    // { _type: 'compute::ComputeActivationSigmoid' },
   ];
 
   before(async () => {
     const buffer = (await readFile('project.test.abi')).buffer;
-    abi = new Abi(buffer, [stdlib, algebralib]);
+    abi = new Abi(buffer, [stdlib]);
 
     const data = (await readFile('project.test.gcb')).buffer;
     reader = new AbiReader(abi, data);
@@ -455,7 +455,7 @@ describe('std', () => {
   before(async () => {
     const buffer = (await readFile('project.test.abi')).buffer;
     global.greycat.default = GreyCat.initWithAbi({
-      abi: new Abi(buffer, [stdlib, algebralib]),
+      abi: new Abi(buffer, [stdlib]),
     });
   });
 

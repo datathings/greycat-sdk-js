@@ -80,7 +80,7 @@ export class GCObject {
               w.raw_string(value);
             } else {
               const object = value as GCObject;
-              if (att.abi_type !== object.$type.offset) {
+              if (w.abi.types[att.abi_type].is_abstract) {
                 w.write_vu32(object.$type.offset);
               }
               object.saveContent(w);

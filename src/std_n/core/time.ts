@@ -164,9 +164,6 @@ export class time extends GCObject {
   }
 
   override toJSON() {
-    return {
-      _type: this.$type.name,
-      iso: this.toString(),
-    };
+    return this.toString();
   }
 }

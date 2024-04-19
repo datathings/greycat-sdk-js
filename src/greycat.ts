@@ -405,6 +405,7 @@ export class GreyCat {
     args?: Value[],
     signal?: AbortSignal,
     task = false,
+    httpMethod = 'POST',
   ): Promise<T> {
     const url = `${this.api}/${method}`;
     const writer = new AbiWriter(this.abi, this.capacity);
@@ -455,8 +456,8 @@ export class GreyCat {
       headers['If-None-Match'] = cachedRes.etag;
     }
     const res = await fetch(url, {
-      method: 'POST',
-      body: writer.buffer,
+      method: httpMethod,
+      body: httpMethod === 'GET' ? undefined : writer.buffer,
       headers,
       signal,
     });

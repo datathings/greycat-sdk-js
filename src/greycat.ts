@@ -54,41 +54,6 @@ export function getDebuggerLogger() {
   return debugLogger;
 }
 
-export async function downloadAbiHeaders(
-  { url = DEFAULT_URL, auth, signal, unauthorizedHandler }: WithoutAbiOptions = {
-    url: DEFAULT_URL,
-  },
-): Promise<[[number, number, number], string | undefined]> {
-  let token: string | undefined;
-
-  if (auth) {
-    token = await login({ ...auth, url, signal });
-  }
-
-  const headers: RequestInit['headers'] = { Accept: 'application/json' };
-  if (token) {
-    headers['Authorization'] = token;
-  }
-
-  const cleanUrl = normalizeUrl(url);
-  const method = 'runtime::Runtime::abi_headers';
-  const res = await fetch(`${cleanUrl}/${method}`, {
-    method: 'POST',
-    headers,
-    signal,
-  });
-  if (res.status === 401) {
-    // unauthorized
-    debugLogger(res.status, method);
-    // call handler if any
-    unauthorizedHandler?.();
-    throw new Error(`you need to be logged-in to access '${method}'`);
-  } else if (!res.ok) {
-    throw new Error(`unable to fetch ABI headers (${res.status} ${res.statusText})`);
-  }
-  return [await res.json(), token];
-}
-
 /**
  * @returns {[ArrayBuffer, string | undefined]} returns a tuple containing the ABI data and optionally the token if a login has occured
  */

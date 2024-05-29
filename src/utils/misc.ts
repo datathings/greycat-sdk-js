@@ -226,9 +226,19 @@ export function stringify(props: StringifyProps): string {
         return value.toString();
       }
     }
-    return JSON.stringify(value, null, pretty ? '  ' : undefined);
+    return JSON.stringify(value, bigintsAsString, pretty ? '  ' : undefined);
   }
   return String(value);
+}
+
+/**
+ * Stringifies `bigint`, the rest is left unchanged
+ */
+function bigintsAsString(_key: string, value: unknown): unknown {
+  if (typeof value === 'bigint') {
+    return `${value}`;
+  }
+  return value;
 }
 
 export function isNode(

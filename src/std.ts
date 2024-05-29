@@ -34,6 +34,19 @@ std.io.File.prototype.resolve = function resolve(maxDepth = 5, signal?: AbortSig
   return resolveFileChildrenRecursively(this, maxDepth, 0, signal, g);
 }
 
+std.core.Date.prototype.toString = function toString() {
+  const month = this.month.toString().padStart(2, '0');
+  const day = this.day.toString().padStart(2, '0');
+  const hour = this.hour.toString().padStart(2, '0');
+  const min = this.minute.toString().padStart(2, '0');
+  const sec = this.second.toString().padStart(2, '0');
+  if (this.microsecond > 0) {
+    return `${this.year}-${month}-${day}T${hour}:${min}:${sec}.${this.microsecond}`;
+  } else {
+    return `${this.year}-${month}-${day}T${hour}:${min}:${sec}`;
+  }
+}
+
 function compareFile(a: std.io.File, b: std.io.File): number {
   const aDir = a.path.endsWith('/');
   const bDir = b.path.endsWith('/');
@@ -126,6 +139,5 @@ declare module './std/index.js' {
        */
       resolve(maxDepth?: number, signal?: AbortSignal, g?: GreyCat): Promise<void>;
     }
-
   }
 }

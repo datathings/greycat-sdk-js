@@ -9,7 +9,6 @@ export * from './nodeIndex.js';
 export * from './nodeList.js';
 export * from './nodeTime.js';
 export * from './time.js';
-export * from './Date.js';
 export * from './Array.js';
 export * from './Map.js';
 export * from './Table.js';

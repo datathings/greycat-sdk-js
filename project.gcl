@@ -3,7 +3,7 @@ use runtime;
 use util;
 
 fn main() {
-  var out = GcbWriter::new("project.test.gcb");
+  var out = GcbWriter { path: "project.test.gcb" };
   write_std(out);
   // write_algebra(out);
 }
@@ -99,7 +99,7 @@ fn write_std_core(out: GcbWriter) {
   tensor.add([0, 0], 3.14);
   out.write(tensor);
   out.write(GeoCircle::new(49.59634473860023lat_6.128470332224678lng, 13.37));
-  out.write(Date::new(2012, 12, 12, 12, 12, 12, 120012, TimeZone::Europe_Luxembourg));
+  out.write(Date { year: 2012, month: 12, day: 12, hour: 12, minute: 12, second: 12, microsecond: 120012 });
   out.write(nodeTime<nodeGeo>::new());
   out.write(Array<nodeTime>::new(0));
   out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));
@@ -253,7 +253,7 @@ fn write_std_util(out: GcbWriter) {
   out.write(Gaussian {});
   // out.write(Quantizer::new()); // unsupported
   out.write(GaussianProfile::new(0));
-  out.write(TimeWindow::new());
+  out.write(time_window());
   out.write(SlidingWindow::new());
   out.write(Queue<SlidingWindow>::new());
   /* wrong null for T fields
@@ -302,6 +302,17 @@ fn write_std_util(out: GcbWriter) {
 //   out.write(ComputeActivationSigmoid {});
 // }
 
+fn time_window() {
+  var window = TimeWindow::new();
+  window.configure(3_s);
+  window.add(0_time, 1);
+  window.add(1_time, 1000);
+  window.add(2_time, 100_000);
+  window.add(3_time, 999_999_999);
+  window.add(4_time, 42);
+  return window;
+}
+
 @expose
 fn table() {
   var nbRows = 4;
@@ -338,7 +349,7 @@ fn slowTask() {
 
 @expose
 fn computeTask() {
-  var writer = TextWriter::new("${File::taskDir()}/foo.txt");
+  var writer = TextWriter { path: "${File::taskDir()}/foo.txt" };
   writer.write(42);
 }
 

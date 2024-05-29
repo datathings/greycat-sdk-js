@@ -501,6 +501,7 @@ export class GreyCat {
   }
 
   /**
+<<<<<<< HEAD
    * Deserializes all values from the given `ArrayBuffer`.
    */
   deserializeAll(data: ArrayBuffer): Value[] {
@@ -509,9 +510,23 @@ export class GreyCat {
 
   /**
    * Deserializes ABI headers, then deserializes **one** value from the given `ArrayBuffer`.
+=======
+   * Deserializes ABI headers, then deserializes one value from the given `ArrayBuffer`.
+   * 
+   * If the headers do not match, `abiMismatchHandler` will be called if defined.
+   * 
+   * *No matter what, the error will be thrown.*
+>>>>>>> testing
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
-    return new AbiReader(this.abi, data).deserializeWithHeaders();
+    const reader = new AbiReader(this.abi, data);
+    try {
+      reader.headers();
+    } catch (err) {
+      this.abiMismatchHandler?.();
+      throw err;
+    }
+    return reader.deserialize();
   }
 
   /**

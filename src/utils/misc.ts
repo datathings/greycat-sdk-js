@@ -185,7 +185,7 @@ export function stringify(props: StringifyProps): string {
   } else if (value instanceof Date) {
     return dateFmt ? dateFmt.format(value) : value.toISOString();
   } else if (value instanceof core.Date) {
-    return dateFmt ? value.format(dateFmt) : value.toString();
+    return value.toString();
   } else if (value instanceof core.Tuple) {
     props.value = value.x;
     const x = stringify(props);

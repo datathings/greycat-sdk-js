@@ -45,12 +45,20 @@ export class TimeWindow extends GCObject {
     const tail = r.read_vi64();
     const values = new Array(capacity);
     for (let i = 0; i < capacity; i++) {
-      const time = r.read_i64();
       const value = r.deserialize();
+      const time = r.read_i64();
       values[i] = new TimedValue(time, value);
     }
 
     return new type.factory(type, timeWidth, sum_type, sum, sumsq, size, capacity, head, tail, values) as util.TimeWindow;
+  }
+
+  override toJSON() {
+    const o: Record<string, unknown> = { _type: this.$type.name };
+    for (const v of this.values) {
+      o[`${v.time}`] = v.value;
+    }
+    return o;
   }
 }
 

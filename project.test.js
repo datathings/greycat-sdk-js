@@ -115,7 +115,10 @@ describe('project', () => {
     { _type: 'core::TensorType', field: 'c128' },
     {
       _type: 'core::Table',
-      cols: [[0, 0.5, 1, 1.5], [null, null, null, null]],
+      cols: [
+        [0, 0.5, 1, 1.5],
+        [null, null, null, null],
+      ],
       meta: [
         {
           _type: 'core::NativeTableColumnMeta',
@@ -366,7 +369,15 @@ describe('project', () => {
       available_ratio: 0.2,
     },
     { _type: 'runtime::System' },
-    { _type: 'runtime::SecurityPolicy', entities: [], credentials: {}, roles: {}, fields: null, keys: null, keys_last_refresh: null },
+    {
+      _type: 'runtime::SecurityPolicy',
+      entities: [],
+      credentials: {},
+      roles: {},
+      fields: null,
+      keys: null,
+      keys_last_refresh: null,
+    },
 
     // std::util
     { _type: 'util::Random', seed: 42, v: 13.37 },
@@ -385,7 +396,7 @@ describe('project', () => {
     { _type: 'util::Iban' },
     { _type: 'util::Gaussian', count: null, max: null, min: null, sum: null, sum_sq: null },
     { _type: 'util::GaussianProfile' },
-    { _type: 'util::TimeWindow' },
+    { _type: 'util::TimeWindow', 0: null, 1: 1000, 2: 100000, 3: 999999999, 4: 42 },
     { _type: 'util::SlidingWindow' },
     { _type: 'util::Queue' },
     { _type: 'util::Crypto' },

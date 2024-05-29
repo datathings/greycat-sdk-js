@@ -263,7 +263,7 @@ fn write_std_util(out: GcbWriter) {
   out.write(Gaussian {});
   // out.write(Quantizer::new()); // unsupported
   out.write(GaussianProfile::new(0));
-  out.write(TimeWindow::new());
+  out.write(time_window());
   out.write(SlidingWindow::new());
   out.write(Queue<SlidingWindow>::new());
   /* wrong null for T fields
@@ -310,6 +310,17 @@ fn write_algebra_ml(out: GcbWriter) {
 
 fn write_algebra_compute(out: GcbWriter) {
   out.write(ComputeActivationSigmoid {});
+}
+
+fn time_window() {
+  var window = TimeWindow::new();
+  window.configure(3_s);
+  window.add(0_time, 1);
+  window.add(1_time, 1000);
+  window.add(2_time, 100_000);
+  window.add(3_time, 999_999_999);
+  window.add(4_time, 42);
+  return window;
 }
 
 @expose

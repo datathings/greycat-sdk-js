@@ -2,6 +2,12 @@ use io;
 use runtime;
 use util;
 
+type FloatPrecisionTest {
+  normal: float;
+  @precision(0.01)
+  precision: float;
+}
+
 fn main() {
   var out = GcbWriter { path: "project.test.gcb" };
   write_std(out);
@@ -74,6 +80,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(49.59634473860023lat_6.128470332224678lng);
   out.write(Map::new());
   out.write(project::table);
+  out.write(FloatPrecisionTest { normal: 3.14, precision: 3.141516 });
 
   var map = Map::new();
   map.set(42, 42);

@@ -1,18 +1,5 @@
 import { Abi, AbiFunction, AbiPrecision, F64_DIVIDERS, Value, PrimitiveType, type IPrimitiveLoader, GCEnum, GCObject, std_n } from './index.js';
 
-const buffer = new ArrayBuffer(8);
-const view = new DataView(buffer);
-
-function f64_to_u64(v: number): bigint {
-  view.setFloat64(0, v, true);
-  return view.getBigUint64(0, true);
-}
-
-function u64_to_f64(v: bigint): number {
-  view.setBigUint64(0, v, true);
-  return view.getFloat64(0, true);
-}
-
 const deserialize_error: IPrimitiveLoader = () => {
   throw new Error(`invalid primitive type`);
 };
@@ -238,7 +225,7 @@ export class Reader {
     if (precision === AbiPrecision.p_0) {
       return this.read_f64();
     }
-    return u64_to_f64(this.read_vu64_bigint()) / F64_DIVIDERS[precision];
+    return Number(this.read_vu64_bigint()) / F64_DIVIDERS[precision];
   }
 
   /**
@@ -689,8 +676,8 @@ export class Writer {
     if (precision === AbiPrecision.p_0) {
       this.write_f64(v);
     } else {
-      v *= F64_DIVIDERS[precision];
-      this.write_vu64(f64_to_u64(v));
+      const x = v * F64_DIVIDERS[precision];
+      this.write_vu64(BigInt(x | 0));
     }
   }
 

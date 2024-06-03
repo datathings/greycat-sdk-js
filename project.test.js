@@ -66,6 +66,7 @@ describe('project', () => {
     { _type: 'core::geo', lat: 49.596344732033856, lng: 6.128470371477306 },
     {},
     { _type: 'core::function', fqn: 'project::table' },
+    { _type: "project::FloatPrecisionTest", normal: 3.14, precision: 3.14 },
     {
       42: 42,
       true: true,
@@ -103,9 +104,9 @@ describe('project', () => {
       msg: 'an error',
       value: null,
       stack: [
-        { module: 'project', fn: 'main', line: 7, column: 17 },
-        { module: 'project', fn: 'write_std', line: 12, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 90, column: 36 },
+        { module: 'project', fn: 'main', line: 13, column: 17 },
+        { module: 'project', fn: 'write_std', line: 18, column: 22 },
+        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
       ],
     },
     { _type: 'core::ErrorCode', field: 'none' },

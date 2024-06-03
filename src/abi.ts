@@ -337,7 +337,9 @@ export class Abi {
     } else if (split.length === 3) {
       return this.createFunction(split[0], split[1], split[2]);
     }
-    throw new Error(`invalid function fqn '${fqn}' (expecting '<module>::<name>' or '<module>::<type>::<name>')`);
+    throw new Error(
+      `invalid function fqn '${fqn}' (expecting '<module>::<name>' or '<module>::<type>::<name>')`,
+    );
   }
 
   createFunction(mod: string, type: string | undefined, name: string) {
@@ -569,12 +571,7 @@ export class AbiType {
         // initialize all enum fields
         this.enum_values = new Array(attrs.length);
         for (let offset = 0; offset < attrs.length; offset++) {
-          const en = new this.factory(
-            this,
-            offset,
-            attrs[offset].name,
-            null,
-          ) as GCEnum;
+          const en = new this.factory(this, offset, attrs[offset].name, null) as GCEnum;
           this.static_values[attrs[offset].name] = en;
           this.enum_values[offset] = en;
         }
@@ -589,7 +586,7 @@ export class AbiType {
           },
           set(v) {
             this.$attrs[i] = v;
-          }
+          },
         };
       }
       this.factory = factory ?? GCObject;
@@ -620,7 +617,7 @@ export class AbiType {
    * ```ts
    * .resolveGeneratedOffsetWithValues('Green', 0, 'Yellow', 1, 'Red', 2)
    * ```
-   * 
+   *
    * NB:
    *
    * This should be named "defineEnumFieldValues(...)"
@@ -652,7 +649,7 @@ export class AbiAttribute {
     readonly nullable: boolean,
     readonly mapped: boolean,
     readonly precision: AbiPrecision,
-  ) { }
+  ) {}
 }
 
 export enum AbiPrecision {
@@ -669,19 +666,10 @@ export enum AbiPrecision {
   p_10_000_000_000 = 10,
 }
 
-export const F64_DIVIDERS = {
-  [AbiPrecision.p_0]: 1.0,
-  [AbiPrecision.p_10]: 10.0,
-  [AbiPrecision.p_100]: 100.0,
-  [AbiPrecision.p_1_000]: 1000.0,
-  [AbiPrecision.p_10_000]: 10000.0,
-  [AbiPrecision.p_100_000]: 100000.0,
-  [AbiPrecision.p_1_000_000]: 1000000.0,
-  [AbiPrecision.p_10_000_000]: 10000000.0,
-  [AbiPrecision.p_100_000_000]: 100000000.0,
-  [AbiPrecision.p_1_000_000_000]: 1000000000.0,
-  [AbiPrecision.p_10_000_000_000]: 10000000000.0,
-};
+export const F64_DIVIDERS = [
+  1.0, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 10000000.0, 100000000.0, 1000000000.0,
+  10000000000.0,
+] as const;
 
 export class AbiFunction {
   constructor(
@@ -697,11 +685,11 @@ export class AbiFunction {
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
     readonly is_task: boolean,
-  ) { }
+  ) {}
 }
 
 export class AbiParam {
-  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) { }
+  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) {}
 }
 
 /**
@@ -714,6 +702,6 @@ function cloneLibrary(lib: Library): Library {
     name: lib.name,
     mapped: new Array(lib.mapped.length),
     configure: lib.configure,
-    init: lib.init
+    init: lib.init,
   };
 }

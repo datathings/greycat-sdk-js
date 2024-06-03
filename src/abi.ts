@@ -135,6 +135,7 @@ export class Abi {
         const mapped_any_offset = cursor.read_vu32();
         const mapped_att_offset = cursor.read_vu32();
         const sbi_type = cursor.read_u8();
+        const precision = cursor.read_u8() as AbiPrecision;
         const flags = cursor.read_u8();
         const nullable = (flags & 1) !== 0;
         const mapped = (flags & (1 << 1)) !== 0;
@@ -148,6 +149,7 @@ export class Abi {
           sbi_type as PrimitiveType,
           nullable,
           mapped,
+          precision,
         );
       }
 
@@ -514,6 +516,10 @@ export class AbiType {
           value = attObjectType.loader(r, attObjectType);
           break;
         }
+        case PrimitiveType.float: {
+          value = r.read_pf64(att.precision);
+          break;
+        }
         default: {
           value = r.deserializers[loadType](r);
           break;
@@ -645,8 +651,37 @@ export class AbiAttribute {
     readonly sbi_type: PrimitiveType,
     readonly nullable: boolean,
     readonly mapped: boolean,
+    readonly precision: AbiPrecision,
   ) { }
 }
+
+export enum AbiPrecision {
+  p_0 = 0,
+  p_10 = 1,
+  p_100 = 2,
+  p_1_000 = 3,
+  p_10_000 = 4,
+  p_100_000 = 5,
+  p_1_000_000 = 6,
+  p_10_000_000 = 7,
+  p_100_000_000 = 8,
+  p_1_000_000_000 = 9,
+  p_10_000_000_000 = 10,
+}
+
+export const F64_DIVIDERS = {
+  [AbiPrecision.p_0]: 1.0,
+  [AbiPrecision.p_10]: 10.0,
+  [AbiPrecision.p_100]: 100.0,
+  [AbiPrecision.p_1_000]: 1000.0,
+  [AbiPrecision.p_10_000]: 10000.0,
+  [AbiPrecision.p_100_000]: 100000.0,
+  [AbiPrecision.p_1_000_000]: 1000000.0,
+  [AbiPrecision.p_10_000_000]: 10000000.0,
+  [AbiPrecision.p_100_000_000]: 100000000.0,
+  [AbiPrecision.p_1_000_000_000]: 1000000000.0,
+  [AbiPrecision.p_10_000_000_000]: 10000000000.0,
+};
 
 export class AbiFunction {
   constructor(

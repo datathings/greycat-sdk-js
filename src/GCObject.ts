@@ -1,4 +1,4 @@
-import type { AbiType, AbiWriter, Value } from './index.js';
+import { type AbiType, type AbiWriter, type Value } from './index.js';
 import { PrimitiveType } from './types.js';
 
 /**
@@ -62,7 +62,7 @@ export class GCObject {
             w.write_vi64(typeof value === 'bigint' ? value : BigInt(value as number));
             break;
           case PrimitiveType.float:
-            w.write_f64(value as number);
+            w.write_pf64(value as number, att.precision);
             break;
           case PrimitiveType.object:
             if (Array.isArray(value)) {

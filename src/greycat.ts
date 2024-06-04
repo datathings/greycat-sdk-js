@@ -348,7 +348,8 @@ export class GreyCat {
           break;
         }
         case 'ended': {
-          return this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
+          const result = await this.getFile<T[]>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
+          return result[0];
         }
         case 'error':
         case 'ended_with_errors': {
@@ -501,7 +502,6 @@ export class GreyCat {
   }
 
   /**
-<<<<<<< HEAD
    * Deserializes all values from the given `ArrayBuffer`.
    */
   deserializeAll(data: ArrayBuffer): Value[] {
@@ -510,13 +510,10 @@ export class GreyCat {
 
   /**
    * Deserializes ABI headers, then deserializes **one** value from the given `ArrayBuffer`.
-=======
-   * Deserializes ABI headers, then deserializes one value from the given `ArrayBuffer`.
    * 
    * If the headers do not match, `abiMismatchHandler` will be called if defined.
    * 
    * *No matter what, the error will be thrown.*
->>>>>>> testing
    */
   deserializeWithHeader(data: ArrayBuffer): Value {
     const reader = new AbiReader(this.abi, data);

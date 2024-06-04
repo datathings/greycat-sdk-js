@@ -353,11 +353,11 @@ export class GreyCat {
         }
         case 'error':
         case 'ended_with_errors': {
-          const err = await this.getFile<std.core.Error>(
+          const result = await this.getFile<std.core.Error[]>(
             `${task.user_id}/tasks/${task.task_id}/result.gcb`,
             signal,
           );
-          throw err;
+          throw result[0] ?? new Error(`Task ${task.user_id}/${task.task_id} ended in error`);
         }
       }
     }

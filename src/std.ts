@@ -89,6 +89,17 @@ declare module './std/index.js' {
        * 
        * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
        * 
+       * Returns a `T[]` because ".gcb" files can contain multiple values.
+       * 
+       * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
+       * what is inside the requested file. But it gives no verifications on the content of the data.
+       */
+      getFile<T = unknown>(filepath: `${string}.gcb`, signal?: AbortSignal, g?: GreyCat): Promise<T[]>;
+      /**
+       * Downloads a task file.
+       * 
+       * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
+       * 
        * Returns either a `T` or a `T[]` based on the extension of the file. All files will return `T` except ".gcb" files which
        * can contain more than one value, therefore `T[]`.
        * 

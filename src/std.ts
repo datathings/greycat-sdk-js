@@ -14,11 +14,11 @@ std.runtime.Task.prototype.info = function info(signal?: AbortSignal, g = global
 };
 
 std.runtime.Task.prototype.result = function result<T = unknown>(signal?: AbortSignal, g = globalThis.greycat.default) {
-  return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal);
+  return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal).then((results) => results[0]);
 };
 
-std.runtime.Task.prototype.arguments = function arguments_<T = unknown>(signal?: AbortSignal, g = globalThis.greycat.default) {
-  return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
+std.runtime.Task.prototype.arguments = function arguments_(signal?: AbortSignal, g = globalThis.greycat.default): Promise<unknown[]> {
+  return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
 };
 
 
@@ -88,8 +88,14 @@ declare module './std/index.js' {
        * Downloads a task file.
        * 
        * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
+       * 
+       * Returns either a `T` or a `T[]` based on the extension of the file. All files will return `T` except ".gcb" files which
+       * can contain more than one value, therefore `T[]`.
+       * 
+       * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
+       * what is inside the requested file. But it gives no verifications on the content of the data.
        */
-      getFile<T = unknown>(filepath: string, signal?: AbortSignal, g?: GreyCat): Promise<T>;
+      getFile<T = unknown>(filepath: string, signal?: AbortSignal, g?: GreyCat): Promise<T | T[]>;
 
       /**
        * Returns the result of the task.

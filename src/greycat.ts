@@ -159,7 +159,7 @@ export interface GreyCat {
   await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T>;
 
   getFile<T = unknown>(filepath: `${string}.gcb`, signal?: AbortSignal): Promise<T[]>;
-  getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T>;
+  getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T | T[]>;
 }
 
 export class GreyCat {
@@ -348,12 +348,12 @@ export class GreyCat {
           break;
         }
         case 'ended': {
-          const result = await this.getFile<T[]>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
+          const result = await this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
           return result[0];
         }
         case 'error':
         case 'ended_with_errors': {
-          const result = await this.getFile<std.core.Error[]>(
+          const result = await this.getFile<std.core.Error>(
             `${task.user_id}/tasks/${task.task_id}/result.gcb`,
             signal,
           );
@@ -555,20 +555,20 @@ export class GreyCat {
    * @param signal optional `AbortSignal` to cancel the request prematurely
    * @returns
    */
-  async getFile<T = unknown>(filepath: string, signal?: AbortSignal): Promise<T> {
+  async getFile(filepath: string, signal?: AbortSignal) {
     const res = await this.getFileResponse(filepath, signal);
     if (filepath.endsWith('.json')) {
       return res.json();
     } else if (filepath.endsWith('.gcb')) {
       const data = await res.arrayBuffer();
       if (data.byteLength === 0) {
-        return undefined as T;
+        return undefined;
       }
       const reader = new AbiReader(this.abi, data);
       reader.headers(); // TODO do not ignore headers
-      return Array.from(reader) as T;
+      return Array.from(reader);
     }
-    return res.text() as T;
+    return res.text();
   }
 
   /**

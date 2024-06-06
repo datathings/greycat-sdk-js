@@ -3,20 +3,16 @@
 import * as $sdk from '../index.js';
 
 export namespace project {
-  export class FooBar extends $sdk.GCObject {
-    static readonly _type = 'project::FooBar';
+  export class Foo extends $sdk.GCObject {
+    static readonly _type = 'project::Foo';
 
-    tz!: $sdk.std.core.TimeZone;
-    name!: string;
-    int!: bigint | number;
-    foo!: project.FooBar | null;
-    values!: globalThis.Array<any>;
+    a!: bigint | number | null;
 
-    static createFrom({tz, name, int, foo, values}: {tz: $sdk.std.core.TimeZone, name: string, int: bigint | number, foo: project.FooBar | null, values: globalThis.Array<any>}, $g: $sdk.GreyCat = globalThis.greycat.default): FooBar {
-      return new FooBar($g.abi.libs_by_name.get(projectlib.name)!.mapped[0], tz, name, int, foo, values);
+    static createFrom({a}: {a: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Foo {
+      return new Foo($g.abi.libs_by_name.get(projectlib.name)!.mapped[0], a);
     }
-    static create(tz: $sdk.std.core.TimeZone, name: string, int: bigint | number, foo: project.FooBar | null, values: globalThis.Array<any>, $g: $sdk.GreyCat = globalThis.greycat.default): FooBar {
-      return new FooBar($g.abi.libs_by_name.get(projectlib.name)!.mapped[0], tz, name, int, foo, values);
+    static create(a: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Foo {
+      return new Foo($g.abi.libs_by_name.get(projectlib.name)!.mapped[0], a);
     }
   }
 
@@ -48,29 +44,47 @@ export namespace project {
   export namespace Confidence  {
     export type Field = 'High'|'Medium'|'Low';
   }
+  export class FooBar extends $sdk.GCObject {
+    static readonly _type = 'project::FooBar';
+
+    tz!: $sdk.std.core.TimeZone;
+    name!: string;
+    int!: bigint | number;
+    foo!: project.FooBar | null;
+    values!: globalThis.Array<any>;
+
+    static createFrom({tz, name, int, foo, values}: {tz: $sdk.std.core.TimeZone, name: string, int: bigint | number, foo: project.FooBar | null, values: globalThis.Array<any>}, $g: $sdk.GreyCat = globalThis.greycat.default): FooBar {
+      return new FooBar($g.abi.libs_by_name.get(projectlib.name)!.mapped[2], tz, name, int, foo, values);
+    }
+    static create(tz: $sdk.std.core.TimeZone, name: string, int: bigint | number, foo: project.FooBar | null, values: globalThis.Array<any>, $g: $sdk.GreyCat = globalThis.greycat.default): FooBar {
+      return new FooBar($g.abi.libs_by_name.get(projectlib.name)!.mapped[2], tz, name, int, foo, values);
+    }
+  }
+
+  export class FloatPrecisionTest extends $sdk.GCObject {
+    static readonly _type = 'project::FloatPrecisionTest';
+
+    normal!: number;
+    precision!: number;
+
+    static createFrom({normal, precision}: {normal: number, precision: number}, $g: $sdk.GreyCat = globalThis.greycat.default): FloatPrecisionTest {
+      return new FloatPrecisionTest($g.abi.libs_by_name.get(projectlib.name)!.mapped[3], normal, precision);
+    }
+    static create(normal: number, precision: number, $g: $sdk.GreyCat = globalThis.greycat.default): FloatPrecisionTest {
+      return new FloatPrecisionTest($g.abi.libs_by_name.get(projectlib.name)!.mapped[3], normal, precision);
+    }
+  }
+
   export class Bar<T extends $sdk.Value = any> extends $sdk.GCObject {
     static readonly _type = 'project::Bar';
 
     attr!: T | null;
 
     static createFrom({attr}: {attr: any | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Bar {
-      return new Bar($g.abi.libs_by_name.get(projectlib.name)!.mapped[2], attr);
+      return new Bar($g.abi.libs_by_name.get(projectlib.name)!.mapped[4], attr);
     }
     static create(attr: any | null, $g: $sdk.GreyCat = globalThis.greycat.default): Bar {
-      return new Bar($g.abi.libs_by_name.get(projectlib.name)!.mapped[2], attr);
-    }
-  }
-
-  export class Foo extends $sdk.GCObject {
-    static readonly _type = 'project::Foo';
-
-    a!: bigint | number | null;
-
-    static createFrom({a}: {a: bigint | number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Foo {
-      return new Foo($g.abi.libs_by_name.get(projectlib.name)!.mapped[3], a);
-    }
-    static create(a: bigint | number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Foo {
-      return new Foo($g.abi.libs_by_name.get(projectlib.name)!.mapped[3], a);
+      return new Bar($g.abi.libs_by_name.get(projectlib.name)!.mapped[4], attr);
     }
   }
 
@@ -157,9 +171,10 @@ export namespace $anon$ {
     enum!: any;
   }
   export class Anon1 extends $sdk.GCObject {
-    static readonly _type = '::<enum>';
+    static readonly _type = '::<hello,took>';
 
-    enum!: any;
+    hello!: any;
+    took!: any;
   }
   export class Anon2 extends $sdk.GCObject {
     static readonly _type = '::<value>';
@@ -167,36 +182,37 @@ export namespace $anon$ {
     value!: any;
   }
   export class Anon3 extends $sdk.GCObject {
-    static readonly _type = '::<hello,took>';
+    static readonly _type = '::<enum>';
 
-    hello!: any;
-    took!: any;
+    enum!: any;
   }
 }
 
 export const projectlib: $sdk.Library = {
   name: 'project',
-  mapped: new globalThis.Array(8),
+  mapped: new globalThis.Array(9),
   configure(_loaders, factories) {
-    factories.set(project.FooBar._type, project.FooBar);
-    factories.set(project.Confidence._type, project.Confidence);
-    factories.set(project.Bar._type, project.Bar);
     factories.set(project.Foo._type, project.Foo);
+    factories.set(project.Confidence._type, project.Confidence);
+    factories.set(project.FooBar._type, project.FooBar);
+    factories.set(project.FloatPrecisionTest._type, project.FloatPrecisionTest);
+    factories.set(project.Bar._type, project.Bar);
     factories.set($anon$.Anon0._type, $anon$.Anon0);
     factories.set($anon$.Anon1._type, $anon$.Anon1);
     factories.set($anon$.Anon2._type, $anon$.Anon2);
     factories.set($anon$.Anon3._type, $anon$.Anon3);
   },
   init(abi) {
-    this.mapped[0] = abi.type_by_fqn.get(project.FooBar._type)!;
+    this.mapped[0] = abi.type_by_fqn.get(project.Foo._type)!;
     this.mapped[1] = abi.type_by_fqn.get(project.Confidence._type)!;
     this.mapped[1]?.resolveGeneratedOffsetWithValues('High', null,'Medium', null,'Low', null);
-    this.mapped[2] = abi.type_by_fqn.get(project.Bar._type)!;
-    this.mapped[3] = abi.type_by_fqn.get(project.Foo._type)!;
-    this.mapped[4] = abi.type_by_fqn.get($anon$.Anon0._type)!;
-    this.mapped[5] = abi.type_by_fqn.get($anon$.Anon1._type)!;
-    this.mapped[6] = abi.type_by_fqn.get($anon$.Anon2._type)!;
-    this.mapped[7] = abi.type_by_fqn.get($anon$.Anon3._type)!;
+    this.mapped[2] = abi.type_by_fqn.get(project.FooBar._type)!;
+    this.mapped[3] = abi.type_by_fqn.get(project.FloatPrecisionTest._type)!;
+    this.mapped[4] = abi.type_by_fqn.get(project.Bar._type)!;
+    this.mapped[5] = abi.type_by_fqn.get($anon$.Anon0._type)!;
+    this.mapped[6] = abi.type_by_fqn.get($anon$.Anon1._type)!;
+    this.mapped[7] = abi.type_by_fqn.get($anon$.Anon2._type)!;
+    this.mapped[8] = abi.type_by_fqn.get($anon$.Anon3._type)!;
   },
 };
 

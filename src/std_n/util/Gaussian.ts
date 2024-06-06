@@ -59,4 +59,13 @@ export class Gaussian extends GCObject {
       maxBound,
     ) as util.Gaussian;
   }
+
+  override toJSON() {
+    return Object.assign(
+      {
+        _type: this.$type.name,
+      },
+      this,
+    );
+  }
 }

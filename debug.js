@@ -5,13 +5,34 @@
 // run with: `node --inspect-brk debug.js`
 // then in VSCode: `ctrl+shift+p` > `Debug: Attach to Node Process`
 //
-import { GreyCat, algebralib, core } from './dist/esm/index.js';
+import { readFileSync } from 'node:fs';
+import { Abi, AbiReader, stdlib, algebralib, AbiWriter } from './dist/esm/index.js';
+const [filepath] = process.argv.slice(2);
+if (!filepath) {
+  throw new Error('usage: <filepath>');
+}
 
-const g = await GreyCat.init({
-  libraries: [algebralib],
-});
+const abi = new Abi(readFile('./gcdata/store/abi'), [stdlib, algebralib]);
 
-g.abi.factories.set('')
+const reader = new AbiReader(abi, readFile(filepath));
 
-const res = await g.call('core::node::resolve_all', [[core.node.fromRef('2000', g)]]);
-console.log({ ...res[0] });
+const value = reader.deserializeWithHeaders();
+console.log(structuredClone(value));
+
+const writer = new AbiWriter(abi);
+writer.serialize(value);
+
+const value2 = new AbiReader(abi, writer.buffer.buffer).deserialize();
+console.log(structuredClone(value2));
+
+/**
+ * Node.js API can return re-used buffers from `readFileSync`
+ * so we have to slice to the proper offset to get our own shrinked
+ * `ArrayBuffer` from it.
+ * @param {string} filepath
+ * @returns
+ */
+function readFile(filepath) {
+  const b = readFileSync(filepath);
+  return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength);
+}

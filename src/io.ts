@@ -1,4 +1,15 @@
-import { Abi, AbiFunction, AbiPrecision, F64_DIVIDERS, Value, PrimitiveType, type IPrimitiveLoader, GCEnum, GCObject, std_n } from './index.js';
+import {
+  Abi,
+  AbiFunction,
+  AbiPrecision,
+  F64_DIVIDERS,
+  Value,
+  PrimitiveType,
+  type IPrimitiveLoader,
+  GCEnum,
+  GCObject,
+  std_n,
+} from './index.js';
 
 const deserialize_error: IPrimitiveLoader = () => {
   throw new Error(`invalid primitive type`);
@@ -20,7 +31,7 @@ export class Reader {
   readonly txt: TextDecoder;
 
   constructor(buf: ArrayBuffer) {
-    this._buf = new Uint8Array(buf, 0, buf.byteLength);
+    this._buf = new Uint8Array(buf);
     // see https://v8.dev/blog/dataview if you don't trust me on using DataView rather than manual LE reads on _buf
     this._view = new DataView(buf);
     this.txt = new TextDecoder('utf-8');
@@ -86,63 +97,6 @@ export class Reader {
     return this._read_varint_u64();
   }
 
-  private _read_varint_u64(): bigint {
-    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
-    let header = BigInt(this._buf[this._curr]);
-
-    let unpacked = header & 0x7fn;
-    if (!(header & 0x80n)) {
-      this._curr += 1;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 1]);
-    unpacked |= (header & 0x7fn) << 7n;
-    if (!(header & 0x80n)) {
-      this._curr += 2;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 2]);
-    unpacked |= (header & 0x7fn) << 14n;
-    if (!(header & 0x80n)) {
-      this._curr += 3;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 3]);
-    unpacked |= (header & 0x7fn) << 21n;
-    if (!(header & 0x80n)) {
-      this._curr += 4;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 4]);
-    unpacked |= (header & 0x7fn) << 28n;
-    if (!(header & 0x80n)) {
-      this._curr += 5;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 5]);
-    unpacked |= (header & 0x7fn) << 35n;
-    if (!(header & 0x80n)) {
-      this._curr += 6;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 6]);
-    unpacked |= (header & 0x7fn) << 42n;
-    if (!(header & 0x80n)) {
-      this._curr += 7;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 7]);
-    unpacked |= (header & 0x7fn) << 49n;
-    if (!(header & 0x80n)) {
-      this._curr += 8;
-      return unpacked;
-    }
-    header = BigInt(this._buf[this._curr + 8]);
-    unpacked |= header << 56n;
-    this._curr += 9;
-    return unpacked;
-  }
-
   read_u8(): number {
     assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
     const v = this._view.getUint8(this._curr);
@@ -155,6 +109,38 @@ export class Reader {
     const v = this._view.getInt8(this._curr);
     this._curr += 1;
     return v;
+  }
+
+  decompress(byteLength: number) {
+    const buffer = new ArrayBuffer(byteLength);
+    const values = new BigUint64Array(buffer);
+
+    const bit = { pos: 0 };
+    let previous_decoding = 0n;
+    let lz = 0;
+    let tz = 0;
+    let significant_bits = 0;
+    let xor = 0n;
+
+    for (let i = 0; i < values.length; i++) {
+      let num_i = this._read_bit(bit);
+      if (num_i === 1) {
+        num_i = this._read_bit(bit);
+        if (num_i === 1) {
+          lz = this._read_6bits_i32(bit);
+          significant_bits = this._read_6bits_i32(bit) + 1;
+          tz = 64 - significant_bits - lz;
+        }
+        const num_u64 = this._read_xbit_u64(bit, significant_bits) << BigInt(tz);
+        xor = previous_decoding ^ num_u64;
+        values[i] = xor;
+        previous_decoding = xor;
+      } else {
+        values[i] = previous_decoding;
+      }
+    }
+
+    return buffer;
   }
 
   read_u16(): number {
@@ -241,6 +227,101 @@ export class Reader {
     const v = this._buf.slice(this._curr, this._curr + n);
     this._curr += n;
     return v;
+  }
+
+  private _read_varint_u64(): bigint {
+    assert_buffer_has_enough_bytes(this._curr + 1 <= this._buf.byteLength);
+    let header = BigInt(this._buf[this._curr]);
+
+    let unpacked = header & 0x7fn;
+    if (!(header & 0x80n)) {
+      this._curr += 1;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 1]);
+    unpacked |= (header & 0x7fn) << 7n;
+    if (!(header & 0x80n)) {
+      this._curr += 2;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 2]);
+    unpacked |= (header & 0x7fn) << 14n;
+    if (!(header & 0x80n)) {
+      this._curr += 3;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 3]);
+    unpacked |= (header & 0x7fn) << 21n;
+    if (!(header & 0x80n)) {
+      this._curr += 4;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 4]);
+    unpacked |= (header & 0x7fn) << 28n;
+    if (!(header & 0x80n)) {
+      this._curr += 5;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 5]);
+    unpacked |= (header & 0x7fn) << 35n;
+    if (!(header & 0x80n)) {
+      this._curr += 6;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 6]);
+    unpacked |= (header & 0x7fn) << 42n;
+    if (!(header & 0x80n)) {
+      this._curr += 7;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 7]);
+    unpacked |= (header & 0x7fn) << 49n;
+    if (!(header & 0x80n)) {
+      this._curr += 8;
+      return unpacked;
+    }
+    header = BigInt(this._buf[this._curr + 8]);
+    unpacked |= header << 56n;
+    this._curr += 9;
+    return unpacked;
+  }
+
+  private _read_bit(bit: { pos: number }): number {
+    const b = this._buf[this._curr];
+    const v = (b >> bit.pos++) & 1;
+    if (bit.pos === 8) {
+      bit.pos = 0;
+      this._curr += 1;
+    }
+    return v;
+  }
+
+  private _read_6bits_i32(bit: { pos: number }): number {
+    let num_i32 = 0;
+    for (let i = 0; i < 6; i++) {
+      const b = this._buf[this._curr];
+      const v = (b >> bit.pos++) & 1;
+      if (bit.pos === 8) {
+        bit.pos = 0;
+        this._curr++;
+      }
+      num_i32 = (num_i32 << 1) | v;
+    }
+    return num_i32;
+  }
+
+  private _read_xbit_u64(bit: { pos: number }, x: number): bigint {
+    let num_u64 = 0n;
+    for (let i = 0; i < x; i++) {
+      const b = this._buf[this._curr];
+      const v = (b >> bit.pos++) & 1;
+      if (bit.pos === 8) {
+        bit.pos = 0;
+        this._curr++;
+      }
+      num_u64 = (num_u64 << 1n) | BigInt(v);
+    }
+    return num_u64;
   }
 }
 
@@ -362,7 +443,9 @@ export class AbiReader extends Reader implements Iterable<unknown> {
   headers(): [number, number, number] {
     const protocol = this.read_u16();
     if (protocol !== Abi.protocol_version) {
-      throw new Error(`major version mismatch (expected=${Abi.protocol_version}, actual=${protocol})`);
+      throw new Error(
+        `major version mismatch (expected=${Abi.protocol_version}, actual=${protocol})`,
+      );
     }
     const magic = this.read_u16();
     const version = this.read_u32();
@@ -450,8 +533,11 @@ export class Writer {
   protected _view: DataView;
   readonly txt: TextEncoder;
 
-  constructor(capacity = 2048) {
-    this._buf = new Uint8Array(capacity);
+  constructor(capacityOrBuffer: number | ArrayBuffer = 2048) {
+    this._buf =
+      typeof capacityOrBuffer === 'number'
+        ? new Uint8Array(capacityOrBuffer)
+        : new Uint8Array(capacityOrBuffer);
     // see https://v8.dev/blog/dataview
     this._view = new DataView(this._buf.buffer);
     this.txt = new TextEncoder();
@@ -514,6 +600,20 @@ export class Writer {
     this._reserve(4);
     this._view.setUint32(this._curr, v, true);
     this._curr += 4;
+  }
+
+  /**
+   * Reserves a `u32` slot to be updated later on
+   */
+  write_u32_slot(): { update: (v: number) => void } {
+    this._reserve(4);
+    const off = this._curr;
+    this._curr += 4;
+    return {
+      update: (v) => {
+        this._view.setUint32(off, v, true);
+      },
+    };
   }
 
   write_i32(v: number) {
@@ -715,8 +815,8 @@ export class Writer {
  * A growable Uint8Array to write little-endian values
  */
 export class AbiWriter extends Writer {
-  constructor(readonly abi: Abi, capacity = 2048) {
-    super(capacity);
+  constructor(readonly abi: Abi, capacityOrBuffer: number | ArrayBuffer = 2048) {
+    super(capacityOrBuffer);
   }
 
   /**
@@ -948,3 +1048,31 @@ function closestUpperPowerOf2(value: number) {
 function isASCIICharCode(code: number): boolean {
   return code >= 0 && code <= 127;
 }
+
+// /**
+//  * Counts leading zeroes
+//  * @param v
+//  * @returns
+//  */
+// function clz64(v: bigint): number {
+//   if (v === 0n) {
+//     return 64;
+//   }
+//   return Math.clz32(Number(v >> 32n)) + Math.clz32(Number(v & 0xffffffffn));
+// }
+
+// /**
+//  * Counts trailing zeroes
+//  * @param v
+//  */
+// function ctz64(v: bigint): number {
+//   if (v === 0n) {
+//     return 64;
+//   }
+//   let tz = 0;
+//   while ((v & 1n) === 0n) {
+//     tz++;
+//     v >>= 1n;
+//   }
+//   return tz;
+// }

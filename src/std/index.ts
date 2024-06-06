@@ -4133,15 +4133,34 @@ export namespace io {
 }
 
 export namespace util {
-  export class Plot extends $sdk.GCObject {
-    static readonly _type = 'util::Plot';
+  export class QuantizerDenseDim extends $sdk.GCObject {
+    static readonly _type = 'util::QuantizerDenseDim';
 
+    min!: bigint | number;
+    max!: bigint | number;
+    step!: bigint | number;
 
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
-      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[106]);
+    static createFrom({min, max, step}: {min: bigint | number, max: bigint | number, step: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): QuantizerDenseDim {
+      return new QuantizerDenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[106], min, max, step);
     }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
-      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[106]);
+    static create(min: bigint | number, max: bigint | number, step: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): QuantizerDenseDim {
+      return new QuantizerDenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[106], min, max, step);
+    }
+  }
+
+  export class Iban extends std_n.util.Iban {
+  }
+
+  export class QuantizerSparseDim extends $sdk.GCObject {
+    static readonly _type = 'util::QuantizerSparseDim';
+
+    values!: globalThis.Array<bigint | number>;
+
+    static createFrom({values}: {values: globalThis.Array<bigint | number>}, $g: $sdk.GreyCat = globalThis.greycat.default): QuantizerSparseDim {
+      return new QuantizerSparseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[108], values);
+    }
+    static create(values: globalThis.Array<bigint | number>, $g: $sdk.GreyCat = globalThis.greycat.default): QuantizerSparseDim {
+      return new QuantizerSparseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[108], values);
     }
   }
 
@@ -4169,17 +4188,11 @@ export namespace util {
     size!: bigint | number;
 
     static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[107], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[109], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
     static create(min: bigint | number, max: bigint | number, whiskerLow: bigint | number, whiskerHigh: bigint | number, percentile1: bigint | number, percentile5: bigint | number, percentile25: bigint | number, percentile50: bigint | number, percentile75: bigint | number, percentile95: bigint | number, percentile99: bigint | number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotInt {
-      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[107], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotInt($g.abi.libs_by_name.get(stdlib.name)!.mapped[109], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
-  }
-
-  export class Iban extends std_n.util.Iban {
-  }
-
-  export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {
   }
 
   export class Assert extends $sdk.GCObject {
@@ -4194,9 +4207,6 @@ export namespace util {
     }
   }
 
-  export class TimeWindow extends std_n.util.TimeWindow {
-  }
-
   export class Random extends $sdk.GCObject {
     static readonly _type = 'util::Random';
 
@@ -4204,14 +4214,70 @@ export namespace util {
     v!: number;
 
     static createFrom({seed, v}: {seed: bigint | number, v: number}, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[112], seed, v);
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[111], seed, v);
     }
     static create(seed: bigint | number, v: number, $g: $sdk.GreyCat = globalThis.greycat.default): Random {
-      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[112], seed, v);
+      return new Random($g.abi.libs_by_name.get(stdlib.name)!.mapped[111], seed, v);
     }
   }
 
+  export class TimeWindow extends std_n.util.TimeWindow {
+  }
+
+  export class Plot extends $sdk.GCObject {
+    static readonly _type = 'util::Plot';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
+      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[113]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Plot {
+      return new Plot($g.abi.libs_by_name.get(stdlib.name)!.mapped[113]);
+    }
+  }
+
+  export class HistogramFloat extends std_n.util.HistogramFloat {
+  }
+
   export class SlidingWindow extends std_n.util.SlidingWindow {
+  }
+
+  export class ProgressTracker extends $sdk.GCObject {
+    static readonly _type = 'util::ProgressTracker';
+
+    start!: $sdk.std.core.time;
+    total!: bigint | number | null;
+    counter!: bigint | number | null;
+    duration!: $sdk.std.core.duration | null;
+    progress!: number | null;
+    speed!: number | null;
+    remaining!: $sdk.std.core.duration | null;
+
+    static createFrom({start, total, counter, duration, progress, speed, remaining}: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null}, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[116], start, total, counter, duration, progress, speed, remaining);
+    }
+    static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
+      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[116], start, total, counter, duration, progress, speed, remaining);
+    }
+  }
+
+  export class Quantizer extends $sdk.GCObject {
+    static readonly _type = 'util::Quantizer';
+
+    dimensions!: globalThis.Array<util.QuantizerDim>;
+
+    static createFrom({dimensions}: {dimensions: globalThis.Array<util.QuantizerDim>}, $g: $sdk.GreyCat = globalThis.greycat.default): Quantizer {
+      return new Quantizer($g.abi.libs_by_name.get(stdlib.name)!.mapped[117], dimensions);
+    }
+    static create(dimensions: globalThis.Array<util.QuantizerDim>, $g: $sdk.GreyCat = globalThis.greycat.default): Quantizer {
+      return new Quantizer($g.abi.libs_by_name.get(stdlib.name)!.mapped[117], dimensions);
+    }
+  }
+
+  export class Queue<T extends $sdk.Value = any> extends std_n.util.Queue<T> {
+  }
+
+  export class GaussianProfile extends std_n.util.GaussianProfile {
   }
 
   export class BoxPlotFloat extends $sdk.GCObject {
@@ -4238,66 +4304,20 @@ export namespace util {
     size!: bigint | number;
 
     static createFrom({min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size}: {min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[114], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[120], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
     static create(min: number, max: number, whiskerLow: number, whiskerHigh: number, percentile1: number, percentile5: number, percentile25: number, percentile50: number, percentile75: number, percentile95: number, percentile99: number, countOutliersLow: bigint | number, countOutliersHigh: bigint | number, percentageOutliersLow: number, percentageOutliersHigh: number, sum: number, avg: number, std: number, size: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): BoxPlotFloat {
-      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[114], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
-    }
-  }
-
-  export class ProgressTracker extends $sdk.GCObject {
-    static readonly _type = 'util::ProgressTracker';
-
-    start!: $sdk.std.core.time;
-    total!: bigint | number | null;
-    counter!: bigint | number | null;
-    duration!: $sdk.std.core.duration | null;
-    progress!: number | null;
-    speed!: number | null;
-    remaining!: $sdk.std.core.duration | null;
-
-    static createFrom({start, total, counter, duration, progress, speed, remaining}: {start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null}, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[115], start, total, counter, duration, progress, speed, remaining);
-    }
-    static create(start: $sdk.std.core.time, total: bigint | number | null, counter: bigint | number | null, duration: $sdk.std.core.duration | null, progress: number | null, speed: number | null, remaining: $sdk.std.core.duration | null, $g: $sdk.GreyCat = globalThis.greycat.default): ProgressTracker {
-      return new ProgressTracker($g.abi.libs_by_name.get(stdlib.name)!.mapped[115], start, total, counter, duration, progress, speed, remaining);
-    }
-  }
-
-  export class GaussianProfile extends std_n.util.GaussianProfile {
-  }
-
-  export class HistogramFloat extends std_n.util.HistogramFloat {
-  }
-
-  export class Crypto extends $sdk.GCObject {
-    static readonly _type = 'util::Crypto';
-
-
-    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[118]);
-    }
-    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
-      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[118]);
-    }
-  }
-
-  export class DenseDim extends $sdk.GCObject {
-    static readonly _type = 'util::DenseDim';
-
-    min!: bigint | number;
-    max!: bigint | number;
-    step!: bigint | number;
-
-    static createFrom({min, max, step}: {min: bigint | number, max: bigint | number, step: bigint | number}, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
-      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[119], min, max, step);
-    }
-    static create(min: bigint | number, max: bigint | number, step: bigint | number, $g: $sdk.GreyCat = globalThis.greycat.default): DenseDim {
-      return new DenseDim($g.abi.libs_by_name.get(stdlib.name)!.mapped[119], min, max, step);
+      return new BoxPlotFloat($g.abi.libs_by_name.get(stdlib.name)!.mapped[120], min, max, whiskerLow, whiskerHigh, percentile1, percentile5, percentile25, percentile50, percentile75, percentile95, percentile99, countOutliersLow, countOutliersHigh, percentageOutliersLow, percentageOutliersHigh, sum, avg, std, size);
     }
   }
 
   export class HistogramInt extends std_n.util.HistogramInt {
+  }
+
+  export class QuantizerDim extends $sdk.GCObject {
+    static readonly _type = 'util::QuantizerDim';
+
+
   }
 
   export class Buffer extends std_n.util.Buffer {
@@ -4313,10 +4333,22 @@ export namespace util {
     max!: number | null;
 
     static createFrom({sum, sum_sq, count, min, max}: {sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null}, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
-      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[122], sum, sum_sq, count, min, max);
+      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[124], sum, sum_sq, count, min, max);
     }
     static create(sum: number | null, sum_sq: number | null, count: bigint | number | null, min: number | null, max: number | null, $g: $sdk.GreyCat = globalThis.greycat.default): Gaussian {
-      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[122], sum, sum_sq, count, min, max);
+      return new Gaussian($g.abi.libs_by_name.get(stdlib.name)!.mapped[124], sum, sum_sq, count, min, max);
+    }
+  }
+
+  export class Crypto extends $sdk.GCObject {
+    static readonly _type = 'util::Crypto';
+
+
+    static createFrom($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[125]);
+    }
+    static create($g: $sdk.GreyCat = globalThis.greycat.default): Crypto {
+      return new Crypto($g.abi.libs_by_name.get(stdlib.name)!.mapped[125]);
     }
   }
 
@@ -4324,7 +4356,7 @@ export namespace util {
 
 export const stdlib: $sdk.Library = {
   name: 'std',
-  mapped: new globalThis.Array(123),
+  mapped: new globalThis.Array(126),
   configure(loaders, factories) {
     factories.set(core.DatePart._type, core.DatePart);
     factories.set(core.TableColumnMapping._type, core.TableColumnMapping);
@@ -4459,31 +4491,34 @@ export const stdlib: $sdk.Library = {
     factories.set(io.Mqtt._type, io.Mqtt);
     factories.set(io.CsvColumnBoolean._type, io.CsvColumnBoolean);
     factories.set(io.CsvFormat._type, io.CsvFormat);
-    factories.set(util.Plot._type, util.Plot);
-    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
+    factories.set(util.QuantizerDenseDim._type, util.QuantizerDenseDim);
     factories.set(util.Iban._type, util.Iban);
     loaders.set(util.Iban._type, std_n.util.Iban.load);
-    factories.set(util.Queue._type, util.Queue);
-    loaders.set(util.Queue._type, std_n.util.Queue.load);
+    factories.set(util.QuantizerSparseDim._type, util.QuantizerSparseDim);
+    factories.set(util.BoxPlotInt._type, util.BoxPlotInt);
     factories.set(util.Assert._type, util.Assert);
+    factories.set(util.Random._type, util.Random);
     factories.set(util.TimeWindow._type, util.TimeWindow);
     loaders.set(util.TimeWindow._type, std_n.util.TimeWindow.load);
-    factories.set(util.Random._type, util.Random);
-    factories.set(util.SlidingWindow._type, util.SlidingWindow);
-    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
-    factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
-    factories.set(util.ProgressTracker._type, util.ProgressTracker);
-    factories.set(util.GaussianProfile._type, util.GaussianProfile);
-    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.Plot._type, util.Plot);
     factories.set(util.HistogramFloat._type, util.HistogramFloat);
     loaders.set(util.HistogramFloat._type, std_n.util.HistogramFloat.load);
-    factories.set(util.Crypto._type, util.Crypto);
-    factories.set(util.DenseDim._type, util.DenseDim);
+    factories.set(util.SlidingWindow._type, util.SlidingWindow);
+    loaders.set(util.SlidingWindow._type, std_n.util.SlidingWindow.load);
+    factories.set(util.ProgressTracker._type, util.ProgressTracker);
+    factories.set(util.Quantizer._type, util.Quantizer);
+    factories.set(util.Queue._type, util.Queue);
+    loaders.set(util.Queue._type, std_n.util.Queue.load);
+    factories.set(util.GaussianProfile._type, util.GaussianProfile);
+    loaders.set(util.GaussianProfile._type, std_n.util.GaussianProfile.load);
+    factories.set(util.BoxPlotFloat._type, util.BoxPlotFloat);
     factories.set(util.HistogramInt._type, util.HistogramInt);
     loaders.set(util.HistogramInt._type, std_n.util.HistogramInt.load);
+    factories.set(util.QuantizerDim._type, util.QuantizerDim);
     factories.set(util.Buffer._type, util.Buffer);
     loaders.set(util.Buffer._type, std_n.util.Buffer.load);
     factories.set(util.Gaussian._type, util.Gaussian);
+    factories.set(util.Crypto._type, util.Crypto);
   },
   init(abi) {
     this.mapped[0] = abi.type_by_fqn.get(core.DatePart._type)!;
@@ -4624,32 +4659,35 @@ export const stdlib: $sdk.Library = {
     this.mapped[103] = abi.type_by_fqn.get(io.Mqtt._type)!;
     this.mapped[104] = abi.type_by_fqn.get(io.CsvColumnBoolean._type)!;
     this.mapped[105] = abi.type_by_fqn.get(io.CsvFormat._type)!;
-    this.mapped[106] = abi.type_by_fqn.get(util.Plot._type)!;
-    this.mapped[107] = abi.type_by_fqn.get(util.BoxPlotInt._type)!;
-    this.mapped[108] = abi.type_by_fqn.get(util.Iban._type)!;
-    this.mapped[109] = abi.type_by_fqn.get(util.Queue._type)!;
+    this.mapped[106] = abi.type_by_fqn.get(util.QuantizerDenseDim._type)!;
+    this.mapped[107] = abi.type_by_fqn.get(util.Iban._type)!;
+    this.mapped[108] = abi.type_by_fqn.get(util.QuantizerSparseDim._type)!;
+    this.mapped[109] = abi.type_by_fqn.get(util.BoxPlotInt._type)!;
     this.mapped[110] = abi.type_by_fqn.get(util.Assert._type)!;
-    this.mapped[111] = abi.type_by_fqn.get(util.TimeWindow._type)!;
-    this.mapped[112] = abi.type_by_fqn.get(util.Random._type)!;
-    this.mapped[113] = abi.type_by_fqn.get(util.SlidingWindow._type)!;
-    this.mapped[114] = abi.type_by_fqn.get(util.BoxPlotFloat._type)!;
-    this.mapped[115] = abi.type_by_fqn.get(util.ProgressTracker._type)!;
-    this.mapped[116] = abi.type_by_fqn.get(util.GaussianProfile._type)!;
-    if (this.mapped[116]) {
-      this.mapped[116].static_values = {'table_off_size': 0,'table_off_min': 1,'table_off_max': 2,'table_off_avg': 3,'table_off_std': 4,'table_off_sum': 5,'table_off_columns': 6,};
+    this.mapped[111] = abi.type_by_fqn.get(util.Random._type)!;
+    this.mapped[112] = abi.type_by_fqn.get(util.TimeWindow._type)!;
+    this.mapped[113] = abi.type_by_fqn.get(util.Plot._type)!;
+    this.mapped[114] = abi.type_by_fqn.get(util.HistogramFloat._type)!;
+    if (this.mapped[114]) {
+      this.mapped[114].static_values = {'table_off_from': 0,'table_off_to': 1,'table_off_count': 2,'table_off_percentage': 3,};
     }
-    this.mapped[117] = abi.type_by_fqn.get(util.HistogramFloat._type)!;
-    if (this.mapped[117]) {
-      this.mapped[117].static_values = {'table_off_from': 0,'table_off_to': 1,'table_off_count': 2,'table_off_percentage': 3,};
+    this.mapped[115] = abi.type_by_fqn.get(util.SlidingWindow._type)!;
+    this.mapped[116] = abi.type_by_fqn.get(util.ProgressTracker._type)!;
+    this.mapped[117] = abi.type_by_fqn.get(util.Quantizer._type)!;
+    this.mapped[118] = abi.type_by_fqn.get(util.Queue._type)!;
+    this.mapped[119] = abi.type_by_fqn.get(util.GaussianProfile._type)!;
+    if (this.mapped[119]) {
+      this.mapped[119].static_values = {'table_off_size': 0,'table_off_min': 1,'table_off_max': 2,'table_off_avg': 3,'table_off_std': 4,'table_off_sum': 5,'table_off_columns': 6,};
     }
-    this.mapped[118] = abi.type_by_fqn.get(util.Crypto._type)!;
-    this.mapped[119] = abi.type_by_fqn.get(util.DenseDim._type)!;
-    this.mapped[120] = abi.type_by_fqn.get(util.HistogramInt._type)!;
-    if (this.mapped[120]) {
-      this.mapped[120].static_values = {'table_off_from': 0,'table_off_to': 1,'table_off_count': 2,'table_off_percentage': 3,};
+    this.mapped[120] = abi.type_by_fqn.get(util.BoxPlotFloat._type)!;
+    this.mapped[121] = abi.type_by_fqn.get(util.HistogramInt._type)!;
+    if (this.mapped[121]) {
+      this.mapped[121].static_values = {'table_off_from': 0,'table_off_to': 1,'table_off_count': 2,'table_off_percentage': 3,};
     }
-    this.mapped[121] = abi.type_by_fqn.get(util.Buffer._type)!;
-    this.mapped[122] = abi.type_by_fqn.get(util.Gaussian._type)!;
+    this.mapped[122] = abi.type_by_fqn.get(util.QuantizerDim._type)!;
+    this.mapped[123] = abi.type_by_fqn.get(util.Buffer._type)!;
+    this.mapped[124] = abi.type_by_fqn.get(util.Gaussian._type)!;
+    this.mapped[125] = abi.type_by_fqn.get(util.Crypto._type)!;
   },
 };
 

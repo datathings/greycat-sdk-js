@@ -27,6 +27,7 @@ export class HistogramFloat extends GCObject {
     public normalizing_index_offset: number,
     public counts_len: number,
     public total_count: bigint,
+    public data: bigint[],
   ) {
     super(type);
   }
@@ -53,6 +54,9 @@ export class HistogramFloat extends GCObject {
     w.write_i32(this.normalizing_index_offset);
     w.write_i32(this.counts_len);
     w.write_i64(this.total_count);
+    for (let i = 0; i < this.data.length; i++) {
+      w.write_i64(this.data[i]);
+    }
   }
 
   static load(r: AbiReader, type: AbiType): util.HistogramFloat {
@@ -77,6 +81,10 @@ export class HistogramFloat extends GCObject {
     const normalizing_index_offset = r.read_i32();
     const counts_len = r.read_i32();
     const total_count = r.read_i64();
+    const data: bigint[] = new Array(counts_len);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = r.read_i64();
+    }
 
     return new type.factory(
       type,
@@ -101,6 +109,18 @@ export class HistogramFloat extends GCObject {
       normalizing_index_offset,
       counts_len,
       total_count,
+      data,
     ) as util.HistogramFloat;
+  }
+
+  override toJSON() {
+    return {
+      _type: this.$type.name,
+      min: this.min,
+      max: this.max,
+      size: this.size,
+      sum: this.sum,
+      sumsq: this.sumsq,
+    };
   }
 }

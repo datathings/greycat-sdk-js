@@ -260,9 +260,32 @@ fn write_std_util(out: GcbWriter) {
   out.write(Assert {});
   out.write(ProgressTracker { start: 0_time });
   out.write(Iban::new("AX2112345600000785"));
-  out.write(Gaussian {});
+  var gaussian = Gaussian {};
+  gaussian.add(5.0);
+  gaussian.add(2.0);
+  gaussian.add(0.0);
+  out.write(gaussian);
   // out.write(Quantizer::new()); // unsupported
-  out.write(GaussianProfile::new(0));
+  var histogram_float = HistogramFloat {};
+  histogram_float.add(1.0);
+  histogram_float.add(2.0);
+  histogram_float.add(3.0);
+  histogram_float.add(4.0);
+  histogram_float.add(3.0);
+  histogram_float.add(2.0);
+  histogram_float.add(1.0);
+  out.write(histogram_float);
+  var histogram_int = HistogramInt {};
+  histogram_int.add(1);
+  histogram_int.add(2);
+  histogram_int.add(3);
+  histogram_int.add(4);
+  histogram_int.add(3);
+  histogram_int.add(2);
+  histogram_int.add(1);
+  out.write(histogram_int);
+  var profile = GaussianProfile::new(0);
+  out.write(profile);
   out.write(time_window());
   out.write(SlidingWindow::new());
   out.write(Queue<SlidingWindow>::new());
@@ -528,4 +551,19 @@ fn print_table(table: Table) {
 @expose
 fn fn_pointer() {
   return project::table;
+}
+
+fn write_gaussian_profile(): GaussianProfile {
+  var profile = GaussianProfile::new(1);
+  profile.add(0, 4.2);
+  profile.add(0, 1.5);
+  profile.add(0, 3.14);
+  var writer = GcbWriter::new("gaussian_profile.gcb");
+  writer.write(profile);
+  return profile;
+}
+
+fn write_string() {
+  var writer = GcbWriter::new("string.gcb");
+  writer.write("Hello world: ${42}");
 }

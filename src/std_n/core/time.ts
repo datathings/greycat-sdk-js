@@ -146,13 +146,19 @@ export class time extends GCObject {
     formatOrOptions: Intl.DateTimeFormat | Intl.DateTimeFormatOptions = time.FORMAT_OPTIONS,
     locales = globalThis.navigator ? globalThis.navigator.language : time.LOCALE,
   ): string {
-    if (formatOrOptions instanceof Intl.DateTimeFormat) {
-      return formatOrOptions.format(this.toDate());
+    const date = new Date(this.epochMs);
+    if (isNaN(date.getTime())) {
+      return `${this.value}_time`;
     }
+
+    if (formatOrOptions instanceof Intl.DateTimeFormat) {
+      return formatOrOptions.format(date);
+    }
+
     return new Intl.DateTimeFormat(locales, {
       timeZoneName: 'longOffset',
       ...formatOrOptions,
-    }).format(this.toDate());
+    }).format(date);
   }
 
   override toString(): string {

@@ -249,4 +249,8 @@ export class duration extends GCObject {
       us,
     };
   }
+
+  [Symbol.toPrimitive](_hint: string) {
+    return this.value;
+  }
 }

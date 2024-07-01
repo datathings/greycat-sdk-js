@@ -500,6 +500,10 @@ describe('std', () => {
         '316year 1month 5day 30min 23s 322ms 343us',
       );
     });
+
+    it('1year > 2days', () => {
+      assert(core.duration.from_years(1) > core.duration.from_days(2));
+    });
   });
 });
 

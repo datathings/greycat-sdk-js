@@ -172,4 +172,8 @@ export class time extends GCObject {
   override toJSON() {
     return this.toString();
   }
+
+  [Symbol.toPrimitive](_hint: string) {
+    return this.value;
+  }
 }

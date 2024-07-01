@@ -494,10 +494,10 @@ describe('std', () => {
       assert.deepStrictEqual(core.duration.create(1_000_000_000n).toString(), '16min 40s');
     });
 
-    it('9_968_439_839_322_343n => 316year 1month 5day 30min 23s 322ms 343us', () => {
+    it('100_000_000_000_000n => 1157day 9hour 46min 40s', () => {
       assert.deepStrictEqual(
-        core.duration.create(9_968_439_839_322_343n).toString(),
-        '316year 1month 5day 30min 23s 322ms 343us',
+        core.duration.create(100_000_000_000_000n).toString(),
+        '1157day 9hour 46min 40s',
       );
     });
   });

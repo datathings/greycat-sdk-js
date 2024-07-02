@@ -13,7 +13,6 @@ if (!filepath) {
 }
 
 const abi = new Abi(readFile('./gcdata/store/abi'), [stdlib, algebralib]);
-
 const reader = new AbiReader(abi, readFile(filepath));
 
 const value = reader.deserializeWithHeaders();

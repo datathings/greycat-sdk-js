@@ -236,4 +236,12 @@ export class duration extends GCObject {
       us,
     };
   }
+
+  override valueOf() {
+    return this.value;
+  }
+
+  [Symbol.toPrimitive](_hint: string) {
+    return this.value;
+  }
 }

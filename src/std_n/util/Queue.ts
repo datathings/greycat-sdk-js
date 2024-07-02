@@ -61,7 +61,11 @@ export class Queue<_ extends Value = any> extends GCObject {
 }
 
 class Node<T> {
-  constructor(public data: T, public prev: Node<T> | null = null, public next: Node<T> | null = null) {}
+  constructor(
+    public data: T,
+    public prev: Node<T> | null = null,
+    public next: Node<T> | null = null,
+  ) {}
 }
 
 class LinkedList<T> {

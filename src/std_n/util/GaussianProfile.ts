@@ -53,7 +53,7 @@ export class GaussianProfileSlot {
     readonly max: number,
     readonly std: number,
     readonly avg: number,
-  ) { }
+  ) {}
 
   save(w: AbiWriter) {
     w.write_f64(this.sum);
@@ -74,9 +74,9 @@ export class GaussianProfileSlot {
     const s = (sum * sum) / nb;
     let std: number;
     if (nb > 1 && sumsq > s) {
-        std = Math.sqrt((sumsq - s) / (nb - 1));
+      std = Math.sqrt((sumsq - s) / (nb - 1));
     } else {
-        std = 0.0;
+      std = 0.0;
     }
 
     return new GaussianProfileSlot(sum, sumsq, size, min, max, std, sum / nb);

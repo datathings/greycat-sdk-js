@@ -49,6 +49,17 @@ export class SlidingWindow extends GCObject {
       values[i] = r.deserialize();
     }
 
-    return new type.factory(type, width, sum_type, sum, sumsq, size, capacity, head, tail, values) as util.SlidingWindow;
+    return new type.factory(
+      type,
+      width,
+      sum_type,
+      sum,
+      sumsq,
+      size,
+      capacity,
+      head,
+      tail,
+      values,
+    ) as util.SlidingWindow;
   }
 }

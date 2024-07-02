@@ -70,7 +70,7 @@ export const PrimitiveTypeName = {
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IFactory = { new(type: AbiType, ...attributes: any[]): GCObject };
+export type IFactory = { new (type: AbiType, ...attributes: any[]): GCObject };
 export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
 export type Value = unknown;
@@ -85,7 +85,7 @@ export interface Library {
 export interface Options {
   /**
    * URL of the GreyCat server
-   * 
+   *
    * Defaults to:
    *  - `window.location.origin` in browser contexts
    *  - `'http://localhost:8080'` in other contexts (eg. Node.js)
@@ -97,19 +97,19 @@ export interface Options {
   capacity?: number;
   /**
    * A cache layer to use for requests/responses caching.
-   * 
+   *
    * Defaults to a `NoopCache`.
    */
   cache?: Cache;
   /**
    * Called when a request (from `greycat.call(...)`) returns a status code 401.
-   * 
+   *
    * *You can also set this handler directly on the `GreyCat` instance after creating it*
    */
   unauthorizedHandler?: () => void;
   /**
    * Called when a request has been sent with mismatched ABI headers and the response status code is 422.
-   * 
+   *
    * *You can also set this handler directly on the `GreyCat` instance after creating it*
    */
   abiMismatchHandler?: () => void;
@@ -120,12 +120,12 @@ export type CacheKey = [method: string] | [method: string, params: ArrayBuffer];
 export type CacheData = {
   etag: string;
   data: ArrayBuffer;
-}
+};
 
 export interface Cache {
   write(key: CacheKey, data: CacheData): Promise<void>;
   /**
-   * @param key 
+   * @param key
    * @returns `CacheData` on success, `null` on cache miss
    */
   read(key: CacheKey): Promise<CacheData | null>;

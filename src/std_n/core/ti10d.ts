@@ -24,7 +24,8 @@ export class ti10d extends GCObject {
     super(type);
   }
 
-  static create(x0: number,
+  static create(
+    x0: number,
     x1: number,
     x2: number,
     x3: number,
@@ -51,7 +52,18 @@ export class ti10d extends GCObject {
 
   override saveContent(w: AbiWriter) {
     w.write_u64(
-      interleave64_10di(this.x0, this.x1, this.x2, this.x3, this.x4, this.x5, this.x6, this.x7, this.x8, this.x9),
+      interleave64_10di(
+        this.x0,
+        this.x1,
+        this.x2,
+        this.x3,
+        this.x4,
+        this.x5,
+        this.x6,
+        this.x7,
+        this.x8,
+        this.x9,
+      ),
     );
   }
 

@@ -7,7 +7,7 @@ export class nodeTime extends GCObject {
   constructor(type: AbiType, public value: bigint) {
     super(type);
   }
-  
+
   static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeTime {
     const ty = g.abi.types[g.abi.core_node_time_offset];
     return new ty.factory(ty, value) as core.nodeTime;

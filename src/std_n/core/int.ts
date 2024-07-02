@@ -53,4 +53,3 @@ export class int extends GCObject {
     return value;
   }
 }
-

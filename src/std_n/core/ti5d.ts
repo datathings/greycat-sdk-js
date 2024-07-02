@@ -19,7 +19,14 @@ export class ti5d extends GCObject {
     super(type);
   }
 
-  static create(x0: number, x1: number, x2: number, x3: number, x4: number, g: GreyCat = globalThis.greycat.default): ti5d {
+  static create(
+    x0: number,
+    x1: number,
+    x2: number,
+    x3: number,
+    x4: number,
+    g: GreyCat = globalThis.greycat.default,
+  ): ti5d {
     const ty = g.abi.types[g.abi.core_ti5d_offset];
     return new ty.factory(ty, x0, x1, x2, x3, x4) as ti5d;
   }

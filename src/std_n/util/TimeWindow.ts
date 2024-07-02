@@ -50,7 +50,18 @@ export class TimeWindow extends GCObject {
       values[i] = new TimedValue(time, value);
     }
 
-    return new type.factory(type, timeWidth, sum_type, sum, sumsq, size, capacity, head, tail, values) as util.TimeWindow;
+    return new type.factory(
+      type,
+      timeWidth,
+      sum_type,
+      sum,
+      sumsq,
+      size,
+      capacity,
+      head,
+      tail,
+      values,
+    ) as util.TimeWindow;
   }
 
   override toJSON() {
@@ -63,5 +74,5 @@ export class TimeWindow extends GCObject {
 }
 
 export class TimedValue {
-  constructor(public time: bigint, public value: Value) { }
+  constructor(public time: bigint, public value: Value) {}
 }

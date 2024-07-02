@@ -67,8 +67,8 @@ export async function downloadAbi(
     libraries,
     unauthorizedHandler,
   }: WithoutAbiOptions = {
-      url: DEFAULT_URL,
-    },
+    url: DEFAULT_URL,
+  },
 ): Promise<[ArrayBuffer, string | undefined]> {
   let token: string | undefined;
 
@@ -127,7 +127,6 @@ export async function downloadAbi(
 }
 
 export interface GreyCat {
-
   /**
    * Calls the specified `method` on the current GreyCat instance.
    * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
@@ -151,7 +150,12 @@ export interface GreyCat {
    *
    * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
    */
-  spawnAwait<T = unknown>(method: string, args?: Value[], pollEvery?: number, signal?: AbortSignal): Promise<T>;
+  spawnAwait<T = unknown>(
+    method: string,
+    args?: Value[],
+    pollEvery?: number,
+    signal?: AbortSignal,
+  ): Promise<T>;
 
   /**
    * Awaits the completion of the given GreyCat task.
@@ -312,7 +316,12 @@ export class GreyCat {
    *
    * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
    */
-  async spawnAwait<T = unknown>(method: string, args?: Value[], pollEvery?: number, signal?: AbortSignal): Promise<T> {
+  async spawnAwait<T = unknown>(
+    method: string,
+    args?: Value[],
+    pollEvery?: number,
+    signal?: AbortSignal,
+  ): Promise<T> {
     const task = await this.rawCall<std.runtime.Task>(method, args, signal, true);
     return this.await(task, pollEvery, signal);
   }
@@ -348,7 +357,10 @@ export class GreyCat {
           break;
         }
         case 'ended': {
-          const result = await this.getFile<T>(`${task.user_id}/tasks/${task.task_id}/result.gcb`, signal);
+          const result = await this.getFile<T>(
+            `${task.user_id}/tasks/${task.task_id}/result.gcb`,
+            signal,
+          );
           return result[0];
         }
         case 'error':
@@ -478,7 +490,8 @@ export class GreyCat {
       throw new Error(`calling ${method} failed`);
     }
     throw new Error(
-      `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
+      `calling '${method}' failed with code ${err.code} and message "${
+        err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,
     );
   }
@@ -510,9 +523,9 @@ export class GreyCat {
 
   /**
    * Deserializes ABI headers, then deserializes **one** value from the given `ArrayBuffer`.
-   * 
+   *
    * If the headers do not match, `abiMismatchHandler` will be called if defined.
-   * 
+   *
    * *No matter what, the error will be thrown.*
    */
   deserializeWithHeader(data: ArrayBuffer): Value {

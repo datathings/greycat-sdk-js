@@ -7,7 +7,7 @@ export class nodeGeo extends GCObject {
   constructor(type: AbiType, public value: bigint) {
     super(type);
   }
-  
+
   static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeGeo {
     const ty = g.abi.types[g.abi.core_node_geo_offset];
     return new ty.factory(ty, value) as core.nodeGeo;

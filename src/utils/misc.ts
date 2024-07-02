@@ -43,9 +43,9 @@ export function isGreycatNumber(type: string): boolean {
  *  - boolean
  *  - null
  *  - undefined
- * 
- * @param val 
- * @returns 
+ *
+ * @param val
+ * @returns
  */
 export function isScalar(
   val: unknown,
@@ -129,9 +129,9 @@ export function capitalize(txt: string): string {
 
 /**
  * Ellipsis a string after `max` character.
- * @param s 
- * @param max 
- * @returns 
+ * @param s
+ * @param max
+ * @returns
  */
 function toStrTiny(s: string, max = 100) {
   if (s.length > max) {
@@ -243,12 +243,7 @@ function bigintsAsString(_key: string, value: unknown): unknown {
 
 export function isNode(
   value: unknown,
-): value is
-  | core.node
-  | core.nodeTime
-  | core.nodeList
-  | core.nodeIndex
-  | core.nodeGeo {
+): value is core.node | core.nodeTime | core.nodeList | core.nodeIndex | core.nodeGeo {
   return (
     value instanceof core.node ||
     value instanceof core.nodeTime ||
@@ -257,4 +252,3 @@ export function isNode(
     value instanceof core.nodeGeo
   );
 }
-

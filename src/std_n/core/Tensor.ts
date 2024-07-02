@@ -10,7 +10,7 @@ const TensorType = {
   c128: 5,
 } as const;
 
-export type TensorType = typeof TensorType[keyof typeof TensorType];
+export type TensorType = (typeof TensorType)[keyof typeof TensorType];
 
 export class Tensor extends GCObject {
   static readonly _type = 'core::Tensor' as const;
@@ -44,7 +44,7 @@ export class Tensor extends GCObject {
 
     const data = new Array(shape[0]);
     for (let x = 0; x < data.length; x++) {
-      data[x] = new Array(shape[1])
+      data[x] = new Array(shape[1]);
       for (let y = 0; y < data[x].length; y++) {
         switch (tensorTypeOffset) {
           case TensorType.i32:
@@ -124,6 +124,6 @@ export class Tensor extends GCObject {
       shape: [],
       type: this.type,
       data: null,
-    }
+    };
   }
 }

@@ -8,11 +8,23 @@ import { GreyCat } from '../../greycat.js';
 export class ti4d extends GCObject {
   static readonly _type = 'core::ti4d' as const;
 
-  constructor(type: AbiType, public x0: number, public x1: number, public x2: number, public x3: number) {
+  constructor(
+    type: AbiType,
+    public x0: number,
+    public x1: number,
+    public x2: number,
+    public x3: number,
+  ) {
     super(type);
   }
 
-  static create(x0: number, x1: number, x2: number, x3: number, g: GreyCat = globalThis.greycat.default): ti4d {
+  static create(
+    x0: number,
+    x1: number,
+    x2: number,
+    x3: number,
+    g: GreyCat = globalThis.greycat.default,
+  ): ti4d {
     const ty = g.abi.types[g.abi.core_ti4d_offset];
     return new ty.factory(ty, x0, x1, x2, x3) as ti4d;
   }

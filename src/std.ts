@@ -1,38 +1,63 @@
 import { GreyCat } from './greycat.js';
 import { std } from './index.js';
 
-std.runtime.Task.prototype.getFile = function getFile<T = unknown>(filepath: string, signal?: AbortSignal, g = globalThis.greycat.default) {
+std.runtime.Task.prototype.getFile = function getFile<T = unknown>(
+  filepath: string,
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+) {
   return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/${filepath}`, signal);
 };
 
-std.runtime.Task.prototype.await = function await_(pollEvery?: number, signal?: AbortSignal, g = globalThis.greycat.default) {
+std.runtime.Task.prototype.await = function await_(
+  pollEvery?: number,
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+) {
   return g.await(this, pollEvery, signal);
 };
 
-std.runtime.Task.prototype.info = function info(signal?: AbortSignal, g = globalThis.greycat.default) {
+std.runtime.Task.prototype.info = function info(
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+) {
   return std.runtime.Task.info(this.user_id, this.task_id, g, signal);
 };
 
-std.runtime.Task.prototype.result = function result<T = unknown>(signal?: AbortSignal, g = globalThis.greycat.default) {
-  return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal).then((results) => results[0]);
+std.runtime.Task.prototype.result = function result<T = unknown>(
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+) {
+  return g
+    .getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal)
+    .then((results) => results[0]);
 };
 
-std.runtime.Task.prototype.arguments = function arguments_(signal?: AbortSignal, g = globalThis.greycat.default): Promise<unknown[]> {
+std.runtime.Task.prototype.arguments = function arguments_(
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+): Promise<unknown[]> {
   return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
 };
 
-
-std.io.File.prototype.list = function list(signal?: AbortSignal, g = globalThis.greycat.default): Promise<std.io.File[] | undefined> {
+std.io.File.prototype.list = function list(
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+): Promise<std.io.File[] | undefined> {
   if (this.path.endsWith('/')) {
     // directory
     return g.rawCall<std.io.File[]>(`files${this.path}`, undefined, signal, false, 'GET');
   }
   return Promise.resolve(void 0);
-}
+};
 
-std.io.File.prototype.resolve = function resolve(maxDepth = 5, signal?: AbortSignal, g = globalThis.greycat.default): Promise<void> {
+std.io.File.prototype.resolve = function resolve(
+  maxDepth = 5,
+  signal?: AbortSignal,
+  g = globalThis.greycat.default,
+): Promise<void> {
   return resolveFileChildrenRecursively(this, maxDepth, 0, signal, g);
-}
+};
 
 std.core.Date.prototype.toString = function toString() {
   const month = this.month.toString().padStart(2, '0');
@@ -45,7 +70,7 @@ std.core.Date.prototype.toString = function toString() {
   } else {
     return `${this.year}-${month}-${day}T${hour}:${min}:${sec}`;
   }
-}
+};
 
 function compareFile(a: std.io.File, b: std.io.File): number {
   const aDir = a.path.endsWith('/');
@@ -65,7 +90,13 @@ function compareFile(a: std.io.File, b: std.io.File): number {
   });
 }
 
-async function resolveFileChildrenRecursively(file: std.io.File, maxDepth: number, currDepth: number, signal?: AbortSignal, g?: GreyCat) {
+async function resolveFileChildrenRecursively(
+  file: std.io.File,
+  maxDepth: number,
+  currDepth: number,
+  signal?: AbortSignal,
+  g?: GreyCat,
+) {
   if (file.size == null) {
     // directory
     const children = await file.list(signal, g);
@@ -73,7 +104,6 @@ async function resolveFileChildrenRecursively(file: std.io.File, maxDepth: numbe
       file.children = children;
       file.children.sort(compareFile);
       for (const child of children) {
-
         await resolveFileChildrenRecursively(child, maxDepth, ++currDepth, signal, g);
       }
     }
@@ -86,23 +116,27 @@ declare module './std/index.js' {
     interface Task {
       /**
        * Downloads a task file.
-       * 
+       *
        * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
-       * 
+       *
        * Returns a `T[]` because ".gcb" files can contain multiple values.
-       * 
+       *
        * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
        * what is inside the requested file. But it gives no verifications on the content of the data.
        */
-      getFile<T = unknown>(filepath: `${string}.gcb`, signal?: AbortSignal, g?: GreyCat): Promise<T[]>;
+      getFile<T = unknown>(
+        filepath: `${string}.gcb`,
+        signal?: AbortSignal,
+        g?: GreyCat,
+      ): Promise<T[]>;
       /**
        * Downloads a task file.
-       * 
+       *
        * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
-       * 
+       *
        * Returns either a `T` or a `T[]` based on the extension of the file. All files will return `T` except ".gcb" files which
        * can contain more than one value, therefore `T[]`.
-       * 
+       *
        * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
        * what is inside the requested file. But it gives no verifications on the content of the data.
        */
@@ -110,25 +144,25 @@ declare module './std/index.js' {
 
       /**
        * Returns the result of the task.
-       * 
+       *
        * *This is equivalent to `task.getFile('result.gcb')`*
        */
       result<T = unknown>(signal?: AbortSignal, g?: GreyCat): Promise<T>;
 
       /**
        * Returns the arguments of the task.
-       * 
+       *
        * *This is equivalent to `task.getFile('arguments.gcb')`*
        */
       arguments(signal?: AbortSignal, g?: GreyCat): Promise<unknown[]>;
 
       /**
        * Awaits for the completion of the task.
-       * 
+       *
        * *NB: "completion" does not mean success*
        *
        * @param pollEvery will check the status of the task once every `pollEvery` milliseconds
-       * @param signal 
+       * @param signal
        */
       await<T = unknown>(pollEvery?: number, signal?: AbortSignal, g?: GreyCat): Promise<T>;
 
@@ -146,7 +180,7 @@ declare module './std/index.js' {
 
       /**
        * Lists the current children of this file.
-       * 
+       *
        * If this file is not a directory, returns `undefined`.
        */
       list(signal?: AbortSignal, g?: GreyCat): Promise<std.io.File[] | undefined>;

@@ -49,4 +49,3 @@ export class float extends GCObject {
     return this.value;
   }
 }
-

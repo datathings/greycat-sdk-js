@@ -11,7 +11,7 @@ export interface time {
 
   /**
    * Formats the time using the given format
-   * 
+   *
    * @param format the format to use
    */
   format(format: Intl.DateTimeFormat): string;
@@ -81,8 +81,8 @@ export class time extends GCObject {
   }
 
   /**
-  * Epoch in milliseconds
-  */
+   * Epoch in milliseconds
+   */
   get epochMs(): number {
     if (typeof this.value === 'bigint') {
       return Math.round(Number(this.value / 1_000n));
@@ -108,7 +108,7 @@ export class time extends GCObject {
   /**
    * Gives order between this time and another
    *
-   * @param other 
+   * @param other
    * @returns - `-1` if `this < other`
    * - `0` if `this == other`
    * - `1` if `this > other`
@@ -126,14 +126,16 @@ export class time extends GCObject {
 
   add(duration: core.duration, g = greycat.default): core.time {
     const sum = BigInt(this.value) + BigInt(duration.value);
-    const boxedSum = sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
+    const boxedSum =
+      sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
     const ty = g.abi.types[g.abi.core_time_offset];
     return new ty.factory(ty, boxedSum) as core.time;
   }
 
   sub(duration: core.duration | core.time, g = greycat.default): core.time | core.duration {
     const sub = BigInt(this.value) - BigInt(duration.value);
-    const boxedSub = sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
+    const boxedSub =
+      sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
     if (duration.$type.offset === g.abi.core_duration_offset) {
       const ty = g.abi.types[g.abi.core_time_offset];
       return new ty.factory(ty, boxedSub) as core.time;

@@ -262,7 +262,7 @@ export class NativeTableColumnMeta {
     public typeName: string | undefined = undefined,
     public index = false,
     public header: string | null = null,
-  ) { }
+  ) {}
 
   static load(r: AbiReader): NativeTableColumnMeta {
     const col_type = r.read_u8() as PrimitiveType;

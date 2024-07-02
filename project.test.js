@@ -504,6 +504,14 @@ describe('std', () => {
     it('1year > 2days', () => {
       assert(core.duration.from_years(1) > core.duration.from_days(2));
     });
+
+    it('42us == 42', () => {
+      assert(core.duration.create(42) == 42);
+    });
+  });
+
+  it('42time == 42', () => {
+    assert(core.time.create(42) == 42);
   });
 });
 

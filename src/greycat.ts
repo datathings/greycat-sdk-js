@@ -67,8 +67,8 @@ export async function downloadAbi(
     libraries,
     unauthorizedHandler,
   }: WithoutAbiOptions = {
-    url: DEFAULT_URL,
-  },
+      url: DEFAULT_URL,
+    },
 ): Promise<[ArrayBuffer, string | undefined]> {
   let token: string | undefined;
 
@@ -405,7 +405,7 @@ export class GreyCat {
               }
               break;
             }
-            case this.abi.core_char_offset:
+            case this.abi.core_char_offset: {
               if (arg === null) {
                 writer.null();
               } else if (typeof arg === 'string') {
@@ -414,9 +414,11 @@ export class GreyCat {
                 writer.serialize(arg);
               }
               break;
-            default:
+            }
+            default: {
               writer.serialize(arg);
               break;
+            }
           }
         } else {
           writer.serialize(arg);
@@ -495,8 +497,7 @@ export class GreyCat {
       throw new Error(`calling ${method} failed`);
     }
     throw new Error(
-      `calling '${method}' failed with code ${err.code} and message "${
-        err.msg.length > 0 ? err.msg : err.value?.toString()
+      `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,
     );
   }

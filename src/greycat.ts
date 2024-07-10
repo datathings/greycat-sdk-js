@@ -395,18 +395,23 @@ export class GreyCat {
         const arg = args[i];
         if (param) {
           switch (param.type.offset) {
-            case this.abi.core_float_offset:
+            case this.abi.core_float_offset: {
               if (arg === null) {
                 writer.null();
-              } else {
+              } else if (typeof arg === 'number') {
                 writer.float(arg as number);
+              } else {
+                writer.serialize(arg);
               }
               break;
+            }
             case this.abi.core_char_offset:
               if (arg === null) {
                 writer.null();
-              } else {
+              } else if (typeof arg === 'string') {
                 writer.char(arg as string);
+              } else {
+                writer.serialize(arg);
               }
               break;
             default:

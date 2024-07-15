@@ -1,4 +1,4 @@
-import { runtime } from '../index.js';
+import { runtime } from '../internal.js';
 
 interface CancellableTaskPromise extends Promise<runtime.TaskInfo | null> {
   /**

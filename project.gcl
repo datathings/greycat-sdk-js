@@ -76,25 +76,26 @@ fn write_std_core(out: GcbWriter) {
   out.write(12_us);
   out.write(12_time);
   out.write([]);
-  out.write([42, true, "hello", DatePart::months]);
+  out.write([42, true, "hello", CalendarUnit::month]);
   out.write(49.59634473860023lat_6.128470332224678lng);
-  out.write(Map::new());
+  out.write(Map {});
   out.write(project::table);
   out.write(FloatPrecisionTest { normal: 3.14, precision: 3.141516 });
+  out.write(Buffer {});
 
-  var map = Map::new();
+  var map = Map {};
   map.set(42, 42);
   map.set(true, true);
   map.set("hello", "hello");
-  map.set(DatePart::months, DatePart::months);
+  map.set(CalendarUnit::month, CalendarUnit::month);
   out.write(map);
 
   out.write({ string: "hello", int: 42, float: 3.14, bool: true, char: 'c', enum: TimeZone::Europe_Luxembourg });
   out.write(GeoBox::new(1lat_2lng, 1.5lat_-0.5lng));
-  out.write(nodeList<int>::new());
+  out.write(nodeList<int> {});
   out.write(TimeZone::Europe_Luxembourg);
-  out.write(node<float>::new(13.37));
-  out.write(Error::new("an error"));
+  out.write(node::new(13.37));
+  out.write(Error { message: "an error", stack: [] });
   out.write(ErrorCode::none);
   out.write(SamplingMode::adaptative);
   out.write(DurationUnit::days);
@@ -107,14 +108,14 @@ fn write_std_core(out: GcbWriter) {
   out.write(tensor);
   out.write(GeoCircle::new(49.59634473860023lat_6.128470332224678lng, 13.37));
   out.write(Date { year: 2012, month: 12, day: 12, hour: 12, minute: 12, second: 12, microsecond: 120012 });
-  out.write(nodeTime<nodeGeo>::new());
+  out.write(nodeTime<nodeGeo> {});
   out.write(Array<nodeTime>::new(0));
-  out.write(Tuple<Array, Map>::new(Array::new(0), Map::new()));
-  out.write(Tuple::new(42, "hello"));
-  out.write(nodeIndex<Tuple>::new());
+  out.write(([], Map {}));
+  out.write(Tuple { x: 42, y: "hello" });
+  out.write(nodeIndex<Tuple> {});
   out.write(GeoPoly { points: [1lat_2lng, 1.5lat_2.01lng, 1lat_2lng] });
-  out.write(DatePart::days);
-  out.write(nodeGeo<DatePart>::new());
+  out.write(CalendarUnit::day);
+  out.write(nodeGeo<CalendarUnit> {});
   out.write(ti2d::new(13, 37));
   out.write(ti3d::new(13, 37, 42));
   out.write(ti4d::new(13, 37, 42, 12));
@@ -207,7 +208,7 @@ fn write_std_runtime(out: GcbWriter) {
       permissions: [],
     });
   out.write(PeriodicTask {
-      function: project::float,
+      function: project::float_f,
       arguments: [3.14],
       user_id: 12,
       start: 13_time,
@@ -243,8 +244,8 @@ fn write_std_runtime(out: GcbWriter) {
   out.write(System {});
   out.write(SecurityPolicy {
       entities: [],
-      credentials: Map<String, UserCredential>::new(),
-      roles: Map<String, UserRole>::new(),
+      credentials: Map<String, UserCredential> {},
+      roles: Map<String, UserRole> {},
     });
 }
 
@@ -253,7 +254,6 @@ fn write_std_util(out: GcbWriter) {
       seed: 42,
       v: 13.37,
     });
-  out.write(Buffer::new());
   out.write(Assert {});
   out.write(ProgressTracker { start: 0_time });
   out.write(Iban::new("AX2112345600000785"));
@@ -346,7 +346,7 @@ fn time_window() {
 @expose
 fn table() {
   var nbRows = 4;
-  var table = Table::new(2);
+  var table = Table<float?>::new(2);
   table.setHeader(0, "Column ${0}");
 
   for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
@@ -452,7 +452,7 @@ fn enum() {
 @expose
 @write
 fn table2(): Table<any?> {
-  var a = nodeTime<any?>::new();
+  var a = nodeTime<any?> {};
 
   for (var i = 0; i < 10; i++) {
     if (i % 2 == 0) {
@@ -475,22 +475,12 @@ fn time() {
 }
 
 @expose
-fn errorTask() {
-  throw "error message";
+fn an_error() {
+  throw "this is an error";
 }
 
 @expose
-fn stringError() {
-  throw "my message";
-}
-
-@expose
-fn errorError() {
-  throw Error::new("my message wrapped in an Error");
-}
-
-@expose
-fn float(f: float?) {
+fn float_f(f: float?) {
   return f;
 }
 

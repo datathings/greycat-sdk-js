@@ -1,9 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import { deinterleave64_10di, interleave64_10di } from '../morton.js';
-import { GreyCat } from '../../greycat.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../internal.js';
+import { GCObject, PrimitiveType, morton } from '../../internal.js';
 
 export class ti10d extends GCObject {
   static readonly _type = 'core::ti10d' as const;
@@ -42,7 +38,7 @@ export class ti10d extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType): ti10d {
-    const [x0, x1, x2, x3, x4, x5, x6, x7, x8, x9] = deinterleave64_10di(r.read_u64());
+    const [x0, x1, x2, x3, x4, x5, x6, x7, x8, x9] = morton.deinterleave64_10di(r.read_u64());
     return new ty.factory(ty, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as ti10d;
   }
 
@@ -52,7 +48,7 @@ export class ti10d extends GCObject {
 
   override saveContent(w: AbiWriter) {
     w.write_u64(
-      interleave64_10di(
+      morton.interleave64_10di(
         this.x0,
         this.x1,
         this.x2,

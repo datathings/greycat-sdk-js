@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat, algebralib, stdlib } from './dist/esm/index.js';
+import { GreyCat, stdlib } from './dist/esm/index.js';
 
 const args = process.argv.slice(2);
 if (args.length < 1) {
@@ -9,7 +9,7 @@ if (args.length < 1) {
 
 const g = (global.greycat.default = await GreyCat.init({
   url: new URL('http://localhost:8080'),
-  libraries: [stdlib, algebralib],
+  libraries: [stdlib],
 }));
 
 try {
@@ -17,7 +17,7 @@ try {
   const value = await g.call(args[0], fnArgs);
   displayValue(value);
 } catch (err) {
-  console.error(`Error: ${err.stack}`);
+  console.error(err.stack);
   process.exit(1);
 }
 

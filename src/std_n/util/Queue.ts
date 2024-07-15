@@ -1,5 +1,5 @@
-import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../internal.js';
+import { GCObject } from '../../internal.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Queue<_ extends Value = any> extends GCObject {

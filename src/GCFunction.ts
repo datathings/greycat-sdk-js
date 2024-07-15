@@ -1,6 +1,5 @@
-import type { AbiWriter, AbiType, AbiFunction } from './index.js';
-import { GCObject } from './GCObject.js';
-import { PrimitiveType } from './types.js';
+import type { AbiWriter, AbiType, AbiFunction } from './internal.js';
+import { GCObject, PrimitiveType } from './internal.js';
 
 export class GCFunction extends GCObject {
   constructor(type: AbiType, public fn: AbiFunction) {

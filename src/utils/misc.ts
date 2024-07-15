@@ -1,5 +1,4 @@
-import { GCObject, core } from '../index.js';
-import slugify from './slugify.js';
+import { GCObject, core, slugify } from '../internal.js';
 
 const NUM = '0123456789';
 const LOWER_ALPHA = 'abcdefghijklmnopqrstuvwxyz';

@@ -1,9 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import { interleave64_3di, deinterleave64_3di } from '../morton.js';
-import { GreyCat } from '../../greycat.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../internal.js';
+import { GCObject, PrimitiveType, morton } from '../../internal.js';
 
 export class ti3d extends GCObject {
   static readonly _type = 'core::ti3d' as const;
@@ -18,7 +14,7 @@ export class ti3d extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType): ti3d {
-    const [x0, x1, x2] = deinterleave64_3di(r.read_u64());
+    const [x0, x1, x2] = morton.deinterleave64_3di(r.read_u64());
     return new ty.factory(ty, x0, x1, x2) as ti3d;
   }
 
@@ -27,7 +23,7 @@ export class ti3d extends GCObject {
   }
 
   override saveContent(w: AbiWriter) {
-    w.write_u64(interleave64_3di(this.x0, this.x1, this.x2));
+    w.write_u64(morton.interleave64_3di(this.x0, this.x1, this.x2));
   }
 
   override toJSON() {

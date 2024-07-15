@@ -1,6 +1,5 @@
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import type { GreyCat, core, AbiType, AbiReader, AbiWriter } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
+import { GCObject, PrimitiveType } from '../../internal.js';
 
 export class int extends GCObject {
   static readonly _type = 'core::int' as const;

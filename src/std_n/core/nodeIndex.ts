@@ -1,5 +1,5 @@
-import type { core, AbiType, AbiReader, AbiWriter, GreyCat } from '../../index.js';
-import { GCObject, PrimitiveType } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
+import { GCObject, PrimitiveType } from '../../internal.js';
 
 export class nodeIndex extends GCObject {
   static readonly _type = 'core::nodeIndex' as const;

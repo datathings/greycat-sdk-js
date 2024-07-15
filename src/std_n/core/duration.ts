@@ -1,6 +1,5 @@
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import type { core, GreyCat, AbiType, AbiWriter, AbiReader } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
+import { GCObject, PrimitiveType } from '../../internal.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
@@ -85,12 +84,6 @@ export class duration extends GCObject {
         return duration.from_hours(value, g);
       case 'days':
         return duration.from_days(value, g);
-      case 'weeks':
-        return duration.from_weeks(value, g);
-      case 'months':
-        return duration.from_months(value, g);
-      case 'years':
-        return duration.from_years(value, g);
     }
   }
 

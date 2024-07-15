@@ -1,4 +1,4 @@
-import type { GCObject, AbiReader, Abi, AbiType } from './index.js';
+import type { GCObject, AbiReader, Abi, AbiType } from './internal.js';
 
 type ExtractValues<T> = T[keyof T];
 
@@ -32,26 +32,34 @@ export const PrimitiveType = {
   block_ref: 25,
   function: 26,
   undefined: 27,
-  stringlit: 28,
+  type: 28,
+  stringlit: 29,
 } as const;
 
 export const PrimitiveTypeName = {
   0: 'null',
+
   1: 'bool',
   2: 'char',
+
   3: 'int',
   4: 'float',
+
   5: 'node',
   6: 'node_time',
   7: 'node_index',
   8: 'node_list',
+
   9: 'node_geo',
   10: 'geo',
+
   11: 'time',
   12: 'duration',
   13: 'cubic',
+
   14: 'enum',
   15: 'object',
+
   16: 'tu2d',
   17: 'tu3d',
   18: 'tu4d',
@@ -61,16 +69,20 @@ export const PrimitiveTypeName = {
   22: 'tuf2d',
   23: 'tuf3d',
   24: 'tuf4d',
+
   25: 'block_ref',
   26: 'function',
   27: 'undefined',
-  28: 'stringlit',
+
+  28: 'type',
+
+  29: 'stringlit',
 } as const;
 
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IFactory = { new (type: AbiType, ...attributes: any[]): GCObject };
+export type IFactory = { new(type: AbiType, ...attributes: any[]): GCObject };
 export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
 export type Value = unknown;

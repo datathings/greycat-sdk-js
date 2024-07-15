@@ -1,6 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiType, AbiReader, AbiWriter } from '../../internal.js';
+import { GCObject } from '../../internal.js';
 
 export class Quantizer extends GCObject {
   static readonly _type = 'util::Quantizer' as const;

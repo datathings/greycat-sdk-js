@@ -1,5 +1,5 @@
-import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject } from '../../index.js';
-import type { AbiReader, AbiWriter, AbiType, core } from '../../index.js';
+import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject } from '../../internal.js';
+import type { AbiReader, AbiWriter, AbiType, core } from '../../internal.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Table<_ extends Value = any> extends GCObject {
@@ -262,7 +262,7 @@ export class NativeTableColumnMeta {
     public typeName: string | undefined = undefined,
     public index = false,
     public header: string | null = null,
-  ) {}
+  ) { }
 
   static load(r: AbiReader): NativeTableColumnMeta {
     const col_type = r.read_u8() as PrimitiveType;

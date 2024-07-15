@@ -1,5 +1,5 @@
-import type { AbiReader, AbiWriter, AbiType, util } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, util } from '../../internal.js';
+import { GCObject } from '../../internal.js';
 
 export class ProgressTracker extends GCObject {
   static readonly _type = 'util::ProgressTracker' as const;

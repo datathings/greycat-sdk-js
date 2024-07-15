@@ -1,4 +1,3 @@
-export * from './Buffer.js';
 export * from './Gaussian.js';
 export * from './Iban.js';
 export * from './GaussianProfile.js';

@@ -1,5 +1,4 @@
-import { GreyCat } from './greycat.js';
-import { std } from './index.js';
+import { std, type GreyCat } from './internal.js';
 
 std.runtime.Task.prototype.getFile = function getFile<T = unknown>(
   filepath: string,

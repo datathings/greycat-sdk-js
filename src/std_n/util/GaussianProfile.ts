@@ -1,6 +1,5 @@
-import type { AbiType, util } from '../../index.js';
-import { AbiReader, AbiWriter } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiType, util } from '../../internal.js';
+import { AbiReader, AbiWriter, GCObject } from '../../internal.js';
 
 // XXX Update this accordingly to sizeof(gc_gaussian_profile_slot_t)
 // for now this is 40 bytes wide

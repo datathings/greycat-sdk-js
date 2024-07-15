@@ -1,12 +1,16 @@
-import { GCObject, gc_object__is_not_null } from './GCObject.js';
-import { GCEnum } from './GCEnum.js';
-import { Reader } from './io.js';
-import { IFactory, ILoader, Library, PrimitiveType, Value } from './types.js';
-import { stdlib, std } from './exports.js';
-import { geoEncode } from './std_n/core/geo.js';
+import type { IFactory, ILoader, Library, Value, std } from './internal.js';
+import {
+  stdlib,
+  PrimitiveType,
+  Reader,
+  GCEnum,
+  GCObject,
+  gc_object__is_not_null,
+  std_n,
+} from './internal.js';
 
 export class Abi {
-  static readonly protocol_version = 1;
+  static readonly protocol_version = 2;
 
   readonly magic: number;
   readonly version: number;
@@ -50,6 +54,7 @@ export class Abi {
   readonly core_tf3d_offset: number = 0;
   readonly core_tf4d_offset: number = 0;
   readonly core_function_offset: number = 0;
+  readonly core_type_offset: number = 0;
   readonly core_timezone_offset: number = 0;
   readonly core_date_offset: number = 0;
   readonly core_table_offset: number = 0;
@@ -244,6 +249,9 @@ export class Abi {
           case 'function':
             this.core_function_offset = i;
             break;
+          case 'type':
+            this.core_type_offset = i;
+            break;
           case 'TimeZone':
             this.core_timezone_offset = i;
             break;
@@ -377,7 +385,7 @@ export class Abi {
 
   createGeo(lat: number, lng: number) {
     const t = this.types[this.core_geo_offset];
-    const value = geoEncode(lat, lng);
+    const value = std_n.core.geoEncode(lat, lng);
     return new t.factory(t, value) as std.core.geo;
   }
 
@@ -649,7 +657,7 @@ export class AbiAttribute {
     readonly nullable: boolean,
     readonly mapped: boolean,
     readonly precision: AbiPrecision,
-  ) {}
+  ) { }
 }
 
 export enum AbiPrecision {
@@ -685,11 +693,11 @@ export class AbiFunction {
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
     readonly is_task: boolean,
-  ) {}
+  ) { }
 }
 
 export class AbiParam {
-  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) {}
+  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) { }
 }
 
 /**

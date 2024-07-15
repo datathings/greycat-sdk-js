@@ -9,7 +9,7 @@ import {
   GCEnum,
   GCObject,
   std_n,
-} from './index.js';
+} from './internal.js';
 
 const deserialize_error: IPrimitiveLoader = () => {
   throw new Error(`invalid primitive type`);
@@ -415,6 +415,10 @@ export class AbiReader extends Reader implements Iterable<unknown> {
     [PrimitiveType.block_ref]: deserialize_error,
     [PrimitiveType.function]: (r) => {
       const ty = r.abi.types[r.abi.core_function_offset];
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.type]: (r) => {
+      const ty = r.abi.types[r.abi.core_type_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.undefined]: () => undefined,

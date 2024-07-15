@@ -1,4 +1,4 @@
-import * as sdk from './exports.js';
+import * as sdk from './internal.js';
 
 declare global {
   type GreyCatSdk = typeof sdk;
@@ -15,4 +15,4 @@ declare global {
 globalThis.greycat = globalThis.greycat ?? { default: null as unknown as sdk.GreyCat };
 Object.assign(globalThis.greycat, sdk);
 
-export * from './exports.js';
+export * from './internal.js';

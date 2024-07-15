@@ -1,9 +1,5 @@
-import { AbiType } from '../../abi.js';
-import { AbiReader, AbiWriter } from '../../io.js';
-import { PrimitiveType } from '../../types.js';
-import { GCObject } from '../../GCObject.js';
-import { interleave64_4df, deinterleave64_4df } from '../morton.js';
-import { GreyCat } from '../../greycat.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../internal.js';
+import { GCObject, PrimitiveType, morton } from '../../internal.js';
 
 export class tf4d extends GCObject {
   static readonly _type = 'core::tf4d' as const;
@@ -30,7 +26,7 @@ export class tf4d extends GCObject {
   }
 
   static load(r: AbiReader, ty: AbiType): tf4d {
-    const [x0, x1, x2, x3] = deinterleave64_4df(r.read_u64());
+    const [x0, x1, x2, x3] = morton.deinterleave64_4df(r.read_u64());
     return new ty.factory(ty, x0, x1, x2, x3) as tf4d;
   }
 
@@ -38,7 +34,7 @@ export class tf4d extends GCObject {
     w.write_u8(PrimitiveType.tuf4d);
   }
   override saveContent(w: AbiWriter) {
-    w.write_u64(interleave64_4df(this.x0, this.x1, this.x2, this.x3));
+    w.write_u64(morton.interleave64_4df(this.x0, this.x1, this.x2, this.x3));
   }
 
   override toJSON() {

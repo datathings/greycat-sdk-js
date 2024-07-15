@@ -6,13 +6,13 @@
 // then in VSCode: `ctrl+shift+p` > `Debug: Attach to Node Process`
 //
 import { readFileSync } from 'node:fs';
-import { Abi, AbiReader, stdlib, algebralib, AbiWriter } from './dist/esm/index.js';
+import { Abi, AbiReader, stdlib, AbiWriter } from './dist/esm/index.js';
 const [filepath] = process.argv.slice(2);
 if (!filepath) {
   throw new Error('usage: <filepath>');
 }
 
-const abi = new Abi(readFile('./gcdata/store/abi'), [stdlib, algebralib]);
+const abi = new Abi(readFile('./gcdata/store/abi'), [stdlib]);
 const reader = new AbiReader(abi, readFile(filepath));
 
 const value = reader.deserializeWithHeaders();

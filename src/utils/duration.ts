@@ -1,4 +1,4 @@
-import { core } from '../std/index.js';
+import { core } from '../internal.js';
 
 /**
  * Based on the current duration value, returns an approximation of the better human "processable" value
@@ -18,18 +18,6 @@ export function decomposeDuration(
       return [duration.ms, core.DurationUnit.milliseconds(g)];
     }
     return [duration.us, core.DurationUnit.microseconds(g)];
-  }
-  if (duration.s >= 31_540_000) {
-    // average number of seconds in a year
-    return [duration.s / 31_540_000, core.DurationUnit.years(g)];
-  }
-  if (duration.s >= 2_628_000) {
-    // average number of seconds in a month
-    return [duration.s / 2_628_000, core.DurationUnit.months(g)];
-  }
-  if (duration.s >= 604_800) {
-    // number of seconds in a week
-    return [duration.s / 604_800, core.DurationUnit.weeks(g)];
   }
   if (duration.s >= 86_400) {
     // number of seconds in a day

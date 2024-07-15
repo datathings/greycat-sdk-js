@@ -1,5 +1,5 @@
-import type { AbiReader, AbiWriter, AbiType, core, Value, GreyCat } from '../../index.js';
-import { GCObject, GCEnum } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, Value, core } from '../../internal.js';
+import { GCObject, GCEnum } from '../../internal.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Map<K extends Value = any, V extends Value = any> extends GCObject {

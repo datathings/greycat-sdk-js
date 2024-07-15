@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
 import * as sdk from './dist/esm/index.js';
-const m = sdk.std_n._morton;
+const m = sdk.morton;
 
 const INT32_MIN = -2147483648;
 const INT32_MAX = 2147483647;

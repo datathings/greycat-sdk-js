@@ -1,5 +1,5 @@
-import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../index.js';
-import { GCObject } from '../../GCObject.js';
+import type { AbiReader, AbiWriter, AbiType, util, Value } from '../../internal.js';
+import { GCObject } from '../../internal.js';
 
 export class TimeWindow extends GCObject {
   static readonly _type = 'util::TimeWindow' as const;

@@ -1,17 +1,11 @@
-import { Abi, AbiFunction, AbiType } from './abi.js';
-import * as std from './std/index.js';
-import {
-  Auth,
+import type {
+  TaskLike, WithoutAbiOptions, WithAbiOptions, Auth,
   Cache,
   CacheData,
   CacheKey,
   Value,
-  WithAbiOptions,
-  WithoutAbiOptions,
-} from './types.js';
-import { AbiReader, AbiWriter } from './io.js';
-import { sha256hex } from './crypto/index.js';
-import { TaskLike } from './exports.js';
+} from './internal.js';
+import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './internal.js';
 
 let DEFAULT_URL: URL;
 try {
@@ -496,10 +490,7 @@ export class GreyCat {
     if (err === null) {
       throw new Error(`calling ${method} failed`);
     }
-    throw new Error(
-      `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
-      }"`,
-    );
+    throw new Error(`calling '${method}' failed (${err.message})`);
   }
 
   /**

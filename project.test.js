@@ -2,15 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import {
-  Abi,
-  AbiReader,
-  AbiWriter,
-  GCEnum,
-  stdlib,
-  core,
-  GreyCat,
-} from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, GCEnum, stdlib, core, GreyCat } from './dist/esm/index.js';
 
 describe('project', () => {
   let abi, reader;
@@ -62,16 +54,17 @@ describe('project', () => {
     { _type: 'core::duration', s: 0, us: 12 },
     '1970-01-01T00:00:00.000Z',
     [],
-    [42, true, 'hello', { _type: 'core::DatePart', field: 'months' }],
+    [42, true, 'hello', { _type: 'core::CalendarUnit', field: 'month' }],
     { _type: 'core::geo', lat: 49.596344732033856, lng: 6.128470371477306 },
     {},
     { _type: 'core::function', fqn: 'project::table' },
-    { _type: "project::FloatPrecisionTest", normal: 3.14, precision: 3.14 },
+    { _type: 'project::FloatPrecisionTest', normal: 3.14, precision: 3.14 },
+    { _type: 'core::Buffer', data: [] },
     {
       42: 42,
       true: true,
       hello: 'hello',
-      'core::DatePart::months': { _type: 'core::DatePart', field: 'months' },
+      'core::CalendarUnit::month': { _type: 'core::CalendarUnit', field: 'month' },
     },
     {
       _type: '::<string,int,float,bool,char,enum>',
@@ -98,17 +91,7 @@ describe('project', () => {
     { _type: 'core::nodeList', ref: '400000' },
     { _type: 'core::TimeZone', field: 'Europe_Luxembourg' },
     { _type: 'core::node', ref: '800000' },
-    {
-      _type: 'core::Error',
-      code: 0,
-      msg: 'an error',
-      value: null,
-      stack: [
-        { module: 'project', fn: 'main', line: 13, column: 17 },
-        { module: 'project', fn: 'write_std', line: 18, column: 22 },
-        { module: 'project', fn: 'write_std_core', line: 97, column: 36 },
-      ],
-    },
+    { _type: 'core::Error', message: 'an error', stack: [] },
     { _type: 'core::ErrorCode', field: 'none' },
     { _type: 'core::SamplingMode', field: 'adaptative' },
     { _type: 'core::DurationUnit', field: 'days' },
@@ -196,7 +179,7 @@ describe('project', () => {
         },
       ],
     },
-    { _type: 'core::DatePart', field: 'days' },
+    { _type: 'core::CalendarUnit', field: 'day' },
     { _type: 'core::nodeGeo', ref: '1400000' },
     { _type: 'core::ti2d', x0: 13, x1: 37 },
     { _type: 'core::ti3d', x0: 13, x1: 37, x2: 42 },
@@ -326,7 +309,7 @@ describe('project', () => {
     { _type: 'runtime::UserRole', name: '', permissions: [] },
     {
       _type: 'runtime::PeriodicTask',
-      function: { _type: 'core::function', fqn: 'project::float' },
+      function: { _type: 'core::function', fqn: 'project::float_f' },
       arguments: [3.14],
       user_id: 12,
       start: '1970-01-01T00:00:00.000Z',
@@ -387,7 +370,6 @@ describe('project', () => {
 
     // std::util
     { _type: 'util::Random', seed: 42, v: 13.37 },
-    { _type: 'util::Buffer' },
     { _type: 'util::Assert' },
     {
       _type: 'util::ProgressTracker',

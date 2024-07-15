@@ -1,5 +1,5 @@
-import { GCObject } from '../../GCObject.js';
-import type { core, AbiType, AbiReader, AbiWriter } from '../../index.js';
+import type { AbiType, AbiReader, AbiWriter, core } from '../../internal.js';
+import { GCObject } from '../../internal.js';
 
 const TensorType = {
   i32: 0,

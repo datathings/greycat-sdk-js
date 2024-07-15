@@ -1,19 +1,17 @@
-import { core } from '../std/index.js';
+import { core } from '../internal.js';
 
 export function prettyError(err: unknown, defaultMsg: string): string {
   if (err instanceof Error) {
+    // native JS error
     return err.message;
   }
   if (typeof err === 'string') {
+    // string error
     return err;
   }
   if (err instanceof core.Error) {
-    if (typeof err.msg === 'string' && err.msg.length > 0) {
-      return err.msg;
-    }
-    if (err.value !== null && err.value !== undefined) {
-      return err.value.toString();
-    }
+    // GreyCat error
+    return err.message ?? defaultMsg;
   }
   return defaultMsg;
 }

@@ -1,5 +1,5 @@
-import { type AbiType, type AbiWriter, type Value } from './index.js';
-import { PrimitiveType } from './types.js';
+import { type AbiType, type AbiWriter, type Value } from './internal.js';
+import { PrimitiveType } from './internal.js';
 
 /**
  * A dynamic GreyCat type instance, used when no matching class found in the factory
@@ -103,7 +103,7 @@ export class GCObject {
     }
   }
 
-  save(w: AbiWriter): void & NoOverride {
+  save(w: AbiWriter): void {
     this.saveHeader(w);
     this.saveContent(w);
   }
@@ -126,9 +126,6 @@ export class GCObject {
   }
 }
 
-// typescript trickery to prevent subclasses from overriding a method
-declare const _: unique symbol;
-type NoOverride = { [_]: typeof _ };
 
 // The following:
 //  - gc_object_bitset_block_size

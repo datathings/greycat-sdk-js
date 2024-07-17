@@ -1,4 +1,4 @@
-import { GCObject, core, slugify } from '../internal.js';
+import { GCEnum, GCObject, core, slugify } from '../internal.js';
 
 const NUM = '0123456789';
 const LOWER_ALPHA = 'abcdefghijklmnopqrstuvwxyz';
@@ -158,6 +158,8 @@ export interface StringifyProps {
    * pretty-print content if possible
    */
   pretty?: boolean;
+  /** optional boolean to surround strings with doublequotes, defaults to `false` */
+  quotedString?: boolean;
 }
 
 /**
@@ -174,9 +176,9 @@ export function stringify(props: StringifyProps): string {
     return value.toString();
   } else if (typeof value === 'string') {
     if (tiny) {
-      return toStrTiny(value);
+      return props.quotedString ? `"${toStrTiny(value)}"` : toStrTiny(value);
     }
-    return value;
+    return props.quotedString ? `"${value}"` : value;
   } else if (typeof value === 'number') {
     return numFmt ? numFmt.format(value) : `${value}`;
   } else if (isScalar(value)) {
@@ -186,10 +188,15 @@ export function stringify(props: StringifyProps): string {
   } else if (value instanceof core.Date) {
     return value.toString();
   } else if (value instanceof core.Tuple) {
+    const tmp = props.value;
+    const tmpQuotedString = props.quotedString;
     props.value = value.x;
+    props.quotedString = true;
     const x = stringify(props);
     props.value = value.y;
     const y = stringify(props);
+    props.value = tmp;
+    props.quotedString = tmpQuotedString;
     return `(${x}, ${y})`;
   } else if (isNode(value)) {
     if (name) {
@@ -208,6 +215,27 @@ export function stringify(props: StringifyProps): string {
       return `Array(${value.length})`;
     }
     return JSON.stringify(value);
+  } else if (value instanceof GCEnum) {
+    if (value.value) {
+      const tmp = props.value;
+      const tmpQuotedString = props.quotedString;
+      props.value = value.value;
+      props.quotedString = true;
+      const en_value = stringify(props);
+      props.value = tmp;
+      props.quotedString = tmpQuotedString;
+      if (value.$type.name.startsWith('core::')) {
+        return `${value.$type.name.slice(6)}::${value.key}(${en_value})`;
+      } else {
+
+        return `${value.$type.name}::${value.key}(${en_value})`;
+      }
+    }
+    if (value.$type.name.startsWith('core::')) {
+      return `${value.$type.name.slice(6)}::${value.key}`;
+    } else {
+      return `${value.$type.name}::${value.key}`;
+    }
   } else if (typeof value === 'object') {
     if (value) {
       if (tiny) {

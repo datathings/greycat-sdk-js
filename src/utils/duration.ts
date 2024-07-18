@@ -1,4 +1,4 @@
-import { core } from '../internal.js';
+import { core, type GreyCat } from '../internal.js';
 
 /**
  * Based on the current duration value, returns an approximation of the better human "processable" value
@@ -8,7 +8,7 @@ import { core } from '../internal.js';
  */
 export function decomposeDuration(
   duration: core.duration,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ): [number | bigint, core.DurationUnit] {
   if (duration.s === 0) {
     if (duration.us >= 10e5) {

@@ -3,7 +3,7 @@ import { std, type GreyCat } from './internal.js';
 std.runtime.Task.prototype.getFile = function getFile<T = unknown>(
   filepath: string,
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ) {
   return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/${filepath}`, signal);
 };
@@ -11,21 +11,21 @@ std.runtime.Task.prototype.getFile = function getFile<T = unknown>(
 std.runtime.Task.prototype.await = function await_(
   pollEvery?: number,
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ) {
   return g.await(this, pollEvery, signal);
 };
 
 std.runtime.Task.prototype.info = function info(
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ) {
   return std.runtime.Task.info(this.user_id, this.task_id, g, signal);
 };
 
 std.runtime.Task.prototype.result = function result<T = unknown>(
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ) {
   return g
     .getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal)
@@ -34,14 +34,14 @@ std.runtime.Task.prototype.result = function result<T = unknown>(
 
 std.runtime.Task.prototype.arguments = function arguments_(
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ): Promise<unknown[]> {
   return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
 };
 
 std.io.File.prototype.list = function list(
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ): Promise<std.io.File[] | undefined> {
   if (this.path.endsWith('/')) {
     // directory
@@ -53,7 +53,7 @@ std.io.File.prototype.list = function list(
 std.io.File.prototype.resolve = function resolve(
   maxDepth = 5,
   signal?: AbortSignal,
-  g = globalThis.greycat.default,
+  g: GreyCat = globalThis.greycat.default,
 ): Promise<void> {
   return resolveFileChildrenRecursively(this, maxDepth, 0, signal, g);
 };

@@ -109,7 +109,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(GeoCircle::new(49.59634473860023lat_6.128470332224678lng, 13.37));
   out.write(Date { year: 2012, month: 12, day: 12, hour: 12, minute: 12, second: 12, microsecond: 120012 });
   out.write(nodeTime<nodeGeo> {});
-  out.write(Array<nodeTime>::new(0));
+  out.write(Array<nodeTime> {});
   out.write(([], Map {}));
   out.write(Tuple { x: 42, y: "hello" });
   out.write(nodeIndex<Tuple> {});

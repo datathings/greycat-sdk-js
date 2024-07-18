@@ -4,6 +4,7 @@ import type {
   CacheData,
   CacheKey,
   Value,
+  GCObject,
 } from './internal.js';
 import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './internal.js';
 
@@ -17,8 +18,8 @@ try {
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
 
-const NOOP = () => void 0;
-const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown) => {
+const NOOP = (): void => void 0;
+const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown): void => {
   const bg = status >= 400 ? '#e8590c' : '#1983c1';
   console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
     method,
@@ -26,25 +27,26 @@ const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?
     response: value,
   });
 };
-let debugLogger: typeof DEFAULT_LOGGER = NOOP;
+type DebugLogger = typeof DEFAULT_LOGGER;
+let debugLogger: DebugLogger = NOOP;
 
 /**
  * Registers a global debug logger that will be called for every remote procedure call.
  *
  * If `customLogger` is `undefined` the default console logger will be used.
  */
-export function registerDebugLogger(customLogger = DEFAULT_LOGGER) {
+export function registerDebugLogger(customLogger: DebugLogger = DEFAULT_LOGGER): void {
   debugLogger = customLogger;
 }
 
 /**
  * Unregisters the global debug logger by replacing it with a no-op function.
  */
-export function unregisterDebugLogger() {
+export function unregisterDebugLogger(): void {
   debugLogger = NOOP;
 }
 
-export function getDebuggerLogger() {
+export function getDebuggerLogger(): DebugLogger {
   return debugLogger;
 }
 
@@ -323,7 +325,7 @@ export class GreyCat {
   /**
    * Awaits the completion of the given GreyCat task.
    */
-  async await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal) {
+  async await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T> {
     let info: std.runtime.TaskInfo | undefined;
     info = await this.call<std.runtime.TaskInfo>(
       `runtime::Task::info`,
@@ -565,6 +567,7 @@ export class GreyCat {
    * @param signal optional `AbortSignal` to cancel the request prematurely
    * @returns
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getFile(filepath: string, signal?: AbortSignal) {
     const res = await this.getFileResponse(filepath, signal);
     if (filepath.endsWith('.json')) {
@@ -673,59 +676,59 @@ export class GreyCat {
    * @param attributes
    * @returns
    */
-  create(name: string, attributes: Value[]) {
+  create(name: string, attributes: Value[]): GCObject | undefined {
     return this.abi.create(name, attributes);
   }
 
-  createGeo(lat: number, lng: number) {
+  createGeo(lat: number, lng: number): std.core.geo {
     return this.abi.createGeo(lat, lng);
   }
 
-  createFunctionByFqn(fqn: string) {
+  createFunctionByFqn(fqn: string): std.core.function_ {
     return this.abi.createFunctionByFqn(fqn);
   }
 
-  createFunction(mod: string, type: string | undefined, name: string) {
+  createFunction(mod: string, type: string | undefined, name: string): std.core.function_ {
     return this.abi.createFunction(mod, type, name);
   }
 
-  createNode(value: bigint) {
+  createNode(value: bigint): std.core.node {
     return this.abi.createNode(value);
   }
 
-  createNodeList(value: bigint) {
+  createNodeList(value: bigint): std.core.nodeList {
     return this.abi.createNodeList(value);
   }
 
-  createNodeIndex(value: bigint) {
+  createNodeIndex(value: bigint): std.core.nodeIndex {
     return this.abi.createNodeIndex(value);
   }
 
-  createNodeGeo(value: bigint) {
+  createNodeGeo(value: bigint): std.core.nodeGeo {
     return this.abi.createNodeGeo(value);
   }
 
-  createNodeTime(value: bigint) {
+  createNodeTime(value: bigint): std.core.nodeTime {
     return this.abi.createNodeTime(value);
   }
 
-  createTime(value: bigint | number) {
+  createTime(value: bigint | number): std.core.time {
     return this.abi.createTime(typeof value === 'bigint' ? value : BigInt(value));
   }
 
-  createDuration(value: bigint | number) {
+  createDuration(value: bigint | number): std.core.duration {
     return this.abi.createDuration(typeof value === 'bigint' ? value : BigInt(value));
   }
 
-  createTu2d(x0: bigint | number, x1: bigint | number) {
+  createTu2d(x0: bigint | number, x1: bigint | number): std.core.ti2d {
     return this.abi.createTu2d(x0, x1);
   }
 
-  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
+  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number): std.core.ti3d {
     return this.abi.createTu3d(x0, x1, x2);
   }
 
-  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
+  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number): std.core.ti4d {
     return this.abi.createTu4d(x0, x1, x2, x3);
   }
 
@@ -736,7 +739,7 @@ export class GreyCat {
     x2: bigint | number,
     x3: bigint | number,
     x4: bigint | number,
-  ) {
+  ): std.core.ti5d {
     return this.abi.createTu5d(x0, x1, x2, x3, x4);
   }
 
@@ -747,7 +750,7 @@ export class GreyCat {
     x3: bigint | number,
     x4: bigint | number,
     x5: bigint | number,
-  ) {
+  ): std.core.ti6d {
     return this.abi.createTu6d(x0, x1, x2, x3, x4, x5);
   }
 
@@ -762,19 +765,19 @@ export class GreyCat {
     x7: bigint | number,
     x8: bigint | number,
     x9: bigint | number,
-  ) {
+  ): std.core.ti10d {
     return this.abi.createTu10d(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
   }
 
-  createTuf2d(x0: number, x1: number) {
+  createTuf2d(x0: number, x1: number): std.core.tf2d {
     return this.abi.createTuf2d(x0, x1);
   }
 
-  createTuf3d(x0: number, x1: number, x2: number) {
+  createTuf3d(x0: number, x1: number, x2: number): std.core.tf3d {
     return this.abi.createTuf3d(x0, x1, x2);
   }
 
-  createTuf4d(x0: number, x1: number, x2: number, x3: number) {
+  createTuf4d(x0: number, x1: number, x2: number, x3: number): std.core.tf4d {
     return this.abi.createTuf4d(x0, x1, x2, x3);
   }
 

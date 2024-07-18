@@ -1,4 +1,4 @@
-import { runtime } from '../internal.js';
+import { runtime, type GreyCat } from '../internal.js';
 
 interface CancellableTaskPromise extends Promise<runtime.TaskInfo | null> {
   /**
@@ -78,7 +78,7 @@ export class TaskHandler {
    *
    * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/result.gcb')`*
    */
-  result<T = unknown>(g = greycat.default): Promise<T> {
+  result<T = unknown>(g: GreyCat = globalThis.greycat.default): Promise<T> {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/result.gcb`);
   }
 
@@ -87,7 +87,7 @@ export class TaskHandler {
    *
    * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/arguments.gcb')`*
    */
-  arguments<T = unknown>(g = greycat.default): Promise<T[]> {
+  arguments<T = unknown>(g: GreyCat = globalThis.greycat.default): Promise<T[]> {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/arguments.gcb`);
   }
 
@@ -96,7 +96,7 @@ export class TaskHandler {
    *
    * *This is wrapper around `greycat.deleteFile('<user_id>/tasks/<task_id>/')`*
    */
-  delete(g = greycat.default): Promise<void> {
+  delete(g: GreyCat = globalThis.greycat.default): Promise<void> {
     return g.deleteFile(`${this.task.user_id}/tasks/${this.task.task_id}/`);
   }
 
@@ -112,7 +112,7 @@ export class TaskHandler {
    * greycat.default.getFile(`${handler.task.user_id}/tasks/${handler.task.task_id}/some-file.txt`)
    * ```
    */
-  getFile<T = unknown>(filepath: string, g = greycat.default): Promise<T> {
+  getFile<T = unknown>(filepath: string, g: GreyCat = globalThis.greycat.default): Promise<T> {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/${filepath}`);
   }
 

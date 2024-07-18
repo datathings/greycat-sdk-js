@@ -1,10 +1,11 @@
+import type { GreyCat } from './internal.js';
 import * as sdk from './internal.js';
 
 declare global {
   type GreyCatSdk = typeof sdk;
 
   interface GreyCatGlobal extends GreyCatSdk {
-    default: sdk.GreyCat;
+    default: GreyCat;
   }
 
   // eslint-disable-next-line no-var
@@ -12,7 +13,9 @@ declare global {
 }
 
 // volontary forget about 'default: sdk.GreyCat'
-globalThis.greycat = globalThis.greycat ?? { default: null as unknown as sdk.GreyCat };
-Object.assign(globalThis.greycat, sdk);
+globalThis.greycat = Object.assign(
+  globalThis.greycat ?? { default: null as unknown as GreyCat },
+  sdk,
+);
 
 export * from './internal.js';

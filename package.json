@@ -17,10 +17,11 @@
     "clean": "rm -rf dist",
     "gen": "GREYCAT_CODEGEN_TS_SDK='../internal.js' greycat codegen --target=ts --lib=std src/std",
     "gen:js": "GREYCAT_CODEGEN_JS_SDK='../internal.js' greycat codegen --target=js --lib=std src/std",
-    "build": "pnpm build:esm && pnpm build:bundle:esm && pnpm build:bundle:esm-min",
+    "build": "pnpm build:esm && pnpm build:bundle:esm && pnpm build:bundle:esm-min && pnpm build:decl",
     "build:bundle:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite",
     "build:bundle:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite",
     "build:esm": "tsc -b tsconfig.json",
+    "build:decl": "rollup -c",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/abi project.test.abi",
@@ -38,6 +39,8 @@
     "eslint": "8.35.0",
     "eslint-plugin-require-extensions": "0.1.2",
     "prettier": "2.8.4",
+    "rollup": "4.18.1",
+    "rollup-plugin-dts": "6.1.1",
     "typescript": "5.4.3"
   },
   "engines": {

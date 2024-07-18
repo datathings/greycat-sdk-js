@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-VERSION_MAJOR_MINOR=$(cat VERSION)
+VERSION_MAJOR_MINOR=`cat VERSION`
 VERSION=${VERSION:-"0.0.0"}
+BRANCH=${CI_COMMIT_REF_NAME:-"dev"}
 
 echo "${VERSION_MAJOR_MINOR} / ${VERSION}"
 
@@ -15,9 +16,11 @@ cd dist
 file="dist.zip"
 zip -r $file sdk
 
-curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.zip"
-curl -s -X PUT -H "Authorization: $token" -T $file "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/latest.zip"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/package.tgz "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.tgz"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.js"
-curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.min.js "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/${VERSION_MAJOR_MINOR}/${VERSION}.min.js"
-curl -s -X PUT -H "Authorization: $token" -d "${VERSION_MAJOR_MINOR}/${VERSION}" -H "Content-Type: text/plain" "https://get.greycat.io/files/sdk/js/${CI_COMMIT_REF_NAME}/latest"
+ROOT_URL="https://get.greycat.io/files/sdk/js"
+curl -s -X PUT -H "Authorization: $token" -T $file                               "${ROOT_URL}/${BRANCH}/${VERSION_MAJOR_MINOR}/${VERSION}.zip"
+curl -s -X PUT -H "Authorization: $token" -T $file                               "${ROOT_URL}/${BRANCH}/latest.zip"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/package.tgz                  "${ROOT_URL}/${BRANCH}/${VERSION_MAJOR_MINOR}/${VERSION}.tgz"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.js                   "${ROOT_URL}/${BRANCH}/${VERSION_MAJOR_MINOR}/${VERSION}.js"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.d.ts                 "${ROOT_URL}/${BRANCH}/${VERSION_MAJOR_MINOR}/${VERSION}.d.ts"
+curl -s -X PUT -H "Authorization: $token" -T sdk/js/greycat.min.js               "${ROOT_URL}/${BRANCH}/${VERSION_MAJOR_MINOR}/${VERSION}.min.js"
+curl -s -X PUT -H "Authorization: $token" -d "${VERSION_MAJOR_MINOR}/${VERSION}" "${ROOT_URL}/${BRANCH}/latest"

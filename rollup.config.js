@@ -1,7 +1,7 @@
 import dts from 'rollup-plugin-dts';
 
 export default {
-  input: './dist/esm/internal.d.ts',
+  input: './dist/esm/bundle.d.ts',
   output: {
     file: './dist/greycat.d.ts',
     format: 'iife',

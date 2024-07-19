@@ -8,10 +8,14 @@
     ".": {
       "types": "./dist/esm/index.d.ts",
       "import": "./dist/esm/index.js"
+    },
+    "./bundle": {
+      "types": "./dist/esm/bundle.d.ts",
+      "default": "./dist/esm/bundle.js"
     }
   },
   "files": [
-    "dist/esm"
+    "dist"
   ],
   "scripts": {
     "clean": "rm -rf dist",

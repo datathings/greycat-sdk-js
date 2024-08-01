@@ -1,4 +1,4 @@
-import { core } from '../internal.js';
+import { std } from '../exports.js';
 
 export function prettyError(err: unknown, defaultMsg: string): string {
   if (err instanceof Error) {
@@ -9,7 +9,7 @@ export function prettyError(err: unknown, defaultMsg: string): string {
     // string error
     return err;
   }
-  if (err instanceof core.Error) {
+  if (err instanceof std.core.Error) {
     // GreyCat error
     return err.message ?? defaultMsg;
   }

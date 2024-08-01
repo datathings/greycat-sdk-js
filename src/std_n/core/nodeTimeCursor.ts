@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter } from '../../internal.js';
-import { GCObject } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter } from '../../exports.js';
+import { GCObject } from '../../exports.js';
 
 export class nodeTimeCursor extends GCObject {
   static readonly _type = 'core::nodeTimeCursor' as const;

@@ -1,5 +1,5 @@
-import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject } from '../../internal.js';
-import type { AbiReader, AbiWriter, AbiType, core } from '../../internal.js';
+import type { AbiReader, AbiWriter, AbiType, std } from '../../exports.js';
+import { PrimitiveType, PrimitiveTypeName, Value, GreyCat, GCObject, $ } from '../../exports.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Table<_ extends Value = any> extends GCObject {
@@ -12,13 +12,13 @@ export class Table<_ extends Value = any> extends GCObject {
   static create(
     cols: Array<Value[]>,
     meta: NativeTableColumnMeta[],
-    g: GreyCat = globalThis.greycat.default,
-  ): core.Table {
+    g: GreyCat = $.default,
+  ): std.core.Table {
     const ty = g.abi.types[g.abi.core_table_offset];
-    return new ty.factory(ty, cols, meta) as core.Table;
+    return new ty.factory(ty, cols, meta) as std.core.Table;
   }
 
-  static fromRows(rows: Array<Value[]>, g: GreyCat = globalThis.greycat.default): core.Table {
+  static fromRows(rows: Array<Value[]>, g: GreyCat = $.default): std.core.Table {
     const ty = g.abi.types[g.abi.core_table_offset];
 
     let nbColumns = 0;
@@ -82,7 +82,7 @@ export class Table<_ extends Value = any> extends GCObject {
       }
     }
 
-    return new ty.factory(ty, cols, meta) as core.Table;
+    return new ty.factory(ty, cols, meta) as std.core.Table;
   }
 
   static load(r: AbiReader, type: AbiType): Table {
@@ -118,11 +118,11 @@ export class Table<_ extends Value = any> extends GCObject {
         case PrimitiveType.time: {
           const type = r.abi.types[r.abi.core_time_offset];
           for (let row = 0; row < rows; row++) {
-            const value = type.loader(r, type) as core.time;
-            if (meta[col].min === null || (meta[col].min as core.time).value > value.value) {
+            const value = type.loader(r, type) as std.core.time;
+            if (meta[col].min === null || (meta[col].min as std.core.time).value > value.value) {
               meta[col].min = value;
             }
-            if (meta[col].max === null || (meta[col].max as core.time).value < value.value) {
+            if (meta[col].max === null || (meta[col].max as std.core.time).value < value.value) {
               meta[col].max = value;
             }
             values[row] = value;
@@ -132,11 +132,11 @@ export class Table<_ extends Value = any> extends GCObject {
         case PrimitiveType.duration: {
           const type = r.abi.types[r.abi.core_duration_offset];
           for (let row = 0; row < rows; row++) {
-            const value = type.loader(r, type) as core.duration;
-            if (meta[col].min === null || (meta[col].min as core.duration).value > value.value) {
+            const value = type.loader(r, type) as std.core.duration;
+            if (meta[col].min === null || (meta[col].min as std.core.duration).value > value.value) {
               meta[col].min = value;
             }
-            if (meta[col].max === null || (meta[col].max as core.duration).value < value.value) {
+            if (meta[col].max === null || (meta[col].max as std.core.duration).value < value.value) {
               meta[col].max = value;
             }
             values[row] = value;
@@ -147,7 +147,7 @@ export class Table<_ extends Value = any> extends GCObject {
           const type = r.abi.types[meta[col].type];
           if (type.enum_values === null) {
             throw new Error(
-              `no values registered for ${type.name}, core.Table cannot deserialize properly`,
+              `no values registered for ${type.name}, std.core.Table cannot deserialize properly`,
             );
           }
           for (let row = 0; row < rows; row++) {

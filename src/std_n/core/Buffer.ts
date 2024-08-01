@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, core } from '../../internal.js';
-import { GCObject } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, std } from '../../exports.js';
+import { GCObject } from '../../exports.js';
 
 export class Buffer extends GCObject {
   static readonly _type = 'core::Buffer' as const;
@@ -13,10 +13,10 @@ export class Buffer extends GCObject {
     w.write_all(this.data);
   }
 
-  static load(r: AbiReader, type: AbiType): core.Buffer {
+  static load(r: AbiReader, type: AbiType): std.core.Buffer {
     const len = r.read_vu32();
     const data = r.take(len);
-    return new type.factory(type, data) as core.Buffer;
+    return new type.factory(type, data) as std.core.Buffer;
   }
 
   override toJSON() {

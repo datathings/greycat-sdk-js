@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class null_ extends GCObject {
   static readonly _type = 'core::null' as const;
@@ -8,13 +8,13 @@ export class null_ extends GCObject {
     super(type);
   }
 
-  static create(g: GreyCat = globalThis.greycat.default): core.null_ {
+  static create(g: GreyCat = $.default): std.core.null_ {
     const ty = g.abi.types[g.abi.core_float_offset];
-    return new ty.factory(ty) as core.null_;
+    return new ty.factory(ty) as std.core.null_;
   }
 
-  static load(_r: AbiReader, ty: AbiType): core.null_ {
-    return new ty.factory(ty) as core.null_;
+  static load(_r: AbiReader, ty: AbiType): std.core.null_ {
+    return new ty.factory(ty) as std.core.null_;
   }
 
   override saveHeader(w: AbiWriter): void {

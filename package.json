@@ -2,16 +2,12 @@
   "name": "@greycat/sdk",
   "version": "0.0.0",
   "type": "module",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
+  "module": "./dist/exports.js",
+  "types": "./dist/exports.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js"
-    },
-    "./bundle": {
-      "types": "./dist/esm/bundle.d.ts",
-      "default": "./dist/esm/bundle.js"
+      "types": "./dist/exports.d.ts",
+      "import": "./dist/exports.js"
     }
   },
   "files": [
@@ -19,32 +15,22 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "gen": "GREYCAT_CODEGEN_TS_SDK='../internal.js' greycat codegen --target=ts --lib=std src/std",
-    "gen:js": "GREYCAT_CODEGEN_JS_SDK='../internal.js' greycat codegen --target=js --lib=std src/std",
-    "build": "pnpm build:esm && pnpm build:bundle:esm && pnpm build:bundle:esm-min && pnpm build:decl",
-    "build:bundle:esm": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.js --allow-overwrite",
-    "build:bundle:esm-min": "esbuild src/index.ts --bundle --format=esm --target=esnext --keep-names --outfile=dist/greycat.min.js --minify --allow-overwrite",
-    "build:esm": "tsc -b tsconfig.json",
-    "build:decl": "rollup -c",
+    "gen": "GREYCAT_CODEGEN_TS_SDK='../exports.js' greycat codegen --target=ts --lib=std src/std",
+    "gen:js": "GREYCAT_CODEGEN_JS_SDK='../exports.js' greycat codegen --target=js --lib=std src/std",
+    "build": "tsc -b tsconfig.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint": "eslint src  --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/abi project.test.abi",
-    "test": "pnpm build:esm && node --test"
+    "test": "pnpm build && node --test"
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "Apache-2.0",
-  "dependencies": {
-    "slugify": "1.6.6"
-  },
   "devDependencies": {
     "@types/node": "18.17.7",
     "@typescript-eslint/eslint-plugin": "5.54.1",
-    "esbuild": "0.20.2",
     "eslint": "8.35.0",
     "eslint-plugin-require-extensions": "0.1.2",
     "prettier": "2.8.4",
-    "rollup": "4.18.1",
-    "rollup-plugin-dts": "6.1.1",
     "typescript": "5.4.3"
   },
   "engines": {

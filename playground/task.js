@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat } from './dist/esm/index.js';
+import { GreyCat } from '@greycat/sdk';
 
 const greycat = await GreyCat.init();
 global.greycat.default = greycat;

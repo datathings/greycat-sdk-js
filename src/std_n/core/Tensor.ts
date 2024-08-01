@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, core } from '../../internal.js';
-import { GCObject } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, std } from '../../exports.js';
+import { GCObject } from '../../exports.js';
 
 const TensorType = {
   i32: 0,
@@ -18,7 +18,7 @@ export class Tensor extends GCObject {
   constructor(
     $type: AbiType,
     public shape: number[],
-    public type: core.TensorType,
+    public type: std.core.TensorType,
     public size: number,
     public data: Array<Array<number | bigint | Uint8Array>> | null,
   ) {
@@ -29,7 +29,7 @@ export class Tensor extends GCObject {
     const nb_dim = r.read_i8();
     const tensorTypeOffset = r.read_u8() as TensorType;
     const tensorTypeType = r.abi.types[r.abi.core_tensortype_offset];
-    // safety: if core.TimeZone does not exist, you have bigger problems
+    // safety: if std.core.TimeZone does not exist, you have bigger problems
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const tensorType = tensorTypeType.enum_values![tensorTypeOffset];
 
@@ -39,7 +39,7 @@ export class Tensor extends GCObject {
     }
     const size = r.read_i32();
     if (nb_dim === 0) {
-      return new ty.factory(ty, shape, tensorType, size, null) as core.Tensor;
+      return new ty.factory(ty, shape, tensorType, size, null) as std.core.Tensor;
     }
 
     const data = new Array(shape[0]);
@@ -71,7 +71,7 @@ export class Tensor extends GCObject {
       }
     }
 
-    return new ty.factory(ty, shape, tensorType, size, data) as core.Tensor;
+    return new ty.factory(ty, shape, tensorType, size, data) as std.core.Tensor;
   }
 
   override saveContent(w: AbiWriter): void {

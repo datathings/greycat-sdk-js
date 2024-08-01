@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, Value } from '../../internal.js';
-import { GCObject } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, Value } from '../../exports.js';
+import { GCObject } from '../../exports.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Array<_ extends Value = any> extends GCObject {

@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { describe, before, it } from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-import { Abi, AbiReader, AbiWriter, GCEnum, stdlib, core, GreyCat } from './dist/esm/index.js';
+import { Abi, AbiReader, AbiWriter, GCEnum, stdlib, core, GreyCat } from '@greycat/sdk';
 
 describe('project', () => {
   let abi, reader;
@@ -381,29 +381,66 @@ describe('project', () => {
       speed: null,
       total: null,
     },
-    { _type: 'util::Iban' },
     {
       _type: 'util::Gaussian',
       count: 3,
       max: 5,
       min: 0,
       sum: 7,
-      sum_sq: 29,
+      sumsq: 29,
     },
-    { _type: 'util::HistogramFloat', min: 1, max: 4, size: 7, sum: 16, sumsq: 44 },
-    { _type: 'util::HistogramInt', min: 1, max: 5, size: 7, sum: 16, sumsq: 44 },
-    { _type: 'util::GaussianProfile', bin_len: 0, slots: [] },
-    { _type: 'util::TimeWindow', 0: null, 1: 1000, 2: 100000, 3: 999999999, 4: 42 },
-    { _type: 'util::SlidingWindow' },
-    { _type: 'util::Queue' },
+    // {
+    //   _type: 'util::Quantizer',
+    //   dimensions: [{ _type: 'util::DenseScale', max: 10, min: 0, step: 1 }],
+    // },
+    // {
+    //   _type: 'util::Histogram',
+    //   bins: null,
+    //   quantizer: {
+    //     _type: 'util::Quantizer',
+    //     dimensions: [{ _type: 'util::DenseScale', max: 10, min: 0, step: 1 }],
+    //   },
+    // },
+    // {
+    //   _type: 'util::GaussianProfile',
+    //   bins: null,
+    //   min: null,
+    //   precision: { _type: 'core::FloatPrecision', field: 'p100' },
+    //   quantizer: {
+    //     _type: 'util::Quantizer',
+    //     dimensions: [{ _type: 'util::DenseScale', max: 10, min: 0, step: 1 }],
+    //   },
+    // },
+    {
+      _type: 'util::TimeWindow',
+      field: null,
+      sum: 1000101042,
+      sumsq: 1000000008001001900,
+      values: [
+        '1970-01-01T00:00:00.000Z',
+        1,
+        '1970-01-01T00:00:00.000Z',
+        1000,
+        '1970-01-01T00:00:00.000Z',
+        100000,
+        '1970-01-01T00:00:00.000Z',
+        999999999,
+        '1970-01-01T00:00:00.000Z',
+        42,
+      ],
+      width: { _type: 'core::duration', s: 3, us: 0 },
+    },
+    {
+      _type: 'util::SlidingWindow',
+      capacity: 10,
+      field: null,
+      sum: null,
+      sumsq: null,
+      values: null,
+    },
+    { _type: 'util::Queue', capacity: 3, values: [3, 2, 42] },
+    { _type: 'util::Stack', values: ["one", "two"] },
     { _type: 'util::Crypto' },
-
-    // algebra::ml
-    // { _type: 'ml::GaussianND' },
-    // { _type: 'ml::GaussianND' },
-
-    // algebra::compute
-    // { _type: 'compute::ComputeActivationSigmoid' },
   ];
 
   before(async () => {
@@ -450,7 +487,7 @@ describe('project', () => {
 describe('std', () => {
   before(async () => {
     const buffer = (await readFile('project.test.abi')).buffer;
-    global.greycat.default = GreyCat.initWithAbi({
+    GreyCat.initWithAbi({
       abi: new Abi(buffer, [stdlib]),
     });
   });

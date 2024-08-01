@@ -1,4 +1,4 @@
-import { GCEnum, GCObject, core, slugify } from '../internal.js';
+import { GCEnum, GCObject, std } from '../exports.js';
 
 const NUM = '0123456789';
 const LOWER_ALPHA = 'abcdefghijklmnopqrstuvwxyz';
@@ -170,9 +170,9 @@ export function stringify(props: StringifyProps): string {
   if (text) {
     return text;
   }
-  if (value instanceof core.time) {
+  if (value instanceof std.core.time) {
     return dateFmt ? value.format(dateFmt) : value.toString();
-  } else if (value instanceof core.duration) {
+  } else if (value instanceof std.core.duration) {
     return value.toString();
   } else if (typeof value === 'string') {
     if (tiny) {
@@ -185,9 +185,9 @@ export function stringify(props: StringifyProps): string {
     return String(value);
   } else if (value instanceof Date) {
     return dateFmt ? dateFmt.format(value) : value.toISOString();
-  } else if (value instanceof core.Date) {
+  } else if (value instanceof std.core.Date) {
     return value.toString();
-  } else if (value instanceof core.Tuple) {
+  } else if (value instanceof std.core.Tuple) {
     const tmp = props.value;
     const tmpQuotedString = props.quotedString;
     props.value = value.x;
@@ -201,10 +201,10 @@ export function stringify(props: StringifyProps): string {
   } else if (isNode(value)) {
     if (name) {
       const type = Object.getPrototypeOf(value).constructor._type.split('::')[1];
-      return `${type}/${slugify(name)}`;
+      return `${type}/${encodeURIComponent(name)}`;
     }
     return value.toString();
-  } else if (value instanceof core.geo) {
+  } else if (value instanceof std.core.geo) {
     if (tiny) {
       return `${value.lat.toFixed(2)}, ${value.lng.toFixed(2)}`;
     } else {
@@ -270,12 +270,12 @@ function bigintsAsString(_key: string, value: unknown): unknown {
 
 export function isNode(
   value: unknown,
-): value is core.node | core.nodeTime | core.nodeList | core.nodeIndex | core.nodeGeo {
+): value is std.core.node | std.core.nodeTime | std.core.nodeList | std.core.nodeIndex | std.core.nodeGeo {
   return (
-    value instanceof core.node ||
-    value instanceof core.nodeTime ||
-    value instanceof core.nodeList ||
-    value instanceof core.nodeIndex ||
-    value instanceof core.nodeGeo
+    value instanceof std.core.node ||
+    value instanceof std.core.nodeTime ||
+    value instanceof std.core.nodeList ||
+    value instanceof std.core.nodeIndex ||
+    value instanceof std.core.nodeGeo
   );
 }

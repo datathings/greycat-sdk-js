@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class nodeIndex extends GCObject {
   static readonly _type = 'core::nodeIndex' as const;
@@ -8,18 +8,18 @@ export class nodeIndex extends GCObject {
     super(type);
   }
 
-  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeIndex {
+  static create(value: bigint, g: GreyCat = $.default): std.core.nodeIndex {
     const ty = g.abi.types[g.abi.core_node_index_offset];
-    return new ty.factory(ty, value) as core.nodeIndex;
+    return new ty.factory(ty, value) as std.core.nodeIndex;
   }
 
-  static fromRef(ref: string, g: GreyCat = globalThis.greycat.default): core.nodeIndex {
+  static fromRef(ref: string, g: GreyCat = $.default): std.core.nodeIndex {
     return nodeIndex.create(BigInt(`0x${ref}`), g);
   }
 
-  static load(r: AbiReader, ty: AbiType): core.nodeIndex {
+  static load(r: AbiReader, ty: AbiType): std.core.nodeIndex {
     const value = r.read_vu64_bigint();
-    return new ty.factory(ty, value) as core.nodeIndex;
+    return new ty.factory(ty, value) as std.core.nodeIndex;
   }
 
   override saveHeader(w: AbiWriter): void {

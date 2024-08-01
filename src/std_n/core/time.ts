@@ -1,9 +1,9 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export interface time {
-  sub(duration: core.duration): core.time;
-  sub(time: core.time): core.duration;
+  sub(duration: std.core.duration): std.core.time;
+  sub(time: std.core.time): std.core.duration;
 
   /**
    * Formats the time using the given format
@@ -39,23 +39,23 @@ export class time extends GCObject {
     super(type);
   }
 
-  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): time {
+  static create(value: bigint | number, g: GreyCat = $.default): time {
     const ty = g.abi.types[g.abi.core_time_offset];
-    return new ty.factory(ty, value) as core.time;
+    return new ty.factory(ty, value) as std.core.time;
   }
 
-  static fromDate(date: Date, g: GreyCat = globalThis.greycat.default): core.time {
+  static fromDate(date: Date, g: GreyCat = $.default): std.core.time {
     return time.fromMs(date.getTime(), g);
   }
 
-  static fromMs(epochMs: number, g: GreyCat = globalThis.greycat.default): core.time {
+  static fromMs(epochMs: number, g: GreyCat = $.default): std.core.time {
     const ty = g.abi.types[g.abi.core_time_offset];
-    return new ty.factory(ty, epochMs * 1000) as core.time;
+    return new ty.factory(ty, epochMs * 1000) as std.core.time;
   }
 
-  static load(r: AbiReader, ty: AbiType): core.time {
+  static load(r: AbiReader, ty: AbiType): std.core.time {
     const value = r.read_vi64();
-    return new ty.factory(ty, value) as core.time;
+    return new ty.factory(ty, value) as std.core.time;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -120,24 +120,24 @@ export class time extends GCObject {
     return 1;
   }
 
-  add(duration: core.duration, g = greycat.default): core.time {
+  add(duration: std.core.duration, g: GreyCat = $.default): std.core.time {
     const sum = BigInt(this.value) + BigInt(duration.value);
     const boxedSum =
       sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
     const ty = g.abi.types[g.abi.core_time_offset];
-    return new ty.factory(ty, boxedSum) as core.time;
+    return new ty.factory(ty, boxedSum) as std.core.time;
   }
 
-  sub(duration: core.duration | core.time, g = greycat.default): core.time | core.duration {
+  sub(duration: std.core.duration | std.core.time, g: GreyCat = $.default): std.core.time | std.core.duration {
     const sub = BigInt(this.value) - BigInt(duration.value);
     const boxedSub =
       sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
     if (duration.$type.offset === g.abi.core_duration_offset) {
       const ty = g.abi.types[g.abi.core_time_offset];
-      return new ty.factory(ty, boxedSub) as core.time;
+      return new ty.factory(ty, boxedSub) as std.core.time;
     }
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, boxedSub) as core.duration;
+    return new ty.factory(ty, boxedSub) as std.core.duration;
   }
 
   format(

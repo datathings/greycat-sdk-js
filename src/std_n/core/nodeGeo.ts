@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class nodeGeo extends GCObject {
   static readonly _type = 'core::nodeGeo' as const;
@@ -8,18 +8,18 @@ export class nodeGeo extends GCObject {
     super(type);
   }
 
-  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeGeo {
+  static create(value: bigint, g: GreyCat = $.default): std.core.nodeGeo {
     const ty = g.abi.types[g.abi.core_node_geo_offset];
-    return new ty.factory(ty, value) as core.nodeGeo;
+    return new ty.factory(ty, value) as std.core.nodeGeo;
   }
 
-  static fromRef(ref: string, g: GreyCat = globalThis.greycat.default): core.nodeGeo {
+  static fromRef(ref: string, g: GreyCat = $.default): std.core.nodeGeo {
     return nodeGeo.create(BigInt(`0x${ref}`), g);
   }
 
-  static load(r: AbiReader, ty: AbiType): core.nodeGeo {
+  static load(r: AbiReader, ty: AbiType): std.core.nodeGeo {
     const value = r.read_vu64_bigint();
-    return new ty.factory(ty, value) as core.nodeGeo;
+    return new ty.factory(ty, value) as std.core.nodeGeo;
   }
 
   override saveHeader(w: AbiWriter): void {

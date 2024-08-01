@@ -1,13 +1,12 @@
-import type { IFactory, ILoader, Library, Value, std } from './internal.js';
+import type { IFactory, ILoader, Library, Value } from './exports.js';
 import {
-  stdlib,
+  std,
   PrimitiveType,
   Reader,
   GCEnum,
   GCObject,
-  gc_object__is_not_null,
   std_n,
-} from './internal.js';
+} from './exports.js';
 
 export class Abi {
   static readonly protocol_version = 2;
@@ -61,6 +60,7 @@ export class Abi {
   readonly core_tensortype_offset: number = 0;
   readonly core_float_offset: number = 0;
   readonly core_char_offset: number = 0;
+  readonly core_field_offset: number = 0;
 
   constructor(buffer: ArrayBuffer, libraries: Library[] = []) {
     this.off_by_symbol = new Map();
@@ -73,9 +73,9 @@ export class Abi {
     const hasStd = libraries.find((lib) => lib.name === 'std');
     // always load 'stdlib'
     if (!hasStd) {
-      const std = cloneLibrary(stdlib);
-      std.configure(this.loaders, this.factories);
-      this.libs_by_name.set(std.name, std);
+      const stdlib = cloneLibrary(std.stdlib);
+      stdlib.configure(this.loaders, this.factories);
+      this.libs_by_name.set(stdlib.name, stdlib);
     }
 
     for (let i = 0; i < libraries.length; i++) {
@@ -272,6 +272,9 @@ export class Abi {
             break;
           case 'char':
             this.core_char_offset = i;
+            break;
+          case 'field':
+            this.core_field_offset = i;
             break;
           default:
             // noop
@@ -712,4 +715,17 @@ function cloneLibrary(lib: Library): Library {
     configure: lib.configure,
     init: lib.init,
   };
+}
+
+function gc_object__is_not_null(bitset: Uint8Array, offset: number): boolean {
+  // Find the index of the Uint8Array element containing the bit we want to check
+  const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
+
+  // Find the position of the bit within the Uint8Array element
+  const bitPosition: number = offset & 7; // Equivalent to offset % 8
+
+  // Check if the bit is set (equal to 1)
+  const isBitSet: boolean = (bitset[bitsetIndex] >> bitPosition) & 1 ? true : false;
+
+  return isBitSet;
 }

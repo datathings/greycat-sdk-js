@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter } from '../../internal.js';
-import { GCObject } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter } from '../../exports.js';
+import { GCObject } from '../../exports.js';
 
 export class String extends GCObject {
   static readonly _type = 'core::String' as const;

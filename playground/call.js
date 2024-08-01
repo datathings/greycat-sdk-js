@@ -1,5 +1,5 @@
 // @ts-check
-import { GreyCat, stdlib } from './dist/esm/index.js';
+import { init, stdlib } from '@greycat/sdk';
 
 const args = process.argv.slice(2);
 if (args.length < 1) {
@@ -7,10 +7,10 @@ if (args.length < 1) {
   process.exit(1);
 }
 
-const g = (global.greycat.default = await GreyCat.init({
+const g = await init({
   url: new URL('http://localhost:8080'),
   libraries: [stdlib],
-}));
+});
 
 try {
   const fnArgs = args[1] === '-d' ? JSON.parse(await stdin()) : undefined;

@@ -1,5 +1,5 @@
-import type { AbiReader, AbiWriter, AbiType, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiReader, AbiWriter, AbiType, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class nodeTime extends GCObject {
   static readonly _type = 'core::nodeTime' as const;
@@ -8,18 +8,18 @@ export class nodeTime extends GCObject {
     super(type);
   }
 
-  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.nodeTime {
+  static create(value: bigint, g: GreyCat = $.default): std.core.nodeTime {
     const ty = g.abi.types[g.abi.core_node_time_offset];
-    return new ty.factory(ty, value) as core.nodeTime;
+    return new ty.factory(ty, value) as std.core.nodeTime;
   }
 
-  static fromRef(ref: string, g: GreyCat = globalThis.greycat.default): core.nodeTime {
+  static fromRef(ref: string, g: GreyCat = $.default): std.core.nodeTime {
     return nodeTime.create(BigInt(`0x${ref}`), g);
   }
 
-  static load(r: AbiReader, ty: AbiType): core.nodeTime {
+  static load(r: AbiReader, ty: AbiType): std.core.nodeTime {
     const value = r.read_vu64_bigint();
-    return new ty.factory(ty, value) as core.nodeTime;
+    return new ty.factory(ty, value) as std.core.nodeTime;
   }
 
   override saveHeader(w: AbiWriter): void {

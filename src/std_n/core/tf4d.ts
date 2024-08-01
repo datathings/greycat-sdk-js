@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../internal.js';
-import { GCObject, PrimitiveType, morton } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../exports.js';
+import { GCObject, PrimitiveType, morton, $ } from '../../exports.js';
 
 export class tf4d extends GCObject {
   static readonly _type = 'core::tf4d' as const;
@@ -19,7 +19,7 @@ export class tf4d extends GCObject {
     x1: number,
     x2: number,
     x3: number,
-    g: GreyCat = globalThis.greycat.default,
+    g: GreyCat = $.default,
   ): tf4d {
     const ty = g.abi.types[g.abi.core_tf4d_offset];
     return new ty.factory(ty, x0, x1, x2, x3) as tf4d;

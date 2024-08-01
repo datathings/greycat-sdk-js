@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../internal.js';
-import { GCObject, PrimitiveType, morton } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat } from '../../exports.js';
+import { GCObject, PrimitiveType, morton, $ } from '../../exports.js';
 
 export class ti6d extends GCObject {
   static readonly _type = 'core::ti6d' as const;
@@ -23,7 +23,7 @@ export class ti6d extends GCObject {
     x3: number,
     x4: number,
     x5: number,
-    g: GreyCat = globalThis.greycat.default,
+    g: GreyCat = $.default,
   ): ti6d {
     const ty = g.abi.types[g.abi.core_ti6d_offset];
     return new ty.factory(ty, x0, x1, x2, x3, x4, x5) as ti6d;

@@ -6,7 +6,7 @@
 // then in VSCode: `ctrl+shift+p` > `Debug: Attach to Node Process`
 //
 import { readFileSync } from 'node:fs';
-import { Abi, AbiReader, stdlib, AbiWriter } from './dist/esm/index.js';
+import { Abi, AbiReader, stdlib, AbiWriter } from '@greycat/sdk';
 const [filepath] = process.argv.slice(2);
 if (!filepath) {
   throw new Error('usage: <filepath>');

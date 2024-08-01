@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class float extends GCObject {
   static readonly _type = 'core::float' as const;
@@ -8,14 +8,14 @@ export class float extends GCObject {
     super(type);
   }
 
-  static create(value: number, g: GreyCat = globalThis.greycat.default): core.float {
+  static create(value: number, g: GreyCat = $.default): std.core.float {
     const ty = g.abi.types[g.abi.core_float_offset];
-    return new ty.factory(ty, value) as core.float;
+    return new ty.factory(ty, value) as std.core.float;
   }
 
-  static load(r: AbiReader, ty: AbiType): core.float {
+  static load(r: AbiReader, ty: AbiType): std.core.float {
     const value = r.read_f64();
-    return new ty.factory(ty, value) as core.float;
+    return new ty.factory(ty, value) as std.core.float;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -26,11 +26,11 @@ export class float extends GCObject {
     w.write_f64(this.value);
   }
 
-  equals(other: core.float): boolean {
+  equals(other: std.core.float): boolean {
     return this.value === other.value;
   }
 
-  // ord(other: core.int): number {
+  // ord(other: std.core.int): number {
   //   if (this.value === other.value) {
   //     return 0;
   //   }

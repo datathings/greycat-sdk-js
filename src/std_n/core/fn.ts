@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class function_ extends GCObject {
   static readonly _type = 'core::function' as const;
@@ -17,22 +17,22 @@ export class function_ extends GCObject {
     mod: string,
     type: string | undefined,
     name: string,
-    g: GreyCat = globalThis.greycat.default,
-  ): core.function_ {
+    g: GreyCat = $.default,
+  ): std.core.function_ {
     const ty = g.abi.types[g.abi.core_function_offset];
     return new ty.factory(
       ty,
       g.abi.off_by_symbol.get(mod) ?? 0,
       type ? g.abi.off_by_symbol.get(type) ?? 0 : 0,
       g.abi.off_by_symbol.get(name) ?? 0,
-    ) as core.function_;
+    ) as std.core.function_;
   }
 
-  static load(r: AbiReader, ty: AbiType): core.function_ {
+  static load(r: AbiReader, ty: AbiType): std.core.function_ {
     const mod_off = r.read_vu32();
     const ty_off = r.read_vu32();
     const name_off = r.read_vu32();
-    return new ty.factory(ty, mod_off, ty_off, name_off) as core.function_;
+    return new ty.factory(ty, mod_off, ty_off, name_off) as std.core.function_;
   }
 
   override saveHeader(w: AbiWriter): void {

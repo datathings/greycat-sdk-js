@@ -1,4 +1,4 @@
-import type { GCObject, AbiReader, Abi, AbiType } from './internal.js';
+import type { GCObject, AbiReader, Abi, AbiType } from './exports.js';
 
 type ExtractValues<T> = T[keyof T];
 
@@ -33,7 +33,8 @@ export const PrimitiveType = {
   function: 26,
   undefined: 27,
   type: 28,
-  stringlit: 29,
+  field: 29,
+  stringlit: 30,
 } as const;
 
 export const PrimitiveTypeName = {
@@ -75,8 +76,9 @@ export const PrimitiveTypeName = {
   27: 'undefined',
 
   28: 'type',
+  29: 'field',
 
-  29: 'stringlit',
+  30: 'stringlit',
 } as const;
 
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
@@ -95,6 +97,12 @@ export interface Library {
 }
 
 export interface Options {
+  /**
+   * The name used to register this GreyCat instance.
+   * 
+   * By default, `'default'` is used.
+   */
+  name?: string;
   /**
    * URL of the GreyCat server
    *

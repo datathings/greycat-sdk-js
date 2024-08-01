@@ -1,5 +1,5 @@
-import { type AbiType, type AbiWriter, type Value } from './internal.js';
-import { PrimitiveType } from './internal.js';
+import { type AbiType, type AbiWriter, type Value } from './exports.js';
+import { PrimitiveType } from './exports.js';
 
 /**
  * A dynamic GreyCat type instance, used when no matching class found in the factory
@@ -133,39 +133,24 @@ export class GCObject {
 //  - gc_object__set_null
 //  - gc_object__is_not_null
 // are translated from the C defined macros at in greycat/core machine.h
-const gc_object_bitset_block_size = 8; // Number of bits in each element of the bitset (8 bits for Uint8Array)
-
-export function gc_object__set_not_null(bitset: Uint8Array, offset: number): void {
+function gc_object__set_not_null(bitset: Uint8Array, offset: number): void {
   // Find the index of the Uint8Array element containing the bit we want to set to 1
   const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
 
   // Find the position of the bit within the Uint8Array element
-  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
+  const bitPosition: number = offset & 7; // Equivalent to offset % 8
 
   // Set the bit at the specified position to 1 using bitwise OR with 1 at that position
   bitset[bitsetIndex] |= 1 << bitPosition;
 }
 
-export function gc_object__set_null(bitset: Uint8Array, offset: number): void {
+function gc_object__set_null(bitset: Uint8Array, offset: number): void {
   // Find the index of the Uint8Array element containing the bit we want to set to 0
   const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
 
   // Find the position of the bit within the Uint8Array element
-  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
+  const bitPosition: number = offset & 7; // Equivalent to offset % 8
 
   // Clear the bit at the specified position to 0 using bitwise AND with the complement of 1 at that position
   bitset[bitsetIndex] &= ~(1 << bitPosition);
-}
-
-export function gc_object__is_not_null(bitset: Uint8Array, offset: number): boolean {
-  // Find the index of the Uint8Array element containing the bit we want to check
-  const bitsetIndex: number = offset >> 3; // Equivalent to integer division by 8
-
-  // Find the position of the bit within the Uint8Array element
-  const bitPosition: number = offset & (gc_object_bitset_block_size - 1); // Equivalent to offset % 8
-
-  // Check if the bit is set (equal to 1)
-  const isBitSet: boolean = (bitset[bitsetIndex] >> bitPosition) & 1 ? true : false;
-
-  return isBitSet;
 }

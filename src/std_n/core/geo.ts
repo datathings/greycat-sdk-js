@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType, morton } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, morton, $ } from '../../exports.js';
 
 export class geo extends GCObject {
   static readonly _type = 'core::geo' as const;
@@ -8,12 +8,12 @@ export class geo extends GCObject {
     super(type);
   }
 
-  static create(value: bigint, g: GreyCat = globalThis.greycat.default): core.geo {
+  static create(value: bigint, g: GreyCat = $.default): std.core.geo {
     const ty = g.abi.types[g.abi.core_geo_offset];
-    return new ty.factory(ty, value) as core.geo;
+    return new ty.factory(ty, value) as std.core.geo;
   }
 
-  static fromLatLng(lat: number, lng: number): core.geo {
+  static fromLatLng(lat: number, lng: number): std.core.geo {
     return geo.create(geoEncode(lat, lng));
   }
 
@@ -31,9 +31,9 @@ export class geo extends GCObject {
     return geoDecode(value);
   }
 
-  static load(r: AbiReader, ty: AbiType): core.geo {
+  static load(r: AbiReader, ty: AbiType): std.core.geo {
     const value = r.read_u64();
-    return new ty.factory(ty, value) as core.geo;
+    return new ty.factory(ty, value) as std.core.geo;
   }
 
   get lat(): number {
@@ -58,7 +58,7 @@ export class geo extends GCObject {
     w.write_u64(this.value);
   }
 
-  equals(other: core.geo): boolean {
+  equals(other: std.core.geo): boolean {
     return this.value === other.value;
   }
 

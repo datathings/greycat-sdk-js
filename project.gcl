@@ -8,20 +8,34 @@ type FloatPrecisionTest {
   precision: float;
 }
 
-fn main() {
-  var out = GcbWriter { path: "project.test.gcb" };
-  write_std(out);
-  // write_algebra(out);
+type Writer {
+  gcb: GcbWriter;
+  // json: JsonWriter;
+
+  fn write(v: any?) {
+    this.gcb.write(v);
+    // this.json.writeln(v);
+  }
 }
 
-fn write_std(out: GcbWriter) {
+fn main() {
+  var gcb = GcbWriter { path: "project.test.gcb" };
+  // var json = JsonWriter { path: "project.test.jsonl" };
+  var out = Writer {
+    gcb: gcb,
+    // json: json,
+  };
+  write_std(out);
+}
+
+fn write_std(out: Writer) {
   write_std_core(out);
   write_std_io(out);
   write_std_runtime(out);
   write_std_util(out);
 }
 
-fn write_std_core(out: GcbWriter) {
+fn write_std_core(out: Writer) {
   out.write(true);
   // 1 byte
   out.write(0);
@@ -140,7 +154,7 @@ fn write_std_core(out: GcbWriter) {
   out.write(MathConstants::sqrt1_2);
 }
 
-fn write_std_io(out: GcbWriter) {
+fn write_std_io(out: Writer) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
   out.write(TextEncoder::plain);
@@ -165,7 +179,7 @@ fn write_std_io(out: GcbWriter) {
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
 }
 
-fn write_std_runtime(out: GcbWriter) {
+fn write_std_runtime(out: Writer) {
   out.write(Task {
       user_id: 13,
       task_id: 37,
@@ -249,98 +263,56 @@ fn write_std_runtime(out: GcbWriter) {
     });
 }
 
-fn write_std_util(out: GcbWriter) {
+fn write_std_util(out: Writer) {
   out.write(Random {
       seed: 42,
       v: 13.37,
     });
   out.write(Assert {});
   out.write(ProgressTracker { start: 0_time });
-  out.write(Iban::new("AX2112345600000785"));
   var gaussian = Gaussian {};
   gaussian.add(5.0);
   gaussian.add(2.0);
   gaussian.add(0.0);
   out.write(gaussian);
-  // out.write(Quantizer::new()); // unsupported
-  var histogram_float = HistogramFloat {};
-  histogram_float.add(1.0);
-  histogram_float.add(2.0);
-  histogram_float.add(3.0);
-  histogram_float.add(4.0);
-  histogram_float.add(3.0);
-  histogram_float.add(2.0);
-  histogram_float.add(1.0);
-  out.write(histogram_float);
-  var histogram_int = HistogramInt {};
-  histogram_int.add(1);
-  histogram_int.add(2);
-  histogram_int.add(3);
-  histogram_int.add(4);
-  histogram_int.add(3);
-  histogram_int.add(2);
-  histogram_int.add(1);
-  out.write(histogram_int);
-  var profile = GaussianProfile::new(0);
-  out.write(profile);
+  // var quantizer = Quantizer {
+  //   dimensions: [DenseScale { min: 0, max: 10, step: 1 }]
+  // };
+  // out.write(quantizer);
+  // var hist = Histogram { quantizer: quantizer };
+  // hist.add([0], 1.0);
+  // hist.add([1], 2.0);
+  // hist.add([2], 3.0);
+  // hist.add([3], 4.0);
+  // hist.add([4], 3.0);
+  // hist.add([5], 2.0);
+  // hist.add([6], 1.0);
+  // out.write(hist);
+  // out.write(GaussianProfile { quantizer: quantizer, precision: FloatPrecision::p100 });
   out.write(time_window());
-  out.write(SlidingWindow::new());
-  out.write(Queue<SlidingWindow>::new());
-  /* wrong null for T fields
-  out.write(BoxPlotF64{
-      min: 0.0,
-      max: 13.37,
-      whiskerLow: 0.37,
-      whiskerHigh: 13.0,
-      percentile1: 1.0,
-      percentile5: 2.0,
-      percentile25: 5.0,
-      percentile50: 6.5,
-      percentile75: 10.0,
-      percentile95: 11.5,
-      percentile99: 12.5,
-      countOutliersLow: 12,
-      countOutliersHigh: 42,
-      percentageOutliersLow: 12.0,
-      percentageOutliersHigh: 42.0,
-      sum: 42.12,
-      avg: 7.2,
-      std: 3.9,
-      size: 42,
-    });
-    */
-  // out.write(ByteArray{}); // segfault
+  out.write(SlidingWindow { capacity: 10 });
+  var q = Queue<int> { values: [4, 3, 2], capacity: 3 };
+  q.push(42);
+  out.write(q);
+  var stack = Stack<String> { values: ["one", "two", "three"] };
+  stack.pop();
+  out.write(stack);
   out.write(Crypto {});
 }
 
-// fn write_algebra(out: GcbWriter) {
-//   write_algebra_ml(out);
-//   write_algebra_compute(out);
-// }
-
-// fn write_algebra_ml(out: GcbWriter) {
-//   out.write(GaussianND {});
-//   var gaussian = GaussianND {};
-//   var tensor = Tensor {};
-//   tensor.init(TensorType::f64, [1, 1]);
-//   tensor.add([0, 0], 0.0);
-//   gaussian.learn(tensor);
-//   out.write(gaussian);
-// }
-
-// fn write_algebra_compute(out: GcbWriter) {
-//   out.write(ComputeActivationSigmoid {});
-// }
-
 fn time_window() {
-  var window = TimeWindow::new();
-  window.configure(3_s);
+  var window = TimeWindow { width: 3_s };
   window.add(0_time, 1);
   window.add(1_time, 1000);
   window.add(2_time, 100_000);
   window.add(3_time, 999_999_999);
   window.add(4_time, 42);
   return window;
+}
+
+@expose
+fn array(): Array {
+  return ["hello world", 42, { some: "object" }];
 }
 
 @expose
@@ -352,9 +324,9 @@ fn table() {
   for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
     table.set(rowIdx, 0, 0.5 * rowIdx);
     if (rowIdx == 2) {
-      table.set(rowIdx, 1, null);
+      table.set(rowIdx, 1, null as any);
     } else {
-      table.set(rowIdx, 1, null);
+      table.set(rowIdx, 1, null as any);
     }
   }
 
@@ -551,15 +523,6 @@ fn fn_pointer() {
 
 type Bar<T> {
   attr: T?;
-}
-fn write_gaussian_profile(): GaussianProfile {
-  var profile = GaussianProfile::new(1);
-  profile.add(0, 4.2);
-  profile.add(0, 1.5);
-  profile.add(0, 3.14);
-  var writer = GcbWriter { path: "gaussian_profile.gcb" };
-  writer.write(profile);
-  return profile;
 }
 
 fn write_string() {

@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class duration extends GCObject {
   static readonly _type = 'core::duration' as const;
@@ -16,61 +16,61 @@ export class duration extends GCObject {
     super(type);
   }
 
-  static create(value: bigint | number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static create(value: bigint | number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
     return new ty.factory(ty, value) as duration;
   }
 
-  static from_ms(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_ms(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.MILLISECOND)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MILLISECOND)) as std.core.duration;
   }
 
-  static from_secs(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_secs(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.SECOND)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.SECOND)) as std.core.duration;
   }
 
-  static from_mins(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_mins(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.MINUTE)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MINUTE)) as std.core.duration;
   }
 
-  static from_hours(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_hours(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.HOUR)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.HOUR)) as std.core.duration;
   }
 
-  static from_days(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_days(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.DAY)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.DAY)) as std.core.duration;
   }
 
-  static from_weeks(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_weeks(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.WEEK)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.WEEK)) as std.core.duration;
   }
 
-  static from_months(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_months(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.MONTH)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.MONTH)) as std.core.duration;
   }
 
-  static from_years(value: number, g: GreyCat = globalThis.greycat.default): core.duration {
+  static from_years(value: number, g: GreyCat = $.default): std.core.duration {
     const ty = g.abi.types[g.abi.core_duration_offset];
-    return new ty.factory(ty, value * Number(duration.YEAR)) as core.duration;
+    return new ty.factory(ty, value * Number(duration.YEAR)) as std.core.duration;
   }
 
   /**
    * Creates a `core.duration` from a number `value` and a `core.DurationUnit`.
    *
-   * eg. `core.duration.from_unit(42, core.DurationUnit.seconds())` => `42s`
+   * eg. `core.duration.from_unit(42, std.core.DurationUnit.seconds())` => `42s`
    */
   static from_unit(
     value: number,
-    unit: core.DurationUnit,
-    g: GreyCat = globalThis.greycat.default,
-  ): core.duration {
+    unit: std.core.DurationUnit,
+    g: GreyCat = $.default,
+  ): std.core.duration {
     switch (unit.key) {
       case 'microseconds':
         return duration.create(value, g);
@@ -87,9 +87,9 @@ export class duration extends GCObject {
     }
   }
 
-  static load(r: AbiReader, ty: AbiType): core.duration {
+  static load(r: AbiReader, ty: AbiType): std.core.duration {
     const value = r.read_vi64();
-    return new ty.factory(ty, value) as core.duration;
+    return new ty.factory(ty, value) as std.core.duration;
   }
 
   override saveHeader(w: AbiWriter): void {

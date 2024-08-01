@@ -5,18 +5,27 @@ import type {
   CacheKey,
   Value,
   GCObject,
-} from './internal.js';
-import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './internal.js';
+} from './exports.js';
+import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './exports.js';
 
-let DEFAULT_URL: URL;
+export let DEFAULT_URL: URL;
 try {
   DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://127.0.0.1:8080');
 } catch {
   DEFAULT_URL = new URL('http://127.0.0.1:8080');
 }
 
-globalThis.process = globalThis.process ?? {};
-globalThis.process.env = globalThis.process.env ?? {};
+/**
+ * A map of all known GreyCat instances allowing to communicate with different GreyCat instances from the same client.
+ * 
+ * *The name `'default'` is reserved and is used when initializing without a specific name*.
+ */
+export const $: { [name: string]: GreyCat } = {};
+
+export function init(opts: WithoutAbiOptions = { url: DEFAULT_URL }): Promise<GreyCat> {
+  opts.name = opts.name ?? 'default';
+  return GreyCat.init(opts);
+}
 
 const NOOP = (): void => void 0;
 const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown): void => {
@@ -198,6 +207,26 @@ export class GreyCat {
     this.unauthorizedHandler = unauthorizedHandler;
     this.abiMismatchHandler = abiMismatchHandler;
     this.permissions = permissions;
+
+    // initialize runtime RPCs based on Abi
+    for (const fn of this.abi.functions) {
+      const create_fn = (method: string) => (...args: unknown[]) => {
+        const method_args = args.slice(0, fn.params.length);
+        const signal = args[fn.params.length];
+        this.call(method, method_args, signal instanceof AbortSignal ? signal : undefined);
+      };
+      if (!this.call[fn.module]) {
+        this.call[fn.module] = {};
+      }
+      if (fn.type) {
+        if (!this.call[fn.module][fn.type]) {
+          this.call[fn.module][fn.type] = {};
+        }
+        this.call[fn.module][fn.type][fn.name] = create_fn(`${fn.module}::${fn.type}::${fn.name}`);
+      } else {
+        this.call[fn.module][fn.name] = create_fn(`${fn.module}::${fn.name}`);
+      }
+    }
   }
 
   /**
@@ -215,6 +244,7 @@ export class GreyCat {
    */
   static async init(
     {
+      name = 'default',
       url = DEFAULT_URL,
       libraries,
       capacity,
@@ -256,10 +286,14 @@ export class GreyCat {
       console.warn('unable to fetch User::permissions()', err);
     }
 
+    // register the instance
+    $[name] = greycat;
+
     return greycat;
   }
 
   static initWithAbi({
+    name = 'default',
     url = DEFAULT_URL,
     capacity,
     cache,
@@ -269,7 +303,7 @@ export class GreyCat {
     abiMismatchHandler,
     permissions = [],
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(
+    const greycat = new GreyCat(
       normalizeUrl(url),
       abi,
       capacity,
@@ -279,6 +313,8 @@ export class GreyCat {
       unauthorizedHandler,
       abiMismatchHandler,
     );
+    $[name] = greycat;
+    return greycat;
   }
 
   hasPermission(permission: string): boolean {

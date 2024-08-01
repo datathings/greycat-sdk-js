@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, GreyCat, core } from '../../internal.js';
-import { GCObject, PrimitiveType } from '../../internal.js';
+import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
+import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
 export class int extends GCObject {
   static readonly _type = 'core::int' as const;
@@ -8,14 +8,14 @@ export class int extends GCObject {
     super(type);
   }
 
-  static create(value: number | bigint, g: GreyCat = globalThis.greycat.default): core.int {
+  static create(value: number | bigint, g: GreyCat = $.default): std.core.int {
     const ty = g.abi.types[g.abi.core_int_offset];
-    return new ty.factory(ty, typeof value === 'bigint' ? value : BigInt(value)) as core.int;
+    return new ty.factory(ty, typeof value === 'bigint' ? value : BigInt(value)) as std.core.int;
   }
 
-  static load(r: AbiReader, ty: AbiType): core.int {
+  static load(r: AbiReader, ty: AbiType): std.core.int {
     const value = r.read_i64();
-    return new ty.factory(ty, value) as core.int;
+    return new ty.factory(ty, value) as std.core.int;
   }
 
   override saveHeader(w: AbiWriter): void {
@@ -26,11 +26,11 @@ export class int extends GCObject {
     w.write_i64(this.value);
   }
 
-  equals(other: core.int): boolean {
+  equals(other: std.core.int): boolean {
     return this.value === other.value;
   }
 
-  // ord(other: core.int): number {
+  // ord(other: std.core.int): number {
   //   if (this.value === other.value) {
   //     return 0;
   //   }

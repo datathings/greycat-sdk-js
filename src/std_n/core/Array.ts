@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, Value } from '../../exports.js';
-import { GCObject } from '../../exports.js';
+import type { AbiType, AbiReader, AbiWriter, Value, GreyCat } from '../../exports.js';
+import { $, GCObject } from '../../exports.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Array<_ extends Value = any> extends GCObject {
@@ -9,20 +9,23 @@ export class Array<_ extends Value = any> extends GCObject {
     super(type);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static create<T extends Value = any>(
+    value: globalThis.Array<T>,
+    g: GreyCat = $.default,
+  ): Array<T> {
+    const ty = g.abi.types[g.abi.core_array_offset];
+    return new ty.factory(ty, value) as Array<T>;
+  }
+
   override saveContent(w: AbiWriter): void {
     w.write_vu32(this.arr.length);
-    for (let i = 0; i < this.arr.length; i++) {
-      w.serialize(this.arr[i]);
-    }
+    w.write_array(this.arr);
   }
 
   static load(r: AbiReader): globalThis.Array<Value> {
     const len = r.read_vu32();
-    const arr = new globalThis.Array(len);
-    for (let i = 0; i < len; i++) {
-      arr[i] = r.deserialize();
-    }
-    return arr;
+    return r.read_array(len);
   }
 
   override toJSON() {

@@ -20,65 +20,53 @@ export const PrimitiveType = {
   cubic: 13,
   enum: 14,
   object: 15,
-  tu2d: 16,
-  tu3d: 17,
-  tu4d: 18,
-  tu5d: 19,
-  tu6d: 20,
-  tu10d: 21,
-  tuf2d: 22,
-  tuf3d: 23,
-  tuf4d: 24,
-  block_ref: 25,
-  function: 26,
-  undefined: 27,
-  type: 28,
-  field: 29,
-  stringlit: 30,
+  t2: 16,
+  t3: 17,
+  t4: 18,
+  str: 19,
+  t2f: 20,
+  t3f: 21,
+  t4f: 22,
+  block_ref: 23,
+  function: 24,
+  undefined: 25,
+  type: 26,
+  field: 27,
+  stringlit: 28,
+  error: 29,
 } as const;
 
 export const PrimitiveTypeName = {
   0: 'null',
-
   1: 'bool',
   2: 'char',
-
   3: 'int',
   4: 'float',
-
   5: 'node',
   6: 'node_time',
   7: 'node_index',
   8: 'node_list',
-
   9: 'node_geo',
   10: 'geo',
-
   11: 'time',
   12: 'duration',
   13: 'cubic',
-
   14: 'enum',
   15: 'object',
-
-  16: 'tu2d',
-  17: 'tu3d',
-  18: 'tu4d',
-  19: 'tu5d',
-  20: 'tu6d',
-  21: 'tu10d',
-  22: 'tuf2d',
-  23: 'tuf3d',
-  24: 'tuf4d',
-
-  25: 'block_ref',
-  26: 'function',
-  27: 'undefined',
-
-  28: 'type',
-  29: 'field',
-
-  30: 'stringlit',
+  16: 't2',
+  17: 't3',
+  18: 't4',
+  19: 'str',
+  20: 't2f',
+  21: 't3f',
+  22: 't4f',
+  23: 'block_ref',
+  24: 'function',
+  25: 'undefined',
+  26: 'type',
+  27: 'field',
+  28: 'stringlit',
+  29: 'error',
 } as const;
 
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
@@ -99,7 +87,7 @@ export interface Library {
 export interface Options {
   /**
    * The name used to register this GreyCat instance.
-   * 
+   *
    * By default, `'default'` is used.
    */
   name?: string;

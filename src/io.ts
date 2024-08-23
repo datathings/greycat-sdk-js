@@ -9,6 +9,7 @@ import {
   GCEnum,
   GCObject,
   std_n,
+  AbiType,
 } from './exports.js';
 
 const deserialize_error: IPrimitiveLoader = () => {
@@ -374,40 +375,32 @@ export class AbiReader extends Reader implements Iterable<unknown> {
       const ty = r.abi.types[r.abi.core_cubic_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu2d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti2d_offset];
+    [PrimitiveType.t2]: (r) => {
+      const ty = r.abi.types[r.abi.core_t2_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu3d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti3d_offset];
+    [PrimitiveType.t3]: (r) => {
+      const ty = r.abi.types[r.abi.core_t3_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu4d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti4d_offset];
+    [PrimitiveType.t4]: (r) => {
+      const ty = r.abi.types[r.abi.core_t4_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu5d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti5d_offset];
+    [PrimitiveType.str]: (r) => {
+      const ty = r.abi.types[r.abi.core_str_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu6d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti6d_offset];
+    [PrimitiveType.t2f]: (r) => {
+      const ty = r.abi.types[r.abi.core_t2f_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tu10d]: (r) => {
-      const ty = r.abi.types[r.abi.core_ti10d_offset];
+    [PrimitiveType.t3f]: (r) => {
+      const ty = r.abi.types[r.abi.core_t3f_offset];
       return ty.loader(r, ty);
     },
-    [PrimitiveType.tuf2d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tf2d_offset];
-      return ty.loader(r, ty);
-    },
-    [PrimitiveType.tuf3d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tf3d_offset];
-      return ty.loader(r, ty);
-    },
-    [PrimitiveType.tuf4d]: (r) => {
-      const ty = r.abi.types[r.abi.core_tf4d_offset];
+    [PrimitiveType.t4f]: (r) => {
+      const ty = r.abi.types[r.abi.core_t4f_offset];
       return ty.loader(r, ty);
     },
     [PrimitiveType.enum]: this.read_enum.bind(this),
@@ -420,11 +413,20 @@ export class AbiReader extends Reader implements Iterable<unknown> {
     [PrimitiveType.type]: (r) => {
       const ty = r.abi.types[r.abi.core_type_offset];
       // TODO
+      console.warn(`deserialization of type 'type' is not implemented`);
       return ty.loader(r, ty);
     },
     [PrimitiveType.undefined]: () => undefined,
     [PrimitiveType.stringlit]: this.read_stringlit.bind(this),
-    [PrimitiveType.field]: () => { throw new Error("not implemented yet") },
+    [PrimitiveType.field]: (r) => {
+      const ty = r.abi.types[r.abi.core_field_offset];
+      // TODO
+      console.warn(`deserialization of type 'field' is not implemented`);
+      return ty.loader(r, ty);
+    },
+    [PrimitiveType.error]: () => {
+      throw new Error(`cannot deserialize a 'gc_type_error'`);
+    },
   };
 
   constructor(readonly abi: Abi, buf: ArrayBuffer) {
@@ -528,6 +530,71 @@ export class AbiReader extends Reader implements Iterable<unknown> {
     }
     return fn;
   }
+
+  read_nullable_mask(len: number): Uint8Array | undefined {
+    let nullable_mask: Uint8Array | undefined;
+    if (this.read_u8() === 1) {
+      // we have a nullable mask
+      const nullable_len = Math.ceil(len / 8);
+      nullable_mask = new Uint8Array(this._view.buffer, this._curr, nullable_len);
+      // skip nullable bitset
+      this._curr += nullable_len;
+    }
+    return nullable_mask;
+  }
+
+  read_array(len: number): Array<Value> {
+    if (len === 0) {
+      return [];
+    }
+    const nullable_mask = this.read_nullable_mask(len);
+    const all_slot_type = this.read_u8();
+    let all_abi_type = -1;
+    if (all_slot_type == PrimitiveType.object || all_slot_type == PrimitiveType.enum) {
+      all_abi_type = this.read_vu32();
+    }
+    let is_monotonic = false;
+    let monotonic_value: Value | undefined;
+    if (all_slot_type != PrimitiveType.object && all_slot_type != PrimitiveType.undefined) {
+      is_monotonic = this.read_bool();
+      if (is_monotonic) {
+        monotonic_value = this.deserializers[all_slot_type as PrimitiveType](this);
+      }
+    }
+
+    const arr = new Array(len);
+    for (let i = 0; i < len; i++) {
+      if (nullable_mask) {
+        if (is_elem_nullable(nullable_mask, i)) {
+          arr[i] = null;
+          continue;
+        }
+      }
+      if (all_slot_type === PrimitiveType.undefined) {
+        arr[i] = this.deserialize();
+      } else if (all_slot_type === PrimitiveType.object) {
+        const type_id = all_abi_type === -1 ? this.read_vu32() : all_abi_type;
+        const abi_type = this.abi.types[type_id];
+        if (!abi_type) {
+          throw new Error(`unknown type id '${type_id}'`);
+        }
+        arr[i] = abi_type.loader(this, abi_type);
+      } else if (all_slot_type === PrimitiveType.enum && !is_monotonic) {
+        const type_id = all_abi_type === -1 ? this.read_vu32() : all_abi_type;
+        const field_off = this.read_vu32();
+        const abi_type = this.abi.types[type_id];
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        arr[i] = abi_type.enum_values![field_off];
+      } else if (all_slot_type === PrimitiveType.float && !is_monotonic) {
+        arr[i] = this.read_f64();
+      } else if (!is_monotonic) {
+        arr[i] = this.deserializers[all_slot_type as PrimitiveType](this);
+      } else {
+        arr[i] = monotonic_value;
+      }
+    }
+    return arr;
+  }
 }
 
 /**
@@ -567,43 +634,53 @@ export class Writer {
   }
 
   /**
-   * Doubles the internal buffer length if unable to fit `n`, otherwise does nothing.
+   * Ensures the underlying buffer has enough capacity to add `n` more bytes
    * @param n number of bytes
    */
-  private _reserve(n: number): void {
+  reserve(n: number): void {
     if (this._buf.length >= this._curr + n) {
       return;
     }
-    let newLen = this._buf.length * 2;
-    if (newLen <= n) {
-      newLen = closestUpperPowerOf2(n + this._buf.length);
-    }
-    const newBuf = new Uint8Array(newLen);
-    newBuf.set(this._buf, 0);
-    this._buf = newBuf;
+    const new_buf = new Uint8Array(closest_upper_power_of_2(this._buf.length + n));
+    new_buf.set(this._buf, 0);
+    this._buf = new_buf;
     this._view = new DataView(this._buf.buffer);
   }
 
   write_u8(v: number) {
-    this._reserve(1);
+    this.reserve(1);
     this._view.setUint8(this._curr, v);
     this._curr += 1;
   }
 
+  /**
+   * Reserves a `u8` boolean slot to be updated later on
+   */
+  write_bool_slot(): { update: (v: boolean) => void } {
+    this.reserve(1);
+    const off = this._curr;
+    this._curr += 1;
+    return {
+      update: (v) => {
+        this._view.setUint8(off, v ? 1 : 0);
+      },
+    };
+  }
+
   write_i8(v: number) {
-    this._reserve(1);
+    this.reserve(1);
     this._view.setInt8(this._curr, v);
     this._curr += 1;
   }
 
   write_u16(v: number) {
-    this._reserve(2);
+    this.reserve(2);
     this._view.setUint16(this._curr, v, true);
     this._curr += 2;
   }
 
   write_u32(v: number) {
-    this._reserve(4);
+    this.reserve(4);
     this._view.setUint32(this._curr, v, true);
     this._curr += 4;
   }
@@ -612,7 +689,7 @@ export class Writer {
    * Reserves a `u32` slot to be updated later on
    */
   write_u32_slot(): { update: (v: number) => void } {
-    this._reserve(4);
+    this.reserve(4);
     const off = this._curr;
     this._curr += 4;
     return {
@@ -623,13 +700,13 @@ export class Writer {
   }
 
   write_i32(v: number) {
-    this._reserve(4);
+    this.reserve(4);
     this._view.setInt32(this._curr, v, true);
     this._curr += 4;
   }
 
   write_vu32(v: number) {
-    this._reserve(5); // maximum byte length of a varint 32
+    this.reserve(5); // maximum byte length of a varint 32
 
     this._buf[this._curr] = v & 0x7f;
     if (v < 0x80) {
@@ -673,7 +750,7 @@ export class Writer {
   }
 
   write_vu64(x: bigint) {
-    this._reserve(9); // maximum byte length of a varint64
+    this.reserve(9); // maximum byte length of a varint64
     this._buf[this._curr] = Number(x & 0x7fn);
     if (x < 0x80) {
       this._curr++;
@@ -743,37 +820,37 @@ export class Writer {
   }
 
   write_u64(v: bigint) {
-    this._reserve(8);
+    this.reserve(8);
     this._view.setBigUint64(this._curr, v, true);
     this._curr += 8;
   }
 
   write_u64_number(v: bigint | number) {
-    this._reserve(8);
+    this.reserve(8);
     this._view.setBigUint64(this._curr, typeof v === 'bigint' ? v : BigInt(v), true);
     this._curr += 8;
   }
 
   write_i64(v: bigint) {
-    this._reserve(8);
+    this.reserve(8);
     this._view.setBigInt64(this._curr, v, true);
     this._curr += 8;
   }
 
   write_i64_number(v: bigint | number) {
-    this._reserve(8);
+    this.reserve(8);
     this._view.setBigInt64(this._curr, typeof v === 'bigint' ? v : BigInt(v), true);
     this._curr += 8;
   }
 
   write_f32(v: number) {
-    this._reserve(4);
+    this.reserve(4);
     this._view.setFloat32(this._curr, v, true);
     this._curr += 4;
   }
 
   write_f64(v: number) {
-    this._reserve(8);
+    this.reserve(8);
     this._view.setFloat64(this._curr, v, true);
     this._curr += 8;
   }
@@ -788,7 +865,7 @@ export class Writer {
   }
 
   write_bool(v: boolean) {
-    this._reserve(1);
+    this.reserve(1);
     this._view.setUint8(this._curr, v ? 1 : 0);
     this._curr += 1;
   }
@@ -800,7 +877,7 @@ export class Writer {
    * @param bytes
    */
   write_all(bytes: Uint8Array) {
-    this._reserve(bytes.length);
+    this.reserve(bytes.length);
     this._buf.set(bytes, this._curr);
     this._curr += bytes.length;
   }
@@ -856,8 +933,7 @@ export class AbiWriter extends Writer {
    * Serializes a `number` as either an `int` or a `float` based on its value
    */
   number(value: number): void {
-    // checks if value is a float or not
-    if (value % 1 === 0) {
+    if (Number.isInteger(value)) {
       this.write_u8(PrimitiveType.int);
       this.write_vi64(BigInt(value));
     } else {
@@ -867,7 +943,7 @@ export class AbiWriter extends Writer {
   }
 
   raw_number(value: number): void {
-    if (value % 1 === 0) {
+    if (Number.isInteger(value)) {
       this.write_vi64(BigInt(value));
     } else {
       this.write_f64(value);
@@ -979,7 +1055,15 @@ export class AbiWriter extends Writer {
     } else if (value === null) {
       this.write_u8(PrimitiveType.null);
     } else {
-      throw new Error(`type '${value.constructor.name}' cannot be serialized`);
+      try {
+        GCObject.from(value, this.abi).save(this);
+      } catch {
+        // if we cannot find a type that matches, send the object as a Map
+        new std_n.core.Map(
+          this.abi.types[this.abi.core_map_offset],
+          new Map(Object.entries(value)),
+        ).save(this);
+      }
     }
   }
 
@@ -995,13 +1079,21 @@ export class AbiWriter extends Writer {
     } else if (value instanceof Symbol) {
       this.raw_symbol(value.valueOf());
     } else if (value instanceof Array) {
-      new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value).saveContent(this);
+      this.write_array(value);
     } else if (value instanceof Map) {
       new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).saveContent(this);
     } else if (value === null) {
       // noop, 'null' are skipped when serializing without type header
     } else {
-      throw new Error(`type '${value.constructor.name}' cannot be serialized`);
+      try {
+        GCObject.from(value, this.abi).saveContent(this);
+      } catch {
+        // if we cannot find a type that matches, send the object as a Map
+        new std_n.core.Map(
+          this.abi.types[this.abi.core_map_offset],
+          new Map(Object.entries(value)),
+        ).saveContent(this);
+      }
     }
   }
 
@@ -1031,9 +1123,192 @@ export class AbiWriter extends Writer {
     }
     throw new Error('Javascript symbol without descriptions are not serializable');
   }
+
+  write_array(arr: Value[]): void {
+    if (arr.length === 0) {
+      return;
+    }
+    const nullable_slot = this.write_bool_slot();
+
+    let nullable_bitset_len: number | undefined;
+
+    let slot_type_and = 255; // u8::MAX
+    let slot_type_or = 0;
+    let object_type_and = 4294967295; // u32::MAX
+    let object_type_or = 0;
+    let object_type: AbiType | undefined;
+
+    for (let i = 0; i < arr.length; i++) {
+      const value = arr[i];
+      switch (typeof value) {
+        case 'string': {
+          if (this.abi.off_by_symbol.get(value) === undefined) {
+            slot_type_and &= PrimitiveType.object;
+            slot_type_or |= PrimitiveType.object;
+            object_type = this.abi.types[this.abi.core_string_offset];
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else {
+            slot_type_and &= PrimitiveType.stringlit;
+            slot_type_or |= PrimitiveType.stringlit;
+          }
+          break;
+        }
+        case 'number': {
+          if (Number.isInteger(value)) {
+            slot_type_and &= PrimitiveType.int;
+            slot_type_or |= PrimitiveType.int;
+          } else {
+            slot_type_and &= PrimitiveType.float;
+            slot_type_or |= PrimitiveType.float;
+          }
+          break;
+        }
+        case 'bigint': {
+          slot_type_and &= PrimitiveType.int;
+          slot_type_or |= PrimitiveType.int;
+          break;
+        }
+        case 'boolean': {
+          slot_type_and &= PrimitiveType.bool;
+          slot_type_or |= PrimitiveType.bool;
+          break;
+        }
+        case 'symbol': {
+          if (this.abi.off_by_symbol.get(value.toString()) === undefined) {
+            slot_type_and &= PrimitiveType.object;
+            slot_type_or |= PrimitiveType.object;
+            object_type = this.abi.types[this.abi.core_string_offset];
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else {
+            slot_type_and &= PrimitiveType.stringlit;
+            slot_type_or |= PrimitiveType.stringlit;
+          }
+          break;
+        }
+        case 'undefined': {
+          if (nullable_bitset_len === undefined) {
+            // reserve enough space for a null bitset of all elements
+            nullable_bitset_len = Math.ceil(arr.length / 8);
+            this.reserve(nullable_bitset_len);
+          }
+          this._buf[this._curr + (i >> 3)] |= ~(1 << (i & 7));
+          break;
+        }
+        case 'object': {
+          if (value === null) {
+            if (nullable_bitset_len === undefined) {
+              // reserve enough space for a null bitset of all elements
+              nullable_bitset_len = Math.ceil(arr.length / 8);
+              this.reserve(nullable_bitset_len);
+            }
+            this._buf[this._curr + (i >> 3)] |= ~(1 << (i & 7));
+          } else if (value instanceof GCEnum) {
+            slot_type_and &= PrimitiveType.enum;
+            slot_type_or |= PrimitiveType.enum;
+            object_type = value.$type;
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else if (value instanceof GCObject) {
+            slot_type_and &= PrimitiveType.object;
+            slot_type_or |= PrimitiveType.object;
+            object_type = value.$type;
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else if (Array.isArray(value)) {
+            slot_type_and &= PrimitiveType.object;
+            slot_type_or |= PrimitiveType.object;
+            object_type = this.abi.types[this.abi.core_array_offset];
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else if (value instanceof Map) {
+            slot_type_and &= PrimitiveType.object;
+            slot_type_or |= PrimitiveType.object;
+            object_type = this.abi.types[this.abi.core_map_offset];
+            object_type_and &= object_type.mapped_type_off;
+            object_type_or |= object_type.mapped_type_off;
+          } else if ('_type' in value && typeof value._type === 'string') {
+            const abi_type = this.abi.type_by_fqn.get(value._type);
+            if (abi_type) {
+              if (abi_type.is_enum) {
+                slot_type_and &= PrimitiveType.enum;
+                slot_type_or |= PrimitiveType.enum;
+              } else {
+                slot_type_and &= PrimitiveType.object;
+                slot_type_or |= PrimitiveType.object;
+              }
+              object_type = abi_type;
+              object_type_and &= object_type.mapped_type_off;
+              object_type_or |= object_type.mapped_type_off;
+            }
+          }
+          break;
+        }
+        case 'function': {
+          slot_type_and &= PrimitiveType.error;
+          slot_type_or |= PrimitiveType.error;
+          break;
+        }
+      }
+    }
+
+    if (nullable_bitset_len !== undefined) {
+      nullable_slot.update(true);
+      this._curr += nullable_bitset_len;
+    } else {
+      nullable_slot.update(false);
+    }
+
+    const slot_type = slot_type_and === slot_type_or ? slot_type_and : PrimitiveType.undefined;
+    this.write_u8(slot_type);
+    object_type = object_type_and === object_type_or ? this.abi.types[object_type_and] : undefined;
+    if (object_type && (slot_type == PrimitiveType.object || slot_type == PrimitiveType.enum)) {
+      this.write_vu32(object_type.mapped_type_off);
+    }
+    if (slot_type !== PrimitiveType.undefined && slot_type !== PrimitiveType.object) {
+      // in JS we never check if the array is monotonic
+      this.write_bool(false);
+    }
+    if (slot_type === PrimitiveType.undefined) {
+      for (let i = 0; i < arr.length; i++) {
+        const elem = arr[i];
+        if (elem !== null && elem !== undefined) {
+          this.serialize(elem);
+        }
+      }
+    } else if (slot_type === PrimitiveType.object || slot_type === PrimitiveType.enum) {
+      if (object_type) {
+        for (let i = 0; i < arr.length; i++) {
+          const elem = arr[i];
+          if (elem !== null && elem !== undefined) {
+            this.raw_object(elem);
+          }
+        }
+      } else {
+        for (let i = 0; i < arr.length; i++) {
+          const elem = arr[i];
+          if (elem !== null && elem !== undefined) {
+            this.object(elem);
+          }
+        }
+      }
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        const elem = arr[i];
+        if (elem !== null && elem !== undefined) {
+          this.serializeRaw(elem);
+        }
+      }
+    }
+  }
 }
 
-function closestUpperPowerOf2(value: number) {
+function is_elem_nullable(nullable_mask: Uint8Array, i: number): boolean {
+  return !((nullable_mask[i >> 3] >> (i & 7)) & 1);
+}
+
+function closest_upper_power_of_2(value: number) {
   if (value < 1) {
     return 1;
   }

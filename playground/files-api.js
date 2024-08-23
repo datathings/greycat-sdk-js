@@ -2,7 +2,7 @@
 import { inspect } from 'util';
 import { GreyCat, std } from '@greycat/sdk';
 
-global.greycat.default = await GreyCat.init();
+await GreyCat.init();
 
 const root = std.io.File.create('/', null, null);
 await root.resolve();

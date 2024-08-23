@@ -99,26 +99,14 @@ describe('project', () => {
     {
       _type: 'core::Table',
       cols: [
-        [0, 0.5, 1, 1.5],
-        [null, null, null, null],
-      ],
-      meta: [
-        {
-          _type: 'core::NativeTableColumnMeta',
-          header: 'Column 0',
-          index: false,
-          typeName: 'core::float',
-          min: 0,
-          max: 1.5,
-        },
-        {
-          _type: 'core::NativeTableColumnMeta',
-          header: null,
-          index: false,
-          typeName: 'core::null',
-          min: null,
-          max: null,
-        },
+        [0, 1, 2, 3],
+        [0.5, 1.5, 2.5, 3.5],
+        [
+          { _type: '::<name>', name: 'one' },
+          { _type: '::<name>', name: 'two' },
+          { _type: '::<name>', name: 'three' },
+          { _type: '::<name>', name: 'four' },
+        ],
       ],
     },
     {
@@ -181,27 +169,13 @@ describe('project', () => {
     },
     { _type: 'core::CalendarUnit', field: 'day' },
     { _type: 'core::nodeGeo', ref: '1400000' },
-    { _type: 'core::ti2d', x0: 13, x1: 37 },
-    { _type: 'core::ti3d', x0: 13, x1: 37, x2: 42 },
-    { _type: 'core::ti4d', x0: 13, x1: 37, x2: 42, x3: 12 },
-    { _type: 'core::ti5d', x0: -1, x1: 13, x2: 37, x3: 42, x4: 12 },
-    { _type: 'core::ti6d', x0: -1, x1: 13, x2: 37, x3: 42, x4: 12, x5: -12 },
-    {
-      _type: 'core::ti10d',
-      x0: -1,
-      x1: 13,
-      x2: 27,
-      x3: 22,
-      x4: 12,
-      x5: 1,
-      x6: -13,
-      x7: -27,
-      x8: -22,
-      x9: -12,
-    },
-    { _type: 'core::tf2d', x0: 13.369999885559082, x1: 12.420000076293945 },
-    { _type: 'core::tf3d', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
-    { _type: 'core::tf4d', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
+    { _type: 'core::t2', x0: 13, x1: 37 },
+    { _type: 'core::t3', x0: 13, x1: 37, x2: 42 },
+    { _type: 'core::t4', x0: 13, x1: 37, x2: 42, x3: 12 },
+    { _type: 'core::str', value: 'helloworld' },
+    { _type: 'core::t2f', x0: 13.369999885559082, x1: 12.420000076293945 },
+    { _type: 'core::t3f', x0: 13.369140625, x1: 12.419921875, x2: -13.369140625 },
+    { _type: 'core::t4f', x0: 13.3125, x1: 12.375, x2: -13.3125, x3: -12.375 },
     // std::core::MathConstants
     2.718281828459045, // MathConstants::e
     1.4426950408889634, // MathConstants::log_2e
@@ -416,18 +390,19 @@ describe('project', () => {
       field: null,
       sum: 1000101042,
       sumsq: 1000000008001001900,
-      values: [
-        '1970-01-01T00:00:00.000Z',
-        1,
-        '1970-01-01T00:00:00.000Z',
-        1000,
-        '1970-01-01T00:00:00.000Z',
-        100000,
-        '1970-01-01T00:00:00.000Z',
-        999999999,
-        '1970-01-01T00:00:00.000Z',
-        42,
-      ],
+      values: {
+        _type: 'core::Table',
+        cols: [
+          [
+            '1970-01-01T00:00:00.000Z',
+            '1970-01-01T00:00:00.000Z',
+            '1970-01-01T00:00:00.000Z',
+            '1970-01-01T00:00:00.000Z',
+            '1970-01-01T00:00:00.000Z',
+          ],
+          [1, 1000, 100000, 999999999, 42],
+        ],
+      },
       width: { _type: 'core::duration', s: 3, us: 0 },
     },
     {
@@ -439,7 +414,7 @@ describe('project', () => {
       values: null,
     },
     { _type: 'util::Queue', capacity: 3, values: [3, 2, 42] },
-    { _type: 'util::Stack', values: ["one", "two"] },
+    { _type: 'util::Stack', values: ['one', 'two'] },
     { _type: 'util::Crypto' },
   ];
 
@@ -459,7 +434,7 @@ describe('project', () => {
     if (typeof expected === 'object') {
       if ('_type' in expected) {
         testName = expected._type;
-      } else if (expected.constructor.name) {
+      } else {
         testName = expected.constructor.name;
       }
     }

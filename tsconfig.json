@@ -7,8 +7,11 @@
     "moduleResolution": "Bundler",
     "allowJs": true,
     "useDefineForClassFields": false,
+    "strict": true,
 
-    "declaration": true
+    "declaration": true,
+    "sourceMap": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/std/"],
 }

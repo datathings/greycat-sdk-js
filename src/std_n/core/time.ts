@@ -128,7 +128,10 @@ export class time extends GCObject {
     return new ty.factory(ty, boxedSum) as std.core.time;
   }
 
-  sub(duration: std.core.duration | std.core.time, g: GreyCat = $.default): std.core.time | std.core.duration {
+  sub(
+    duration: std.core.duration | std.core.time,
+    g: GreyCat = $.default,
+  ): std.core.time | std.core.duration {
     const sub = BigInt(this.value) - BigInt(duration.value);
     const boxedSub =
       sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;

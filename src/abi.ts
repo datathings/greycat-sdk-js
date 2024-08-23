@@ -1,12 +1,5 @@
 import type { IFactory, ILoader, Library, Value } from './exports.js';
-import {
-  std,
-  PrimitiveType,
-  Reader,
-  GCEnum,
-  GCObject,
-  std_n,
-} from './exports.js';
+import { std, PrimitiveType, Reader, GCEnum, GCObject, std_n } from './exports.js';
 
 export class Abi {
   static readonly protocol_version = 2;
@@ -43,15 +36,13 @@ export class Abi {
   readonly core_array_offset: number = 0;
   readonly core_map_offset: number = 0;
   readonly core_cubic_offset: number = 0;
-  readonly core_ti2d_offset: number = 0;
-  readonly core_ti3d_offset: number = 0;
-  readonly core_ti4d_offset: number = 0;
-  readonly core_ti5d_offset: number = 0;
-  readonly core_ti6d_offset: number = 0;
-  readonly core_ti10d_offset: number = 0;
-  readonly core_tf2d_offset: number = 0;
-  readonly core_tf3d_offset: number = 0;
-  readonly core_tf4d_offset: number = 0;
+  readonly core_t2_offset: number = 0;
+  readonly core_t3_offset: number = 0;
+  readonly core_t4_offset: number = 0;
+  readonly core_str_offset: number = 0;
+  readonly core_t2f_offset: number = 0;
+  readonly core_t3f_offset: number = 0;
+  readonly core_t4f_offset: number = 0;
   readonly core_function_offset: number = 0;
   readonly core_type_offset: number = 0;
   readonly core_timezone_offset: number = 0;
@@ -219,32 +210,26 @@ export class Abi {
           case 'cubic':
             this.core_cubic_offset = i;
             break;
-          case 'ti2d':
-            this.core_ti2d_offset = i;
+          case 't2':
+            this.core_t2_offset = i;
             break;
-          case 'ti3d':
-            this.core_ti3d_offset = i;
+          case 't3':
+            this.core_t3_offset = i;
             break;
-          case 'ti4d':
-            this.core_ti4d_offset = i;
+          case 't4':
+            this.core_t4_offset = i;
             break;
-          case 'ti5d':
-            this.core_ti5d_offset = i;
+          case 'str':
+            this.core_str_offset = i;
             break;
-          case 'ti6d':
-            this.core_ti6d_offset = i;
+          case 't2f':
+            this.core_t2f_offset = i;
             break;
-          case 'ti10d':
-            this.core_ti10d_offset = i;
+          case 't3f':
+            this.core_t3f_offset = i;
             break;
-          case 'tf2d':
-            this.core_tf2d_offset = i;
-            break;
-          case 'tf3d':
-            this.core_tf3d_offset = i;
-            break;
-          case 'tf4d':
-            this.core_tf4d_offset = i;
+          case 't4f':
+            this.core_t4f_offset = i;
             break;
           case 'function':
             this.core_function_offset = i;
@@ -291,7 +276,7 @@ export class Abi {
       const type = cursor.read_vu32();
       const name = cursor.read_vu32();
       const lib = cursor.read_vu32();
-      const arity = cursor.read_vu32(); // FIXME u8 is enough here
+      const arity = cursor.read_vu32();
       const params = new Array(arity);
       for (let p = 0; p < arity; p++) {
         const nullable = cursor.read_u8() === 1;
@@ -387,8 +372,8 @@ export class Abi {
   }
 
   createGeo(lat: number, lng: number) {
-    const t = this.types[this.core_geo_offset];
     const value = std_n.core.geoEncode(lat, lng);
+    const t = this.types[this.core_geo_offset];
     return new t.factory(t, value) as std.core.geo;
   }
 
@@ -402,74 +387,39 @@ export class Abi {
     return new t.factory(t, value) as std.core.duration;
   }
 
-  createTu2d(x0: bigint | number, x1: bigint | number) {
-    const t = this.types[this.core_ti2d_offset];
-    return new t.factory(t, x0, x1) as std.core.ti2d;
+  createT2(x0: bigint | number, x1: bigint | number) {
+    const t = this.types[this.core_t2_offset];
+    return new t.factory(t, x0, x1) as std.core.t2;
   }
 
-  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
-    const t = this.types[this.core_ti3d_offset];
-    return new t.factory(t, x0, x1, x2) as std.core.ti3d;
+  createT3(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
+    const t = this.types[this.core_t3_offset];
+    return new t.factory(t, x0, x1, x2) as std.core.t3;
   }
 
-  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
-    const t = this.types[this.core_ti4d_offset];
-    return new t.factory(t, x0, x1, x2, x3) as std.core.ti4d;
+  createT4(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
+    const t = this.types[this.core_t4_offset];
+    return new t.factory(t, x0, x1, x2, x3) as std.core.t4;
   }
 
-  // prettier-ignore
-  createTu5d(
-    x0: bigint | number,
-    x1: bigint | number,
-    x2: bigint | number,
-    x3: bigint | number,
-    x4: bigint | number,
-  ) {
-    const t = this.types[this.core_ti5d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4) as std.core.ti5d;
+  createStr(value: bigint) {
+    const t = this.types[this.core_str_offset];
+    return new t.factory(t, value) as std.core.str;
   }
 
-  createTu6d(
-    x0: bigint | number,
-    x1: bigint | number,
-    x2: bigint | number,
-    x3: bigint | number,
-    x4: bigint | number,
-    x5: bigint | number,
-  ) {
-    const t = this.types[this.core_ti6d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4, x5) as std.core.ti6d;
+  createT2f(x0: number, x1: number) {
+    const t = this.types[this.core_t2f_offset];
+    return new t.factory(t, x0, x1) as std.core.t2f;
   }
 
-  createTu10d(
-    x0: bigint | number,
-    x1: bigint | number,
-    x2: bigint | number,
-    x3: bigint | number,
-    x4: bigint | number,
-    x5: bigint | number,
-    x6: bigint | number,
-    x7: bigint | number,
-    x8: bigint | number,
-    x9: bigint | number,
-  ) {
-    const t = this.types[this.core_ti10d_offset];
-    return new t.factory(t, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9) as std.core.ti10d;
+  createT3f(x0: number, x1: number, x2: number) {
+    const t = this.types[this.core_t3f_offset];
+    return new t.factory(t, x0, x1, x2) as std.core.t3f;
   }
 
-  createTuf2d(x0: number, x1: number) {
-    const t = this.types[this.core_tf2d_offset];
-    return new t.factory(t, x0, x1) as std.core.tf2d;
-  }
-
-  createTuf3d(x0: number, x1: number, x2: number) {
-    const t = this.types[this.core_tf3d_offset];
-    return new t.factory(t, x0, x1, x2) as std.core.tf3d;
-  }
-
-  createTuf4d(x0: number, x1: number, x2: number, x3: number) {
-    const t = this.types[this.core_tf4d_offset];
-    return new t.factory(t, x0, x1, x2, x3) as std.core.tf4d;
+  createT4f(x0: number, x1: number, x2: number, x3: number) {
+    const t = this.types[this.core_t4f_offset];
+    return new t.factory(t, x0, x1, x2, x3) as std.core.t4f;
   }
 }
 
@@ -660,7 +610,7 @@ export class AbiAttribute {
     readonly nullable: boolean,
     readonly mapped: boolean,
     readonly precision: AbiPrecision,
-  ) { }
+  ) {}
 }
 
 export enum AbiPrecision {
@@ -696,11 +646,11 @@ export class AbiFunction {
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
     readonly is_task: boolean,
-  ) { }
+  ) {}
 }
 
 export class AbiParam {
-  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) { }
+  constructor(readonly name: string, readonly type: AbiType, readonly nullable: boolean) {}
 }
 
 /**

@@ -20,6 +20,6 @@ export class Buffer extends GCObject {
   }
 
   override toJSON() {
-      return { _type: this.$type.name, data: Array.from(this.data) };
+    return { _type: this.$type.name, data: Array.from(this.data) };
   }
 }

@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
 import * as sdk from '@greycat/sdk';
-const m = sdk.morton;
+const m = sdk.utils;
 
 const INT32_MIN = -2147483648;
 const INT32_MAX = 2147483647;

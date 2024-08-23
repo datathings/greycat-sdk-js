@@ -8,34 +8,18 @@ type FloatPrecisionTest {
   precision: float;
 }
 
-type Writer {
-  gcb: GcbWriter;
-  // json: JsonWriter;
-
-  fn write(v: any?) {
-    this.gcb.write(v);
-    // this.json.writeln(v);
-  }
-}
-
 fn main() {
-  var gcb = GcbWriter { path: "project.test.gcb" };
-  // var json = JsonWriter { path: "project.test.jsonl" };
-  var out = Writer {
-    gcb: gcb,
-    // json: json,
-  };
-  write_std(out);
+  write_std(GcbWriter { path: "project.test.gcb" });
 }
 
-fn write_std(out: Writer) {
+fn write_std(out: GcbWriter) {
   write_std_core(out);
   write_std_io(out);
   write_std_runtime(out);
   write_std_util(out);
 }
 
-fn write_std_core(out: Writer) {
+fn write_std_core(out: GcbWriter) {
   out.write(true);
   // 1 byte
   out.write(0);
@@ -91,13 +75,13 @@ fn write_std_core(out: Writer) {
   out.write(12_time);
   out.write([]);
   out.write([42, true, "hello", CalendarUnit::month]);
-  out.write(49.59634473860023lat_6.128470332224678lng);
-  out.write(Map {});
+  out.write(geo {49.59634473860023, 6.128470332224678});
+  out.write(Map<any, any?> {});
   out.write(project::table);
   out.write(FloatPrecisionTest { normal: 3.14, precision: 3.141516 });
   out.write(Buffer {});
 
-  var map = Map {};
+  var map = Map<any, any?> {};
   map.set(42, 42);
   map.set(true, true);
   map.set("hello", "hello");
@@ -105,40 +89,43 @@ fn write_std_core(out: Writer) {
   out.write(map);
 
   out.write({ string: "hello", int: 42, float: 3.14, bool: true, char: 'c', enum: TimeZone::Europe_Luxembourg });
-  out.write(GeoBox::new(1lat_2lng, 1.5lat_-0.5lng));
+  out.write(GeoBox { sw: geo {1, 2}, ne: geo {1.5, -0.5} });
   out.write(nodeList<int> {});
   out.write(TimeZone::Europe_Luxembourg);
-  out.write(node::new(13.37));
+  out.write(node<float> { 13.37 });
   out.write(Error { message: "an error", stack: [] });
   out.write(ErrorCode::none);
   out.write(SamplingMode::adaptative);
   out.write(DurationUnit::days);
   out.write(TensorType::c128);
-  out.write(table());
+  out.write(Table<any> {
+      [0, 0.5, { name: "one" }],
+      [1, 1.5, { name: "two" }],
+      [2, 2.5, { name: "three" }],
+      [3, 3.5, { name: "four" }],
+    });
   out.write(Tensor {});
   var tensor = Tensor {};
-  tensor.init(TensorType::f64, [1, 1]);
-  tensor.add([0, 0], 3.14);
+  tensor.init(TensorType::f64, Array<int> {1, 1});
+  tensor.add(Array<int> {0, 0}, 3.14);
   out.write(tensor);
-  out.write(GeoCircle::new(49.59634473860023lat_6.128470332224678lng, 13.37));
+  out.write(GeoCircle { center: geo {49.59634473860023, 6.128470332224678}, radius: 13.37 });
   out.write(Date { year: 2012, month: 12, day: 12, hour: 12, minute: 12, second: 12, microsecond: 120012 });
   out.write(nodeTime<nodeGeo> {});
   out.write(Array<nodeTime> {});
-  out.write(([], Map {}));
+  out.write(([], Map<any, any?> {}));
   out.write(Tuple { x: 42, y: "hello" });
   out.write(nodeIndex<Tuple> {});
-  out.write(GeoPoly { points: [1lat_2lng, 1.5lat_2.01lng, 1lat_2lng] });
+  out.write(GeoPoly { points: Array<geo> {geo {1, 2}, geo {1.5, 2.01}, geo {1, 2}} });
   out.write(CalendarUnit::day);
   out.write(nodeGeo<CalendarUnit> {});
-  out.write(ti2d::new(13, 37));
-  out.write(ti3d::new(13, 37, 42));
-  out.write(ti4d::new(13, 37, 42, 12));
-  out.write(ti5d::new(-1, 13, 37, 42, 12));
-  out.write(ti6d::new(-1, 13, 37, 42, 12, -12));
-  out.write(ti10d::new(-1, 13, 27, 22, 12, 1, -13, -27, -22, -12));
-  out.write(tf2d::new(13.37, 12.42));
-  out.write(tf3d::new(13.37, 12.42, -13.37));
-  out.write(tf4d::new(13.37, 12.42, -13.37, -12.42));
+  out.write(t2 {13, 37});
+  out.write(t3 {13, 37, 42});
+  out.write(t4 {13, 37, 42, 12});
+  out.write(str {"helloworld"});
+  out.write(t2f {13.37, 12.42});
+  out.write(t3f {13.37, 12.42, -13.37});
+  out.write(t4f {13.37, 12.42, -13.37, -12.42});
   out.write(MathConstants::e);
   out.write(MathConstants::log_2e);
   out.write(MathConstants::log_10e);
@@ -154,7 +141,7 @@ fn write_std_core(out: Writer) {
   out.write(MathConstants::sqrt1_2);
 }
 
-fn write_std_io(out: Writer) {
+fn write_std_io(out: GcbWriter) {
   // out.write(out); // unsupported
   // out.write(AbiReader::new("out.gcb")); // segfault
   out.write(TextEncoder::plain);
@@ -179,7 +166,7 @@ fn write_std_io(out: Writer) {
   // out.write(FileWriter::new("project.gcl", true)); // unsupported
 }
 
-fn write_std_runtime(out: Writer) {
+fn write_std_runtime(out: GcbWriter) {
   out.write(Task {
       user_id: 13,
       task_id: 37,
@@ -223,7 +210,7 @@ fn write_std_runtime(out: Writer) {
     });
   out.write(PeriodicTask {
       function: project::float_f,
-      arguments: [3.14],
+      arguments: Array<any?> {3.14},
       user_id: 12,
       start: 13_time,
       every: duration::new(37, DurationUnit::microseconds),
@@ -263,7 +250,7 @@ fn write_std_runtime(out: Writer) {
     });
 }
 
-fn write_std_util(out: Writer) {
+fn write_std_util(out: GcbWriter) {
   out.write(Random {
       seed: 42,
       v: 13.37,
@@ -291,10 +278,10 @@ fn write_std_util(out: Writer) {
   // out.write(GaussianProfile { quantizer: quantizer, precision: FloatPrecision::p100 });
   out.write(time_window());
   out.write(SlidingWindow { capacity: 10 });
-  var q = Queue<int> { values: [4, 3, 2], capacity: 3 };
+  var q = Queue<int> { values: Array<int> {4, 3, 2}, capacity: 3 };
   q.push(42);
   out.write(q);
-  var stack = Stack<String> { values: ["one", "two", "three"] };
+  var stack = Stack<String> { values: Array<String> {"one", "two", "three"} };
   stack.pop();
   out.write(stack);
   out.write(Crypto {});
@@ -311,26 +298,63 @@ fn time_window() {
 }
 
 @expose
+fn map(): Map {
+  return Map<any, any> {
+    "hello world": 42,
+    1337: { some: "object" },
+  };
+}
+
+@expose
 fn array(): Array {
-  return ["hello world", 42, { some: "object" }];
+  return Array<any?> {"hello world", 42, { some: "object" }, false};
+}
+
+@expose
+fn array2() {
+  return [42, true, "hello", CalendarUnit::month];
+}
+
+@expose
+fn array3() {
+  return [false, 42, "main", null];
+}
+
+@expose
+fn array_mono(): Array<int> {
+  return Array<int> {2, 2, 2, 2};
+}
+
+@expose
+fn array_mono2(): Array<bool> {
+  var tu = (42, "hello");
+
+  return Array<bool> {false, false};
 }
 
 @expose
 fn table() {
-  var nbRows = 4;
-  var table = Table<float?>::new(2);
-  table.setHeader(0, "Column ${0}");
+  return Table<any> {
+    [0, 0.5, { name: "one" }],
+    [1, 1.5, { name: "two" }],
+    [2, 2.5, { name: "three" }],
+    [3, 3.5, { name: "four" }],
+  };
+}
 
-  for (var rowIdx = 0; rowIdx < nbRows; rowIdx++) {
-    table.set(rowIdx, 0, 0.5 * rowIdx);
-    if (rowIdx == 2) {
-      table.set(rowIdx, 1, null as any);
-    } else {
-      table.set(rowIdx, 1, null as any);
-    }
-  }
+fn write_table() {
+  GcbWriter { path: "table.gcb" }.write(Table<any> {
+      [0, 0.5, { name: "one" }],
+      [1, 1.5, { name: "two" }],
+      [2, 2.5, { name: "three" }],
+      [3, 3.5, { name: "four" }],
+    });
+}
 
-  return table;
+fn write_table_cols() {
+  GcbWriter { path: "table_0.gcb" }.write([0, 1, 2, 3]);
+  GcbWriter { path: "table_1.gcb" }.write([0.5, 1.5, 2.5, 3.5]);
+  GcbWriter { path: "table_2.gcb" }.write([{ name: "one" }, { name: "two" }, { name: "three" }, { name: "four" }]);
 }
 
 @expose
@@ -358,10 +382,10 @@ fn computeTask() {
 @expose
 fn testTensor(): Tensor {
   var t = Tensor {};
-  t.init(TensorType::f64, [2, 10]);
+  t.init(TensorType::f64, Array<int> {2, 10});
   for (var a = 0; a < 2; a++) {
     for (var b = 0; b < 10; b++) {
-      t.add([a, b], a + b * 1.0);
+      t.add(Array<int> {a, b}, a + b * 1.0);
     }
   }
   return t;
@@ -375,16 +399,16 @@ fn tensor() {
 @expose
 fn tensor2() {
   var tensor = Tensor {};
-  tensor.init(TensorType::f64, [1, 5]);
-  tensor.add([0, 0], 0.1);
+  tensor.init(TensorType::f64, Array<int> {1, 5});
+  tensor.add(Array<int> {0, 0}, 0.1);
   return tensor;
 }
 
 @expose
 fn tensor3() {
   var tensor = Tensor {};
-  tensor.init(TensorType::f64, [1, 1]);
-  tensor.add([0, 0], 3.14);
+  tensor.init(TensorType::f64, Array<int> {1, 1});
+  tensor.add(Array<int> {0, 0}, 3.14);
   return tensor;
 }
 
@@ -398,7 +422,9 @@ fn tensor3() {
 //   return gaussian;
 // }
 
-type Foo { a: int?; }
+type Foo {
+  a: int?;
+}
 
 @expose
 fn foo(): Foo {
@@ -434,7 +460,7 @@ fn table2(): Table<any?> {
     }
   }
 
-  var t = nodeTime::sample([a], null, null, 100, SamplingMode::adaptative, null, null);
+  var t = nodeTime::sample(Array<nodeTime<any?>> {a}, null, null, 100, SamplingMode::adaptative, null, null);
   info(t);
   return t;
 }
@@ -490,23 +516,23 @@ fn foobar() {
       foo: null,
       values: [],
     },
-    values: ["hello world", 42],
+    values: Array<any> {"hello world", 42},
   };
 }
 
 @expose
 fn vtable_test(): Table {
-  var table = Table::new(2);
+  var table = Table<Array<any>> {};
   var start = time::now();
 
-  table.set(0, 0, start);
-  table.set(0, 1, node::new({ value: 42 }));
-  table.set(1, 0, start + 5_min);
-  table.set(1, 1, node::new({ value: 50 }));
-  table.set(2, 0, start + 10_min);
-  table.set(2, 1, node::new({ value: 13.37 }));
-  table.set(3, 0, start + 15_min);
-  table.set(3, 1, node::new({ value: 68.99 }));
+  table.set_row(0, Array<any> { 0, start });
+  table.set_row(0, Array<any> { 1, node<int> { 42 } });
+  table.set_row(1, Array<any> { 0, start + 5_min });
+  table.set_row(1, Array<any> { 1, node<int> { 50 } });
+  table.set_row(2, Array<any> { 0, start + 10_min });
+  table.set_row(2, Array<any> { 1, node<float> { 13.37 } });
+  table.set_row(3, Array<any> { 0, start + 15_min });
+  table.set_row(3, Array<any> { 1, node<float> { 68.99 } });
 
   return table;
 }
@@ -528,4 +554,48 @@ type Bar<T> {
 fn write_string() {
   var writer = GcbWriter { path: "string.gcb" };
   writer.write("Hello world: ${42}");
+}
+
+@expose
+fn identity(v: any?): any? {
+  println(v);
+  return v;
+}
+
+fn broke() {
+  var value = GeoPoly {
+    points: Array<geo> {
+      geo {1, 2},
+      geo {1.5, 2.01},
+      geo {1, 2},
+    },
+  };
+  GcbWriter { path: "polypocket.gcb" }.write(value);
+
+  pprint(value);
+}
+
+@expose
+fn geo() {
+  return geo {1.5, 2.01};
+}
+
+@expose
+fn geos() {
+  return Array<geo> {
+    geo {1, 2},
+    geo {1.5, 2.01},
+    geo {1, 2},
+  };
+}
+
+@expose
+fn periodic_task(): PeriodicTask {
+  return PeriodicTask {
+    function: project::float_f,
+    arguments: Array<any?> {3.14},
+    user_id: 12,
+    start: 13_time,
+    every: duration::new(37, DurationUnit::microseconds),
+  };
 }

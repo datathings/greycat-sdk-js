@@ -1,55 +1,55 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//
+//
+// TAKES EXTRA CARE WHEN MODIFYING THIS FILE
+// TYPESCRIPT IS DISABLED, MAKING MISTAKES IS REALLY EASY
+//
+//
 import { std, type GreyCat, $ } from './exports.js';
 
-type TaskInfo = std.runtime.TaskInfo;
-// extend std.runtime.Task
+// augment std.runtime.Task
 Object.assign(std.runtime.Task.prototype, {
-  getFile: function getFile<T = unknown>(
+  getFile<T = unknown>(
+    this: std.runtime.Task,
     filepath: string,
-    signal?: AbortSignal,
     g: GreyCat = $.default,
-  ) {
+    signal?: AbortSignal,
+  ): Promise<T | T[]> {
     return g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/${filepath}`, signal);
   },
-  await: function await_(pollEvery?: number, signal?: AbortSignal, g: GreyCat = $.default) {
+  await(this: std.runtime.Task, pollEvery?: number, g: GreyCat = $.default, signal?: AbortSignal) {
     return g.await(this, pollEvery, signal);
   },
-  info: function info(signal?: AbortSignal, g: GreyCat = $.default) {
+  info(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal) {
     return std.runtime.Task.info(this.user_id, this.task_id, g, signal);
   },
-  result: function result<T = unknown>(signal?: AbortSignal, g: GreyCat = $.default) {
-    return g
-      .getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal)
-      .then((results) => results[0]);
+  async result<T = unknown>(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal): Promise<T> {
+    const results = await g
+      .getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal);
+    return results[0];
   },
-  arguments: function arguments_(signal?: AbortSignal, g: GreyCat = $.default): Promise<unknown[]> {
+  arguments(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal): Promise<unknown[]> {
     return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
   },
 });
 
 // extend std.io.File
 Object.assign(std.io.File.prototype, {
-  list: function list(
-    signal?: AbortSignal,
-    g: GreyCat = $.default,
-  ): Promise<std.io.File[] | undefined> {
+  list(this: std.io.File, g: GreyCat = $.default, signal?: AbortSignal): Promise<std.io.File[] | undefined> {
     if (this.path.endsWith('/')) {
       // directory
-      return g.rawCall<std.io.File[]>(`files${this.path}`, undefined, signal, false, 'GET');
+      return g.rawCall(`files${this.path}`, undefined, signal, false, 'GET');
     }
-    return Promise.resolve(void 0);
+    return Promise.resolve(undefined);
   },
-  resolve: function resolve(
-    maxDepth = 5,
-    signal?: AbortSignal,
-    g: GreyCat = $.default,
-  ): Promise<void> {
-    return resolveFileChildrenRecursively(this, maxDepth, 0, signal, g);
+  resolve(this: std.io.File, maxDepth = 5, g: GreyCat = $.default, signal?: AbortSignal): Promise<void> {
+    return resolveFileChildrenRecursively(this, maxDepth, 0, g, signal);
   },
 });
 
 // extend std.core.Date
 Object.assign(std.core.Date.prototype, {
-  toString: function toString() {
+  toString(this: std.core.Date) {
     const month = this.month.toString().padStart(2, '0');
     const day = this.day.toString().padStart(2, '0');
     const hour = this.hour.toString().padStart(2, '0');
@@ -85,115 +85,17 @@ async function resolveFileChildrenRecursively(
   file: std.io.File,
   maxDepth: number,
   currDepth: number,
-  signal?: AbortSignal,
   g?: GreyCat,
+  signal?: AbortSignal,
 ) {
-  // TypeScript does not understand I'm extending the prototype of std.io.File
-  // I guess I just can't find out the way to properly make it work.
-  // Anyways, this is going to cut it.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const f = file as any;
-  if (f.size == null) {
+  if (file.size == null) {
     // directory
-    const children = await f.list(signal, g);
+    const children = await file.list(g, signal);
     if (children) {
-      f.children = children;
-      f.children.sort(compareFile);
+      file.children = children;
+      file.children.sort(compareFile);
       for (const child of children) {
-        await resolveFileChildrenRecursively(child, maxDepth, ++currDepth, signal, g);
-      }
-    }
-  }
-}
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace greycat {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace std {
-      // eslint-disable-next-line @typescript-eslint/no-namespace
-      namespace runtime {
-        interface Task {
-          /**
-           * Downloads a task file.
-           *
-           * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
-           *
-           * Returns a `T[]` because ".gcb" files can contain multiple values.
-           *
-           * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
-           * what is inside the requested file. But it gives no verifications on the content of the data.
-           */
-          getFile<T = unknown>(
-            filepath: `${string}.gcb`,
-            signal?: AbortSignal,
-            g?: GreyCat,
-          ): Promise<T[]>;
-          /**
-           * Downloads a task file.
-           *
-           * The given `filepath` will be concatenated with the task path eg. `/files/${task.user_id}/tasks/${task.task_id}/${filepath}`
-           *
-           * Returns either a `T` or a `T[]` based on the extension of the file. All files will return `T` except ".gcb" files which
-           * can contain more than one value, therefore `T[]`.
-           *
-           * Note that, by default, the `T` is always unknown. It is just given for convenience if you know for sure
-           * what is inside the requested file. But it gives no verifications on the content of the data.
-           */
-          getFile<T = unknown>(
-            filepath: string,
-            signal?: AbortSignal,
-            g?: GreyCat,
-          ): Promise<T | T[]>;
-
-          /**
-           * Returns the result of the task.
-           *
-           * *This is equivalent to `task.getFile('result.gcb')`*
-           */
-          result<T = unknown>(signal?: AbortSignal, g?: GreyCat): Promise<T>;
-
-          /**
-           * Returns the arguments of the task.
-           *
-           * *This is equivalent to `task.getFile('arguments.gcb')`*
-           */
-          arguments(signal?: AbortSignal, g?: GreyCat): Promise<unknown[]>;
-
-          /**
-           * Awaits for the completion of the task.
-           *
-           * *NB: "completion" does not mean success*
-           *
-           * @param pollEvery will check the status of the task once every `pollEvery` milliseconds
-           * @param signal
-           */
-          await<T = unknown>(pollEvery?: number, signal?: AbortSignal, g?: GreyCat): Promise<T>;
-
-          /**
-           * Fetches the task info.
-           */
-          info(signal?: AbortSignal, g?: GreyCat): Promise<TaskInfo | null>;
-        }
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-namespace
-      namespace io {
-        interface File {
-          children?: std.io.File[];
-
-          /**
-           * Lists the current children of this file.
-           *
-           * If this file is not a directory, returns `undefined`.
-           */
-          list(signal?: AbortSignal, g?: GreyCat): Promise<std.io.File[] | undefined>;
-
-          /**
-           * Resolves this file's children recursively to a maximum depth of `maxDepth` (defaults to `5`)
-           */
-          resolve(maxDepth?: number, signal?: AbortSignal, g?: GreyCat): Promise<void>;
-        }
+        await resolveFileChildrenRecursively(child, maxDepth, ++currDepth, g, signal);
       }
     }
   }

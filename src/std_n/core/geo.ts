@@ -1,5 +1,5 @@
 import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
-import { GCObject, PrimitiveType, morton, $ } from '../../exports.js';
+import { GCObject, PrimitiveType, utils, $ } from '../../exports.js';
 
 export class geo extends GCObject {
   static readonly _type = 'core::geo' as const;
@@ -114,14 +114,14 @@ export function geoEncode(lat: number, lng: number) {
   const ilato: number /*u32*/ = /*cast f64 to u32*/ Math.floor(lat_offset);
   const ilono: number /*u32*/ = /*cast f64 to u32*/ Math.floor(lng_offset);
 
-  return morton.interleave64_2d(ilato, ilono);
+  return utils.interleave64_2d(ilato, ilono);
 }
 
 /**
  * Decodes a `bigint` to a `lat`, `lng` using Morton z-curve.
  */
 export function geoDecode(geo: bigint): readonly [number, number] {
-  const [ilato, ilono] = morton.deinterleave64_2d(geo);
+  const [ilato, ilono] = utils.deinterleave64_2d(geo);
 
   const lat = LAT_MIN + ((ilato + 0.5) / Number(1n << STEP_MAX)) * (LAT_MAX - LAT_MIN);
   const lng = LNG_MIN + ((ilono + 0.5) / Number(1n << STEP_MAX)) * (LNG_MAX - LNG_MIN);

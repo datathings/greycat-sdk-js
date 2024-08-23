@@ -1,5 +1,8 @@
 import type {
-  TaskLike, WithoutAbiOptions, WithAbiOptions, Auth,
+  TaskLike,
+  WithoutAbiOptions,
+  WithAbiOptions,
+  Auth,
   Cache,
   CacheData,
   CacheKey,
@@ -8,6 +11,7 @@ import type {
 } from './exports.js';
 import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './exports.js';
 
+/** Defaults to `location.origin` when available, fallbacks to `'http://127.0.0.1:8080'` otherwise */
 export let DEFAULT_URL: URL;
 try {
   DEFAULT_URL = new URL(globalThis.location?.origin ?? 'http://127.0.0.1:8080');
@@ -17,26 +21,21 @@ try {
 
 /**
  * A map of all known GreyCat instances allowing to communicate with different GreyCat instances from the same client.
- * 
+ *
  * *The name `'default'` is reserved and is used when initializing without a specific name*.
  */
 export const $: { [name: string]: GreyCat } = {};
 
-export function init(opts: WithoutAbiOptions = { url: DEFAULT_URL }): Promise<GreyCat> {
-  opts.name = opts.name ?? 'default';
-  return GreyCat.init(opts);
-}
-
 const NOOP = (): void => void 0;
-const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown): void => {
+export const DEFAULT_LOGGER = (status: number, method: string, args?: unknown, value?: unknown): void => {
   const bg = status >= 400 ? '#e8590c' : '#1983c1';
   console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
     method,
-    params,
+    args,
     response: value,
   });
 };
-type DebugLogger = typeof DEFAULT_LOGGER;
+export type DebugLogger = typeof DEFAULT_LOGGER;
 let debugLogger: DebugLogger = NOOP;
 
 /**
@@ -72,8 +71,8 @@ export async function downloadAbi(
     libraries,
     unauthorizedHandler,
   }: WithoutAbiOptions = {
-      url: DEFAULT_URL,
-    },
+    url: DEFAULT_URL,
+  },
 ): Promise<[ArrayBuffer, string | undefined]> {
   let token: string | undefined;
 
@@ -133,31 +132,49 @@ export async function downloadAbi(
 
 export interface GreyCat {
   /**
-   * Calls the specified `method` on the current GreyCat instance.
-   * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
-   *
    * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
    *
-   * @param method the exposed endpoint to call, without leading slash
+   * @param method the exposed GreyCat function to call, without leading slash
    * (eg. `'runtime::User::me'`)
-   * @param args a list of parameters to send for the call
+   * @param args the function's arguments to send along.
+   *             If `args` is an `Array` it will be serialized with `AbiWriter` to the ABI-compliant bytes for you.
+   *             If `args` is an `ArrayBuffer`, the bytes will be sent as-is.
    * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
-  call<T = unknown>(method: string, args?: Value[], signal?: AbortSignal): Promise<T>;
+  call<T = unknown>(method: string, args?: Value[] | ArrayBuffer, signal?: AbortSignal): Promise<T>;
 
   /**
    * Spawns a GreyCat task.
+   *
+   * @param method the exposed GreyCat function to spawn, without leading slash
+   * (eg. `'runtime::User::me'`)
+   * @param args the function's arguments to send along.
+   *             If `args` is an `Array` it will be serialized with `AbiWriter` to the ABI-compliant bytes for you.
+   *             If `args` is an `ArrayBuffer`, the bytes will be sent as-is.
+   * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
-  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task>;
+  spawn(
+    method: string,
+    args?: Value[] | ArrayBuffer,
+    signal?: AbortSignal,
+  ): Promise<std.runtime.Task>;
 
   /**
    * Spawns a GreyCat task and actively awaits for its completion.
    *
    * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
+   *
+   * @param method the exposed GreyCat function to spawn, without leading slash
+   * (eg. `'runtime::User::me'`)
+   * @param pollEvery the delay to wait between each poll in milliseconds (defaults to 2000ms)
+   * @param args the function's arguments to send along.
+   *             If `args` is an `Array` it will be serialized with `AbiWriter` to the ABI-compliant bytes for you.
+   *             If `args` is an `ArrayBuffer`, the bytes will be sent as-is.
+   * @param signal an optional `AbortSignal` to cancel the underlying fetch call
    */
   spawnAwait<T = unknown>(
     method: string,
-    args?: Value[],
+    args?: Value[] | ArrayBuffer,
     pollEvery?: number,
     signal?: AbortSignal,
   ): Promise<T>;
@@ -210,29 +227,39 @@ export class GreyCat {
 
     // initialize runtime RPCs based on Abi
     for (const fn of this.abi.functions) {
-      const create_fn = (method: string) => (...args: unknown[]) => {
-        const method_args = args.slice(0, fn.params.length);
-        const signal = args[fn.params.length];
-        this.call(method, method_args, signal instanceof AbortSignal ? signal : undefined);
-      };
-      if (!this.call[fn.module]) {
-        this.call[fn.module] = {};
+      const create_fn =
+        (method: string) =>
+        (...args: unknown[]) => {
+          const method_args = args.slice(0, fn.params.length);
+          const signal = args[fn.params.length];
+          this.call(method, method_args, signal instanceof AbortSignal ? signal : undefined);
+        };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (!(this.call as any)[fn.module]) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (this.call as any)[fn.module] = {};
       }
       if (fn.type) {
-        if (!this.call[fn.module][fn.type]) {
-          this.call[fn.module][fn.type] = {};
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (!(this.call as any)[fn.module][fn.type]) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (this.call as any)[fn.module][fn.type] = {};
         }
-        this.call[fn.module][fn.type][fn.name] = create_fn(`${fn.module}::${fn.type}::${fn.name}`);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (this.call as any)[fn.module][fn.type][fn.name] = create_fn(
+          `${fn.module}::${fn.type}::${fn.name}`,
+        );
       } else {
-        this.call[fn.module][fn.name] = create_fn(`${fn.module}::${fn.name}`);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (this.call as any)[fn.module][fn.name] = create_fn(`${fn.module}::${fn.name}`);
       }
     }
   }
 
   /**
-   * Initializes a GreyCat RPC client using the given `options.url`.
+   * Initializes a GreyCat client using the given `options`.
    *
-   * This method is asynchronous as we need to download the server ABI in order to serialize/deserialize the future requests.
+   * This method is asynchronous as it needs to download the ABI in order to communicate with the server.
    *
    * *If the `auth` property is given, a first call to `runtime::User::login` will be made before anything else.*
    *
@@ -321,36 +348,25 @@ export class GreyCat {
     return this.permissions.indexOf(permission) !== -1;
   }
 
-  /**
-   * Calls the specified `method` on the current GreyCat instance.
-   * Serializes the parameters as ABI-compliant binary and deserializes the response body into a `Value`.
-   *
-   * The generic param `T` is there only for convenience as no runtime checks are made on the deserialized value.
-   *
-   * @param method the exposed endpoint to call, without leading slash
-   * (eg. `'runtime::User::me'`)
-   * @param args a list of parameters to send for the call
-   * @param signal an optional `AbortSignal` to cancel the underlying fetch call
-   */
-  async call<T = unknown>(method: string, args?: Value[], signal?: AbortSignal): Promise<T> {
+  async call<T = unknown>(
+    method: string,
+    args?: Value[] | ArrayBuffer,
+    signal?: AbortSignal,
+  ): Promise<T> {
     return this.rawCall(method, args, signal, false);
   }
 
-  /**
-   * Spawns a GreyCat task.
-   */
-  spawn(method: string, args?: Value[], signal?: AbortSignal): Promise<std.runtime.Task> {
+  spawn(
+    method: string,
+    args?: Value[] | ArrayBuffer,
+    signal?: AbortSignal,
+  ): Promise<std.runtime.Task> {
     return this.rawCall<std.runtime.Task>(method, args, signal, true);
   }
 
-  /**
-   * Spawns a GreyCat task and actively awaits for its completion.
-   *
-   * *This is equivalent to `greycat.await(await greycat.spawn(...))`*
-   */
   async spawnAwait<T = unknown>(
     method: string,
-    args?: Value[],
+    args?: Value[] | ArrayBuffer,
     pollEvery?: number,
     signal?: AbortSignal,
   ): Promise<T> {
@@ -358,9 +374,6 @@ export class GreyCat {
     return this.await(task, pollEvery, signal);
   }
 
-  /**
-   * Awaits the completion of the given GreyCat task.
-   */
   async await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T> {
     let info: std.runtime.TaskInfo | undefined;
     info = await this.call<std.runtime.TaskInfo>(
@@ -412,50 +425,59 @@ export class GreyCat {
    */
   async rawCall<T = unknown>(
     method: string,
-    args?: Value[],
+    args?: Value[] | ArrayBuffer,
     signal?: AbortSignal,
     task = false,
     httpMethod = 'POST',
   ): Promise<T> {
+    const fn = this.abi.fn_by_fqn.get(method);
+    if (!fn) {
+      throw new Error(`Unknown function '${method}'`);
+    }
     const url = `${this.api}/${method}`;
-    const writer = new AbiWriter(this.abi, this.capacity);
-    writer.headers();
-    if (args && args.length > 0) {
-      const fn = this.abi.fn_by_fqn.get(method);
-      for (let i = 0; i < args.length; i++) {
-        const param = fn?.params[i];
-        const arg = args[i];
-        if (param) {
-          switch (param.type.offset) {
-            case this.abi.core_float_offset: {
-              if (arg === null) {
-                writer.null();
-              } else if (typeof arg === 'number') {
-                writer.float(arg as number);
-              } else {
-                writer.serialize(arg);
+    let body: ArrayBuffer;
+    if (args instanceof ArrayBuffer) {
+      body = args;
+    } else {
+      const writer = new AbiWriter(this.abi, this.capacity);
+      writer.headers();
+      if (args && args.length > 0) {
+        for (let i = 0; i < args.length; i++) {
+          const param = fn.params[i];
+          const arg = args[i];
+          if (param) {
+            switch (param.type.offset) {
+              case this.abi.core_float_offset: {
+                if (arg === null) {
+                  writer.null();
+                } else if (typeof arg === 'number') {
+                  writer.float(arg as number);
+                } else {
+                  writer.serialize(arg);
+                }
+                break;
               }
-              break;
-            }
-            case this.abi.core_char_offset: {
-              if (arg === null) {
-                writer.null();
-              } else if (typeof arg === 'string') {
-                writer.char(arg as string);
-              } else {
-                writer.serialize(arg);
+              case this.abi.core_char_offset: {
+                if (arg === null) {
+                  writer.null();
+                } else if (typeof arg === 'string') {
+                  writer.char(arg as string);
+                } else {
+                  writer.serialize(arg);
+                }
+                break;
               }
-              break;
+              default: {
+                writer.serialize(arg);
+                break;
+              }
             }
-            default: {
-              writer.serialize(arg);
-              break;
-            }
+          } else {
+            writer.serialize(arg);
           }
-        } else {
-          writer.serialize(arg);
         }
       }
+      body = writer.buffer.buffer;
     }
     const headers: HeadersInit = {
       accept: 'application/octet-stream',
@@ -467,14 +489,14 @@ export class GreyCat {
     if (task) {
       headers['task'] = '';
     }
-    const key: CacheKey = [method, writer.buffer];
+    const key: CacheKey = [method, body];
     const cachedRes = await this.cache.read(key);
     if (cachedRes) {
       headers['If-None-Match'] = cachedRes.etag;
     }
     const res = await fetch(url, {
       method: httpMethod,
-      body: httpMethod === 'GET' ? undefined : writer.buffer,
+      body: httpMethod === 'GET' ? undefined : body,
       headers,
       signal,
     });
@@ -493,7 +515,7 @@ export class GreyCat {
     } else if (res.status === 304) {
       if (cachedRes === null) {
         // try again
-        return this.call(method, args, signal);
+        return this.rawCall(method, args, signal);
       }
       const value = this.deserializeWithHeader(cachedRes.data);
       debugLogger(res.status, method, args, value);
@@ -536,10 +558,25 @@ export class GreyCat {
    *
    * *If you want to re-use the write buffer, to reduce allocations, use `AbiWriter` directly*
    */
-  serialize(value: Value): Uint8Array {
+  serialize(value: Value): ArrayBuffer {
     const writer = new AbiWriter(this.abi, this.capacity);
     writer.serialize(value);
-    return writer.buffer;
+    return writer.buffer.buffer;
+  }
+
+  /**
+   * Serializes the given `value` into ABI-compliant binary format.
+   *
+   * The returned buffer will also contain the ABI headers.
+   *
+   * @param value
+   * @returns
+   */
+  serializeWithHeaders(value: Value): ArrayBuffer {
+    const writer = new AbiWriter(this.abi, this.capacity);
+    writer.headers();
+    writer.serialize(value);
+    return writer.buffer.buffer;
   }
 
   /**
@@ -756,65 +793,37 @@ export class GreyCat {
     return this.abi.createDuration(typeof value === 'bigint' ? value : BigInt(value));
   }
 
-  createTu2d(x0: bigint | number, x1: bigint | number): std.core.ti2d {
-    return this.abi.createTu2d(x0, x1);
+  createT2(x0: bigint | number, x1: bigint | number): std.core.t2 {
+    return this.abi.createT2(x0, x1);
   }
 
-  createTu3d(x0: bigint | number, x1: bigint | number, x2: bigint | number): std.core.ti3d {
-    return this.abi.createTu3d(x0, x1, x2);
+  createT3(x0: bigint | number, x1: bigint | number, x2: bigint | number): std.core.t3 {
+    return this.abi.createT3(x0, x1, x2);
   }
 
-  createTu4d(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number): std.core.ti4d {
-    return this.abi.createTu4d(x0, x1, x2, x3);
-  }
-
-  // prettier-ignore
-  createTu5d(
+  createT4(
     x0: bigint | number,
     x1: bigint | number,
     x2: bigint | number,
     x3: bigint | number,
-    x4: bigint | number,
-  ): std.core.ti5d {
-    return this.abi.createTu5d(x0, x1, x2, x3, x4);
+  ): std.core.t4 {
+    return this.abi.createT4(x0, x1, x2, x3);
   }
 
-  createTu6d(
-    x0: bigint | number,
-    x1: bigint | number,
-    x2: bigint | number,
-    x3: bigint | number,
-    x4: bigint | number,
-    x5: bigint | number,
-  ): std.core.ti6d {
-    return this.abi.createTu6d(x0, x1, x2, x3, x4, x5);
+  createStr(str: string) {
+    return std.core.str.fromString(str, this);
   }
 
-  createTu10d(
-    x0: bigint | number,
-    x1: bigint | number,
-    x2: bigint | number,
-    x3: bigint | number,
-    x4: bigint | number,
-    x5: bigint | number,
-    x6: bigint | number,
-    x7: bigint | number,
-    x8: bigint | number,
-    x9: bigint | number,
-  ): std.core.ti10d {
-    return this.abi.createTu10d(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9);
+  createT2f(x0: number, x1: number): std.core.t2f {
+    return this.abi.createT2f(x0, x1);
   }
 
-  createTuf2d(x0: number, x1: number): std.core.tf2d {
-    return this.abi.createTuf2d(x0, x1);
+  createT3f(x0: number, x1: number, x2: number): std.core.t3f {
+    return this.abi.createT3f(x0, x1, x2);
   }
 
-  createTuf3d(x0: number, x1: number, x2: number): std.core.tf3d {
-    return this.abi.createTuf3d(x0, x1, x2);
-  }
-
-  createTuf4d(x0: number, x1: number, x2: number, x3: number): std.core.tf4d {
-    return this.abi.createTuf4d(x0, x1, x2, x3);
+  createT4f(x0: number, x1: number, x2: number, x3: number): std.core.t4f {
+    return this.abi.createT4f(x0, x1, x2, x3);
   }
 
   findType(fqn: string): AbiType | undefined {
@@ -898,14 +907,6 @@ function normalizeUrl(url: URL): string {
   }
   return url.href.slice(0, end + 1);
 }
-
-// type Ok<T> = {
-//   ok: true;
-//   value: T;
-// };
-// type Err<E> = { ok: false; error: E };
-// type Result<T, E> = Ok<T> | Err<E>;
-// type SpawnResult<T> = Result<T, 'aborted' | 'cancelled' | std.core.Error>;
 
 export class TaskCancelled extends Error {
   constructor(readonly task: TaskLike) {

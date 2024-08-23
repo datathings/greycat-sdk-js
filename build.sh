@@ -15,6 +15,5 @@ pnpm pack
 mkdir -p dist/sdk/js
 
 mv greycat-*.tgz dist/sdk/js/package.tgz
-mv dist/greycat.js dist/greycat.min.js dist/greycat.d.ts dist/sdk/js/
 
 rm -rf dist/esm

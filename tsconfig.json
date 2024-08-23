@@ -10,7 +10,7 @@
     "strict": true,
 
     "declaration": true,
-    "sourceMap": true
+    "sourceMap": false
   },
   "include": ["src"],
   "exclude": ["src/std/"],

@@ -599,3 +599,17 @@ fn periodic_task(): PeriodicTask {
     every: duration::new(37, DurationUnit::microseconds),
   };
 }
+
+@expose
+fn create_nodeTimes() {
+  var writer = GcbWriter { path: "nodetimes.gcb" };
+  var nt_0 = nodeTime<int> {};
+  nt_0.setAt(time::now(), 42);
+  nt_0.setAt(time::now(), 1337);
+  nt_0.setAt(time::now(), 10);
+  writer.write([nt_0]);
+}
+
+type Person {
+  name: String;
+}

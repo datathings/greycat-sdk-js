@@ -421,6 +421,14 @@ export class Abi {
     const t = this.types[this.core_t4f_offset];
     return new t.factory(t, x0, x1, x2, x3) as std.core.t4f;
   }
+
+  root(): AbiType {
+    const root = this.type_by_fqn.get('::$$$root');
+    if (!root) {
+      throw new Error(`Abi ::$$$root type should be defined`);
+    }
+    return root;
+  }
 }
 
 export class AbiType {

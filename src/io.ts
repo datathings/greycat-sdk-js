@@ -1055,15 +1055,19 @@ export class AbiWriter extends Writer {
     } else if (value === null) {
       this.write_u8(PrimitiveType.null);
     } else {
-      try {
-        GCObject.from(value, this.abi).save(this);
-      } catch {
-        // if we cannot find a type that matches, send the object as a Map
-        new std_n.core.Map(
-          this.abi.types[this.abi.core_map_offset],
-          new Map(Object.entries(value)),
-        ).save(this);
-      }
+      this.js_object(value);
+    }
+  }
+
+  js_object(value: object): void {
+    try {
+      GCObject.from(value, this.abi).save(this);
+    } catch {
+      // if we cannot find a type that matches, send the object as a Map
+      new std_n.core.Map(
+        this.abi.types[this.abi.core_map_offset],
+        new Map(Object.entries(value)),
+      ).save(this);
     }
   }
 
@@ -1085,15 +1089,19 @@ export class AbiWriter extends Writer {
     } else if (value === null) {
       // noop, 'null' are skipped when serializing without type header
     } else {
-      try {
-        GCObject.from(value, this.abi).saveContent(this);
-      } catch {
-        // if we cannot find a type that matches, send the object as a Map
-        new std_n.core.Map(
-          this.abi.types[this.abi.core_map_offset],
-          new Map(Object.entries(value)),
-        ).saveContent(this);
-      }
+      this.raw_js_object(value);
+    }
+  }
+
+  raw_js_object(value: object): void {
+    try {
+      GCObject.from(value, this.abi).saveContent(this);
+    } catch {
+      // if we cannot find a type that matches, send the object as a Map
+      new std_n.core.Map(
+        this.abi.types[this.abi.core_map_offset],
+        new Map(Object.entries(value)),
+      ).saveContent(this);
     }
   }
 

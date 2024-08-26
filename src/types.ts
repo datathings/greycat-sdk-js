@@ -72,7 +72,7 @@ export const PrimitiveTypeName = {
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IFactory = { new(type: AbiType, ...attributes: any[]): GCObject };
+export type IFactory = { new (type: AbiType, ...attributes: any[]): GCObject };
 export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
 export type Value = unknown;
@@ -160,4 +160,65 @@ export interface WithAbiOptions extends Options {
   /** Optional auth token */
   token?: string;
   permissions?: string[];
+}
+
+export function primitiveType(type: AbiType): PrimitiveType {
+  if (type.offset === type.abi.core_node_offset) {
+    return PrimitiveType.node;
+  }
+  if (type.offset === type.abi.core_node_time_offset) {
+    return PrimitiveType.node_time;
+  }
+  if (type.offset === type.abi.core_node_index_offset) {
+    return PrimitiveType.node_index;
+  }
+  if (type.offset === type.abi.core_node_list_offset) {
+    return PrimitiveType.node_list;
+  }
+  if (type.offset === type.abi.core_node_geo_offset) {
+    return PrimitiveType.node_geo;
+  }
+  if (type.offset === type.abi.core_geo_offset) {
+    return PrimitiveType.geo;
+  }
+  if (type.offset === type.abi.core_time_offset) {
+    return PrimitiveType.time;
+  }
+  if (type.offset === type.abi.core_duration_offset) {
+    return PrimitiveType.duration;
+  }
+  if (type.offset === type.abi.core_cubic_offset) {
+    return PrimitiveType.cubic;
+  }
+  if (type.offset === type.abi.core_t2_offset) {
+    return PrimitiveType.t2;
+  }
+  if (type.offset === type.abi.core_t3_offset) {
+    return PrimitiveType.t3;
+  }
+  if (type.offset === type.abi.core_t4_offset) {
+    return PrimitiveType.t4;
+  }
+  if (type.offset === type.abi.core_str_offset) {
+    return PrimitiveType.str;
+  }
+  if (type.offset === type.abi.core_t2f_offset) {
+    return PrimitiveType.t2f;
+  }
+  if (type.offset === type.abi.core_t3f_offset) {
+    return PrimitiveType.t3f;
+  }
+  if (type.offset === type.abi.core_t4f_offset) {
+    return PrimitiveType.t4f;
+  }
+  if (type.offset === type.abi.core_function_offset) {
+    return PrimitiveType.function;
+  }
+  if (type.offset === type.abi.core_type_offset) {
+    return PrimitiveType.type;
+  }
+  if (type.offset === type.abi.core_field_offset) {
+    return PrimitiveType.field;
+  }
+  return PrimitiveType.object;
 }

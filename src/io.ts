@@ -10,6 +10,7 @@ import {
   GCObject,
   std_n,
   AbiType,
+  primitiveType,
 } from './exports.js';
 
 const deserialize_error: IPrimitiveLoader = () => {
@@ -1219,8 +1220,10 @@ export class AbiWriter extends Writer {
             object_type_and &= object_type.mapped_type_off;
             object_type_or |= object_type.mapped_type_off;
           } else if (value instanceof GCObject) {
-            slot_type_and &= PrimitiveType.object;
-            slot_type_or |= PrimitiveType.object;
+            // if we have an instance of core.node, we want the slot_type to reflect that
+            const slot_type = primitiveType(value.$type);
+            slot_type_and &= slot_type;
+            slot_type_or |= slot_type;
             object_type = value.$type;
             object_type_and &= object_type.mapped_type_off;
             object_type_or |= object_type.mapped_type_off;
@@ -1243,8 +1246,10 @@ export class AbiWriter extends Writer {
                 slot_type_and &= PrimitiveType.enum;
                 slot_type_or |= PrimitiveType.enum;
               } else {
-                slot_type_and &= PrimitiveType.object;
-                slot_type_or |= PrimitiveType.object;
+                // if we have an instance of core.node, we want the slot_type to reflect that
+                const slot_type = primitiveType(abi_type);
+                slot_type_and &= slot_type;
+                slot_type_or |= slot_type;
               }
               object_type = abi_type;
               object_type_and &= object_type.mapped_type_off;

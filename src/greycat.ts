@@ -430,10 +430,6 @@ export class GreyCat {
     task = false,
     httpMethod = 'POST',
   ): Promise<T> {
-    const fn = this.abi.fn_by_fqn.get(method);
-    if (!fn) {
-      throw new Error(`Unknown function '${method}'`);
-    }
     const url = `${this.api}/${method}`;
     let body: ArrayBuffer;
     if (args instanceof ArrayBuffer) {
@@ -442,8 +438,9 @@ export class GreyCat {
       const writer = new AbiWriter(this.abi, this.capacity);
       writer.headers();
       if (args && args.length > 0) {
+        const fn = this.abi.fn_by_fqn.get(method);
         for (let i = 0; i < args.length; i++) {
-          const param = fn.params[i];
+          const param = fn?.params[i];
           const arg = args[i];
           if (param) {
             switch (param.type.offset) {

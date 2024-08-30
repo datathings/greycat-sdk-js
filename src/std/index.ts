@@ -4990,4 +4990,13 @@ export namespace core {
      */
     toString(): string;
   }
+
+  export interface node {
+    /**
+     * Calls `core.node.resolve_all` with one node, and returns the resolved value.
+     * @param g 
+     * @param signal 
+     */
+    resolve(g?: $greycat.GreyCat, signal?: AbortSignal): Promise<unknown>;
+  }
 }

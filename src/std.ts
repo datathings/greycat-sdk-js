@@ -23,26 +23,42 @@ Object.assign(std.runtime.Task.prototype, {
   info(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal) {
     return std.runtime.Task.info(this.user_id, this.task_id, g, signal);
   },
-  async result<T = unknown>(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal): Promise<T> {
-    const results = await g
-      .getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal);
+  async result<T = unknown>(
+    this: std.runtime.Task,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<T> {
+    const results = await g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal);
     return results[0];
   },
-  arguments(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal): Promise<unknown[]> {
+  arguments(
+    this: std.runtime.Task,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<unknown[]> {
     return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
   },
 });
 
 // extend std.io.File
 Object.assign(std.io.File.prototype, {
-  list(this: std.io.File, g: GreyCat = $.default, signal?: AbortSignal): Promise<std.io.File[] | undefined> {
+  list(
+    this: std.io.File,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<std.io.File[] | undefined> {
     if (this.path.endsWith('/')) {
       // directory
       return g.rawCall(`files${this.path}`, undefined, signal, false, 'GET');
     }
     return Promise.resolve(undefined);
   },
-  resolve(this: std.io.File, maxDepth = 5, g: GreyCat = $.default, signal?: AbortSignal): Promise<void> {
+  resolve(
+    this: std.io.File,
+    maxDepth = 5,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<void> {
     return resolveFileChildrenRecursively(this, maxDepth, 0, g, signal);
   },
 });
@@ -60,6 +76,17 @@ Object.assign(std.core.Date.prototype, {
     } else {
       return `${this.year}-${month}-${day}T${hour}:${min}:${sec}`;
     }
+  },
+});
+
+Object.assign(std.core.node.prototype, {
+  async resolve(
+    this: std.core.node,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<unknown> {
+    const [resolved] = await std.core.node.resolve_all([this], g, signal);
+    return resolved;
   },
 });
 

@@ -3,8 +3,12 @@ import { GreyCat } from '@greycat/sdk';
 
 const g = await GreyCat.init();
 
-const input = [42, true, 'hello', { _type: 'core::CalendarUnit', field: 'month' }];
+const expected = [null, null, 42];
 
-const res = await g.call('project::identity', [input]);
-console.log(JSON.parse(JSON.stringify(res)));
+const bytes = g.serializeWithHeaders(expected);
+const actual = g.deserializeWithHeader(bytes);
 
+console.log({ expected, actual });
+
+// const res = await g.call('project::identity', [expected]);
+// console.log(JSON.parse(JSON.stringify(res)));

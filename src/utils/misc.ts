@@ -284,120 +284,48 @@ export function isNode(
   );
 }
 
-// /**
-//  * @param abi
-//  * @param value
-//  * @returns the slot type of the value and the properly casted value based on its type
-//  */
-// export function valueType(abi: Abi, value: unknown): PrimitiveType {
-//   switch (typeof value) {
-//     case 'bigint': {
-//       return PrimitiveType.int;
-//     }
-//     case 'boolean': {
-//       return PrimitiveType.bool;
-//     }
-//     case 'function': {
-//       return PrimitiveType.error;
-//     }
-//     case 'number': {
-//       if (Number.isInteger(value)) {
-//         return PrimitiveType.int;
-//       }
-//       return PrimitiveType.float;
-//     }
-//     case 'object': {
-//       if (value === null) {
-//         return PrimitiveType.null;
-//       } else if (value instanceof GCEnum) {
-//         return PrimitiveType.enum;
-//       } else if (value instanceof GCObject) {
-//         if (value.$type.offset === abi.core_char_offset) {
-//           // core.char is always converted to string
-//           throw new Error('unreachable');
-//         }
-//         if (value.$type.offset === abi.core_node_offset) {
-//           return PrimitiveType.node;
-//         }
-//         if (value.$type.offset === abi.core_node_time_offset) {
-//           return PrimitiveType.node_time;
-//         }
-//         if (value.$type.offset === abi.core_node_index_offset) {
-//           return PrimitiveType.node_index;
-//         }
-//         if (value.$type.offset === abi.core_node_list_offset) {
-//           return PrimitiveType.node_list;
-//         }
-//         if (value.$type.offset === abi.core_node_geo_offset) {
-//           return PrimitiveType.node_geo;
-//         }
-//         if (value.$type.offset === abi.core_geo_offset) {
-//           return PrimitiveType.geo;
-//         }
-//         if (value.$type.offset === abi.core_time_offset) {
-//           return PrimitiveType.time;
-//         }
-//         if (value.$type.offset === abi.core_duration_offset) {
-//           return PrimitiveType.duration;
-//         }
-//         if (value.$type.offset === abi.core_cubic_offset) {
-//           return PrimitiveType.cubic;
-//         }
-//         if (value.$type.offset === abi.core_t2_offset) {
-//           return PrimitiveType.t2;
-//         }
-//         if (value.$type.offset === abi.core_t3_offset) {
-//           return PrimitiveType.t3;
-//         }
-//         if (value.$type.offset === abi.core_t4_offset) {
-//           return PrimitiveType.t4;
-//         }
-//         if (value.$type.offset === abi.core_str_offset) {
-//           return PrimitiveType.str;
-//         }
-//         if (value.$type.offset === abi.core_t2f_offset) {
-//           return PrimitiveType.t2f;
-//         }
-//         if (value.$type.offset === abi.core_t3f_offset) {
-//           return PrimitiveType.t3f;
-//         }
-//         if (value.$type.offset === abi.core_t4f_offset) {
-//           return PrimitiveType.t4f;
-//         }
-//         if (value.$type.offset === abi.core_function_offset) {
-//           return PrimitiveType.function;
-//         }
-//         if (value.$type.offset === abi.core_type_offset) {
-//           return PrimitiveType.type;
-//         }
-//         if (value.$type.offset === abi.core_field_offset) {
-//           return PrimitiveType.field;
-//         }
-//         return PrimitiveType.object;
-//       } else if (Array.isArray(value)) {
-//         return PrimitiveType.object;
-//       } else if (value instanceof Map) {
-//         return PrimitiveType.object;
-//       } else if ('_type' in value && typeof value._type === 'string') {
-//         return PrimitiveType.object;
-//       }
-//       // TODO we could potentially try to infer the abi type based on duck-typing
-//       return {
-//         slot_type: PrimitiveType.object,
-//         value: core.Map.create(new Map(Object.entries(value))),
-//       };
-//     }
-//     case 'string': {
-//       if (abi.off_by_symbol.get(value) === undefined) {
-//         return PrimitiveType.object;
-//       }
-//       return PrimitiveType.stringlit;
-//     }
-//     case 'symbol': {
-//       return valueType(abi, value.toString());
-//     }
-//     case 'undefined': {
-//       return PrimitiveType.null;
-//     }
-//   }
-// }
+export function clone<T>(value: T): T {
+  switch (typeof value) {
+    case 'object': {
+      if (value === null) {
+        return null as T;
+      }
+      if (value instanceof GCEnum) {
+        return value;
+      }
+      if (value instanceof GCObject) {
+        if (value.$type.is_native) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          return new value.$type.factory(value.$type, (value as any).value) as T;
+        }
+        if (value.$attrs) {
+          return new value.$type.factory(value.$type, ...value.$attrs) as T;
+        }
+        return new value.$type.factory(value.$type) as T;
+      }
+      if (Array.isArray(value)) {
+        const res = new Array(value.length);
+        for (let i = 0; i < value.length; i++) {
+          res[i] = clone(value[i]);
+        }
+        return res as T;
+      }
+      if (value instanceof Map) {
+        const res = new Map();
+        value.forEach((value, key) => {
+          res.set(clone(key), clone(value));
+        });
+        return res as T;
+      }
+      const res = {};
+      for (const [key, val] of Object.entries(value)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (res as any)[clone(key)] = clone(val);
+      }
+      return res as T;
+    }
+    default:
+      // all the primitives are copied anyways
+      return value;
+  }
+}

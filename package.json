@@ -17,6 +17,7 @@
     "clean": "rm -rf dist",
     "gen": "GREYCAT_CODEGEN_TS_SDK='../exports.js' GREYCAT_CODEGEN_TS_FOOTER='src/std/std_ext.d.ts' greycat codegen --target=ts --lib=std src/std",
     "build": "tsc -b tsconfig.json",
+    "build:dev": "tsc -b tsconfig.dev.json",
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/abi project.test.abi",

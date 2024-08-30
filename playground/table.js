@@ -5,44 +5,24 @@ import { readFileSync } from 'node:fs';
 
 const g = await GreyCat.init();
 
-const actual = g.serializeWithHeaders([
-  { _type: '::<name>', name: 'one' },
-  { _type: '::<name>', name: 'two' },
-  { _type: '::<name>', name: 'three' },
-  { _type: '::<name>', name: 'four' },
-]);
-const expected = readBytes(`table_2.gcb`);
-// console.log({actual, expected});
-assert.deepStrictEqual(actual, expected);
-
-assert.deepStrictEqual(
-  g.serializeWithHeaders(
-    core.Table.fromRows([
-      [0, 0.5, { _type: '::<name>', name: 'one' }],
-      [1, 1.5, { _type: '::<name>', name: 'two' }],
-      [2, 2.5, { _type: '::<name>', name: 'three' }],
-      [3, 3.5, { _type: '::<name>', name: 'four' }],
-    ]),
-  ),
-  readBytes(`table.gcb`),
-);
-
-// const by_sdk = g.serializeWithHeaders(
-//   core.Table.fromRows([
-//     [0, 0.5, { _type: '::<name>', name: 'one' }],
-//     [1, 1.5, { _type: '::<name>', name: 'two' }],
-//     [2, 2.5, { _type: '::<name>', name: 'three' }],
-//     [3, 3.5, { _type: '::<name>', name: 'four' }],
-//   ]),
+// assert.deepStrictEqual(
+//   g.serializeWithHeaders(
+//     core.Table.fromRows([
+//       [0, 0.5, { _type: '::<name>', name: 'one' }],
+//       [1, 1.5, { _type: '::<name>', name: 'two' }],
+//       [2, 2.5, { _type: '::<name>', name: 'three' }],
+//       [3, 3.5, { _type: '::<name>', name: 'four' }],
+//     ]),
+//   ),
+//   readBytes('project::table3.bin'),
 // );
-// const by_greycat = readBytes('project::table.bin');
 
-// console.log({ by_sdk: new Uint8Array(by_sdk), by_greycat: new Uint8Array(by_greycat) });
+// const value = g.deserializeWithHeader(readBytes('project::table3.bin'));
+const value = await g.call('project::identity', [readBytes('project::table3.bin')]);
 
-// console.dir({
-//   sdk_table: structuredClone(new AbiReader(g.abi, by_sdk).deserializeWithHeaders()),
-//   greycat_table: structuredClone(new AbiReader(g.abi, by_greycat).deserializeWithHeaders()),
-// }, { depth: Infinity });
+console.dir(JSON.parse(JSON.stringify(value)), {
+  depth: Infinity,
+});
 
 /**
  * @param {string} filepath

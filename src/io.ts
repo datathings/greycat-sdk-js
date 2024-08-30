@@ -1202,7 +1202,7 @@ export class AbiWriter extends Writer {
             nullable_bitset_len = Math.ceil(arr.length / 8);
             this.reserve(nullable_bitset_len);
           }
-          this._buf[this._curr + (i >> 3)] |= ~(1 << (i & 7));
+          this._buf[this._curr + (i >> 3)] |= 1 << (i & 7);
           break;
         }
         case 'object': {
@@ -1212,7 +1212,7 @@ export class AbiWriter extends Writer {
               nullable_bitset_len = Math.ceil(arr.length / 8);
               this.reserve(nullable_bitset_len);
             }
-            this._buf[this._curr + (i >> 3)] |= ~(1 << (i & 7));
+            this._buf[this._curr + (i >> 3)] |= 1 << (i & 7);
           } else if (value instanceof GCEnum) {
             slot_type_and &= PrimitiveType.enum;
             slot_type_or |= PrimitiveType.enum;
@@ -1318,7 +1318,7 @@ export class AbiWriter extends Writer {
 }
 
 function is_elem_nullable(nullable_mask: Uint8Array, i: number): boolean {
-  return !((nullable_mask[i >> 3] >> (i & 7)) & 1);
+  return (nullable_mask[i >> 3] & (1 << (i & 7))) !== 0;
 }
 
 function closest_upper_power_of_2(value: number) {

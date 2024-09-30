@@ -71,7 +71,7 @@ Object.assign(std.core.Date.prototype, {
     const hour = this.hour.toString().padStart(2, '0');
     const min = this.minute.toString().padStart(2, '0');
     const sec = this.second.toString().padStart(2, '0');
-    if (this.microsecond.value > 0n) {
+    if (this.microsecond > 0) {
       return `${this.year}-${month}-${day}T${hour}:${min}:${sec}.${this.microsecond}`;
     } else {
       return `${this.year}-${month}-${day}T${hour}:${min}:${sec}`;

@@ -124,11 +124,8 @@ export class TaskHandler {
     const stopCtrl = new AbortController();
 
     const promise = new Promise<std.runtime.TaskInfo | null>((resolve, reject) => {
-      // if this is a bigint we have bigger issues
-      const user_id = this.task.user_id as number;
-
-      // if this is a bigint we have bigger issues
-      const task_id = this.task.task_id as number;
+      const user_id = this.task.user_id;
+      const task_id = this.task.task_id;
 
       const handleCancel = async () => {
         // make sure GreyCat cancels the task

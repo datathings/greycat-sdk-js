@@ -2,14 +2,18 @@ import type { AbiReader, AbiWriter, AbiType, std } from '../../exports.js';
 import { Value, GreyCat, GCObject, $ } from '../../exports.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Table<_ extends Value = any> extends GCObject {
+export class Table<T extends Value = any> extends GCObject {
   static readonly _type = 'core::Table' as const;
 
-  constructor(type: AbiType, public cols: Array<Value[]>) {
+  constructor(type: AbiType, public cols: Array<T[]>) {
     super(type);
   }
 
-  static create(cols: Array<Value[]>, g: GreyCat = $.default): std.core.Table {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static create<T extends Value = any>(
+    cols: Array<T[]>,
+    g: GreyCat = $.default,
+  ): std.core.Table<T> {
     const ty = g.abi.types[g.abi.core_table_offset];
     return new ty.factory(ty, cols) as std.core.Table;
   }
@@ -38,14 +42,39 @@ export class Table<_ extends Value = any> extends GCObject {
     return new ty.factory(ty, cols) as std.core.Table;
   }
 
-  static load(r: AbiReader, ty: AbiType): Table {
+  static fromObjects<T extends Value = unknown>(
+    rows: Record<string, Value>[],
+    g: GreyCat = $.default,
+  ): std.core.Table<T> {
+    if (rows.length === 0) {
+      const ty = g.abi.types[g.abi.core_table_offset];
+      return new ty.factory(ty, []) as std.core.Table<T>;
+    }
+    const nbRows = rows.length;
+    const fields = Object.keys(rows[0]);
+    const nbCols = fields.length;
+
+    const cols: Array<unknown[]> = Array.from({ length: nbCols }, () => new Array(nbRows));
+
+    // swap from row-based to column-based
+    for (let c = 0; c < nbCols; c++) {
+      for (let r = 0; r < nbRows; r++) {
+        cols[c][r] = rows[r][fields[c]];
+      }
+    }
+
+    const ty = g.abi.types[g.abi.core_table_offset];
+    return new ty.factory(ty, cols) as std.core.Table<T>;
+  }
+
+  static load<T extends Value = unknown>(r: AbiReader, ty: AbiType): std.core.Table<T> {
     const nb_rows = r.read_vu32();
     const nb_cols = r.read_vu32();
     const cols = new Array(nb_cols);
     for (let col = 0; col < nb_cols; col++) {
       cols[col] = r.read_array(nb_rows);
     }
-    return new ty.factory(ty, cols) as std.core.Table;
+    return new Table(ty, cols);
   }
 
   override saveContent(w: AbiWriter): void {

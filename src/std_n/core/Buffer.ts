@@ -16,7 +16,7 @@ export class Buffer extends GCObject {
   static load(r: AbiReader, type: AbiType): std.core.Buffer {
     const len = r.read_vu32();
     const data = r.take(len);
-    return new type.factory(type, data) as std.core.Buffer;
+    return new Buffer(type, data);
   }
 
   override toJSON() {

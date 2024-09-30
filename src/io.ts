@@ -1079,14 +1079,16 @@ export class AbiWriter extends Writer {
   raw_object(value: object): void {
     if (value instanceof GCObject) {
       value.saveContent(this);
-    } else if (value instanceof String) {
+    } else if (value instanceof String || typeof value === 'string') {
       this.raw_string(value.valueOf());
     } else if (value instanceof Symbol) {
       this.raw_symbol(value.valueOf());
     } else if (value instanceof Array) {
+      this.write_vu32(value.length);
       this.write_array(value);
     } else if (value instanceof Map) {
-      new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).saveContent(this);
+      this.write_vu32(value.size);
+      this.write_map(value);
     } else if (value === null) {
       // noop, 'null' are skipped when serializing without type header
     } else {
@@ -1133,6 +1135,26 @@ export class AbiWriter extends Writer {
     throw new Error('Javascript symbol without descriptions are not serializable');
   }
 
+  /**
+   * Serializes a map into this writer.
+   *
+   * *Note: this does not write the length*
+   * @param map
+   */
+  write_map(map: Map<unknown, unknown>): void {
+    map.forEach((value, key) => {
+      this.serialize(key);
+      this.serialize(value);
+    });
+  }
+
+  /**
+   * Serializes an array into this writer.
+   *
+   * *Note: this does not write the length*
+   * @param arr
+   * @returns
+   */
   write_array(arr: Value[]): void {
     if (arr.length === 0) {
       return;
@@ -1150,17 +1172,13 @@ export class AbiWriter extends Writer {
     for (let i = 0; i < arr.length; i++) {
       const value = arr[i];
       switch (typeof value) {
+        case 'symbol':
         case 'string': {
-          if (this.abi.off_by_symbol.get(value) === undefined) {
-            slot_type_and &= PrimitiveType.object;
-            slot_type_or |= PrimitiveType.object;
-            object_type = this.abi.types[this.abi.core_string_offset];
-            object_type_and &= object_type.mapped_type_off;
-            object_type_or |= object_type.mapped_type_off;
-          } else {
-            slot_type_and &= PrimitiveType.stringlit;
-            slot_type_or |= PrimitiveType.stringlit;
-          }
+          slot_type_and &= PrimitiveType.object;
+          slot_type_or |= PrimitiveType.object;
+          object_type = this.abi.types[this.abi.core_string_offset];
+          object_type_and &= object_type.mapped_type_off;
+          object_type_or |= object_type.mapped_type_off;
           break;
         }
         case 'number': {
@@ -1181,19 +1199,6 @@ export class AbiWriter extends Writer {
         case 'boolean': {
           slot_type_and &= PrimitiveType.bool;
           slot_type_or |= PrimitiveType.bool;
-          break;
-        }
-        case 'symbol': {
-          if (this.abi.off_by_symbol.get(value.toString()) === undefined) {
-            slot_type_and &= PrimitiveType.object;
-            slot_type_or |= PrimitiveType.object;
-            object_type = this.abi.types[this.abi.core_string_offset];
-            object_type_and &= object_type.mapped_type_off;
-            object_type_or |= object_type.mapped_type_off;
-          } else {
-            slot_type_and &= PrimitiveType.stringlit;
-            slot_type_or |= PrimitiveType.stringlit;
-          }
           break;
         }
         case 'undefined': {

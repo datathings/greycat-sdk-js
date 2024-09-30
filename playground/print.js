@@ -1,6 +1,5 @@
-import { join } from 'path';
-import { readFileSync } from 'fs';
 import { Abi, AbiReader } from '@greycat/sdk';
+import { readBytes } from './_utils.js';
 
 const [filepath] = process.argv.slice(2);
 if (!filepath) {
@@ -8,27 +7,15 @@ if (!filepath) {
   process.exit(1);
 }
 
-const abi = new Abi(readFile(join(process.cwd(), 'gcdata', 'abi')));
-const reader = new AbiReader(abi, readFile(filepath));
+const abi = new Abi(readBytes('gcdata/abi'));
+const reader = new AbiReader(abi, readBytes(filepath));
 
 try {
   reader.headers();
   for (const value of reader) {
-    console.log(JSON.parse(JSON.stringify(value)));
+    console.dir(value, { depth: Infinity });
   }
 } catch (err) {
   console.error(err);
   process.exit(1);
-}
-
-/**
- * Node.js API can return re-used buffers from `readFileSync`
- * so we have to slice to the proper offset to get our own shrinked
- * `ArrayBuffer` from it.
- * @param {string} filepath
- * @returns
- */
-function readFile(filepath) {
-  const b = readFileSync(filepath);
-  return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength);
 }

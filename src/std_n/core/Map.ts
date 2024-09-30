@@ -50,19 +50,18 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
 
   override saveContent(w: AbiWriter): void {
     w.write_vu32(this.map.size);
-    this.map.forEach((value, key) => {
-      w.serialize(key);
-      w.serialize(value);
-    });
+    w.write_map(this.map);
   }
 
-  static load(r: AbiReader) {
+  static load<K extends Value = unknown, V extends Value = unknown>(
+    r: AbiReader,
+  ): globalThis.Map<K, V> {
     const len = r.read_vu32();
-    const map = new globalThis.Map<Value, Value>();
+    const map = new globalThis.Map<K, V>();
 
     for (let i = 0; i < len; i++) {
-      const key = r.deserialize();
-      const value = r.deserialize();
+      const key = r.deserialize() as K;
+      const value = r.deserialize() as V;
       map.set(key, value);
     }
 

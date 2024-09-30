@@ -26,3 +26,4 @@ export * from './null.js';
 export * from './type.js';
 export * from './Buffer.js';
 export * from './field.js';
+export * from './char.js';

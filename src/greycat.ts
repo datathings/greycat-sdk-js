@@ -9,7 +9,17 @@ import type {
   Value,
   GCObject,
 } from './exports.js';
-import { Abi, AbiFunction, AbiType, AbiReader, AbiWriter, sha256hex, std } from './exports.js';
+import {
+  Abi,
+  AbiFunction,
+  AbiType,
+  AbiReader,
+  AbiWriter,
+  sha256hex,
+  std,
+  PrimitiveType,
+} from './exports.js';
+import { core } from './std_n/index.js';
 
 /** Defaults to `location.origin` when available, fallbacks to `'http://127.0.0.1:8080'` otherwise */
 export let DEFAULT_URL: URL;
@@ -27,7 +37,12 @@ try {
 export const $: { [name: string]: GreyCat } = {};
 
 const NOOP = (): void => void 0;
-export const DEFAULT_LOGGER = (status: number, method: string, args?: unknown, value?: unknown): void => {
+export const DEFAULT_LOGGER = (
+  status: number,
+  method: string,
+  args?: unknown,
+  value?: unknown,
+): void => {
   const bg = status >= 400 ? '#e8590c' : '#1983c1';
   console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
     method,
@@ -307,7 +322,7 @@ export class GreyCat {
 
     try {
       const permissions = await std.runtime.User.permissions(greycat);
-      greycat.permissions = permissions;
+      greycat.permissions = permissions.values;
     } catch (err) {
       // in case we cannot process the permissions, let's just warn about it and go on
       console.warn('unable to fetch User::permissions()', err);
@@ -442,33 +457,49 @@ export class GreyCat {
         for (let i = 0; i < args.length; i++) {
           const param = fn?.params[i];
           const arg = args[i];
-          if (param) {
-            switch (param.type.offset) {
-              case this.abi.core_float_offset: {
-                if (arg === null) {
-                  writer.null();
-                } else if (typeof arg === 'number') {
-                  writer.float(arg as number);
-                } else {
-                  writer.serialize(arg);
-                }
-                break;
-              }
-              case this.abi.core_char_offset: {
-                if (arg === null) {
-                  writer.null();
-                } else if (typeof arg === 'string') {
-                  writer.char(arg as string);
-                } else {
-                  writer.serialize(arg);
-                }
-                break;
-              }
-              default: {
-                writer.serialize(arg);
-                break;
-              }
+          if (!param) {
+            writer.serialize(arg);
+          } else if (param.type.offset === this.abi.core_float_offset) {
+            if (arg === null) {
+              writer.null();
+            } else if (typeof arg === 'number') {
+              writer.float(arg as number);
+            } else {
+              writer.serialize(arg);
             }
+          } else if (param.type.offset === this.abi.core_char_offset) {
+            if (arg === null) {
+              writer.null();
+            } else if (typeof arg === 'string') {
+              writer.char(arg as string);
+            } else {
+              writer.serialize(arg);
+            }
+          } else if (
+            param.type.generic_abi_type === this.abi.core_array_offset &&
+            Array.isArray(arg)
+          ) {
+            // monomorphic array
+            writer.write_u8(PrimitiveType.object);
+            writer.write_vu32(param.type.offset);
+            writer.write_vu32(arg.length);
+            writer.write_array(arg);
+          } else if (
+            param.type.generic_abi_type === this.abi.core_map_offset &&
+            arg instanceof Map
+          ) {
+            // monomorphic map
+            writer.write_u8(PrimitiveType.object);
+            writer.write_vu32(param.type.offset);
+            writer.write_vu32(arg.size);
+            writer.write_map(arg);
+          } else if (
+            param.type.generic_abi_type === this.abi.core_table_offset &&
+            arg instanceof core.Table
+          ) {
+            writer.write_u8(PrimitiveType.object);
+            writer.write_vu32(param.type.offset);
+            arg.saveContent(writer);
           } else {
             writer.serialize(arg);
           }
@@ -545,9 +576,15 @@ export class GreyCat {
     const err = value as std.core.Error | null;
     debugLogger(res.status, method, args, value);
     if (err === null) {
-      throw new Error(`calling ${method} failed`);
+      throw new Error(`calling '${method}' failed`);
     }
-    throw new Error(`calling '${method}' failed (${err.message})`);
+    let err_msg = `[greycat] ${err.message}\n`;
+    for (const frame of err.stack) {
+      err_msg += `    at ${frame.function} (${frame.module}.gcl:${frame.line}:${frame.column})\n`;
+    }
+    err_msg += `\n`;
+    err_msg += `Caused by: calling '${method}'`;
+    throw new Error(err_msg);
   }
 
   /**
@@ -749,6 +786,16 @@ export class GreyCat {
   create(name: string, attributes: Value[]): GCObject | undefined {
     return this.abi.create(name, attributes);
   }
+
+  // createArray(arr: unknown[], generic_param_type?: { _type: string }) {
+  //   if (generic_param_type) {
+  //     const param_type = this.abi.type_by_fqn.get(generic_param_type._type);
+  //     if (!param_type) {
+  //       throw new Error(`unable to find type '${generic_param_type._type}'`);
+  //     }
+
+  //   }
+  // }
 
   createGeo(lat: number, lng: number): std.core.geo {
     return this.abi.createGeo(lat, lng);

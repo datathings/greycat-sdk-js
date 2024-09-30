@@ -111,10 +111,7 @@ export class GCObject {
               w.write_array(value);
             } else if (value instanceof Map) {
               w.write_vu32(value.size);
-              value.forEach((value, key) => {
-                w.serialize(key);
-                w.serialize(value);
-              });
+              w.write_map(value);
             } else if (typeof value === 'string') {
               w.raw_string(value);
             } else {

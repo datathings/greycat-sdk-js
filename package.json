@@ -21,7 +21,7 @@
     "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src --max-warnings 0 --ext .js,.jsx,.ts,.tsx",
     "prepare:test": "rm -rf gcdata && greycat run && cp gcdata/abi project.test.abi",
-    "test": "pnpm build && node --test"
+    "test": "pnpm build:dev && node --enable-source-maps --test"
   },
   "author": "DataThings s.a <contact@datathings.com>",
   "license": "Apache-2.0",

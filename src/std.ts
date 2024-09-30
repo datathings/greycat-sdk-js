@@ -71,7 +71,7 @@ Object.assign(std.core.Date.prototype, {
     const hour = this.hour.toString().padStart(2, '0');
     const min = this.minute.toString().padStart(2, '0');
     const sec = this.second.toString().padStart(2, '0');
-    if (this.microsecond > 0) {
+    if (this.microsecond.value > 0n) {
       return `${this.year}-${month}-${day}T${hour}:${min}:${sec}.${this.microsecond}`;
     } else {
       return `${this.year}-${month}-${day}T${hour}:${min}:${sec}`;
@@ -85,8 +85,8 @@ Object.assign(std.core.node.prototype, {
     g: GreyCat = $.default,
     signal?: AbortSignal,
   ): Promise<unknown> {
-    const [resolved] = await std.core.node.resolve_all([this], g, signal);
-    return resolved;
+    const res = await std.core.node.resolve_all(std.core.Array.create([this]), g, signal);
+    return res.values[0];
   },
 });
 

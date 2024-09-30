@@ -1,6 +1,6 @@
 // @ts-check
 import { GreyCat, core } from '@greycat/sdk';
-import fs from 'node:fs';
+import { readBytes } from './_utils.js';
 
 const g = await GreyCat.init();
 
@@ -20,13 +20,3 @@ console.log({
 //   JSON.parse(JSON.stringify(g.deserializeWithHeader(readBytes('project::geos.bin')))),
 // );
 
-/**
- * @param {string} filepath
- * @returns {ArrayBuffer}
- */
-function readBytes(filepath) {
-  // Read the file into a Buffer
-  const buffer = fs.readFileSync(filepath);
-  // Convert Buffer to ArrayBuffer
-  return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-}

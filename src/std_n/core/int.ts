@@ -30,6 +30,10 @@ export class int extends GCObject {
     return this.value === other.value;
   }
 
+  asNumber(): number {
+    return Number(this.value);
+  }
+
   // ord(other: std.core.int): number {
   //   if (this.value === other.value) {
   //     return 0;

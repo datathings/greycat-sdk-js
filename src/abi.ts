@@ -111,6 +111,9 @@ export class Abi {
       const module = cursor.read_vu32();
       const name = cursor.read_vu32();
       const lib_name = cursor.read_vu32();
+      const generic_abi_type = cursor.read_vu32();
+      const g1_abi_type_desc = cursor.read_vu32();
+      const g2_abi_type_desc = cursor.read_vu32();
       const attributes_len = cursor.read_vu32();
       /* const attributes_offset =  */ cursor.read_vu32(); // unused
       /* const mapped_prog_type_offset =  */ cursor.read_vu32(); // unused
@@ -149,11 +152,15 @@ export class Abi {
         );
       }
 
-      const fqn = `${this.symbols[module]}::${this.symbols[name]}`;
+      const key = `${this.symbols[module]}::${this.symbols[name]}`;
       const type = new AbiType(
         i,
-        this.symbols[lib_name],
-        fqn,
+        lib_name,
+        module,
+        name,
+        generic_abi_type,
+        g1_abi_type_desc,
+        g2_abi_type_desc,
         mapped_abi_type_offset,
         masked_abi_type_offset,
         nullable_nb_bytes,
@@ -162,8 +169,8 @@ export class Abi {
         is_enum,
         is_masked,
         attrs,
-        this.loaders.get(fqn),
-        this.factories.get(fqn),
+        this.loaders.get(key),
+        this.factories.get(key),
         this,
       );
       if (type.mapped_type_off == i) {
@@ -308,6 +315,31 @@ export class Abi {
         is_task,
       );
       this.fn_by_fqn.set(fqn, this.functions[i]);
+    }
+
+    // link monomorphized types to there known native generic type
+    for (let i = 0; i < nb_types; i++) {
+      const type = this.types[i];
+      switch (type.generic_abi_type) {
+        case this.core_array_offset: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (type as any).loader = std_n.core.Array.load;
+          break;
+        }
+        case this.core_table_offset: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (type as any).loader = std_n.core.Table.load;
+          break;
+        }
+        case this.core_map_offset: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (type as any).loader = std_n.core.Map.load;
+          break;
+        }
+        default:
+          // noop
+          break;
+      }
     }
 
     // initialize every library
@@ -516,9 +548,12 @@ export class AbiType {
      * Offset of this type in `Abi.types[]`
      */
     readonly offset: number,
-    readonly lib_name: string,
-    /** fully qualified name */
-    readonly name: string,
+    readonly lib: number,
+    readonly module: number,
+    readonly symbol: number,
+    readonly generic_abi_type: number,
+    readonly g1_abi_type_desc: number,
+    readonly g2_abi_type_desc: number,
     readonly mapped_type_off: number,
     readonly masked_type_off: number,
     readonly nullable_nb_bytes: number,
@@ -603,6 +638,25 @@ export class AbiType {
         }
       }
     }
+  }
+
+  /**
+   * Fully-qualified-name (eg. `'core::Array<core::int>'`)
+   */
+  get name(): string {
+    // const lib = this.abi.symbols[this.lib];
+    const mod = this.abi.symbols[this.module];
+    const name = this.abi.symbols[this.symbol];
+    return `${mod}::${name}`;
+  }
+
+  toJSON() {
+    return {
+      ...this,
+      lib: this.abi.symbols[this.lib],
+      module: this.abi.symbols[this.module],
+      symbol: this.abi.symbols[this.symbol],
+    };
   }
 }
 

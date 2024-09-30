@@ -67,7 +67,7 @@ describe('project', () => {
       'core::CalendarUnit::month': { _type: 'core::CalendarUnit', field: 'month' },
     },
     {
-      _type: '::<string,int,float,bool,char,enum>',
+      _type: 'project::CustomType',
       string: 'hello',
       int: 42,
       float: 3.14,
@@ -102,10 +102,10 @@ describe('project', () => {
         [0, 1, 2, 3],
         [0.5, 1.5, 2.5, 3.5],
         [
-          { _type: '::<name>', name: 'one' },
-          { _type: '::<name>', name: 'two' },
-          { _type: '::<name>', name: 'three' },
-          { _type: '::<name>', name: 'four' },
+          { _type: 'project::Named', name: 'one' },
+          { _type: 'project::Named', name: 'two' },
+          { _type: 'project::Named', name: 'three' },
+          { _type: 'project::Named', name: 'four' },
         ],
       ],
     },
@@ -334,9 +334,9 @@ describe('project', () => {
     { _type: 'runtime::System' },
     {
       _type: 'runtime::SecurityPolicy',
-      entities: [],
-      credentials: {},
-      roles: {},
+      entities: null,
+      credentials: null,
+      roles: null,
       fields: null,
       keys: null,
       keys_last_refresh: null,
@@ -413,8 +413,8 @@ describe('project', () => {
       sumsq: null,
       values: null,
     },
-    { _type: 'util::Queue', capacity: 3, values: [3, 2, 42] },
-    { _type: 'util::Stack', values: ['one', 'two'] },
+    { _type: 'util::Queue<core::int>', capacity: 3, values: [3, 2, 42] },
+    { _type: 'util::Stack<core::String>', values: ['one', 'two'] },
     { _type: 'util::Crypto' },
   ];
 

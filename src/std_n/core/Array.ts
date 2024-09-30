@@ -2,10 +2,10 @@ import type { AbiType, AbiReader, AbiWriter, Value, GreyCat } from '../../export
 import { $, GCObject } from '../../exports.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Array<_ extends Value = any> extends GCObject {
+export class Array<T extends Value = any> extends GCObject {
   static readonly _type = 'core::Array' as const;
 
-  constructor(type: AbiType, public arr: Value[]) {
+  constructor(type: AbiType, public values: T[]) {
     super(type);
   }
 
@@ -19,16 +19,20 @@ export class Array<_ extends Value = any> extends GCObject {
   }
 
   override saveContent(w: AbiWriter): void {
-    w.write_vu32(this.arr.length);
-    w.write_array(this.arr);
+    w.write_vu32(this.values.length);
+    w.write_array(this.values);
   }
 
-  static load(r: AbiReader): globalThis.Array<Value> {
+  static load<T extends Value = unknown>(r: AbiReader): globalThis.Array<T> {
     const len = r.read_vu32();
-    return r.read_array(len);
+    return r.read_array(len) as globalThis.Array<T>;
+  }
+
+  [Symbol.iterator](): Iterator<T> {
+    return this.values[Symbol.iterator]();
   }
 
   override toJSON() {
-    return this.arr;
+    return this.values;
   }
 }

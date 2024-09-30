@@ -85,8 +85,8 @@ Object.assign(std.core.node.prototype, {
     g: GreyCat = $.default,
     signal?: AbortSignal,
   ): Promise<unknown> {
-    const res = await std.core.node.resolve_all(std.core.Array.create([this]), g, signal);
-    return res.values[0];
+    const [res] = await std.core.node.resolve_all([this], g, signal);
+    return res;
   },
 });
 

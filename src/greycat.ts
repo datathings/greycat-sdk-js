@@ -321,8 +321,7 @@ export class GreyCat {
     );
 
     try {
-      const permissions = await std.runtime.User.permissions(greycat);
-      greycat.permissions = permissions.values;
+      greycat.permissions = await std.runtime.User.permissions(greycat);
     } catch (err) {
       // in case we cannot process the permissions, let's just warn about it and go on
       console.warn('unable to fetch User::permissions()', err);

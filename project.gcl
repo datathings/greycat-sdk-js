@@ -11,6 +11,8 @@ type FloatPrecisionTest {
 }
 
 fn main() {
+  write_std(GcbWriter { path: "project.test.gcb" });
+
   n ?= node<String> { "Hello, world!" };
   if (nt == null) {
     nt = nodeTime<String> {};
@@ -34,8 +36,6 @@ fn main() {
     ng.set(geo { 1, 2 }, "first");
     ng.set(geo { 1.2, 1.3 }, "second");
   }
-
-  write_std(GcbWriter { path: "project.test.gcb" });
 }
 
 fn write_std(out: GcbWriter) {

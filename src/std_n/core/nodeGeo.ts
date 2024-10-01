@@ -1,7 +1,7 @@
 import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
 import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
-export class nodeGeo extends GCObject {
+export class nodeGeo<T = unknown> extends GCObject {
   static readonly _type = 'core::nodeGeo' as const;
 
   constructor(type: AbiType, public value: bigint) {
@@ -20,6 +20,18 @@ export class nodeGeo extends GCObject {
   static load(r: AbiReader, ty: AbiType): std.core.nodeGeo {
     const value = r.read_vu64_bigint();
     return new ty.factory(ty, value) as std.core.nodeGeo;
+  }
+
+  // from: geo?, to: geo?, maxRows: int, mode: SamplingMode
+  sample(
+    from: std.core.geo | null,
+    to: std.core.geo | null,
+    maxRows: number | bigint,
+    mode: std.core.SamplingMode,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<std.core.Table<[std.core.geo, T]>> {
+    return g.call('core::nodeGeo::sample', [[this], from, to, maxRows, mode], signal);
   }
 
   override saveHeader(w: AbiWriter): void {

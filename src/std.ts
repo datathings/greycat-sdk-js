@@ -79,17 +79,6 @@ Object.assign(std.core.Date.prototype, {
   },
 });
 
-Object.assign(std.core.node.prototype, {
-  async resolve(
-    this: std.core.node,
-    g: GreyCat = $.default,
-    signal?: AbortSignal,
-  ): Promise<unknown> {
-    const [res] = await std.core.node.resolve_all([this], g, signal);
-    return res;
-  },
-});
-
 function compareFile(a: std.io.File, b: std.io.File): number {
   const aDir = a.path.endsWith('/');
   const bDir = b.path.endsWith('/');

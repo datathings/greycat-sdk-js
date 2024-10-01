@@ -1,7 +1,7 @@
 import type { AbiReader, AbiWriter, AbiType, GreyCat, std } from '../../exports.js';
 import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
-export class nodeTime extends GCObject {
+export class nodeTime<T = unknown> extends GCObject {
   static readonly _type = 'core::nodeTime' as const;
 
   constructor(type: AbiType, public value: bigint) {
@@ -20,6 +20,23 @@ export class nodeTime extends GCObject {
   static load(r: AbiReader, ty: AbiType): std.core.nodeTime {
     const value = r.read_vu64_bigint();
     return new ty.factory(ty, value) as std.core.nodeTime;
+  }
+
+  sample(
+    from: std.core.time | null,
+    to: std.core.time | null,
+    maxRows: number | bigint,
+    mode: std.core.SamplingMode,
+    maxDephasing: std.core.duration | null,
+    tz: std.core.TimeZone | null,
+    g: GreyCat = $.default,
+    signal?: AbortSignal,
+  ): Promise<std.core.Table<[std.core.time, T]>> {
+    return g.call(
+      'core::nodeTime::sample',
+      [[this], from, to, maxRows, mode, maxDephasing, tz],
+      signal,
+    );
   }
 
   override saveHeader(w: AbiWriter): void {

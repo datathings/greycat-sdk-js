@@ -1,19 +1,16 @@
 import type { AbiReader, AbiWriter, AbiType, std } from '../../exports.js';
 import { Value, GreyCat, GCObject, $ } from '../../exports.js';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Table<T extends Value = any> extends GCObject {
+export class Table<T = unknown[]> extends GCObject {
   static readonly _type = 'core::Table' as const;
 
-  constructor(type: AbiType, public cols: Array<T[]>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(type: AbiType, public cols: any[][]) {
     super(type);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static create<T extends Value = any>(
-    cols: Array<T[]>,
-    g: GreyCat = $.default,
-  ): std.core.Table<T> {
+  static create<T = any>(cols: any[][], g: GreyCat = $.default): std.core.Table<T> {
     const ty = g.abi.types[g.abi.core_table_offset];
     return new ty.factory(ty, cols) as std.core.Table;
   }
@@ -42,7 +39,7 @@ export class Table<T extends Value = any> extends GCObject {
     return new ty.factory(ty, cols) as std.core.Table;
   }
 
-  static fromObjects<T extends Value = unknown>(
+  static fromObjects<T extends { [K in keyof T]: T[K] }>(
     rows: Record<string, Value>[],
     g: GreyCat = $.default,
   ): std.core.Table<T> {
@@ -74,7 +71,8 @@ export class Table<T extends Value = any> extends GCObject {
     for (let col = 0; col < nb_cols; col++) {
       cols[col] = r.read_array(nb_rows);
     }
-    return new Table(ty, cols);
+    const factory = r.abi.types[r.abi.core_table_offset].factory;
+    return new factory(ty, cols) as std.core.Table<T>;
   }
 
   override saveContent(w: AbiWriter): void {
@@ -87,12 +85,37 @@ export class Table<T extends Value = any> extends GCObject {
     }
   }
 
-  iter_by_row(): RowIterator {
-    return new RowIterator(this);
+  get_row(index: number): T | undefined {
+    const nb_rows = this.cols[0]?.length ?? 0;
+    if (index >= nb_rows) {
+      return undefined;
+    }
+    if (this.$type.generic_abi_type == 0) {
+      const row = new Array(this.cols.length);
+      for (let col = 0; col < this.cols.length; col++) {
+        row[col] = this.cols[col][index];
+      }
+      return row as T;
+    }
+    const elem_type = this.$type.abi.types[this.$type.g1_abi_type_desc >> 1];
+    const nullable = (this.$type.g1_abi_type_desc & 0b00000001) === 1;
+    const fields = new Array(this.cols.length);
+    let all_null = true;
+    for (let col = 0; col < this.cols.length; col++) {
+      fields[col] = this.cols[col][index];
+      if (fields[col] !== null) {
+        all_null = false;
+      }
+    }
+    if (nullable && all_null) {
+      return null as T;
+    }
+    const value = new elem_type.factory(elem_type, ...fields) as T;
+    return value;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [Symbol.iterator](): Iterator<Array<any>> {
+  iter_by_column(): Iterator<Array<any>> {
     let index = 0;
     const cols = this.cols;
 
@@ -106,6 +129,13 @@ export class Table<T extends Value = any> extends GCObject {
     };
   }
 
+  [Symbol.iterator](): Iterator<T> {
+    if (this.$type.generic_abi_type == 0) {
+      return new TableArrayIterator(0, this as Table<unknown[]>) as Iterator<T>;
+    }
+    return new TableObjectIterator(0, this);
+  }
+
   override toJSON() {
     return {
       _type: Table._type,
@@ -114,31 +144,60 @@ export class Table<T extends Value = any> extends GCObject {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class RowIterator implements Iterable<Array<any>> {
-  constructor(readonly table: Table) {}
+export class TableObjectIterator<T> implements Iterator<T> {
+  private readonly _nb_rows: number;
+  private readonly _elem_type: AbiType;
+  private readonly _nullable: boolean;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [Symbol.iterator](): Iterator<Array<any>> {
-    let index = 0;
-    const cols = this.table.cols;
+  constructor(private _index = 0, readonly table: Table<T>) {
+    this._nb_rows = table.cols[0]?.length ?? 0;
+    this._elem_type = table.$type.abi.types[table.$type.g1_abi_type_desc >> 1];
+    this._nullable = (table.$type.g1_abi_type_desc & 0b00000001) === 1;
+  }
 
-    return {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      next(): IteratorResult<Array<any>> {
-        const nb_rows = cols[0]?.length ?? 0;
-        const nb_cols = cols.length;
+  next(): IteratorResult<T> {
+    if (this._index >= this._nb_rows) {
+      return { value: undefined, done: true };
+    }
 
-        if (index < nb_rows) {
-          const row = new Array(nb_cols);
-          for (let col = 0; col < nb_cols; col++) {
-            row[col] = cols[col][index];
-          }
-          index += 1;
-          return { value: row, done: false };
-        }
-        return { value: undefined, done: true };
-      },
-    };
+    const nb_cols = this.table.cols.length;
+    const fields = new Array(nb_cols);
+    let all_null = true;
+    for (let col = 0; col < nb_cols; col++) {
+      fields[col] = this.table.cols[col][this._index];
+      if (fields[col] !== null) {
+        all_null = false;
+      }
+    }
+    this._index += 1;
+    let value: T;
+    if (this._nullable && all_null) {
+      value = null as T;
+    } else {
+      value = new this._elem_type.factory(this._elem_type, ...fields) as T;
+    }
+    return { value, done: false };
+  }
+}
+
+export class TableArrayIterator implements Iterator<unknown[]> {
+  private readonly _nb_rows: number;
+
+  constructor(private _index = 0, readonly table: Table<unknown[]>) {
+    this._nb_rows = table.cols[0]?.length ?? 0;
+  }
+
+  next(): IteratorResult<unknown[]> {
+    if (this._index >= this._nb_rows) {
+      return { value: undefined, done: true };
+    }
+
+    const nb_cols = this.table.cols.length;
+    const row = new Array(nb_cols);
+    for (let col = 0; col < nb_cols; col++) {
+      row[col] = this.table.cols[col][this._index];
+    }
+    this._index += 1;
+    return { value: row, done: false };
   }
 }

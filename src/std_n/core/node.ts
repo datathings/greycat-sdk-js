@@ -1,7 +1,7 @@
 import type { AbiType, AbiReader, AbiWriter, GreyCat, std } from '../../exports.js';
 import { GCObject, PrimitiveType, $ } from '../../exports.js';
 
-export class node extends GCObject {
+export class node<T = unknown> extends GCObject {
   static readonly _type = 'core::node' as const;
 
   constructor(type: AbiType, public value: bigint) {
@@ -20,6 +20,19 @@ export class node extends GCObject {
   static load(r: AbiReader, ty: AbiType): std.core.node {
     const value = r.read_vu64_bigint();
     return new ty.factory(ty, value) as std.core.node;
+  }
+
+  /***
+   * Resolves the value of this node.
+   * 
+   * *This is sugar above a call to `core::node::resolve_all([this])` that returns the first element of the array*
+   *
+   * @param g the GreyCat instance to use, defaults to `$.default`
+   * @param signal to prematurely abort the request
+   */
+  async resolve(g: GreyCat = $.default, signal?: AbortSignal): Promise<T> {
+    const [res] = await g.call<Array<T>>('core::node::resolve_all', [[this]], signal);
+    return res;
   }
 
   override saveHeader(w: AbiWriter): void {

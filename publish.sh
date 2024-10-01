@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 VERSION_MAJOR_MINOR=`cat VERSION`
 VERSION=${VERSION:-"0.0.0"}
@@ -12,13 +12,14 @@ base64url_token=$(echo -n "ci:$sha256_hash" | base64 -w 0)
 token=$(curl -s -d "[\"${base64url_token}\", false]" -X POST https://get.greycat.io/runtime::User::login | tr -d '"')
 file="dist.zip"
 
+cd dist
 mkdir npm
-cp dist/sdk/js/package.tgz npm/package.tgz
+cp sdk/js/package.tgz npm/package.tgz
 
-cd dist/sdk/js
+cd sdk/js
 tar --strip-components=1 -xvvf package.tgz
 rm package.tgz
-cd ../../
+cd ../..
 zip -r $file sdk
 
 ROOT_URL="https://get.greycat.io/files/sdk/js"

@@ -2,7 +2,6 @@
 import { GreyCat } from '@greycat/sdk';
 
 const greycat = await GreyCat.init();
-global.greycat.default = greycat;
 
 // spawns a task
 const task = await greycat.spawn('project::task_with_params', ['Hello world', 42]);

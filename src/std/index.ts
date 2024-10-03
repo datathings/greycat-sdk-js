@@ -176,7 +176,7 @@ export namespace core {
     second!: number | bigint;
     microsecond!: number | bigint;
 
-    static fromTime(time: core.time, tz: core.TimeZone | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Date> {
+    static fromTime(time: core.time, tz: core.TimeZone | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Date> {
       return $g.call('core::Date::fromTime', [time, tz], $signal);
     };
     static createFrom({year, month, day, hour, minute, second, microsecond}: {year: number | bigint, month: number | bigint, day: number | bigint, hour: number | bigint, minute: number | bigint, second: number | bigint, microsecond: number | bigint}, $g: $greycat.GreyCat = $greycat.$.default): Date {
@@ -2495,7 +2495,7 @@ export namespace core {
   }
 
   export class nodeList<T = any> extends $greycat.std_n.core.nodeList<T> {
-    static sample(refs: globalThis.Array<core.nodeList>, from: number | bigint | null, to: number | bigint | null, maxRows: number | bigint, mode: core.SamplingMode, maxDephasing: number | bigint | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
+    static sample(refs: globalThis.Array<core.nodeList>, from: number | bigint | null, to: number | bigint | null, maxRows: number | bigint, mode: core.SamplingMode, maxDephasing: number | bigint | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
       return $g.call('core::nodeList::sample', [refs, from, to, maxRows, mode, maxDephasing], $signal);
     };
     static info(nodes: globalThis.Array<core.nodeList>, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<globalThis.Array<core.NodeInfo<number | bigint>>> {
@@ -2524,7 +2524,7 @@ export namespace core {
   }
 
   export class nodeTime<T = any> extends $greycat.std_n.core.nodeTime<T> {
-    static sample(refs: globalThis.Array<core.nodeTime>, from: core.time | null, to: core.time | null, maxRows: number | bigint, mode: core.SamplingMode, maxDephasing: core.duration | null, tz: core.TimeZone | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
+    static sample(refs: globalThis.Array<core.nodeTime>, from: core.time | null, to: core.time | null, maxRows: number | bigint, mode: core.SamplingMode, maxDephasing: core.duration | null = null, tz: core.TimeZone | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
       return $g.call('core::nodeTime::sample', [refs, from, to, maxRows, mode, maxDephasing, tz], $signal);
     };
     static info(nodes: globalThis.Array<core.nodeTime>, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<globalThis.Array<core.NodeInfo<core.time>>> {
@@ -3742,7 +3742,7 @@ export namespace io {
     config!: io.CsvAnalysisConfig | null;
     statistics!: io.CsvStatistics | null;
 
-    static analyze(file_path: string, config: io.CsvAnalysisConfig | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<io.CsvStatistics> {
+    static analyze(file_path: string, config: io.CsvAnalysisConfig | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<io.CsvStatistics> {
       return $g.call('io::CsvAnalysis::analyze', [file_path, config], $signal);
     };
     static createFrom({config = null, statistics = null}: {config?: io.CsvAnalysisConfig | null, statistics?: io.CsvStatistics | null}, $g: $greycat.GreyCat = $greycat.$.default): CsvAnalysis {
@@ -3981,13 +3981,13 @@ export namespace io {
     columns_size!: number | bigint | null;
     columns!: globalThis.Array<io.CsvColumn> | null;
 
-    static generate(format: io.CsvFormat, ident_col: number | bigint | null, time_col: number | bigint | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<string> {
+    static generate(format: io.CsvFormat, ident_col: number | bigint | null = null, time_col: number | bigint | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<string> {
       return $g.call('io::CsvFormat::generate', [format, ident_col, time_col], $signal);
     };
-    static validate(path: string, format: io.CsvFormat, max_rows: number | bigint | null, max_invalid: number | bigint | null, invalid_path: string | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<io.CsvValidateResult> {
+    static validate(path: string, format: io.CsvFormat, max_rows: number | bigint | null = null, max_invalid: number | bigint | null = null, invalid_path: string | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<io.CsvValidateResult> {
       return $g.call('io::CsvFormat::validate', [path, format, max_rows, max_invalid, invalid_path], $signal);
     };
-    static sample(path: string, format: io.CsvFormat | null, offset: number | bigint | null, max: number | bigint | null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
+    static sample(path: string, format: io.CsvFormat | null = null, offset: number | bigint | null = null, max: number | bigint | null = null, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<core.Table> {
       return $g.call('io::CsvFormat::sample', [path, format, offset, max], $signal);
     };
     static infer(analysis: io.CsvStatistics, $g: $greycat.GreyCat = $greycat.$.default, $signal?: AbortSignal): Promise<io.CsvFormat> {

@@ -106,6 +106,9 @@ export class GCObject {
             break;
           }
           case PrimitiveType.object: {
+            if (this.$type.abi.types[att.abi_type].is_ambiguous) {
+              w.write_vu32(att.abi_type);
+            }
             if (Array.isArray(value)) {
               w.write_vu32(value.length);
               w.write_array(value);

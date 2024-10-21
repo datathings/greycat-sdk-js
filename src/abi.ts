@@ -125,6 +125,7 @@ export class Abi {
       const is_abstract = (flags & (1 << 1)) !== 0;
       const is_enum = (flags & (1 << 2)) !== 0;
       const is_masked = (flags & (1 << 3)) !== 0;
+      const is_ambiguous = (flags & (1 << 4)) !== 0;
 
       const attrs: AbiAttribute[] = new Array(attributes_len);
       for (let i = 0; i < attributes_len; i++) {
@@ -168,6 +169,7 @@ export class Abi {
         is_abstract,
         is_enum,
         is_masked,
+        is_ambiguous,
         attrs,
         this.loaders.get(key),
         this.factories.get(key),
@@ -513,7 +515,7 @@ export class AbiType {
         }
         case PrimitiveType.object: {
           let attObjectType = attType;
-          if (attType.is_abstract || att.sbi_type === PrimitiveType.undefined) {
+          if (attType.is_ambiguous || att.sbi_type === PrimitiveType.undefined) {
             attObjectType = r.abi.types[r.read_vu32()];
           }
           value = attObjectType.loader(r, attObjectType);
@@ -561,6 +563,7 @@ export class AbiType {
     readonly is_abstract: boolean,
     readonly is_enum: boolean,
     readonly is_masked: boolean,
+    readonly is_ambiguous: boolean,
     readonly attrs: AbiAttribute[],
     loader: ILoader | undefined,
     factory: IFactory | undefined,

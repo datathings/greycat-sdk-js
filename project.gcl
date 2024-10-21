@@ -239,7 +239,7 @@ fn write_std_runtime(out: GcbWriter) {
       arguments: Array<any?> {3.14},
       user_id: 12,
       start: 13_time,
-      every: duration::new(37, DurationUnit::microseconds),
+      every: 37_us,
     });
   out.write(User {
       id: 12,
@@ -838,4 +838,20 @@ fn get_node_index() {
 @expose
 fn get_node_geo() {
   return ng;
+}
+
+type Obj {
+  tuple: Tuple<any, any>;
+}
+
+@expose
+fn ambiguous() {
+  return Obj {
+    tuple: Tuple<String, String> { x: "Hello", y: ", world!" },
+  };
+}
+
+@expose
+fn ambiguous2() {
+  return ([], false);
 }

@@ -13,7 +13,7 @@ const reader = new AbiReader(abi, readBytes(filepath));
 try {
   reader.headers();
   for (const value of reader) {
-    console.dir(value, { depth: Infinity });
+    console.dir(value, { depth: Infinity, getters: true });
   }
 } catch (err) {
   console.error(err);

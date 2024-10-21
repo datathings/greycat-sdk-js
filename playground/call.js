@@ -14,7 +14,6 @@ try {
   const fnArgs = args[1] ? readBytes(args[1]) : undefined;
   const value = await g.call(args[0], fnArgs);
   displayValue(value);
-  g.serialize(value);
 } catch (err) {
   console.error(err.stack);
   process.exit(1);

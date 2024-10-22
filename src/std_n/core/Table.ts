@@ -20,12 +20,23 @@ export class Table<T = unknown[]> extends GCObject {
     return ord === SortOrd.asc ? diff : -diff;
   }
 
+  /**
+   * Optional headers for each column.
+   *
+   * When the table is created using `fromObjects()` the objects keys are used.
+   * If the table knows its generic param, the generic param fields are used.
+   */
   public headers: string[] | undefined;
   public subheaders: string[] | undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(type: AbiType, public cols: any[][]) {
     super(type);
+    if (type.generic_abi_type != 0) {
+      const generic_param_type = type.abi.types[type.g1_abi_type_desc >> 1];
+      this.headers = generic_param_type.attrs.map((a) => a.name);
+      this.subheaders = generic_param_type.attrs.map((a) => type.abi.types[a.abi_type].name);
+    }
   }
 
   /**

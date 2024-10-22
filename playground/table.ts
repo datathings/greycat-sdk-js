@@ -4,7 +4,7 @@
 // esbuild playground/table.ts | node --input-type=module
 import { core, GreyCat, SortOrd } from '@greycat/sdk';
 import assert from 'node:assert';
-// import { displayValue } from './_utils.js';
+import { displayValue } from './_utils.js';
 
 interface MyRow {
   id: number | bigint;
@@ -32,6 +32,8 @@ try {
 
 async function table_from_objects_remote(g: GreyCat) {
   const table = await g.call<core.Table<MyRow>>('project::some_table');
+  assert.deepStrictEqual(table.headers, ['id', 'temp', 'data']);
+  assert.deepStrictEqual(table.subheaders, ['core::int', 'core::float', 'project::Named']);
 
   // when calling `table.get_row(index)` you get a new instance
   const row_0_a = table.getRow(0);

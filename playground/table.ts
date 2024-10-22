@@ -65,8 +65,8 @@ async function table_from_objects(_g: GreyCat) {
   ]);
 
   // when calling `table.get_row(index)` you get a new instance
-  const row_0_a = table.get_row(0);
-  const row_0_b = table.get_row(0);
+  const row_0_a = table.getRow(0);
+  const row_0_b = table.getRow(0);
   // therefore, the values are deeply equal
   assert.deepStrictEqual(row_0_a, row_0_b);
   // but they are not the same object (eg. you get a new instance each time)
@@ -86,8 +86,8 @@ async function table_from_gc_objects(g: GreyCat) {
   ]);
 
   // when calling `table.get_row(index)` you get a new instance
-  const row_0_a = table.get_row(0);
-  const row_0_b = table.get_row(0);
+  const row_0_a = table.getRow(0);
+  const row_0_b = table.getRow(0);
   // therefore, the values are deeply equal
   assert.deepStrictEqual(row_0_a, row_0_b);
   // but they are not the same object (eg. you get a new instance each time)
@@ -122,9 +122,9 @@ async function table_from_map(_g: GreyCat) {
     ['Maria', 27],
   ]);
   const table = core.Table.fromMap(map);
-  assert.deepStrictEqual(table.get_row(0), ['John', 42]);
-  assert.deepStrictEqual(table.get_row(1), ['Paul', 36]);
-  assert.deepStrictEqual(table.get_row(2), ['Maria', 27]);
+  assert.deepStrictEqual(table.getRow(0), ['John', 42]);
+  assert.deepStrictEqual(table.getRow(1), ['Paul', 36]);
+  assert.deepStrictEqual(table.getRow(2), ['Maria', 27]);
 }
 
 async function table_sort(_g: GreyCat) {
@@ -154,11 +154,11 @@ async function table_from_objects_different_shapes(_g: GreyCat) {
     { password: 'password3', username: 'admin-1', is_admin: true, groups: ['aaa', 'bbb'] },
   ]);
 
-  assert.deepStrictEqual(table.get_row(0), ['user-0', 'password0', false, undefined, undefined]);
-  assert.deepStrictEqual(table.get_row(1), ['user-1', 'password1', false, undefined, undefined]);
-  assert.deepStrictEqual(table.get_row(2), ['admin-0', 'password2', undefined, true, undefined]);
-  assert.deepStrictEqual(table.get_row(3), [undefined, undefined, undefined, undefined, undefined]);
-  assert.deepStrictEqual(table.get_row(4), [
+  assert.deepStrictEqual(table.getRow(0), ['user-0', 'password0', false, undefined, undefined]);
+  assert.deepStrictEqual(table.getRow(1), ['user-1', 'password1', false, undefined, undefined]);
+  assert.deepStrictEqual(table.getRow(2), ['admin-0', 'password2', undefined, true, undefined]);
+  assert.deepStrictEqual(table.getRow(3), [undefined, undefined, undefined, undefined, undefined]);
+  assert.deepStrictEqual(table.getRow(4), [
     'admin-1',
     'password3',
     undefined,

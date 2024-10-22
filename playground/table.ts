@@ -51,6 +51,8 @@ async function table_from_objects_remote(g: GreyCat) {
     assert.deepStrictEqual(table.getRow(i), expected[i]);
   }
 
+  assert.deepStrictEqual(table.getRowArray(2), [2, 20.5, g.create('project::Named', ['three'])]);
+
   // console.log('table_from_objects_remote');
   // for (const row of table) {
   //   displayValue(row);

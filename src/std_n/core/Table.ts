@@ -192,6 +192,13 @@ export class Table<T = unknown[]> extends GCObject {
     }
   }
 
+  /**
+   * Returns either an object or an array depending on the underlying generic param of the core.Table
+   *
+   * *If you want to always get an array, use `getRowArray` instead*
+   * @param index
+   * @returns
+   */
   getRow(index: number): T | undefined {
     const nb_rows = this.cols[0]?.length ?? 0;
     if (index >= nb_rows) {
@@ -219,6 +226,21 @@ export class Table<T = unknown[]> extends GCObject {
       row[col] = this.cols[col][index];
     }
     return row as T;
+  }
+
+  /**
+   * Returns the row as an array (if the `index` is not in bounds, returns `undefined`)
+   */
+  getRowArray(index: number): unknown[] | undefined {
+    const nb_rows = this.cols[0]?.length ?? 0;
+    if (index < 0 || index >= nb_rows) {
+      return;
+    }
+    const row = new Array(this.cols.length);
+    for (let col = 0; col < this.cols.length; col++) {
+      row[col] = this.cols[col][index];
+    }
+    return row;
   }
 
   nbRows(): number {

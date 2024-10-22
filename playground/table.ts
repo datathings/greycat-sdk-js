@@ -34,8 +34,8 @@ async function table_from_objects_remote(g: GreyCat) {
   const table = await g.call<core.Table<MyRow>>('project::some_table');
 
   // when calling `table.get_row(index)` you get a new instance
-  const row_0_a = table.get_row(0);
-  const row_0_b = table.get_row(0);
+  const row_0_a = table.getRow(0);
+  const row_0_b = table.getRow(0);
   // therefore, the values are deeply equal
   assert.deepStrictEqual(row_0_a, row_0_b);
   // but they are not the same object (eg. you get a new instance each time)
@@ -48,7 +48,7 @@ async function table_from_objects_remote(g: GreyCat) {
     g.create('project::MyRow', [3, 30.5, g.create('project::Named', ['four'])]),
   ];
   for (let i = 0; i < expected.length; i++) {
-    assert.deepStrictEqual(table.get_row(i), expected[i]);
+    assert.deepStrictEqual(table.getRow(i), expected[i]);
   }
 
   // console.log('table_from_objects_remote');

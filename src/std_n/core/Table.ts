@@ -9,7 +9,6 @@ import { Value, GreyCat, GCObject, $, SortOrd } from '../../exports.js';
 export class Table<T = unknown[]> extends GCObject {
   static readonly _type = 'core::Table' as const;
   static readonly COLLATOR = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static compare(a: any, b: any, ord: SortOrd): number {
     let diff: number;
@@ -20,6 +19,9 @@ export class Table<T = unknown[]> extends GCObject {
     }
     return ord === SortOrd.asc ? diff : -diff;
   }
+
+  public headers: string[] | undefined;
+  public subheaders: string[] | undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(type: AbiType, public cols: any[][]) {
@@ -148,14 +150,18 @@ export class Table<T = unknown[]> extends GCObject {
     }
 
     const ty = g.abi.types[g.abi.core_table_offset];
-    return new ty.factory(ty, cols) as std.core.Table<unknown[]>;
+    const table = new ty.factory(ty, cols) as std.core.Table<unknown[]>;
+    table.headers = keys;
+    return table;
   }
 
   static fromMap<K, V>(map: Map<K, V>, g: GreyCat = $.default): std.core.Table<[K, V]> {
     const keys = Array.from(map.keys());
     const values = Array.from(map.values());
     const ty = g.abi.types[g.abi.core_table_offset];
-    return new ty.factory(ty, [keys, values]) as std.core.Table<[K, V]>;
+    const table = new ty.factory(ty, [keys, values]) as std.core.Table<[K, V]>;
+    table.headers = ['Key', 'Value'];
+    return table;
   }
 
   static load<T extends Value = unknown>(r: AbiReader, ty: AbiType): std.core.Table<T> {

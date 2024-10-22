@@ -12,10 +12,12 @@ export class Table<T = unknown[]> extends GCObject {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static compare(a: any, b: any, ord: SortOrd): number {
+    let diff: number;
     if (typeof a === 'string' && typeof b === 'string') {
-      return Table.COLLATOR.compare(a, b);
+      diff = Table.COLLATOR.compare(a, b);
+    } else {
+      diff = a > b ? 1 : a < b ? -1 : 0;
     }
-    const diff = a > b ? 1 : a < b ? -1 : 0;
     return ord === SortOrd.asc ? diff : -diff;
   }
 

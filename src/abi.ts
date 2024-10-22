@@ -352,7 +352,7 @@ export class Abi {
     }
   }
 
-  create<T = GCObject>(name: string, attributes: Value[]): T | undefined {
+  create<T = GCObject>(name: string, attributes: Value[]): T {
     const ty = this.type_by_fqn.get(name);
     if (ty === undefined) {
       throw new Error(`unknown type '${name}'`);

@@ -782,7 +782,7 @@ export class GreyCat {
    * @param attributes
    * @returns
    */
-  create(name: string, attributes: Value[]): GCObject | undefined {
+  create(name: string, attributes: Value[]): GCObject {
     return this.abi.create(name, attributes);
   }
 

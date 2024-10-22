@@ -1,21 +1,82 @@
 import type { AbiReader, AbiWriter, AbiType, std } from '../../exports.js';
-import { Value, GreyCat, GCObject, $ } from '../../exports.js';
+import { Value, GreyCat, GCObject, $, SortOrd } from '../../exports.js';
 
+/**
+ * Table is iterable by row by default using the `for..of` statement.
+ *
+ * One can iterate by columns by using the `for..of` statement on `table.iter_by_column()`.
+ */
 export class Table<T = unknown[]> extends GCObject {
   static readonly _type = 'core::Table' as const;
+  static readonly COLLATOR = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static compare(a: any, b: any, ord: SortOrd): number {
+    if (typeof a === 'string' && typeof b === 'string') {
+      return Table.COLLATOR.compare(a, b);
+    }
+    const diff = a > b ? 1 : a < b ? -1 : 0;
+    return ord === SortOrd.asc ? diff : -diff;
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(type: AbiType, public cols: any[][]) {
     super(type);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static create<T = any>(cols: any[][], g: GreyCat = $.default): std.core.Table<T> {
+  /**
+   * Creates a table using an array of columns.
+   */
+  static create(cols: unknown[][], g: GreyCat = $.default): std.core.Table<unknown[]> {
     const ty = g.abi.types[g.abi.core_table_offset];
     return new ty.factory(ty, cols) as std.core.Table;
   }
 
-  static fromRows(rows: Array<Value[]>, g: GreyCat = $.default): std.core.Table {
+  /**
+   * Proxies to `Table.create(...)`
+   */
+  static fromCols(cols: unknown[][], g: GreyCat = $.default): std.core.Table<unknown[]> {
+    return Table.create(cols, g);
+  }
+
+  static fromRows<C0, C1>(rows: Array<[C0, C1]>, g?: GreyCat): Table<[C0, C1]>;
+  static fromRows<C0, C1, C3>(rows: Array<[C0, C1, C3]>, g?: GreyCat): Table<[C0, C1, C3]>;
+  static fromRows<C0, C1, C3, C4>(
+    rows: Array<[C0, C1, C3, C4]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4]>;
+  static fromRows<C0, C1, C3, C4, C5>(
+    rows: Array<[C0, C1, C3, C4, C5]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5]>;
+  static fromRows<C0, C1, C3, C4, C5, C6>(
+    rows: Array<[C0, C1, C3, C4, C5, C6]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5, C6]>;
+  static fromRows<C0, C1, C3, C4, C5, C6, C7>(
+    rows: Array<[C0, C1, C3, C4, C5, C6, C7]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5, C6, C7]>;
+  static fromRows<C0, C1, C3, C4, C5, C6, C7, C8>(
+    rows: Array<[C0, C1, C3, C4, C5, C6, C7, C8]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5, C6, C7, C8]>;
+  static fromRows<C0, C1, C3, C4, C5, C6, C7, C8, C9>(
+    rows: Array<[C0, C1, C3, C4, C5, C6, C7, C8, C9]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5, C6, C7, C8, C9]>;
+  static fromRows<C0, C1, C3, C4, C5, C6, C7, C8, C9, C10>(
+    rows: Array<[C0, C1, C3, C4, C5, C6, C7, C8, C9, C10]>,
+    g?: GreyCat,
+  ): Table<[C0, C1, C3, C4, C5, C6, C7, C8, C9, C10]>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static fromRows<T extends any[]>(rows: Array<[...T]>, g?: GreyCat): Table<[...T]>;
+
+  /**
+   * Creates a table using an array of rows.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static fromRows(rows: any[][], g: GreyCat = $.default): std.core.Table<any[]> {
     const ty = g.abi.types[g.abi.core_table_offset];
 
     let nbColumns = 0;
@@ -39,29 +100,60 @@ export class Table<T = unknown[]> extends GCObject {
     return new ty.factory(ty, cols) as std.core.Table;
   }
 
-  static fromObjects<T extends { [K in keyof T]: T[K] }>(
-    rows: Record<string, Value>[],
+  /**
+   * Creates a table using an array of rows, rows being objects. Each fields will be destructured
+   * and end-up as columns of fields.
+   */
+  static fromObjects<T extends object | null | undefined>(
+    rows: T[],
     g: GreyCat = $.default,
-  ): std.core.Table<T> {
+  ): std.core.Table<unknown[]> {
     if (rows.length === 0) {
       const ty = g.abi.types[g.abi.core_table_offset];
-      return new ty.factory(ty, []) as std.core.Table<T>;
+      return new ty.factory(ty, []) as std.core.Table<unknown[]>;
     }
-    const nbRows = rows.length;
-    const fields = Object.keys(rows[0]);
-    const nbCols = fields.length;
 
-    const cols: Array<unknown[]> = Array.from({ length: nbCols }, () => new Array(nbRows));
+    const keys_dict = new Set<string>();
+    for (let i = 0; i < rows.length; i++) {
+      const obj = rows[i];
+      if (obj) {
+        for (const key in obj) {
+          if (Object.hasOwn(obj, key)) {
+            keys_dict.add(key);
+          }
+        }
+      }
+    }
+    const keys = Array.from(keys_dict);
 
-    // swap from row-based to column-based
-    for (let c = 0; c < nbCols; c++) {
-      for (let r = 0; r < nbRows; r++) {
-        cols[c][r] = rows[r][fields[c]];
+    const cols = new Array(keys.length);
+    for (let i = 0; i < keys.length; i++) {
+      cols[i] = new Array(rows.length);
+    }
+
+    for (let row = 0; row < rows.length; row++) {
+      const obj = rows[row];
+      if (typeof obj === 'object' && obj !== null) {
+        for (let col = 0; col < cols.length; col++) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          cols[col][row] = (obj as any)[keys[col]];
+        }
+      } else {
+        for (let col = 0; col < cols.length; col++) {
+          cols[col][row] = undefined;
+        }
       }
     }
 
     const ty = g.abi.types[g.abi.core_table_offset];
-    return new ty.factory(ty, cols) as std.core.Table<T>;
+    return new ty.factory(ty, cols) as std.core.Table<unknown[]>;
+  }
+
+  static fromMap<K, V>(map: Map<K, V>, g: GreyCat = $.default): std.core.Table<[K, V]> {
+    const keys = Array.from(map.keys());
+    const values = Array.from(map.values());
+    const ty = g.abi.types[g.abi.core_table_offset];
+    return new ty.factory(ty, [keys, values]) as std.core.Table<[K, V]>;
   }
 
   static load<T extends Value = unknown>(r: AbiReader, ty: AbiType): std.core.Table<T> {
@@ -85,48 +177,52 @@ export class Table<T = unknown[]> extends GCObject {
     }
   }
 
+  sort(col: number, ord: SortOrd): void {
+    for (let i = 0; i < this.cols[col].length - 1; i++) {
+      for (let j = i + 1; j < this.cols[col].length; j++) {
+        if (Table.compare(this.cols[col][i], this.cols[col][j], ord) > 0) {
+          // Swap elements in all columns
+          for (let k = 0; k < this.cols.length; k++) {
+            const temp = this.cols[k][i];
+            this.cols[k][i] = this.cols[k][j];
+            this.cols[k][j] = temp;
+          }
+        }
+      }
+    }
+  }
+
   get_row(index: number): T | undefined {
     const nb_rows = this.cols[0]?.length ?? 0;
     if (index >= nb_rows) {
       return undefined;
     }
-    if (this.$type.generic_abi_type == 0) {
-      const row = new Array(this.cols.length);
+    if (this.$type.generic_abi_type != 0) {
+      const elem_type = this.$type.abi.types[this.$type.g1_abi_type_desc >> 1];
+      const nullable = (this.$type.g1_abi_type_desc & 0b00000001) === 1;
+      const fields = new Array(this.cols.length);
+      let all_null = true;
       for (let col = 0; col < this.cols.length; col++) {
-        row[col] = this.cols[col][index];
+        fields[col] = this.cols[col][index];
+        if (fields[col] !== null) {
+          all_null = false;
+        }
       }
-      return row as T;
+      if (nullable && all_null) {
+        return null as T;
+      }
+      const value = new elem_type.factory(elem_type, ...fields) as T;
+      return value;
     }
-    const elem_type = this.$type.abi.types[this.$type.g1_abi_type_desc >> 1];
-    const nullable = (this.$type.g1_abi_type_desc & 0b00000001) === 1;
-    const fields = new Array(this.cols.length);
-    let all_null = true;
+    const row = new Array(this.cols.length);
     for (let col = 0; col < this.cols.length; col++) {
-      fields[col] = this.cols[col][index];
-      if (fields[col] !== null) {
-        all_null = false;
-      }
+      row[col] = this.cols[col][index];
     }
-    if (nullable && all_null) {
-      return null as T;
-    }
-    const value = new elem_type.factory(elem_type, ...fields) as T;
-    return value;
+    return row as T;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  iter_by_column(): Iterator<Array<any>> {
-    let index = 0;
-    const cols = this.cols;
-
-    return {
-      next() {
-        if (index < cols.length) {
-          return { value: cols[index++], done: false };
-        }
-        return { value: undefined, done: true };
-      },
-    };
+  iter_by_column(): TableColumnIterator {
+    return new TableColumnIterator(0, this.cols);
   }
 
   [Symbol.iterator](): Iterator<T> {
@@ -141,6 +237,21 @@ export class Table<T = unknown[]> extends GCObject {
       _type: Table._type,
       cols: this.cols,
     };
+  }
+}
+
+export class TableColumnIterator implements Iterator<unknown[]> {
+  constructor(private _index: number, private readonly _cols: Array<unknown[]>) {}
+
+  next(): IteratorResult<unknown[]> {
+    if (this._index < this._cols.length) {
+      return { value: this._cols[this._index++], done: false };
+    }
+    return { value: undefined, done: true };
+  }
+
+  [Symbol.iterator]() {
+    return this;
   }
 }
 
@@ -178,6 +289,10 @@ export class TableObjectIterator<T> implements Iterator<T> {
     }
     return { value, done: false };
   }
+
+  [Symbol.iterator]() {
+    return this;
+  }
 }
 
 export class TableArrayIterator implements Iterator<unknown[]> {
@@ -199,5 +314,9 @@ export class TableArrayIterator implements Iterator<unknown[]> {
     }
     this._index += 1;
     return { value: row, done: false };
+  }
+
+  [Symbol.iterator]() {
+    return this;
   }
 }

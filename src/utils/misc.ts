@@ -10,6 +10,11 @@ const GREYCAT_NUMBER_TYPES = ['core::float', 'core::int'];
 const hexLEtoBEbuf = new Uint8Array(8);
 const hexLEtoBEdv = new DataView(hexLEtoBEbuf.buffer);
 
+export enum SortOrd {
+  asc = 0,
+  desc = 1,
+}
+
 /**
  * Converts little-endian hexedecimal to there big-endian `BigInt`
  */

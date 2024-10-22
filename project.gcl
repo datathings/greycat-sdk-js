@@ -717,6 +717,7 @@ fn create_nodeTimes() {
 
 type Person {
   name: String;
+  age: int;
 }
 
 @expose

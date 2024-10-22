@@ -4,7 +4,7 @@
 // esbuild playground/table.ts | node --input-type=module
 import { core, GreyCat, SortOrd } from '@greycat/sdk';
 import assert from 'node:assert';
-import { displayValue } from './_utils.js';
+// import { displayValue } from './_utils.js';
 
 interface MyRow {
   id: number | bigint;

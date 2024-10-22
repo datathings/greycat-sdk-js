@@ -221,6 +221,10 @@ export class Table<T = unknown[]> extends GCObject {
     return row as T;
   }
 
+  nb_rows(): number {
+    return this.cols[0]?.length ?? 0;
+  }
+
   iter_by_column(): TableColumnIterator {
     return new TableColumnIterator(0, this.cols);
   }

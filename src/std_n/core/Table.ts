@@ -42,7 +42,7 @@ export class Table<T = unknown[]> extends GCObject {
   /**
    * Creates a table using an array of columns.
    */
-  static create(cols: unknown[][], g: GreyCat = $.default): std.core.Table<unknown[]> {
+  static create(cols: unknown[][] = [], g: GreyCat = $.default): std.core.Table<unknown[]> {
     const ty = g.abi.types[g.abi.core_table_offset];
     return new ty.factory(ty, cols) as std.core.Table;
   }
@@ -50,7 +50,7 @@ export class Table<T = unknown[]> extends GCObject {
   /**
    * Proxies to `Table.create(...)`
    */
-  static fromCols(cols: unknown[][], g: GreyCat = $.default): std.core.Table<unknown[]> {
+  static fromCols(cols: unknown[][] = [], g: GreyCat = $.default): std.core.Table<unknown[]> {
     return Table.create(cols, g);
   }
 

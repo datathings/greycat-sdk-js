@@ -197,6 +197,9 @@ export class Table<T = unknown[]> extends GCObject {
   }
 
   sort(col: number, ord: SortOrd): void {
+    if (col >= this.cols.length) {
+      return;
+    }
     for (let i = 0; i < this.cols[col].length - 1; i++) {
       for (let j = i + 1; j < this.cols[col].length; j++) {
         if (Table.compare(this.cols[col][i], this.cols[col][j], ord) > 0) {

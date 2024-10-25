@@ -200,16 +200,18 @@ export class Table<T = unknown[]> extends GCObject {
     if (col >= this.cols.length) {
       return;
     }
-    for (let i = 0; i < this.cols[col].length - 1; i++) {
-      for (let j = i + 1; j < this.cols[col].length; j++) {
-        if (Table.compare(this.cols[col][i], this.cols[col][j], ord) > 0) {
-          // Swap elements in all columns
-          for (let k = 0; k < this.cols.length; k++) {
-            const temp = this.cols[k][i];
-            this.cols[k][i] = this.cols[k][j];
-            this.cols[k][j] = temp;
-          }
-        }
+
+    // Create an index array [0, 1, 2, ..., n-1]
+    const indices = this.cols[col].map((_, index) => index);
+
+    // Sort rows based on the specified column
+    indices.sort((a, b) => Table.compare(this.cols[col][a], this.cols[col][b], ord));
+
+    // Rearrange each column in-place based on sorted indices
+    for (let k = 0; k < this.cols.length; k++) {
+      const sortedColumn = indices.map((index) => this.cols[k][index]);
+      for (let i = 0; i < sortedColumn.length; i++) {
+        this.cols[k][i] = sortedColumn[i];
       }
     }
   }

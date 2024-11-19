@@ -509,7 +509,7 @@ export class AbiType {
             const enum_type = r.abi.types[enum_id];
             value = this.enum_loader(r, enum_type);
           } else {
-            value = this.enum_loader(r, attType);
+            value = this.enum_loader(r, r.abi.types[attType.mapped_type_off]);
           }
           break;
         }

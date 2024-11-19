@@ -1,49 +1,18 @@
 // @ts-check
-import { GreyCat, algebralib, stdlib } from './dist/esm/index.js';
-
-const args = process.argv.slice(2);
-if (args.length < 1) {
-  console.log(`usage: node ${process.argv[1]} <path/to/endpoint>`);
-  process.exit(1);
-}
+import { GreyCat, core } from './dist/esm/index.js';
+import { projectlib } from './alva-bindings.js';
 
 const g = (global.greycat.default = await GreyCat.init({
   url: new URL('http://localhost:8080'),
-  libraries: [stdlib, algebralib],
+  libraries: [projectlib],
 }));
 
 try {
-  const fnArgs = args[1] === '-d' ? JSON.parse(await stdin()) : undefined;
-  const value = await g.call(args[0], fnArgs);
+  const value = await g.call('project::container');
   displayValue(value);
 } catch (err) {
   console.error(`Error: ${err.stack}`);
   process.exit(1);
-}
-
-function stdin() {
-  return new Promise((resolve, reject) => {
-    let data = '';
-
-    process.stdin.setEncoding('utf-8');
-
-    const id = setTimeout(() => {
-      resolve('null');
-    }, 1000);
-
-    process.stdin.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    process.stdin.on('end', () => {
-      clearTimeout(id);
-      resolve(data);
-    });
-    process.stdin.on('error', (err) => {
-      clearTimeout(id);
-      reject(err);
-    });
-  });
 }
 
 function displayValue(value) {

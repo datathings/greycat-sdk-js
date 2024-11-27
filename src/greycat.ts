@@ -18,6 +18,7 @@ import {
   sha256hex,
   std,
   PrimitiveType,
+  AbiTypeEvol,
 } from './exports.js';
 import { core } from './std_n/index.js';
 
@@ -875,6 +876,31 @@ export class GreyCat {
 
   findFn(fqn: string): AbiFunction | undefined {
     return this.abi.fn_by_fqn.get(fqn);
+  }
+
+  rootType(): AbiType {
+    return this.abi.root();
+  }
+
+  root(signal?: AbortSignal): Promise<Record<string, unknown>> {
+    return std.runtime.Runtime.root(this, signal);
+  }
+
+  /**
+   * @returns an array of `AbiTypeEvol` for all `AbiType` that have been updated
+   * according to the current ABI.
+   */
+  evolutions() {
+    const evolutions: AbiTypeEvol[] = [];
+    for (const ty of this.abi.types) {
+      if (ty.masked_type_off === 0) {
+        const evol = new AbiTypeEvol(ty);
+        if (evol.size > 1) {
+          evolutions.push(evol);
+        }
+      }
+    }
+    return evolutions;
   }
 }
 

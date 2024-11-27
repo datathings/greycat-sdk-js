@@ -457,9 +457,9 @@ export class Abi {
   }
 
   root(): AbiType {
-    const root = this.type_by_fqn.get('::$$$root');
+    const root = this.type_by_fqn.get('project::Root');
     if (!root) {
-      throw new Error(`Abi ::$$$root type should be defined`);
+      throw new Error(`Abi type 'project::Root' type should be defined`);
     }
     return root;
   }
@@ -739,7 +739,11 @@ export class AbiTypeEvol {
   constructor(ty: AbiType) {
     this.size = 0;
 
-    this.tail = { data: ty.abi.types[ty.mapped_type_off] };
+    const tail: node<AbiType> = { data: ty.abi.types[ty.mapped_type_off] };
+    while (tail.data.offset != tail.data.mapped_type_off) {
+      tail.data = ty.abi.types[tail.data.mapped_type_off];
+    }
+    this.tail = tail;
     let node: node<AbiType> | undefined = this.tail;
     while (node) {
       this.size++;

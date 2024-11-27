@@ -403,11 +403,11 @@ describe('project', () => {
           [1, 1000, 100000, 999999999, 42],
         ],
       },
-      width: { _type: 'core::duration', s: 3, us: 0 },
+      span: { _type: 'core::duration', s: 3, us: 0 },
     },
     {
       _type: 'util::SlidingWindow',
-      capacity: 10,
+      span: 10,
       field: null,
       sum: null,
       sumsq: null,

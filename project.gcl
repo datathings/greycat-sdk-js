@@ -4,6 +4,14 @@ var nl: nodeList<String>?;
 var ni: nodeIndex<String, float>?;
 var ng: nodeGeo<String>?;
 
+
+enum RelayApp {
+  pv;
+  pv_shelly;
+  ev;
+  ev_shelly;
+}
+
 type FloatPrecisionTest {
   normal: float;
   @precision(0.01)
@@ -299,7 +307,7 @@ fn write_std_util(out: GcbWriter) {
   // out.write(hist);
   // out.write(GaussianProfile { quantizer: quantizer, precision: FloatPrecision::p100 });
   out.write(time_window());
-  out.write(SlidingWindow { capacity: 10 });
+  out.write(SlidingWindow { span: 10 });
   var q = Queue<int> { values: Array<int> {4, 3, 2}, capacity: 3 };
   q.push(42);
   out.write(q);
@@ -310,7 +318,7 @@ fn write_std_util(out: GcbWriter) {
 }
 
 fn time_window() {
-  var window = TimeWindow { width: 3_s };
+  var window = TimeWindow { span: 3_s };
   window.add(0_time, 1);
   window.add(1_time, 1000);
   window.add(2_time, 100_000);

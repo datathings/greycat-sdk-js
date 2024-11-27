@@ -719,6 +719,86 @@ export class AbiParam {
 }
 
 /**
+ * Linkedlist node
+ */
+export interface node<T> {
+  prev?: node<T>;
+  data: T;
+  next?: node<T>;
+}
+
+export class AbiTypeEvol {
+  readonly head: Readonly<node<AbiType>>;
+  readonly tail: Readonly<node<AbiType>>;
+  readonly size: number;
+
+  /**
+   * Given any `AbiType` it will leverage the abi to find the head and tail.
+   * @param ty
+   */
+  constructor(ty: AbiType) {
+    this.size = 0;
+
+    this.tail = { data: ty.abi.types[ty.mapped_type_off] };
+    let node: node<AbiType> | undefined = this.tail;
+    while (node) {
+      this.size++;
+      if (node.data.masked_type_off <= 0) {
+        break;
+      }
+      node.prev = { data: ty.abi.types[node.data.masked_type_off], next: node };
+      node = node.prev;
+    }
+
+    this.head = node;
+  }
+
+  /**
+   * @returns an iterator that yields `node<AbiType>` starting at the oldest version
+   * and moving forward towards the latest update of that type.
+   *
+   * *Note: Here `node` refer to a linkedlist node with `prev` and `next` properties.*
+   */
+  forward() {
+    const head = this.head;
+    return {
+      *[Symbol.iterator]() {
+        let curr: node<AbiType> | undefined = head;
+        while (curr) {
+          yield curr;
+          if (!curr.next) {
+            return;
+          }
+          curr = curr.next;
+        }
+      },
+    };
+  }
+
+  /**
+   * @returns an iterator that yields `node<AbiType>` starting at the newest version
+   * and moving backward towards the oldest update of that type.
+   *
+   * *Note: Here `node` refer to a linkedlist node with `prev` and `next` properties.*
+   */
+  backward() {
+    const tail = this.tail;
+    return {
+      *[Symbol.iterator]() {
+        let curr: node<AbiType> | undefined = tail;
+        while (curr) {
+          yield curr;
+          if (!curr.prev) {
+            return;
+          }
+          curr = curr.prev;
+        }
+      },
+    };
+  }
+}
+
+/**
  * When loading multiple instances of GreyCat the mapped type array cannot
  * be shared between all instances, therefore we always clone the struct
  * so that each Library in each Abi instance gets its own array of mapped type

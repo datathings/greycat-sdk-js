@@ -1,21 +1,15 @@
 // @ts-check
 import { GreyCat } from '@greycat/sdk';
+import { displayValue } from './_utils.js';
 
 const greycat = await GreyCat.init();
 
 // spawns a task
 const task = await greycat.spawn('project::task_with_params', ['Hello world', 42]);
-
-// retrieve task info
-const info = await task.info();
-console.log(structuredClone(info));
-
-// retrieve task arguments
-const args = await task.arguments();
-console.log(structuredClone(args));
+displayValue(task);
 
 // await for completion
-await task.await();
-// retrieve the result
-const result = await task.result();
-console.log(structuredClone(result));
+console.log('await completion...');
+const result = await task.await();
+displayValue(result);
+

@@ -1,6 +1,6 @@
 import { std, type GreyCat, $ } from '../exports.js';
 
-interface CancellableTaskPromise extends Promise<std.runtime.TaskInfo | null> {
+interface CancellableTaskPromise extends Promise<void> {
   /**
    * **Cancels the remote task** and polls one last time for updated info
    */
@@ -15,7 +15,6 @@ interface CancellableTaskPromise extends Promise<std.runtime.TaskInfo | null> {
 export type TaskLike = Pick<std.runtime.Task, 'user_id' | 'task_id'>;
 
 export class TaskHandler {
-  info: std.runtime.TaskInfo | null = null;
   private _promise: CancellableTaskPromise | null = null;
 
   /**
@@ -26,23 +25,19 @@ export class TaskHandler {
   constructor(readonly task: TaskLike) {}
 
   /**
-   * Starts to poll for task info periodically.
+   * Starts to poll for completion periodically.
    *
    * *Does nothing if already started*
    *
    * @param delay delay in milliseconds between every poll (defaults to `2000` milliseconds)
-   * @param callback an optional callback function that will be called every time the new info are polled
    * @returns
    */
-  start(
-    delay = 2000,
-    callback?: (info: std.runtime.TaskInfo) => void,
-  ): Promise<std.runtime.TaskInfo | null> {
+  start(delay = 2000): Promise<void> {
     if (this._promise) {
       // already started
       return this._promise;
     }
-    this._promise = this._poll(delay, callback);
+    this._promise = this._poll(delay);
     return this._promise;
   }
 
@@ -50,14 +45,13 @@ export class TaskHandler {
    * **Cancels the remote task** and polls one last time for updated info
    * @returns the *after-cancel* info of the task
    */
-  async cancel(): Promise<std.runtime.TaskInfo | null> {
+  async cancel(): Promise<void> {
     if (!this._promise) {
       // not started
-      return null;
+      return;
     }
     this._promise.cancel();
-    const info = await this._promise;
-    return info;
+    return this._promise;
   }
 
   /**
@@ -80,15 +74,6 @@ export class TaskHandler {
    */
   result<T = unknown>(g: GreyCat = $.default): Promise<T> {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/result.gcb`);
-  }
-
-  /**
-   * Convenience method to download and deserialize this task's "arguments.gcb".
-   *
-   * *This is wrapper around `greycat.getFile('<user_id>/tasks/<task_id>/arguments.gcb')`*
-   */
-  arguments<T = unknown>(g: GreyCat = $.default): Promise<T[]> {
-    return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/arguments.gcb`);
   }
 
   /**
@@ -116,67 +101,37 @@ export class TaskHandler {
     return g.getFile(`${this.task.user_id}/tasks/${this.task.task_id}/${filepath}`);
   }
 
-  private _poll(
-    delay: number,
-    callback: (info: std.runtime.TaskInfo) => void = () => void 0,
-  ): CancellableTaskPromise {
+  private _poll(delay: number): CancellableTaskPromise {
     const cancelCtrl = new AbortController();
     const stopCtrl = new AbortController();
 
-    const promise = new Promise<std.runtime.TaskInfo | null>((resolve, reject) => {
-      const user_id = this.task.user_id;
+    const promise = new Promise<void>((resolve, reject) => {
+      // const user_id = this.task.user_id;
       const task_id = this.task.task_id;
 
-      const handleCancel = async () => {
-        // make sure GreyCat cancels the task
-        await std.runtime.Task.cancel(task_id);
-        // update info
-        this.info = await std.runtime.Task.info(user_id, task_id);
-        return this.info;
-      };
-
       const internalPoll = async () => {
-        this.info = await std.runtime.Task.info(user_id, task_id);
-        if (this.info === null) {
-          return null;
-        }
-
-        while (
-          this.info != null &&
-          (this.info.status.key === 'running' || this.info.status.key === 'waiting')
-        ) {
-          callback(this.info);
+        let running = await std.runtime.Task.is_running(task_id);
+        while (running) {
           if (cancelCtrl.signal.aborted) {
-            return handleCancel();
+            await std.runtime.Task.cancel(task_id);
+            break;
           }
           if (stopCtrl.signal.aborted) {
-            return this.info;
+            break;
           }
-          // update task info
-          this.info = await std.runtime.Task.info(user_id, task_id);
+          await new Promise((resolve) => {
+            // TODO sleeping cannot be cancelled, it should
+            setTimeout(resolve, delay);
+          });
           if (cancelCtrl.signal.aborted) {
-            return handleCancel();
+            await std.runtime.Task.cancel(task_id);
+            break;
           }
           if (stopCtrl.signal.aborted) {
-            return this.info;
+            break;
           }
-
-          // wait a bit before polling again
-          await new Promise((resolve) => setTimeout(resolve, delay));
-
-          if (cancelCtrl.signal.aborted) {
-            return handleCancel();
-          }
-          if (stopCtrl.signal.aborted) {
-            return this.info;
-          }
+          running = await std.runtime.Task.is_running(task_id);
         }
-
-        if (this.info) {
-          callback(this.info);
-        }
-
-        return this.info;
       };
 
       internalPoll().then(resolve, reject);

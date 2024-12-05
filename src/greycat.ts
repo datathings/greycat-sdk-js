@@ -390,49 +390,21 @@ export class GreyCat {
   }
 
   async await<T = unknown>(task: TaskLike, pollEvery?: number, signal?: AbortSignal): Promise<T> {
-    let info: std.runtime.TaskInfo | undefined;
-    info = await this.call<std.runtime.TaskInfo>(
-      `runtime::Task::info`,
-      [task.user_id, task.task_id],
+    let running = await std.runtime.Task.is_running(task.task_id, this, signal);
+    // eslint-disable-next-line no-constant-condition
+    while (running) {
+      // re-fetch task info, on first fetch we only wait 250ms
+      await sleep(pollEvery ?? 2000, signal);
+      running = await std.runtime.Task.is_running(task.task_id, this, signal);
+    }
+    const [result] = await this.getFile<T>(
+      `${task.user_id}/tasks/${task.task_id}/result.gcb`,
       signal,
     );
-    let status = info.status;
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      switch (status.key) {
-        case 'cancelled':
-          throw new TaskCancelled(task);
-        case 'empty':
-        case 'waiting':
-        case 'await':
-        case 'running': {
-          // re-fetch task info, on first fetch we only wait 250ms
-          await sleep(pollEvery ?? 2000, signal);
-          info = await this.call<std.runtime.TaskInfo>(
-            `runtime::Task::info`,
-            [task.user_id, task.task_id],
-            signal,
-          );
-          status = info.status;
-          break;
-        }
-        case 'ended': {
-          const result = await this.getFile<T>(
-            `${task.user_id}/tasks/${task.task_id}/result.gcb`,
-            signal,
-          );
-          return result[0];
-        }
-        case 'error':
-        case 'ended_with_errors': {
-          const result = await this.getFile<std.core.Error>(
-            `${task.user_id}/tasks/${task.task_id}/result.gcb`,
-            signal,
-          );
-          throw result[0] ?? new Error(`Task ${task.user_id}/${task.task_id} ended in error`);
-        }
-      }
+    if (result instanceof std.core.Error) {
+      throw result;
     }
+    return result;
   }
 
   /**

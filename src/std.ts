@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //
-//
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // TAKES EXTRA CARE WHEN MODIFYING THIS FILE
 // TYPESCRIPT IS DISABLED, MAKING MISTAKES IS REALLY EASY
-//
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 import { std, type GreyCat, $ } from './exports.js';
 
@@ -20,9 +20,6 @@ Object.assign(std.runtime.Task.prototype, {
   await(this: std.runtime.Task, pollEvery?: number, g: GreyCat = $.default, signal?: AbortSignal) {
     return g.await(this, pollEvery, signal);
   },
-  info(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal) {
-    return std.runtime.Task.info(this.user_id, this.task_id, g, signal);
-  },
   async result<T = unknown>(
     this: std.runtime.Task,
     g: GreyCat = $.default,
@@ -31,12 +28,8 @@ Object.assign(std.runtime.Task.prototype, {
     const results = await g.getFile<T>(`${this.user_id}/tasks/${this.task_id}/result.gcb`, signal);
     return results[0];
   },
-  arguments(
-    this: std.runtime.Task,
-    g: GreyCat = $.default,
-    signal?: AbortSignal,
-  ): Promise<unknown[]> {
-    return g.getFile(`${this.user_id}/tasks/${this.task_id}/arguments.gcb`, signal);
+  is_running(this: std.runtime.Task, g: GreyCat = $.default, signal?: AbortSignal) {
+    return std.runtime.Task.is_running(this.task_id, g, signal);
   },
 });
 

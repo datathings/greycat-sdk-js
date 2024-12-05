@@ -36,26 +36,22 @@ export namespace runtime {
     result<T = unknown>(g?: $greycat.GreyCat, signal?: AbortSignal): Promise<T>;
 
     /**
-     * Returns the arguments of the task.
-     *
-     * *This is equivalent to `task.getFile('arguments.gcb')`*
-     */
-    arguments(g?: $greycat.GreyCat, signal?: AbortSignal): Promise<unknown[]>;
-
-    /**
      * Awaits for the completion of the task.
      *
      * *NB: "completion" does not mean success*
      *
      * @param pollEvery will check the status of the task once every `pollEvery` milliseconds
+     * @param g
      * @param signal
      */
     await<T = unknown>(pollEvery?: number, g?: $greycat.GreyCat, signal?: AbortSignal): Promise<T>;
 
     /**
-     * Fetches the task info.
+     * Whether or not this task is live or completed.
+     * @param g 
+     * @param signal 
      */
-    info(g?: $greycat.GreyCat, signal?: AbortSignal): Promise<TaskInfo | null>;
+    is_running(g?: $greycat.GreyCat, signal?: AbortSignal): Promise<boolean>;
   }
 }
 

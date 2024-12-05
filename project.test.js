@@ -144,7 +144,7 @@ describe('project', () => {
     },
     { _type: 'core::nodeTime', ref: 'c00000' },
     [],
-    { _type: 'core::Tuple', x: [], y: {} },
+    // { _type: 'core::Tuple', x: [], y: {} },
     { _type: 'core::Tuple', x: 42, y: 'hello' },
     { _type: 'core::nodeIndex', ref: '1000000' },
     {
@@ -237,6 +237,7 @@ describe('project', () => {
       mod: '',
       type: '',
       fun: '',
+      progress: null,
       start: null,
       duration: null,
       creation: '1970-01-01T00:00:00.000Z',

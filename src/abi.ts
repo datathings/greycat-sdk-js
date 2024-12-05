@@ -114,6 +114,7 @@ export class Abi {
       const generic_abi_type = cursor.read_vu32();
       const g1_abi_type_desc = cursor.read_vu32();
       const g2_abi_type_desc = cursor.read_vu32();
+      const super_type = cursor.read_vu32();
       const attributes_len = cursor.read_vu32();
       /* const attributes_offset =  */ cursor.read_vu32(); // unused
       /* const mapped_prog_type_offset =  */ cursor.read_vu32(); // unused
@@ -162,6 +163,7 @@ export class Abi {
         generic_abi_type,
         g1_abi_type_desc,
         g2_abi_type_desc,
+        super_type,
         mapped_abi_type_offset,
         masked_abi_type_offset,
         nullable_nb_bytes,
@@ -556,6 +558,7 @@ export class AbiType {
     readonly generic_abi_type: number,
     readonly g1_abi_type_desc: number,
     readonly g2_abi_type_desc: number,
+    readonly super_type: number,
     readonly mapped_type_off: number,
     readonly masked_type_off: number,
     readonly nullable_nb_bytes: number,

@@ -9,7 +9,7 @@ import { std, type GreyCat, $ } from './exports.js';
 
 Object.assign(std.core.Error.prototype, {
   toString(this: std.core.Error) {
-    let err_msg = `${this.message}\n`;
+    let err_msg = `${this.message ?? 'RuntimeError'}\n`;
     for (const frame of this.stack) {
       err_msg += `    at ${frame.function} (${frame.module}.gcl:${frame.line}:${frame.column})\n`;
     }

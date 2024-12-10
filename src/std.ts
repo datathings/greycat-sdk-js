@@ -7,6 +7,16 @@
 //
 import { std, type GreyCat, $ } from './exports.js';
 
+Object.assign(std.core.Error.prototype, {
+  toString(this: std.core.Error) {
+    let err_msg = `${this.message}\n`;
+    for (const frame of this.stack) {
+      err_msg += `    at ${frame.function} (${frame.module}.gcl:${frame.line}:${frame.column})\n`;
+    }
+    return err_msg;
+  }
+});
+
 // augment std.runtime.Task
 Object.assign(std.runtime.Task.prototype, {
   getFile<T = unknown>(

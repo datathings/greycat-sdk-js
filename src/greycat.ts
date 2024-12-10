@@ -550,13 +550,7 @@ export class GreyCat {
     if (err === null) {
       throw new Error(`calling '${method}' failed`);
     }
-    let err_msg = `[greycat] ${err.message}\n`;
-    for (const frame of err.stack) {
-      err_msg += `    at ${frame.function} (${frame.module}.gcl:${frame.line}:${frame.column})\n`;
-    }
-    err_msg += `\n`;
-    err_msg += `Caused by: calling '${method}'`;
-    throw new Error(err_msg);
+    throw new Error(`[greycat] ${err}\nCaused by: calling '${method}'`);
   }
 
   /**

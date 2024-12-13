@@ -431,7 +431,7 @@ export class GreyCat {
           const arg = args[i];
           if (!param) {
             writer.serialize(arg);
-          } else if (param.type.offset === this.abi.core_float_offset) {
+          } else if (param.type.offset === this.abi.core.float) {
             if (arg === null) {
               writer.null();
             } else if (typeof arg === 'number') {
@@ -439,7 +439,7 @@ export class GreyCat {
             } else {
               writer.serialize(arg);
             }
-          } else if (param.type.offset === this.abi.core_char_offset) {
+          } else if (param.type.offset === this.abi.core.char) {
             if (arg === null) {
               writer.null();
             } else if (typeof arg === 'string') {
@@ -447,26 +447,20 @@ export class GreyCat {
             } else {
               writer.serialize(arg);
             }
-          } else if (
-            param.type.generic_abi_type === this.abi.core_array_offset &&
-            Array.isArray(arg)
-          ) {
+          } else if (param.type.generic_abi_type === this.abi.core.array && Array.isArray(arg)) {
             // monomorphic array
             writer.write_u8(PrimitiveType.object);
             writer.write_vu32(param.type.offset);
             writer.write_vu32(arg.length);
             writer.write_array(arg);
-          } else if (
-            param.type.generic_abi_type === this.abi.core_map_offset &&
-            arg instanceof Map
-          ) {
+          } else if (param.type.generic_abi_type === this.abi.core.map && arg instanceof Map) {
             // monomorphic map
             writer.write_u8(PrimitiveType.object);
             writer.write_vu32(param.type.offset);
             writer.write_vu32(arg.size);
             writer.write_map(arg);
           } else if (
-            param.type.generic_abi_type === this.abi.core_table_offset &&
+            param.type.generic_abi_type === this.abi.core.table &&
             arg instanceof core.Table
           ) {
             writer.write_u8(PrimitiveType.object);

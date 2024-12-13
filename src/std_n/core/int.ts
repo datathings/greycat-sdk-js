@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, $ } from '../../exports.js';
 export class int extends GCObject {
   static readonly _type = 'core::int' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint = 0n) {
     super(type);
   }
 
   static create(value: number | bigint, g: GreyCat = $.default): std.core.int {
-    const ty = g.abi.types[g.abi.core_int_offset];
+    const ty = g.abi.types[g.abi.core.int];
     return new ty.factory(ty, typeof value === 'bigint' ? value : BigInt(value)) as std.core.int;
   }
 

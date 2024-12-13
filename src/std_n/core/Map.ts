@@ -5,7 +5,7 @@ import { GCObject, GCEnum, $ } from '../../exports.js';
 export class Map<K extends Value = any, V extends Value = any> extends GCObject {
   static readonly _type = 'core::Map' as const;
 
-  constructor(type: AbiType, readonly map: globalThis.Map<K, V>) {
+  constructor(type: AbiType, readonly map: globalThis.Map<K, V> = new globalThis.Map()) {
     super(type);
   }
 
@@ -14,7 +14,7 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
     map: globalThis.Map<K, V>,
     g: GreyCat = $.default,
   ): std.core.Map<K, V> {
-    const ty = g.abi.types[g.abi.core_map_offset];
+    const ty = g.abi.types[g.abi.core.map];
     return new ty.factory(ty, map) as std.core.Map<K, V>;
   }
 
@@ -84,5 +84,9 @@ export class Map<K extends Value = any, V extends Value = any> extends GCObject 
     });
 
     return json;
+  }
+
+  override valueOf() {
+    return this.map;
   }
 }

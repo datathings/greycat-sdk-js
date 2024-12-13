@@ -12,52 +12,52 @@ export class duration extends GCObject {
   static readonly SECOND = 1_000_000n as const;
   static readonly MILLISECOND = 1_000n as const;
 
-  constructor(type: AbiType, public value: bigint | number) {
+  constructor(type: AbiType, public value: bigint | number = 0) {
     super(type);
   }
 
   static create(value: bigint | number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value) as duration;
   }
 
   static from_ms(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.MILLISECOND)) as std.core.duration;
   }
 
   static from_secs(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.SECOND)) as std.core.duration;
   }
 
   static from_mins(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.MINUTE)) as std.core.duration;
   }
 
   static from_hours(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.HOUR)) as std.core.duration;
   }
 
   static from_days(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.DAY)) as std.core.duration;
   }
 
   static from_weeks(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.WEEK)) as std.core.duration;
   }
 
   static from_months(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.MONTH)) as std.core.duration;
   }
 
   static from_years(value: number, g: GreyCat = $.default): std.core.duration {
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, value * Number(duration.YEAR)) as std.core.duration;
   }
 

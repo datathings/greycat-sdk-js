@@ -72,7 +72,7 @@ export const PrimitiveTypeName = {
 export type PrimitiveType = ExtractValues<typeof PrimitiveType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IFactory = { new (type: AbiType, ...attributes: any[]): GCObject };
+export type IFactory = { new (type: AbiType, ...fields: any[]): GCObject };
 export type IPrimitiveLoader = (r: AbiReader) => Value;
 export type ILoader = (r: AbiReader, type: AbiType) => Value;
 export type Value = unknown;
@@ -163,61 +163,61 @@ export interface WithAbiOptions extends Options {
 }
 
 export function primitiveType(type: AbiType): PrimitiveType {
-  if (type.offset === type.abi.core_node_offset) {
+  if (type.offset === type.abi.core.node) {
     return PrimitiveType.node;
   }
-  if (type.offset === type.abi.core_node_time_offset) {
+  if (type.offset === type.abi.core.node_time) {
     return PrimitiveType.node_time;
   }
-  if (type.offset === type.abi.core_node_index_offset) {
+  if (type.offset === type.abi.core.node_index) {
     return PrimitiveType.node_index;
   }
-  if (type.offset === type.abi.core_node_list_offset) {
+  if (type.offset === type.abi.core.node_list) {
     return PrimitiveType.node_list;
   }
-  if (type.offset === type.abi.core_node_geo_offset) {
+  if (type.offset === type.abi.core.node_geo) {
     return PrimitiveType.node_geo;
   }
-  if (type.offset === type.abi.core_geo_offset) {
+  if (type.offset === type.abi.core.geo) {
     return PrimitiveType.geo;
   }
-  if (type.offset === type.abi.core_time_offset) {
+  if (type.offset === type.abi.core.time) {
     return PrimitiveType.time;
   }
-  if (type.offset === type.abi.core_duration_offset) {
+  if (type.offset === type.abi.core.duration) {
     return PrimitiveType.duration;
   }
-  if (type.offset === type.abi.core_cubic_offset) {
+  if (type.offset === type.abi.core.cubic) {
     return PrimitiveType.cubic;
   }
-  if (type.offset === type.abi.core_t2_offset) {
+  if (type.offset === type.abi.core.t2) {
     return PrimitiveType.t2;
   }
-  if (type.offset === type.abi.core_t3_offset) {
+  if (type.offset === type.abi.core.t3) {
     return PrimitiveType.t3;
   }
-  if (type.offset === type.abi.core_t4_offset) {
+  if (type.offset === type.abi.core.t4) {
     return PrimitiveType.t4;
   }
-  if (type.offset === type.abi.core_str_offset) {
+  if (type.offset === type.abi.core.str) {
     return PrimitiveType.str;
   }
-  if (type.offset === type.abi.core_t2f_offset) {
+  if (type.offset === type.abi.core.t2f) {
     return PrimitiveType.t2f;
   }
-  if (type.offset === type.abi.core_t3f_offset) {
+  if (type.offset === type.abi.core.t3f) {
     return PrimitiveType.t3f;
   }
-  if (type.offset === type.abi.core_t4f_offset) {
+  if (type.offset === type.abi.core.t4f) {
     return PrimitiveType.t4f;
   }
-  if (type.offset === type.abi.core_function_offset) {
+  if (type.offset === type.abi.core.fn) {
     return PrimitiveType.function;
   }
-  if (type.offset === type.abi.core_type_offset) {
+  if (type.offset === type.abi.core.type) {
     return PrimitiveType.type;
   }
-  if (type.offset === type.abi.core_field_offset) {
+  if (type.offset === type.abi.core.field) {
     return PrimitiveType.field;
   }
   return PrimitiveType.object;

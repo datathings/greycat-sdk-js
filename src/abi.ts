@@ -1,6 +1,112 @@
 import type { IFactory, ILoader, Library, Value } from './exports.js';
 import { std, PrimitiveType, Reader, GCEnum, GCObject, std_n } from './exports.js';
 
+class AbiCoreBuilder {
+  public null_ = 0;
+  public int = 0;
+  public bool = 0;
+  public string = 0;
+  public duration = 0;
+  public time = 0;
+  public geo = 0;
+  public node_list = 0;
+  public node_index = 0;
+  public node_time = 0;
+  public node = 0;
+  public node_geo = 0;
+  public array = 0;
+  public map = 0;
+  public cubic = 0;
+  public t2 = 0;
+  public t3 = 0;
+  public t4 = 0;
+  public str = 0;
+  public t2f = 0;
+  public t3f = 0;
+  public t4f = 0;
+  public fn = 0;
+  public type = 0;
+  public timezone = 0;
+  public date = 0;
+  public table = 0;
+  public tensortype = 0;
+  public float = 0;
+  public char = 0;
+  public field = 0;
+
+  toAbiCore(): AbiCore {
+    return new AbiCore(
+      this.null_,
+      this.int,
+      this.bool,
+      this.string,
+      this.duration,
+      this.time,
+      this.geo,
+      this.node_list,
+      this.node_index,
+      this.node_time,
+      this.node,
+      this.node_geo,
+      this.array,
+      this.map,
+      this.cubic,
+      this.t2,
+      this.t3,
+      this.t4,
+      this.str,
+      this.t2f,
+      this.t3f,
+      this.t4f,
+      this.fn,
+      this.type,
+      this.timezone,
+      this.date,
+      this.table,
+      this.tensortype,
+      this.float,
+      this.char,
+      this.field,
+    );
+  }
+}
+
+export class AbiCore {
+  constructor(
+    readonly null_: number,
+    readonly int: number,
+    readonly bool: number,
+    readonly string: number,
+    readonly duration: number,
+    readonly time: number,
+    readonly geo: number,
+    readonly node_list: number,
+    readonly node_index: number,
+    readonly node_time: number,
+    readonly node: number,
+    readonly node_geo: number,
+    readonly array: number,
+    readonly map: number,
+    readonly cubic: number,
+    readonly t2: number,
+    readonly t3: number,
+    readonly t4: number,
+    readonly str: number,
+    readonly t2f: number,
+    readonly t3f: number,
+    readonly t4f: number,
+    readonly fn: number,
+    readonly type: number,
+    readonly timezone: number,
+    readonly date: number,
+    readonly table: number,
+    readonly tensortype: number,
+    readonly float: number,
+    readonly char: number,
+    readonly field: number,
+  ) {}
+}
+
 export class Abi {
   static readonly protocol_version = 2;
 
@@ -9,69 +115,40 @@ export class Abi {
   readonly crc: bigint;
 
   /** Maps all the ABI symbols to their respective offset in `this.symbols` */
-  readonly off_by_symbol: Map<string, number>;
-  /** not the full fqn `<module>::<name>` only */
+  readonly symbol_ids: Map<string, number>;
+  /** fqn `<module>::<name>` only */
   readonly type_by_fqn: Map<string, AbiType>;
-  /** not the full fqn `<module>::<name>` only */
+  /** fqn `<module>::<name>` only */
   readonly fn_by_fqn: Map<string, AbiFunction>;
   readonly libs_by_name: Map<string, Library>;
-
-  readonly loaders: Map<string, ILoader>;
-  readonly factories: Map<string, IFactory>;
+  /** Known core type ids (after abi link) */
+  readonly core: AbiCore;
 
   readonly symbols: string[] = [];
   readonly types: AbiType[] = [];
   readonly functions: AbiFunction[] = [];
 
-  readonly core_int_offset: number = 0;
-  readonly core_string_offset: number = 0;
-  readonly core_duration_offset: number = 0;
-  readonly core_time_offset: number = 0;
-  readonly core_geo_offset: number = 0;
-  readonly core_node_list_offset: number = 0;
-  readonly core_node_index_offset: number = 0;
-  readonly core_node_time_offset: number = 0;
-  readonly core_node_offset: number = 0;
-  readonly core_node_geo_offset: number = 0;
-  readonly core_array_offset: number = 0;
-  readonly core_map_offset: number = 0;
-  readonly core_cubic_offset: number = 0;
-  readonly core_t2_offset: number = 0;
-  readonly core_t3_offset: number = 0;
-  readonly core_t4_offset: number = 0;
-  readonly core_str_offset: number = 0;
-  readonly core_t2f_offset: number = 0;
-  readonly core_t3f_offset: number = 0;
-  readonly core_t4f_offset: number = 0;
-  readonly core_function_offset: number = 0;
-  readonly core_type_offset: number = 0;
-  readonly core_timezone_offset: number = 0;
-  readonly core_date_offset: number = 0;
-  readonly core_table_offset: number = 0;
-  readonly core_tensortype_offset: number = 0;
-  readonly core_float_offset: number = 0;
-  readonly core_char_offset: number = 0;
-  readonly core_field_offset: number = 0;
-
   constructor(buffer: ArrayBuffer, libraries: Library[] = []) {
-    this.off_by_symbol = new Map();
+    this.symbol_ids = new Map();
     this.type_by_fqn = new Map();
-    this.loaders = new Map();
-    this.factories = new Map();
     this.libs_by_name = new Map();
     this.fn_by_fqn = new Map();
+    const core = new AbiCoreBuilder();
+
+    const loaders = new Map();
+    const factories = new Map();
 
     const hasStd = libraries.find((lib) => lib.name === 'std');
     // always load 'stdlib'
     if (!hasStd) {
       const stdlib = cloneLibrary(std.stdlib);
-      stdlib.configure(this.loaders, this.factories);
+      stdlib.configure(loaders, factories);
       this.libs_by_name.set(stdlib.name, stdlib);
     }
 
     for (let i = 0; i < libraries.length; i++) {
       const lib = cloneLibrary(libraries[i]);
-      lib.configure(this.loaders, this.factories);
+      lib.configure(loaders, factories);
       this.libs_by_name.set(lib.name, lib);
     }
 
@@ -98,7 +175,7 @@ export class Abi {
       const len = cursor.read_vu32();
       const symbol = cursor.read_string(len);
       this.symbols[i] = symbol;
-      this.off_by_symbol.set(symbol, i);
+      this.symbol_ids.set(symbol, i);
     }
 
     /* const types_size = */ cursor.read_u64(); // unused
@@ -173,8 +250,9 @@ export class Abi {
         is_masked,
         is_ambiguous,
         attrs,
-        this.loaders.get(key),
-        this.factories.get(key),
+        loaders.get(key),
+        factories.get(key),
+        this.symbols[lib_name] === 'std' && this.symbols[module] === 'core',
         this,
       );
       if (type.mapped_type_off == i) {
@@ -183,94 +261,100 @@ export class Abi {
 
       this.types[i] = type;
 
-      if (this.symbols[module] === 'core') {
+      if (this.symbols[lib_name] === 'std' && this.symbols[module] === 'core') {
         switch (this.symbols[name]) {
+          case 'null':
+            core.null_ = i;
+            break;
+          case 'bool':
+            core.bool = i;
+            break;
           case 'String':
-            this.core_string_offset = i;
+            core.string = i;
             break;
           case 'Array':
-            this.core_array_offset = i;
+            core.array = i;
             break;
           case 'Map':
-            this.core_map_offset = i;
+            core.map = i;
             break;
           case 'geo':
-            this.core_geo_offset = i;
+            core.geo = i;
             break;
           case 'duration':
-            this.core_duration_offset = i;
+            core.duration = i;
             break;
           case 'time':
-            this.core_time_offset = i;
+            core.time = i;
             break;
           case 'node':
-            this.core_node_offset = i;
+            core.node = i;
             break;
           case 'nodeTime':
-            this.core_node_time_offset = i;
+            core.node_time = i;
             break;
           case 'nodeList':
-            this.core_node_list_offset = i;
+            core.node_list = i;
             break;
           case 'nodeGeo':
-            this.core_node_geo_offset = i;
+            core.node_geo = i;
             break;
           case 'nodeIndex':
-            this.core_node_index_offset = i;
+            core.node_index = i;
             break;
           case 'cubic':
-            this.core_cubic_offset = i;
+            core.cubic = i;
             break;
           case 't2':
-            this.core_t2_offset = i;
+            core.t2 = i;
             break;
           case 't3':
-            this.core_t3_offset = i;
+            core.t3 = i;
             break;
           case 't4':
-            this.core_t4_offset = i;
+            core.t4 = i;
             break;
           case 'str':
-            this.core_str_offset = i;
+            core.str = i;
             break;
           case 't2f':
-            this.core_t2f_offset = i;
+            core.t2f = i;
             break;
           case 't3f':
-            this.core_t3f_offset = i;
+            core.t3f = i;
             break;
           case 't4f':
-            this.core_t4f_offset = i;
+            core.t4f = i;
             break;
           case 'function':
-            this.core_function_offset = i;
+            core.fn = i;
             break;
           case 'type':
-            this.core_type_offset = i;
+            core.type = i;
             break;
           case 'TimeZone':
-            this.core_timezone_offset = i;
+            core.timezone = i;
             break;
           case 'Date':
-            this.core_date_offset = i;
+            core.date = i;
             break;
           case 'Table':
-            this.core_table_offset = i;
+            core.table = i;
             break;
           case 'TensorType':
-            this.core_tensortype_offset = i;
+            core.tensortype = i;
             break;
           case 'float':
-            this.core_float_offset = i;
+            core.float = i;
             break;
           case 'int':
-            this.core_int_offset = i;
+            core.int = i;
             break;
           case 'char':
-            this.core_char_offset = i;
+            core.char = i;
             break;
           case 'field':
-            this.core_field_offset = i;
+            core.field = i;
             break;
           default:
             // noop
@@ -278,6 +362,8 @@ export class Abi {
         }
       }
     }
+
+    this.core = core.toAbiCore();
 
     /* const functions_size = */ cursor.read_u64();
     const functions_len = cursor.read_u32();
@@ -288,12 +374,24 @@ export class Abi {
       const name = cursor.read_vu32();
       const lib = cursor.read_vu32();
       const arity = cursor.read_vu32();
+      const attrs = new Array(arity);
       const params = new Array(arity);
       for (let p = 0; p < arity; p++) {
         const nullable = cursor.read_u8() === 1;
         const param_type = cursor.read_vu32();
         const param_symbol = cursor.read_vu32();
         params[p] = new AbiParam(this.symbols[param_symbol], this.types[param_type], nullable);
+        attrs[p] = new AbiAttribute(
+          this.symbols[param_symbol],
+          param_type,
+          0,
+          0,
+          0,
+          PrimitiveType.null,
+          nullable,
+          true,
+          AbiPrecision.p_0,
+        );
       }
       const return_type = cursor.read_vu32();
       const flags = cursor.read_u8();
@@ -304,6 +402,43 @@ export class Abi {
         type === 0
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
+
+      let args_type: AbiType | undefined;
+      if (arity > 0) {
+        args_type = new AbiType(
+          this.types.length,
+          lib,
+          module,
+          this.symbols.length,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          false,
+          false,
+          false,
+          false,
+          false,
+          attrs,
+          undefined,
+          undefined,
+          false,
+          this,
+        );
+        this.types.push(args_type);
+        let symbol: string;
+        if (type === 0) {
+          symbol = `${this.symbols[name]}_args`;
+        } else {
+          symbol = `${this.symbols[type]}_${this.symbols[name]}_args`;
+        }
+        this.type_by_fqn.set(`${this.symbols[module]}::${symbol}`, args_type);
+        this.symbols.push(symbol);
+      }
+
       this.functions[i] = new AbiFunction(
         lib === 0 ? 'project' : this.symbols[lib],
         this.symbols[module],
@@ -317,6 +452,7 @@ export class Abi {
         this.types[return_type],
         return_nullable,
         is_task,
+        args_type,
       );
       this.fn_by_fqn.set(fqn, this.functions[i]);
     }
@@ -325,19 +461,44 @@ export class Abi {
     for (let i = 0; i < nb_types; i++) {
       const type = this.types[i];
       switch (type.generic_abi_type) {
-        case this.core_array_offset: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (type as any).loader = std_n.core.Array.load;
+        case this.core.array: {
+          type.loader = std_n.core.Array.load;
+          type.factory = std.core.Array;
           break;
         }
-        case this.core_table_offset: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (type as any).loader = std_n.core.Table.load;
+        case this.core.table: {
+          type.loader = std_n.core.Table.load;
+          type.factory = std.core.Table;
           break;
         }
-        case this.core_map_offset: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (type as any).loader = std_n.core.Map.load;
+        case this.core.map: {
+          type.loader = std_n.core.Map.load;
+          type.factory = std.core.Map;
+          break;
+        }
+        case this.core.node: {
+          type.loader = std_n.core.node.load;
+          type.factory = std.core.node;
+          break;
+        }
+        case this.core.node_time: {
+          type.loader = std_n.core.nodeTime.load;
+          type.factory = std.core.nodeTime;
+          break;
+        }
+        case this.core.node_list: {
+          type.loader = std_n.core.nodeList.load;
+          type.factory = std.core.nodeList;
+          break;
+        }
+        case this.core.node_index: {
+          type.loader = std_n.core.nodeIndex.load;
+          type.factory = std.core.nodeIndex;
+          break;
+        }
+        case this.core.node_geo: {
+          type.loader = std_n.core.nodeGeo.load;
+          type.factory = std.core.nodeGeo;
           break;
         }
         default:
@@ -375,86 +536,86 @@ export class Abi {
   }
 
   createFunction(mod: string, type: string | undefined, name: string) {
-    const modOff = this.off_by_symbol.get(mod) ?? 0;
-    const typeOff = type ? this.off_by_symbol.get(type) : 0;
-    const nameOff = this.off_by_symbol.get(name) ?? 0;
-    const ty = this.types[this.core_function_offset];
+    const modOff = this.symbol_ids.get(mod) ?? 0;
+    const typeOff = type ? this.symbol_ids.get(type) : 0;
+    const nameOff = this.symbol_ids.get(name) ?? 0;
+    const ty = this.types[this.core.fn];
     return new ty.factory(ty, modOff, typeOff, nameOff) as std.core.function_;
   }
 
   createNode(value: bigint) {
-    const ty = this.types[this.core_node_offset];
+    const ty = this.types[this.core.node];
     return new ty.factory(ty, value) as std.core.node;
   }
 
   createNodeList(value: bigint) {
-    const ty = this.types[this.core_node_list_offset];
+    const ty = this.types[this.core.node_list];
     return new ty.factory(ty, value) as std.core.nodeList;
   }
 
   createNodeIndex(value: bigint) {
-    const ty = this.types[this.core_node_index_offset];
+    const ty = this.types[this.core.node_index];
     return new ty.factory(ty, value) as std.core.nodeIndex;
   }
 
   createNodeGeo(value: bigint) {
-    const ty = this.types[this.core_node_geo_offset];
+    const ty = this.types[this.core.node_geo];
     return new ty.factory(ty, value) as std.core.nodeGeo;
   }
 
   createNodeTime(value: bigint) {
-    const ty = this.types[this.core_node_time_offset];
+    const ty = this.types[this.core.node_time];
     return new ty.factory(ty, value) as std.core.nodeTime;
   }
 
   createGeo(lat: number, lng: number) {
     const value = std_n.core.geoEncode(lat, lng);
-    const t = this.types[this.core_geo_offset];
+    const t = this.types[this.core.geo];
     return new t.factory(t, value) as std.core.geo;
   }
 
   createTime(value: bigint) {
-    const t = this.types[this.core_time_offset];
+    const t = this.types[this.core.time];
     return new t.factory(t, value) as std.core.time;
   }
 
   createDuration(value: bigint) {
-    const t = this.types[this.core_duration_offset];
+    const t = this.types[this.core.duration];
     return new t.factory(t, value) as std.core.duration;
   }
 
   createT2(x0: bigint | number, x1: bigint | number) {
-    const t = this.types[this.core_t2_offset];
+    const t = this.types[this.core.t2];
     return new t.factory(t, x0, x1) as std.core.t2;
   }
 
   createT3(x0: bigint | number, x1: bigint | number, x2: bigint | number) {
-    const t = this.types[this.core_t3_offset];
+    const t = this.types[this.core.t3];
     return new t.factory(t, x0, x1, x2) as std.core.t3;
   }
 
   createT4(x0: bigint | number, x1: bigint | number, x2: bigint | number, x3: bigint | number) {
-    const t = this.types[this.core_t4_offset];
+    const t = this.types[this.core.t4];
     return new t.factory(t, x0, x1, x2, x3) as std.core.t4;
   }
 
   createStr(value: bigint) {
-    const t = this.types[this.core_str_offset];
+    const t = this.types[this.core.str];
     return new t.factory(t, value) as std.core.str;
   }
 
   createT2f(x0: number, x1: number) {
-    const t = this.types[this.core_t2f_offset];
+    const t = this.types[this.core.t2f];
     return new t.factory(t, x0, x1) as std.core.t2f;
   }
 
   createT3f(x0: number, x1: number, x2: number) {
-    const t = this.types[this.core_t3f_offset];
+    const t = this.types[this.core.t3f];
     return new t.factory(t, x0, x1, x2) as std.core.t3f;
   }
 
   createT4f(x0: number, x1: number, x2: number, x3: number) {
-    const t = this.types[this.core_t4f_offset];
+    const t = this.types[this.core.t4f];
     return new t.factory(t, x0, x1, x2, x3) as std.core.t4f;
   }
 
@@ -481,10 +642,10 @@ export class AbiType {
   };
   static readonly object_loader: ILoader = (r, type) => {
     const programType = type.abi.types[type.mapped_type_off];
-    const attrs = new Array(programType.attrs.length);
+    const fields = new Array(programType.attrs.length);
     // initialize every elements to null
-    for (let i = 0; i < attrs.length; i++) {
-      attrs[i] = null;
+    for (let i = 0; i < fields.length; i++) {
+      fields[i] = null;
     }
     const previous_nullable = r.take(type.nullable_nb_bytes);
     let nullable_offset = -1;
@@ -533,18 +694,18 @@ export class AbiType {
         }
       }
       if (att.mapped) {
-        attrs[att.mapped_att_offset] = value;
+        fields[att.mapped_att_offset] = value;
       }
     }
-    return new programType.factory(programType, ...attrs);
+    return new programType.factory(programType, ...fields);
   };
 
   // can either be GCEnum in case of enum or Value in case of GCObject
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static_values: Record<string, any> = {};
   readonly enum_values: GCEnum[] | null = null;
-  readonly loader: ILoader;
-  readonly factory: IFactory;
+  loader: ILoader;
+  factory: IFactory;
   readonly properties: Record<PropertyKey, PropertyDescriptor & ThisType<{ $attrs: Value[] }>> = {};
 
   constructor(
@@ -570,6 +731,10 @@ export class AbiType {
     readonly attrs: AbiAttribute[],
     loader: ILoader | undefined,
     factory: IFactory | undefined,
+    /**
+     * Whether or not this type is from `std::core`
+     */
+    readonly is_core: boolean,
     readonly abi: Abi,
   ) {
     this.properties['$type'] = { value: this, enumerable: false };
@@ -646,6 +811,22 @@ export class AbiType {
     }
   }
 
+  g1(): number {
+    return this.g1_abi_type_desc >> 1;
+  }
+
+  g1Nullable(): boolean {
+    return (this.g1_abi_type_desc & 0b00000001) === 1;
+  }
+
+  g2(): number {
+    return this.g2_abi_type_desc >> 1;
+  }
+
+  g2Nullable(): boolean {
+    return (this.g2_abi_type_desc & 0b00000001) === 1;
+  }
+
   /**
    * Fully-qualified-name (eg. `'core::Array<core::int>'`)
    */
@@ -714,6 +895,7 @@ export class AbiFunction {
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
     readonly is_task: boolean,
+    readonly args_type: AbiType | undefined,
   ) {}
 }
 

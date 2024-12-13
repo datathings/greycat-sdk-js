@@ -6,9 +6,9 @@ export class function_ extends GCObject {
 
   constructor(
     type: AbiType,
-    public mod_off: number,
-    public ty_off: number,
-    public name_off: number,
+    public mod_off: number = 0,
+    public ty_off: number = 0,
+    public name_off: number = 0,
   ) {
     super(type);
   }
@@ -19,12 +19,12 @@ export class function_ extends GCObject {
     name: string,
     g: GreyCat = $.default,
   ): std.core.function_ {
-    const ty = g.abi.types[g.abi.core_function_offset];
+    const ty = g.abi.types[g.abi.core.fn];
     return new ty.factory(
       ty,
-      g.abi.off_by_symbol.get(mod) ?? 0,
-      type ? g.abi.off_by_symbol.get(type) ?? 0 : 0,
-      g.abi.off_by_symbol.get(name) ?? 0,
+      g.abi.symbol_ids.get(mod) ?? 0,
+      type ? g.abi.symbol_ids.get(type) ?? 0 : 0,
+      g.abi.symbol_ids.get(name) ?? 0,
     ) as std.core.function_;
   }
 

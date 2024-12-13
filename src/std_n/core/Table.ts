@@ -30,7 +30,7 @@ export class Table<T = unknown[]> extends GCObject {
   public subheaders: string[] | undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(type: AbiType, public cols: any[][]) {
+  constructor(type: AbiType, public cols: any[][] = []) {
     super(type);
     if (type.generic_abi_type != 0) {
       const generic_param_type = type.abi.types[type.g1_abi_type_desc >> 1];
@@ -43,7 +43,7 @@ export class Table<T = unknown[]> extends GCObject {
    * Creates a table using an array of columns.
    */
   static create(cols: unknown[][] = [], g: GreyCat = $.default): std.core.Table<unknown[]> {
-    const ty = g.abi.types[g.abi.core_table_offset];
+    const ty = g.abi.types[g.abi.core.table];
     return new ty.factory(ty, cols) as std.core.Table;
   }
 
@@ -92,7 +92,7 @@ export class Table<T = unknown[]> extends GCObject {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromRows(rows: any[][], g: GreyCat = $.default): std.core.Table<any[]> {
-    const ty = g.abi.types[g.abi.core_table_offset];
+    const ty = g.abi.types[g.abi.core.table];
 
     let nbColumns = 0;
     if (rows.length > 0) {
@@ -124,7 +124,7 @@ export class Table<T = unknown[]> extends GCObject {
     g: GreyCat = $.default,
   ): std.core.Table<unknown[]> {
     if (rows.length === 0) {
-      const ty = g.abi.types[g.abi.core_table_offset];
+      const ty = g.abi.types[g.abi.core.table];
       return new ty.factory(ty, []) as std.core.Table<unknown[]>;
     }
 
@@ -160,7 +160,7 @@ export class Table<T = unknown[]> extends GCObject {
       }
     }
 
-    const ty = g.abi.types[g.abi.core_table_offset];
+    const ty = g.abi.types[g.abi.core.table];
     const table = new ty.factory(ty, cols) as std.core.Table<unknown[]>;
     table.headers = keys;
     return table;
@@ -169,7 +169,7 @@ export class Table<T = unknown[]> extends GCObject {
   static fromMap<K, V>(map: Map<K, V>, g: GreyCat = $.default): std.core.Table<[K, V]> {
     const keys = Array.from(map.keys());
     const values = Array.from(map.values());
-    const ty = g.abi.types[g.abi.core_table_offset];
+    const ty = g.abi.types[g.abi.core.table];
     const table = new ty.factory(ty, [keys, values]) as std.core.Table<[K, V]>;
     table.headers = ['Key', 'Value'];
     return table;
@@ -182,7 +182,7 @@ export class Table<T = unknown[]> extends GCObject {
     for (let col = 0; col < nb_cols; col++) {
       cols[col] = r.read_array(nb_rows);
     }
-    const factory = r.abi.types[r.abi.core_table_offset].factory;
+    const factory = r.abi.types[r.abi.core.table].factory;
     return new factory(ty, cols) as std.core.Table<T>;
   }
 

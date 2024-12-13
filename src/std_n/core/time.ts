@@ -35,12 +35,17 @@ export class time extends GCObject {
   };
   static readonly _type = 'core::time' as const;
 
-  constructor(type: AbiType, public value: bigint | number) {
+  constructor(type: AbiType, public value: bigint | number = (Date.now() * 1000)) {
     super(type);
   }
 
+  static now(g: GreyCat = $.default): time {
+    const ty = g.abi.types[g.abi.core.time];
+    return new ty.factory(ty, Date.now() * 1000) as std.core.time;
+  }
+
   static create(value: bigint | number, g: GreyCat = $.default): time {
-    const ty = g.abi.types[g.abi.core_time_offset];
+    const ty = g.abi.types[g.abi.core.time];
     return new ty.factory(ty, value) as std.core.time;
   }
 
@@ -49,7 +54,7 @@ export class time extends GCObject {
   }
 
   static fromMs(epochMs: number, g: GreyCat = $.default): std.core.time {
-    const ty = g.abi.types[g.abi.core_time_offset];
+    const ty = g.abi.types[g.abi.core.time];
     return new ty.factory(ty, epochMs * 1000) as std.core.time;
   }
 
@@ -124,7 +129,7 @@ export class time extends GCObject {
     const sum = BigInt(this.value) + BigInt(duration.value);
     const boxedSum =
       sum >= Number.MIN_SAFE_INTEGER && sum <= Number.MAX_SAFE_INTEGER ? Number(sum) : sum;
-    const ty = g.abi.types[g.abi.core_time_offset];
+    const ty = g.abi.types[g.abi.core.time];
     return new ty.factory(ty, boxedSum) as std.core.time;
   }
 
@@ -135,11 +140,11 @@ export class time extends GCObject {
     const sub = BigInt(this.value) - BigInt(duration.value);
     const boxedSub =
       sub >= Number.MIN_SAFE_INTEGER && sub <= Number.MAX_SAFE_INTEGER ? Number(sub) : sub;
-    if (duration.$type.offset === g.abi.core_duration_offset) {
-      const ty = g.abi.types[g.abi.core_time_offset];
+    if (duration.$type.offset === g.abi.core.duration) {
+      const ty = g.abi.types[g.abi.core.time];
       return new ty.factory(ty, boxedSub) as std.core.time;
     }
-    const ty = g.abi.types[g.abi.core_duration_offset];
+    const ty = g.abi.types[g.abi.core.duration];
     return new ty.factory(ty, boxedSub) as std.core.duration;
   }
 

@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, $ } from '../../exports.js';
 export class nodeGeo<T = unknown> extends GCObject {
   static readonly _type = 'core::nodeGeo' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint = 0n) {
     super(type);
   }
 
   static create(value: bigint, g: GreyCat = $.default): std.core.nodeGeo {
-    const ty = g.abi.types[g.abi.core_node_geo_offset];
+    const ty = g.abi.types[g.abi.core.node_geo];
     return new ty.factory(ty, value) as std.core.nodeGeo;
   }
 
@@ -51,6 +51,10 @@ export class nodeGeo<T = unknown> extends GCObject {
 
   override toString(): string {
     return `nodeGeo:${this.ref}`;
+  }
+
+  override valueOf() {
+    return this.value;
   }
 
   override toJSON() {

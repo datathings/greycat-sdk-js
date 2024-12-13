@@ -4,7 +4,7 @@ import { GCObject } from '../../exports.js';
 export class nodeTimeCursor extends GCObject {
   static readonly _type = 'core::nodeTimeCursor' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint = 0n) {
     super(type);
     throw new Error(`${nodeTimeCursor._type}: is not implemented yet`);
   }

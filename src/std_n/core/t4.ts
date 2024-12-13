@@ -6,16 +6,16 @@ export class t4 extends GCObject {
 
   constructor(
     type: AbiType,
-    public x0: number,
-    public x1: number,
-    public x2: number,
-    public x3: number,
+    public x0: number = 0,
+    public x1: number = 0,
+    public x2: number = 0,
+    public x3: number = 0,
   ) {
     super(type);
   }
 
   static create(x0: number, x1: number, x2: number, x3: number, g: GreyCat = $.default): t4 {
-    const ty = g.abi.types[g.abi.core_t4_offset];
+    const ty = g.abi.types[g.abi.core.t4];
     return new ty.factory(ty, x0, x1, x2, x3) as t4;
   }
 

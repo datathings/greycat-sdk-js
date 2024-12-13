@@ -5,7 +5,7 @@ import { $, GCObject } from '../../exports.js';
 export class Array<T extends Value = any> extends GCObject {
   static readonly _type = 'core::Array' as const;
 
-  constructor(type: AbiType, public values: T[]) {
+  constructor(type: AbiType, public values: T[] = []) {
     super(type);
   }
 
@@ -14,7 +14,7 @@ export class Array<T extends Value = any> extends GCObject {
     value: globalThis.Array<T>,
     g: GreyCat = $.default,
   ): Array<T> {
-    const ty = g.abi.types[g.abi.core_array_offset];
+    const ty = g.abi.types[g.abi.core.array];
     return new ty.factory(ty, value) as Array<T>;
   }
 
@@ -30,6 +30,10 @@ export class Array<T extends Value = any> extends GCObject {
 
   [Symbol.iterator](): Iterator<T> {
     return this.values[Symbol.iterator]();
+  }
+
+  override valueOf() {
+    return this.values;
   }
 
   override toJSON() {

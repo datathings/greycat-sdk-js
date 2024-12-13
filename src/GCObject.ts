@@ -1,6 +1,14 @@
 import type { AbiType, AbiWriter, Abi, Value } from './exports.js';
 import { GCEnum, PrimitiveType } from './exports.js';
 
+export interface GCObject {
+  readonly $type: AbiType;
+  readonly $attrs?: Value[];
+  // because we don't know what could be inside
+  // we need to allow any key to be potentially a value
+  [key: string]: Value;
+}
+
 /**
  * A dynamic GreyCat type instance, used when no matching class found in the factory
  */
@@ -35,13 +43,13 @@ export class GCObject {
           );
         }
 
-        const attributes = new Array(abi_type.attrs.length);
+        const fields = new Array(abi_type.attrs.length);
         for (let i = 0; i < abi_type.attrs.length; i++) {
           const attr = abi_type.attrs[i];
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          attributes[i] = (value as any)[attr.name];
+          fields[i] = (value as any)[attr.name];
         }
-        return new GCObject(abi_type, ...attributes);
+        return new abi_type.factory(abi_type, fields);
       }
     }
 

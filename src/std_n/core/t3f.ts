@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, utils, $ } from '../../exports.js';
 export class t3f extends GCObject {
   static readonly _type = 'core::t3f' as const;
 
-  constructor(type: AbiType, public x0: number, public x1: number, public x2: number) {
+  constructor(type: AbiType, public x0: number = 0, public x1: number = 0, public x2: number = 0) {
     super(type);
   }
 
   static create(x0: number, x1: number, x2: number, g: GreyCat = $.default): t3f {
-    const ty = g.abi.types[g.abi.core_t3f_offset];
+    const ty = g.abi.types[g.abi.core.t3f];
     return new ty.factory(ty, x0, x1, x2) as t3f;
   }
 

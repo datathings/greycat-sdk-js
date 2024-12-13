@@ -1,5 +1,5 @@
-import type { AbiType, AbiReader, AbiWriter, std } from '../../exports.js';
-import { GCObject } from '../../exports.js';
+import type { AbiType, AbiReader, AbiWriter } from '../../exports.js';
+import { GCObject, std } from '../../exports.js';
 
 const TensorType = {
   i32: 0,
@@ -17,10 +17,10 @@ export class Tensor extends GCObject {
 
   constructor(
     $type: AbiType,
-    public shape: number[],
-    public type: std.core.TensorType,
-    public size: number,
-    public data: Array<Array<number | bigint | Uint8Array>> | null,
+    public shape: number[] = [],
+    public type: std.core.TensorType = std.core.TensorType.i64(),
+    public size: number = 0,
+    public data: Array<Array<number | bigint | Uint8Array>> | null = null,
   ) {
     super($type);
   }
@@ -28,7 +28,7 @@ export class Tensor extends GCObject {
   static load(r: AbiReader, ty: AbiType): Tensor {
     const nb_dim = r.read_i8();
     const tensorTypeOffset = r.read_u8() as TensorType;
-    const tensorTypeType = r.abi.types[r.abi.core_tensortype_offset];
+    const tensorTypeType = r.abi.types[r.abi.core.tensortype];
     // safety: if std.core.TimeZone does not exist, you have bigger problems
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const tensorType = tensorTypeType.enum_values![tensorTypeOffset];

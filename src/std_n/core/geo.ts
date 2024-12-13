@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, utils, $ } from '../../exports.js';
 export class geo extends GCObject {
   static readonly _type = 'core::geo' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint = 0n) {
     super(type);
   }
 
   static create(value: bigint, g: GreyCat = $.default): std.core.geo {
-    const ty = g.abi.types[g.abi.core_geo_offset];
+    const ty = g.abi.types[g.abi.core.geo];
     return new ty.factory(ty, value) as std.core.geo;
   }
 

@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, utils, $ } from '../../exports.js';
 export class t2f extends GCObject {
   static readonly _type = 'core::t2f' as const;
 
-  constructor(type: AbiType, public x0: number, public x1: number) {
+  constructor(type: AbiType, public x0: number = 0, public x1: number = 0) {
     super(type);
   }
 
   static create(x0: number, x1: number, g: GreyCat = $.default): t2f {
-    const ty = g.abi.types[g.abi.core_t2f_offset];
+    const ty = g.abi.types[g.abi.core.t2f];
     return new ty.factory(ty, x0, x1) as t2f;
   }
 

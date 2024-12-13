@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, $ } from '../../exports.js';
 export class float extends GCObject {
   static readonly _type = 'core::float' as const;
 
-  constructor(type: AbiType, public value: number) {
+  constructor(type: AbiType, public value: number = 0) {
     super(type);
   }
 
   static create(value: number, g: GreyCat = $.default): std.core.float {
-    const ty = g.abi.types[g.abi.core_float_offset];
+    const ty = g.abi.types[g.abi.core.float];
     return new ty.factory(ty, value) as std.core.float;
   }
 
@@ -42,6 +42,10 @@ export class float extends GCObject {
 
   override toString() {
     return `${this.value}`;
+  }
+
+  override valueOf() {
+    return this.value;
   }
 
   override toJSON() {

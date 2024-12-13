@@ -4,12 +4,12 @@ import { GCObject, PrimitiveType, $ } from '../../exports.js';
 export class nodeList<T = unknown> extends GCObject {
   static readonly _type = 'core::nodeList' as const;
 
-  constructor(type: AbiType, public value: bigint) {
+  constructor(type: AbiType, public value: bigint = 0n) {
     super(type);
   }
 
   static create(value: bigint, g: GreyCat = $.default): std.core.nodeList {
-    const ty = g.abi.types[g.abi.core_node_list_offset];
+    const ty = g.abi.types[g.abi.core.node_list];
     return new ty.factory(ty, value) as std.core.nodeList;
   }
 
@@ -55,6 +55,10 @@ export class nodeList<T = unknown> extends GCObject {
 
   override toString() {
     return `nodeList:${this.ref}`;
+  }
+
+  override valueOf() {
+    return this.value;
   }
 
   override toJSON() {

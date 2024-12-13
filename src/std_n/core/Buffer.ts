@@ -4,7 +4,7 @@ import { GCObject } from '../../exports.js';
 export class Buffer extends GCObject {
   static readonly _type = 'core::Buffer' as const;
 
-  constructor(type: AbiType, public data: Uint8Array) {
+  constructor(type: AbiType, public data: Uint8Array = new Uint8Array()) {
     super(type);
   }
 
@@ -21,5 +21,9 @@ export class Buffer extends GCObject {
 
   override toJSON() {
     return { _type: this.$type.name, data: Array.from(this.data) };
+  }
+
+  override valueOf() {
+    return this.data;
   }
 }

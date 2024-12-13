@@ -9,7 +9,7 @@ export class null_ extends GCObject {
   }
 
   static create(g: GreyCat = $.default): std.core.null_ {
-    const ty = g.abi.types[g.abi.core_float_offset];
+    const ty = g.abi.types[g.abi.core.null_];
     return new ty.factory(ty) as std.core.null_;
   }
 
@@ -27,6 +27,10 @@ export class null_ extends GCObject {
 
   override toString() {
     return `null`;
+  }
+
+  override valueOf() {
+    return null;
   }
 
   override toJSON() {

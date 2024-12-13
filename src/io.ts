@@ -341,78 +341,78 @@ export class AbiReader extends Reader implements Iterable<unknown> {
     [PrimitiveType.int]: this.read_vi64.bind(this),
     [PrimitiveType.float]: this.read_f64.bind(this),
     [PrimitiveType.node]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_offset];
+      const ty = r.abi.types[r.abi.core.node];
       return ty.loader(r, ty);
     },
     [PrimitiveType.node_time]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_time_offset];
+      const ty = r.abi.types[r.abi.core.node_time];
       return ty.loader(r, ty);
     },
     [PrimitiveType.node_index]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_index_offset];
+      const ty = r.abi.types[r.abi.core.node_index];
       return ty.loader(r, ty);
     },
     [PrimitiveType.node_list]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_list_offset];
+      const ty = r.abi.types[r.abi.core.node_list];
       return ty.loader(r, ty);
     },
     [PrimitiveType.node_geo]: (r) => {
-      const ty = r.abi.types[r.abi.core_node_geo_offset];
+      const ty = r.abi.types[r.abi.core.node_geo];
       return ty.loader(r, ty);
     },
     [PrimitiveType.geo]: (r) => {
-      const ty = r.abi.types[r.abi.core_geo_offset];
+      const ty = r.abi.types[r.abi.core.geo];
       return ty.loader(r, ty);
     },
     [PrimitiveType.time]: (r) => {
-      const ty = r.abi.types[r.abi.core_time_offset];
+      const ty = r.abi.types[r.abi.core.time];
       return ty.loader(r, ty);
     },
     [PrimitiveType.duration]: (r) => {
-      const ty = r.abi.types[r.abi.core_duration_offset];
+      const ty = r.abi.types[r.abi.core.duration];
       return ty.loader(r, ty);
     },
     [PrimitiveType.cubic]: (r) => {
-      const ty = r.abi.types[r.abi.core_cubic_offset];
+      const ty = r.abi.types[r.abi.core.cubic];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t2]: (r) => {
-      const ty = r.abi.types[r.abi.core_t2_offset];
+      const ty = r.abi.types[r.abi.core.t2];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t3]: (r) => {
-      const ty = r.abi.types[r.abi.core_t3_offset];
+      const ty = r.abi.types[r.abi.core.t3];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t4]: (r) => {
-      const ty = r.abi.types[r.abi.core_t4_offset];
+      const ty = r.abi.types[r.abi.core.t4];
       return ty.loader(r, ty);
     },
     [PrimitiveType.str]: (r) => {
-      const ty = r.abi.types[r.abi.core_str_offset];
+      const ty = r.abi.types[r.abi.core.str];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t2f]: (r) => {
-      const ty = r.abi.types[r.abi.core_t2f_offset];
+      const ty = r.abi.types[r.abi.core.t2f];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t3f]: (r) => {
-      const ty = r.abi.types[r.abi.core_t3f_offset];
+      const ty = r.abi.types[r.abi.core.t3f];
       return ty.loader(r, ty);
     },
     [PrimitiveType.t4f]: (r) => {
-      const ty = r.abi.types[r.abi.core_t4f_offset];
+      const ty = r.abi.types[r.abi.core.t4f];
       return ty.loader(r, ty);
     },
     [PrimitiveType.enum]: this.read_enum.bind(this),
     [PrimitiveType.object]: this.read_object.bind(this),
     [PrimitiveType.block_ref]: deserialize_error,
     [PrimitiveType.function]: (r) => {
-      const ty = r.abi.types[r.abi.core_function_offset];
+      const ty = r.abi.types[r.abi.core.fn];
       return ty.loader(r, ty);
     },
     [PrimitiveType.type]: (r) => {
-      const ty = r.abi.types[r.abi.core_type_offset];
+      const ty = r.abi.types[r.abi.core.type];
       // TODO
       console.warn(`deserialization of type 'type' is not implemented`);
       return ty.loader(r, ty);
@@ -420,7 +420,7 @@ export class AbiReader extends Reader implements Iterable<unknown> {
     [PrimitiveType.undefined]: () => undefined,
     [PrimitiveType.stringlit]: this.read_stringlit.bind(this),
     [PrimitiveType.field]: (r) => {
-      const ty = r.abi.types[r.abi.core_field_offset];
+      const ty = r.abi.types[r.abi.core.field];
       // TODO
       console.warn(`deserialization of type 'field' is not implemented`);
       return ty.loader(r, ty);
@@ -1004,10 +1004,10 @@ export class AbiWriter extends Writer {
    * based on whether or not the value is already present in the ABI symbols
    */
   string(value: string): void {
-    const off = this.abi.off_by_symbol.get(value);
+    const off = this.abi.symbol_ids.get(value);
     if (off === undefined) {
       this.write_u8(PrimitiveType.object);
-      this.write_vu32(this.abi.core_string_offset);
+      this.write_vu32(this.abi.core.string);
       this.write_string(value);
       return;
     }
@@ -1017,7 +1017,7 @@ export class AbiWriter extends Writer {
   }
 
   raw_string(value: string): void {
-    const off = this.abi.off_by_symbol.get(value);
+    const off = this.abi.symbol_ids.get(value);
     if (off === undefined) {
       this.write_string(value);
       return;
@@ -1050,9 +1050,9 @@ export class AbiWriter extends Writer {
     } else if (value instanceof Symbol) {
       this.symbol(value.valueOf());
     } else if (value instanceof Array) {
-      new std_n.core.Array(this.abi.types[this.abi.core_array_offset], value).save(this);
+      new std_n.core.Array(this.abi.types[this.abi.core.array], value).save(this);
     } else if (value instanceof Map) {
-      new std_n.core.Map(this.abi.types[this.abi.core_map_offset], value).save(this);
+      new std_n.core.Map(this.abi.types[this.abi.core.map], value).save(this);
     } else if (value === null) {
       this.write_u8(PrimitiveType.null);
     } else {
@@ -1066,7 +1066,7 @@ export class AbiWriter extends Writer {
     } catch {
       // if we cannot find a type that matches, send the object as a Map
       new std_n.core.Map(
-        this.abi.types[this.abi.core_map_offset],
+        this.abi.types[this.abi.core.map],
         new Map(Object.entries(value)),
       ).save(this);
     }
@@ -1102,7 +1102,7 @@ export class AbiWriter extends Writer {
     } catch {
       // if we cannot find a type that matches, send the object as a Map
       new std_n.core.Map(
-        this.abi.types[this.abi.core_map_offset],
+        this.abi.types[this.abi.core.map],
         new Map(Object.entries(value)),
       ).saveContent(this);
     }
@@ -1176,7 +1176,7 @@ export class AbiWriter extends Writer {
         case 'string': {
           slot_type_and &= PrimitiveType.object;
           slot_type_or |= PrimitiveType.object;
-          object_type = this.abi.types[this.abi.core_string_offset];
+          object_type = this.abi.types[this.abi.core.string];
           object_type_and &= object_type.mapped_type_off;
           object_type_or |= object_type.mapped_type_off;
           break;
@@ -1235,13 +1235,13 @@ export class AbiWriter extends Writer {
           } else if (Array.isArray(value)) {
             slot_type_and &= PrimitiveType.object;
             slot_type_or |= PrimitiveType.object;
-            object_type = this.abi.types[this.abi.core_array_offset];
+            object_type = this.abi.types[this.abi.core.array];
             object_type_and &= object_type.mapped_type_off;
             object_type_or |= object_type.mapped_type_off;
           } else if (value instanceof Map) {
             slot_type_and &= PrimitiveType.object;
             slot_type_or |= PrimitiveType.object;
-            object_type = this.abi.types[this.abi.core_map_offset];
+            object_type = this.abi.types[this.abi.core.map];
             object_type_and &= object_type.mapped_type_off;
             object_type_or |= object_type.mapped_type_off;
           } else if ('_type' in value && typeof value._type === 'string') {

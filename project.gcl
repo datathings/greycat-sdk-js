@@ -4,14 +4,6 @@ var nl: nodeList<String>?;
 var ni: nodeIndex<String, float>?;
 var ng: nodeGeo<String>?;
 
-
-enum RelayApp {
-  pv;
-  pv_shelly;
-  ev;
-  ev_shelly;
-}
-
 type FloatPrecisionTest {
   normal: float;
   @precision(0.01)

@@ -396,7 +396,6 @@ export class Abi {
       const return_type = cursor.read_vu32();
       const flags = cursor.read_u8();
       const return_nullable = (flags & 1) !== 0;
-      const is_task = (flags & (1 << 1)) !== 0;
 
       const fqn =
         type === 0
@@ -451,7 +450,6 @@ export class Abi {
         params,
         this.types[return_type],
         return_nullable,
-        is_task,
         args_type,
       );
       this.fn_by_fqn.set(fqn, this.functions[i]);
@@ -894,7 +892,6 @@ export class AbiFunction {
     readonly params: AbiParam[],
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
-    readonly is_task: boolean,
     readonly args_type: AbiType | undefined,
   ) {}
 }

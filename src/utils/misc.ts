@@ -192,6 +192,8 @@ export function stringify(props: StringifyProps): string {
     return dateFmt ? dateFmt.format(value) : value.toISOString();
   } else if (value instanceof std.core.Date) {
     return value.toString();
+  } else if (value instanceof std.core.str) {
+    return value.toString();
   } else if (value instanceof std.core.Tuple) {
     const tmp = props.value;
     const tmpQuotedString = props.quotedString;

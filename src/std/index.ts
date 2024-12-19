@@ -93,10 +93,10 @@ export namespace core {
   export class String extends $greycat.std_n.core.String {
   }
 
-  export class t3 extends $greycat.std_n.core.t3 {
+  export class field extends $greycat.std_n.core.field {
   }
 
-  export class field extends $greycat.std_n.core.field {
+  export class t3 extends $greycat.std_n.core.t3 {
   }
 
   export class Table<T = any> extends $greycat.std_n.core.Table<T> {
@@ -417,9 +417,6 @@ export namespace core {
   export namespace ErrorCode  {
     export type Field = 'none'|'interrupted'|'await'|'timeout'|'forbidden'|'runtime_error';
   }
-  export class bool extends $greycat.std_n.core.bool {
-  }
-
   export class TensorType extends $greycat.GCEnum {
     static readonly _type = 'core::TensorType';
 
@@ -428,31 +425,31 @@ export namespace core {
     }
 
     static i32($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['i32'];
     }
     static i64($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['i64'];
     }
     static f32($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['f32'];
     }
     static f64($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['f64'];
     }
     static c64($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['c64'];
     }
     static c128($g: $greycat.GreyCat = $greycat.$.default): TensorType {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.static_values['c128'];
     }
     static $fields($g: $greycat.GreyCat = $greycat.$.default): TensorType[] {
-      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[39];
+      const t = $g.abi.libs_by_name.get(stdlib.name)!.mapped[38];
       return t.enum_values as TensorType[];
     }
   }
@@ -460,6 +457,9 @@ export namespace core {
   export namespace TensorType  {
     export type Field = 'i32'|'i64'|'f32'|'f64'|'c64'|'c128';
   }
+  export class bool extends $greycat.std_n.core.bool {
+  }
+
   export class DurationUnit extends $greycat.GCEnum {
     static readonly _type = 'core::DurationUnit';
 
@@ -4764,10 +4764,10 @@ export const stdlib: $greycat.Library = {
     loaders.set(core.Tensor._type, $greycat.std_n.core.Tensor.load);
     factories.set(core.String._type, core.String);
     loaders.set(core.String._type, $greycat.std_n.core.String.load);
-    factories.set(core.t3._type, core.t3);
-    loaders.set(core.t3._type, $greycat.std_n.core.t3.load);
     factories.set(core.field._type, core.field);
     loaders.set(core.field._type, $greycat.std_n.core.field.load);
+    factories.set(core.t3._type, core.t3);
+    loaders.set(core.t3._type, $greycat.std_n.core.t3.load);
     factories.set(core.Table._type, core.Table);
     loaders.set(core.Table._type, $greycat.std_n.core.Table.load);
     factories.set(core.Date._type, core.Date);
@@ -4792,9 +4792,9 @@ export const stdlib: $greycat.Library = {
     factories.set(core.nodeTime._type, core.nodeTime);
     loaders.set(core.nodeTime._type, $greycat.std_n.core.nodeTime.load);
     factories.set(core.ErrorCode._type, core.ErrorCode);
+    factories.set(core.TensorType._type, core.TensorType);
     factories.set(core.bool._type, core.bool);
     loaders.set(core.bool._type, $greycat.std_n.core.bool.load);
-    factories.set(core.TensorType._type, core.TensorType);
     factories.set(core.DurationUnit._type, core.DurationUnit);
     factories.set(core.geo._type, core.geo);
     loaders.set(core.geo._type, $greycat.std_n.core.geo.load);
@@ -4927,8 +4927,8 @@ export const stdlib: $greycat.Library = {
     this.mapped[11] = abi.type_by_fqn.get(core.Array._type)!;
     this.mapped[12] = abi.type_by_fqn.get(core.Tensor._type)!;
     this.mapped[13] = abi.type_by_fqn.get(core.String._type)!;
-    this.mapped[14] = abi.type_by_fqn.get(core.t3._type)!;
-    this.mapped[15] = abi.type_by_fqn.get(core.field._type)!;
+    this.mapped[14] = abi.type_by_fqn.get(core.field._type)!;
+    this.mapped[15] = abi.type_by_fqn.get(core.t3._type)!;
     this.mapped[16] = abi.type_by_fqn.get(core.Table._type)!;
     this.mapped[17] = abi.type_by_fqn.get('core::Table_applyMappings_args')!;
     this.mapped[18] = abi.type_by_fqn.get(core.Date._type)!;
@@ -4956,9 +4956,9 @@ export const stdlib: $greycat.Library = {
     this.mapped[36] = abi.type_by_fqn.get('core::nodeTime_sample_args')!;
     this.mapped[37] = abi.type_by_fqn.get(core.ErrorCode._type)!;
     this.mapped[37]?.resolveGeneratedOffsetWithValues('none', 0,'interrupted', 1,'await', 2,'timeout', 6,'forbidden', 7,'runtime_error', 8);
-    this.mapped[38] = abi.type_by_fqn.get(core.bool._type)!;
-    this.mapped[39] = abi.type_by_fqn.get(core.TensorType._type)!;
-    this.mapped[39]?.resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
+    this.mapped[38] = abi.type_by_fqn.get(core.TensorType._type)!;
+    this.mapped[38]?.resolveGeneratedOffsetWithValues('i32', 4,'i64', 8,'f32', 4,'f64', 8,'c64', 8,'c128', 16);
+    this.mapped[39] = abi.type_by_fqn.get(core.bool._type)!;
     this.mapped[40] = abi.type_by_fqn.get(core.DurationUnit._type)!;
     this.mapped[40]?.resolveGeneratedOffsetWithValues('microseconds', 1,'milliseconds', 1000,'seconds', 1000000,'minutes', 60000000,'hours', 3600000000,'days', 86400000000);
     this.mapped[41] = abi.type_by_fqn.get(core.geo._type)!;

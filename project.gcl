@@ -114,7 +114,14 @@ fn write_std_core(out: GcbWriter) {
   map.set(CalendarUnit::month, CalendarUnit::month);
   out.write(map);
 
-  out.write(CustomType { string: "hello", int: 42, float: 3.14, bool: true, char: 'c', enum: TimeZone::Europe_Luxembourg });
+  out.write(CustomType {
+    string: "hello",
+    int: 42,
+    float: 3.14,
+    bool: true,
+    char: 'c',
+    enum: TimeZone::Europe_Luxembourg,
+  });
   out.write(GeoBox { sw: geo {1, 2}, ne: geo {1.5, -0.5} });
   out.write(nodeList<int> {});
   out.write(TimeZone::Europe_Luxembourg);

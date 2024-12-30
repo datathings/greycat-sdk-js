@@ -24,7 +24,6 @@ build:
     - ./build.sh
   artifacts:
     when: on_success
-    expire_in: '30 days'
     paths:
       - dist
 
@@ -34,7 +33,6 @@ publish:
   script:
     - ./publish.sh
   artifacts:
-    expire_in: 1 week
     paths:
       - dist
 

@@ -204,6 +204,7 @@ export class Abi {
       const is_enum = (flags & (1 << 2)) !== 0;
       const is_masked = (flags & (1 << 3)) !== 0;
       const is_ambiguous = (flags & (1 << 4)) !== 0;
+      // const is_fn_args = (flags & (1 << 5)) !== 0;
 
       const attrs: AbiAttribute[] = new Array(attributes_len);
       for (let i = 0; i < attributes_len; i++) {
@@ -256,7 +257,7 @@ export class Abi {
         this,
       );
       if (type.mapped_type_off == i) {
-        this.type_by_fqn.set(type.name, type);
+        this.type_by_fqn.set(key, type);
       }
 
       this.types[i] = type;
@@ -402,40 +403,11 @@ export class Abi {
           ? `${this.symbols[module]}::${this.symbols[name]}`
           : `${this.symbols[module]}::${this.symbols[type]}::${this.symbols[name]}`;
 
-      let args_type: AbiType | undefined;
-      if (arity > 0) {
-        args_type = new AbiType(
-          this.types.length,
-          lib,
-          module,
-          this.symbols.length,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          false,
-          false,
-          false,
-          false,
-          false,
-          attrs,
-          undefined,
-          undefined,
-          false,
-          this,
-        );
-        this.types.push(args_type);
-        let symbol: string;
-        if (type === 0) {
-          symbol = `${this.symbols[name]}_args`;
-        } else {
-          symbol = `${this.symbols[type]}_${this.symbols[name]}_args`;
-        }
-        this.type_by_fqn.set(`${this.symbols[module]}::${symbol}`, args_type);
-        this.symbols.push(symbol);
+      let args_type_name: string;
+      if (type === 0) {
+        args_type_name = `${this.symbols[module]}::${this.symbols[name]}$args`;
+      } else {
+        args_type_name = `${this.symbols[module]}::${this.symbols[type]}$${this.symbols[name]}$args`;
       }
 
       this.functions[i] = new AbiFunction(
@@ -450,7 +422,8 @@ export class Abi {
         params,
         this.types[return_type],
         return_nullable,
-        args_type,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.type_by_fqn.get(args_type_name)!,
       );
       this.fn_by_fqn.set(fqn, this.functions[i]);
     }
@@ -892,7 +865,7 @@ export class AbiFunction {
     readonly params: AbiParam[],
     readonly return_type: AbiType,
     readonly return_type_nullable: boolean,
-    readonly args_type: AbiType | undefined,
+    readonly args_type: AbiType,
   ) {}
 }
 

@@ -969,14 +969,14 @@ export class AbiWriter extends Writer {
   }
 
   /**
-   * Serializes `undefined`
+   * Serializes `undefined` as if it were `null`
    */
   undefined(): void {
-    throw new Error(`Javascript 'undefined' is not serializable`);
+    this.null();
   }
 
   raw_undefined(): void {
-    throw new Error(`Javascript 'undefined' is not serializable`);
+    // noop
   }
 
   null(): void {
@@ -1054,7 +1054,7 @@ export class AbiWriter extends Writer {
     } else if (value instanceof Map) {
       new std_n.core.Map(this.abi.types[this.abi.core.map], value).save(this);
     } else if (value === null) {
-      this.write_u8(PrimitiveType.null);
+      this.null();
     } else {
       this.js_object(value);
     }
@@ -1065,10 +1065,9 @@ export class AbiWriter extends Writer {
       GCObject.from(value, this.abi).save(this);
     } catch {
       // if we cannot find a type that matches, send the object as a Map
-      new std_n.core.Map(
-        this.abi.types[this.abi.core.map],
-        new Map(Object.entries(value)),
-      ).save(this);
+      new std_n.core.Map(this.abi.types[this.abi.core.map], new Map(Object.entries(value))).save(
+        this,
+      );
     }
   }
 

@@ -204,7 +204,7 @@ export class Abi {
       const is_enum = (flags & (1 << 2)) !== 0;
       const is_masked = (flags & (1 << 3)) !== 0;
       const is_ambiguous = (flags & (1 << 4)) !== 0;
-      // const is_fn_args = (flags & (1 << 5)) !== 0;
+      const is_volatile = (flags & (1 << 5)) !== 0;
 
       const attrs: AbiAttribute[] = new Array(attributes_len);
       for (let i = 0; i < attributes_len; i++) {
@@ -250,6 +250,7 @@ export class Abi {
         is_enum,
         is_masked,
         is_ambiguous,
+        is_volatile,
         attrs,
         loaders.get(key),
         factories.get(key),
@@ -699,6 +700,7 @@ export class AbiType {
     readonly is_enum: boolean,
     readonly is_masked: boolean,
     readonly is_ambiguous: boolean,
+    readonly is_volatile: boolean,
     readonly attrs: AbiAttribute[],
     loader: ILoader | undefined,
     factory: IFactory | undefined,

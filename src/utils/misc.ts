@@ -47,6 +47,7 @@ export function isGreycatNumber(type: string): boolean {
  *  - boolean
  *  - null
  *  - undefined
+ *  - GCEnum
  *
  * @param val
  * @returns
@@ -55,14 +56,16 @@ export function isScalar(
   val: unknown,
 ): val is string | number | boolean | bigint | null | undefined {
   const type = typeof val;
-  switch (type) {
-    default: {
+  if (type === 'function') {
+    return val === null;
+  }
+  if (type === 'object') {
+    if (val instanceof GCEnum) {
       return true;
     }
-    case 'function':
-    case 'object':
-      return val === null;
+    return val === null;
   }
+  return true;
 }
 
 export function generateId(length = 5): string {

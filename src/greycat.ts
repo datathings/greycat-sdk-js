@@ -22,20 +22,25 @@ try {
 globalThis.process = globalThis.process ?? {};
 globalThis.process.env = globalThis.process.env ?? {};
 
-export let debugLogger: (status: number, method: string, params?: Value[], value?: unknown) => void;
-if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== 'production') {
-  debugLogger = (status: number, method: string, params?: Value[], value?: unknown) => {
-    const bg =
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      status >= 400 ? '#e8590c' : '#1983c1';
-    console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
-      method,
-      params,
-      response: value,
-    });
-  };
-} else {
-  debugLogger = () => void 0;
+const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?: unknown) => {
+  const bg =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    status >= 400 ? '#e8590c' : '#1983c1';
+  console.log('%cGreyCat', `background:${bg};color:#fff;padding:2px;font-weight:bold`, {
+    method,
+    params,
+    response: value,
+  });
+};
+
+export let debugLogger: (
+  status: number,
+  method: string,
+  params?: Value[],
+  value?: unknown,
+) => void = () => void 0;
+export function registerDebugLogger(logger = DEFAULT_LOGGER) {
+  debugLogger = logger;
 }
 
 export async function downloadAbiHeaders(
@@ -86,8 +91,8 @@ export async function downloadAbi(
     libraries,
     unauthorizedHandler,
   }: WithoutAbiOptions = {
-      url: DEFAULT_URL,
-    },
+    url: DEFAULT_URL,
+  },
 ): Promise<[ArrayBuffer, string | undefined]> {
   let token: string | undefined;
 
@@ -220,7 +225,16 @@ export class GreyCat {
     const abi = new Abi(data, libraries);
     const cleanUrl = normalizeUrl(url);
 
-    const greycat = new GreyCat(cleanUrl, abi, capacity, cache, [], token, unauthorizedHandler, abiMismatchHandler);
+    const greycat = new GreyCat(
+      cleanUrl,
+      abi,
+      capacity,
+      cache,
+      [],
+      token,
+      unauthorizedHandler,
+      abiMismatchHandler,
+    );
 
     try {
       const permissions = await std.runtime.User.permissions(greycat);
@@ -243,7 +257,16 @@ export class GreyCat {
     abiMismatchHandler,
     permissions = [],
   }: WithAbiOptions): GreyCat {
-    return new GreyCat(normalizeUrl(url), abi, capacity, cache, permissions, token, unauthorizedHandler, abiMismatchHandler);
+    return new GreyCat(
+      normalizeUrl(url),
+      abi,
+      capacity,
+      cache,
+      permissions,
+      token,
+      unauthorizedHandler,
+      abiMismatchHandler,
+    );
   }
 
   hasPermission(permission: string): boolean {
@@ -364,7 +387,8 @@ export class GreyCat {
       throw new Error(`calling ${method} failed`);
     }
     throw new Error(
-      `calling '${method}' failed with code ${err.code} and message "${err.msg.length > 0 ? err.msg : err.value?.toString()
+      `calling '${method}' failed with code ${err.code} and message "${
+        err.msg.length > 0 ? err.msg : err.value?.toString()
       }"`,
     );
   }
@@ -389,9 +413,9 @@ export class GreyCat {
 
   /**
    * Deserializes ABI headers, then deserializes one value from the given `ArrayBuffer`.
-   * 
+   *
    * If the headers do not match, `abiMismatchHandler` will be called if defined.
-   * 
+   *
    * *No matter what, the error will be thrown.*
    */
   deserializeWithHeader(data: ArrayBuffer): Value {

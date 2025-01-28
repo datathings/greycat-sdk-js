@@ -33,14 +33,21 @@ const DEFAULT_LOGGER = (status: number, method: string, params?: Value[], value?
   });
 };
 
-export let debugLogger: (
+export type DebugLogger = (
   status: number,
   method: string,
   params?: Value[],
   value?: unknown,
-) => void = () => void 0;
+) => void;
+let _debugLogger: DebugLogger | null = null;
+
+export function debugLogger(status: number, method: string, params?: Value[], value?: unknown): void {
+  const logger = _debugLogger == null ? () => void 0 : _debugLogger;
+  logger(status, method, params, value);
+}
+
 export function registerDebugLogger(logger = DEFAULT_LOGGER) {
-  debugLogger = logger;
+  _debugLogger = logger;
 }
 
 export async function downloadAbiHeaders(
